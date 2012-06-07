@@ -1,0 +1,99 @@
+\chapter{Appendix}
+
+
+\section{Working with Smart-M3}
+
+The following was performed in \texttt{smart-m3\_v0.9.2-beta} after compiling and installing everything according to the Smart-M3 Setup Guide.
+
+Run:
+\begin{itemize}
+	\item \texttt{sibd} (SIB daemon)
+	\item \texttt{sib-tcp} (TCP connector to SIB daemon)
+\end{itemize}
+
+If both are installed correctly, you should be able to run them from the command-line without any problems, and they will not produce any output directly after starting up.
+
+The following Python scripts are available in \texttt{m3\_sofia\_1305.zip} on the SOFIA project website, WP5 M3 Implementation\footnote{http://www.sofia-project.eu/node/226}.
+
+When running \texttt{basic\_test.py}, you have to enter the following parameters:
+
+\begin{verbatim}
+	Manual Discovery. Enter details:
+	SmartSpace name       >test  (or any other name for the smart space)
+	SmartSpace IP Address >127.0.0.1                          	
+	SmartSpace Port       >10010
+\end{verbatim}
+
+\texttt{basic\_test.py} then produces the following results:
+
+\begin{verbatim}
+test 127.0.0.1 10010
+('test', (<class smart_m3.Node.TCPConnector at 0x1fae230>, ('127.0.0.1', 10010)))
+--- Member of SS: ['test']
+RDF Subscribe initial result: []
+WQL values subscribe initial result: []
+Subscription:
+Added: ((u'x1', u'lives', u'Espoo'), True)
+Added: ((u'x2', u'lives', u'Espoo'), True)
+Subscription:
+Added: x1 drinks (u'beer', True)
+Querying what is being drunk
+Subscription:
+Added: x1 drinks (u'wine', True)
+Removed: x1 drinks (u'beer', True)
+QUERY: Got triple(s):  ((u'x1', u'drinks', u'wine'), True)
+Querying: type of x1
+
+Querying: is person a subtype of thing
+QUERY: person is a subtype of thing is:  True
+
+Querying: x1 and x2 related via 'knows' property
+QUERY: x1 knows x2 is True
+
+Querying: is x1 a person
+QUERY: 'x1 is a person' is  True
+
+Querying: which persons live in Espoo
+QUERY: persons living in Espoo: [(u'x1', False), (u'x2', False)]
+Querying: all triples
+
+QUERY: Got triple(s):  ((u'name', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
+QUERY: Got triple(s):  ((u'knows', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
+QUERY: Got triple(s):  ((u'x1', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'person'), False)
+QUERY: Got triple(s):  ((u'person', u'http://www.w3.org/2000/01/rdf-schema#subClassOf', u'thing'), False)
+QUERY: Got triple(s):  ((u'x2', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'person'), False)
+QUERY: Got triple(s):  ((u'x1', u'lives', u'Espoo'), True)
+QUERY: Got triple(s):  ((u'x1', u'knows', u'x2'), False)
+QUERY: Got triple(s):  ((u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
+QUERY: Got triple(s):  ((u'x1', u'drinks', u'wine'), True)
+QUERY: Got triple(s):  ((u'x1', u'name', u'Timo'), True)
+QUERY: Got triple(s):  ((u'lives', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
+QUERY: Got triple(s):  ((u'person', u'http://www.w3.org/2000/01/rdf-schema#subClassOf', u'http://www.w3.org/2000/01/rdf-schema#Resource'), False)
+QUERY: Got triple(s):  ((u'person', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/2000/01/rdf-schema#Class'), False)
+QUERY: Got triple(s):  ((u'http://www.w3.org/2000/01/rdf-schema#subClassOf', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
+QUERY: Got triple(s):  ((u'thing', u'http://www.w3.org/2000/01/rdf-schema#subClassOf', u'http://www.w3.org/2000/01/rdf-schema#Resource'), False)
+QUERY: Got triple(s):  ((u'x2', u'name', u'Risto'), True)
+QUERY: Got triple(s):  ((u'x2', u'lives', u'Espoo'), True)
+QUERY: Got triple(s):  ((u'drinks', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
+
+Subscription:
+Removed: ((u'x2', u'lives', u'Espoo'), True)
+Unsubscribing RDF subscription
+Unsubscribing WQL subscription
+Left smart space
+\end{verbatim}
+
+While \texttt{basic\_test.py} is running, \texttt{sib-tcp} remains silent, but \texttt{sibd} produces the following results:
+
+\begin{verbatim}
+	SUBSCRIBE: subscription SIB Tester-35053592-2211-4670-a3df-7550633e2962_2 finished
+	UNSUBSCRIBE: Sent unsub cnf for sub id SIB Tester-35053592-2211-4670-a3df-7550633e2962_2
+	SUBSCRIBE: subscription SIB Tester-35053592-2211-4670-a3df-7550633e2962_3 finished
+	UNSUBSCRIBE: Sent unsub cnf for sub id SIB Tester-35053592-2211-4670-a3df-7550633e2962_3
+\end{verbatim}
+
+Using \texttt{sofia\_release\_1305} from the SOFIA website is also possible by running \verb|python SIB.py X| where X is the name of the smart space. You may then connect to the smart space using the the \texttt{basic\_test.py} program supplied.
+\texttt{explorer.py} is a Qt-based viewer that may be used to view the triples in the triple store.
+
+Possible TODO: Device documentation from ~/code/semanticconnections/docs
+Possible TODO: Smart-M3 SIB installation 06/09/10

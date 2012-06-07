@@ -1,0 +1,312 @@
+\chapter{Device capability modelling}
+\label{DeviceCapabilityModelling}
+
+\begin{flushright}{\slshape    
+Whenever we capture the complexity of the real world in \\
+formal structures, whether language, social structures, or \\
+computer systems, we are creating discrete tokens for \\
+continuous and fluid phenomena. In so doing, we are bound \\
+to have difficulty. However, it is only in doing these things\\
+ that we can come to understand, to have valid discourse,\\
+ and to design.} \\ \medskip
+    ---  Alan Dix
+\end{flushright}
+
+
+%\section{Describing devices: Device modelling}
+%CC/PP, UAProf, FIPA
+%While it is possible to determine a device's capabilities from its information shadows \cite{OReilly2009}, the capabilities modelled in the smart space are only those which are meaningful to share. 
+%- dcs ontology
+%- UWA, Delivery Context Ontology (relates to UAProf)
+
+We require ways to describe the various capabilities of devices, in order to share these capabilities with other devices in the environment. While we have touched lightly on some of these techniques in the thesis so far, this chapter will focus in more detail on the current state-of-the-art and how we extended these techniques to create a new way of modelling device capabilities using ontologies.
+
+
+Most of the work on modelling interaction capabilities focus on \ac{GUI} based techniques. A \emph{universal user interface language} describes user interfaces that are rendered by mapping a description's device-independent interaction elements to a target platform's concrete interface objects \cite{Lee2006}. This allows developers to create the user interface in an abstract language without targeting a specific device. 
+
+The first attempt to define a vocabulary to describe \emph{delivery context} that conveys a device's characteristics was the W3C \ac{CC/PP}. Other examples of interface languages include \ac{UIML}, \ac{XIML}, Carnegie Mellon University's  \ac{PUC} and the \ac{INCITS/V2 URC}. These languages allow devices to determine the most suitable presentation based on a predefined set of abstract user interface components.
+
+\ac{UIML} maps interface elements to target UI objects using a styling section, resulting in one styling section per target device type. Unfortunately it does not include a generic vocabulary for abstract widgets \cite{Zimmermann2007}. \ac{PUC} describes device functions in terms of state variables and commands, with a grouping mechanism used for placement of UI objects. The \ac{INCITS/V2 URC} standards define a generic framework and an XML-based user interface language to let a wide variety of devices act as a remote to control other devices, called targets.
+
+\emph{User interface remoting} uses a remote interface protocol that relays I/O events between an application and its user interface. The user interface resides on a remote platform instead of on the device itself. The \ac{UPnP} \ac{RUI}, that forms part of the \ac{UPnP} AV standard,  belong to this category. \ac{UPnP} \ac{RUI} follows the Web server-client model, where the controller acts as a remote user interface client, and the target, acting as a remote user interface server, exposes a set of user interfaces \cite{UPnPForum}.
+
+CEA-2014, that builds on the \ac{UPnP} \ac{RUI} interface, uses a matchmaking process for a controller device to select a user interface protocol that is supported by the controller platform \cite{Zimmermann2007}. Supported protocols include AT\&T \ac{VNC} and Microsoft \ac{RDP}. \ac{VNC} uses the \ac{RFB} protocol to send pixels and event messages between devices.
+
+\marginpar{Current remote user interfaces are device-oriented rather than task-oriented. CEA-2018, discussed in Section \ref{cea2018}, tries to solve this problem by using task model representations.}
+
+Universal UI languages and UI remoting are orthogonal approaches \cite{Lee2006}. UI remoting might be used in parallel with device-independent UI languages.
+
+% Lee2006 also describes uJuni and INCITS / V2 URC
+
+
+\section{Related work}
+
+\subsection{UAProf}
+
+The WAP Forum's \ac{UAProf} specification is an \ac{RDF}-based schema for representing information about device capabilities.\marginpar{W3C's \ac{CC/PP} is also an \ac{RDF}-based schema.} UAProf is used to describe the capabilities of mobile devices, and distinguishes between hardware and software components for devices.
+
+%start africon
+%The User Agent Profile (UAProf) specification, used to describe the capabilities of mobile devices, distinguishes between hardware and software components for devices, but the descriptions of interaction capabilities are very limited. 
+
+For example, in the Nokia 5800 XpressMusic UAProf profile\footnote{nds1.nds.nokia.com/uaprof/Nokia5800d-1r100-2G.xml
+}, its interaction capabilities are described as follows:
+
+\begin{itemize}
+	\item \texttt{PhoneKeyPad} as \texttt{Keyboard}
+	\item 2 as \texttt{NumberOfSoftKeys}
+	\item 18 as \texttt{BitsPerPixel}
+	\item 360x640 as \texttt{ScreenSize}
+	\item Stereo as \texttt{AudioChannel}
+\end{itemize}
+
+Other user interaction capabilities are defined in a Boolean fashion of yes/no, e.g. \texttt{SoundOutputCapable}, \texttt{TextInputCapable}, \texttt{VoiceInputCapable}.
+%end africon
+
+\subsection{Universal Plug and Play (UPnP)}
+\label{UPnP}
+
+\ac{UPnP} with its device control protocols is one of the more successful solutions\footnote{http://upnp.org/sdcps-and-certification/standards/sdcps/} to describing device capabilities. However, it has no task decomposition hierarchy and only allows for the definition of one level of tasks \cite{Niezen2010}.
+
+\ac{UPnP} was developed to support addressing, discovery, eventing and presentation between devices in a home network, and the current version (1.1) was released as the ISO/IEC 29341 standard in 2008. It consists of a number of standardised \ac{DCP}s - data models that describe certain devices. The \ac{DCP}s that have been adopted by industry include audio/video, networking and printers. \ac{DCP}s for low power and home automation have not yet been adopted.
+
+\ac{DLNA} is a complete protocol set around \ac{IP} and \ac{UPnP}, where to be certified for \ac{DLNA}, a device needs to have \ac{UPnP} certification first. This protocol set was developed mainly to increase interoperability between \ac{AV} equipment in the home. It achieves this by limiting the amount of options available in the original protocol standards.\marginpar{In an IEEE ComSoc online tutorial entitled \emph{Consumer Networking Standardizations}, Frank den Hartog from TNO stated that ``DLNA has been a major effort to get computer people to talk to consumer electronics people''.}
+
+When describing the capabilities of a smart object, not only the interaction capabilities are important, but also the device states. With \ac{UPnP}, two types of documents are used to describe a device and its capabilities. A \emph{device description document} describes the static properties of the device, such as manufacturer and serial number \cite{Jeronimo2009}. \ac{UPnP} describes the services that a device provides in \emph{service description documents}. These XML-based documents specify the supported actions (remote function calls) for the service and the state variables contained in the service. 
+
+The state variable descriptions are defined in a similar way to how we define our interaction primitives, with a unique name, required data type, optional default value and recommended allowed value range. The \ac{UPnP} Forum has defined their own custom set of data types, with some similarity to the XML Schema data types used by \ac{OWL} 2. As an example, consider a state variable to describe the darkness of a piece of toast, where \texttt{ui1} is defined as an unsigned 1-byte integer:
+
+\begin{verbatim}
+<stateVariable sendEvents="no">
+	<name>darkness</name>
+	<dataType>ui1</dataType>
+	<defaultValue>3</defaultValue>
+	<allowedValueRange>
+		<minimum>1</minimum>
+		<maximum>5</maximum>
+		<step>1</step>
+	</allowedValueRange>
+</stateVariable>
+\end{verbatim}
+
+The \texttt{sendEvents} attribute is required for all state variable descriptions. If set to \texttt{"yes"}, the service sends events when it changes value. Event notifications are sent in the body of an HTTP message and contain the names and values of the state variables in XML. 
+
+Let us consider these device states in terms of user interaction. There are four key concepts in an interaction - actions, states (internal to the device), indicators, and modes (physically perceivable device states) \cite{Thimbleby2007}. The user performs actions, which change the device state, which in turn control indicators (augmented feedback). Users may not know exactly which state a system is in; they only know (if at all) what mode it is in. If we want to fully capture the capabilities of the device, we need to specify the device states, the transitions between these states, the interaction primitives which can cause these state changes, as well as the default and current states of the device. When this device is then connected to another device, we also need a way to describe the connection between these devices.
+
+
+%end TiiS
+
+
+\subsection{SPICE DCS}
+
+The SPICE Mobile Ontology\footnote{http://ontology.ist-spice.org/} allows for the definition of device capabilities in a sub-ontology called \ac{DCS} \cite{Villalonga2009}. A distinction is made between device capabilities, modality capabilities and network capabilities. While the ontology provides for a detailed description of the different modality capabilities, e.g. being able to describe force feedback as a \texttt{TactileOutputModalityCapability}, there are no subclass assertions made for other device capabilities. Most physical characteristics of the devices are described via their modality capabilities, e.g. a \texttt{screenHeight} data property extends the \texttt{VisualModalityCapability} with an integer value, and the \texttt{audioChannels} data property is also related to an integer value with \texttt{Acoustic\-Modality\-Capability}. The input format of audio content is described via the \texttt{AcousticInputModalityCapability} through an \texttt{inputFormat} data property to a string value.
+
+It is not clear whether the modality capabilities should be used to describe the actual content that may be exchanged or the user interaction capabilities. As an example, if a device has an \texttt{AcousticOutputModalityCapability}, it is not clear whether the device can provide user interaction feedback (e.g. in the form of computer-generated speech or an audible click), or that the device has a speaker.
+
+
+
+
+\section{Registering devices on startup}
+
+On device startup, the smart object registers its digital and physical identification information (e.g. RFID tag or IP address) and its functionality with the SIB, and then subscribes to new connections and events as shown in Figure \ref{connectorsibSequence}.
+
+\begin{figure}[bth]
+\begin{msc}
+msc {
+	//hscale = "1.5";
+	
+    A [label="Smart Object A"],sib [label="SIB"], connector [label="Connector Object"]; // B [label="Smart Object B"];
+	A->sib [label="Register identification info"];
+	A->sib [label="Register functionality"];
+    A->sib [label="Check for existing connections"];
+    --- [label="If connection exists", ID=1];
+    sib->A [label="Connection exists to B"];
+    A->sib [label="Subscribe to source events"];
+    --- [label="End if", ID=1];
+    A->sib [label="Subscribe to connection changes"];
+    A=>A [label="Waits for new event or connection"];
+    connector->sib [label="New connection from B to A"];
+    sib->A [label="New connection"];
+    A->sib [label="Subscribe to source events from A"];
+    A=>A [label="Waits for new event or connection"];
+    connector->sib [label="Connection removed from B to A"];
+    sib->A [label="Connection removed"];
+    A->sib [label="Unsubscribe from source events"];
+    A=>A [label="Waits for new event or connection"];
+}
+\end{msc}
+        \caption{Startup sequence between smart object and SIB}
+        \label{connectorsibSequence}
+\end{figure}
+
+We now first look at how devices can be identified in the digital and physical domain, and then how their functionalities should be registered.
+
+\subsection{Identifying devices}
+
+Today it is common to identify groups of products using barcodes and other numbering systems. Before ubiquitous computing, only expensive things such as precious metals, currency, or large machines were individually identified with any regularity \cite{Kuniavsky}. New tracking technologies like \ac{RFID} tags and smart cards allow us to link a unique identification number to a specific physical product, like a smart phone that identifies a specific person to the phone network. IPv6, an extension to the Internet Protocol standard, allows us to identify approximately $3.4 \times 10^{38} $ objects in the digital domain.
+
+The significance of technologies like \ac{RFID} is that they offer a way to endow physical objects with an \emph{information shadow} \cite{Greenfield2006}. An information shadow describes the digital information that is tied to a specific product. Amazon.com for example, use their \ac{ASIN} to uniquely identify every product they sell. In Bruce Sterling's book about ubiquitous computing and design, Shaping Things, he uses the example of a wine bottle to describe these kinds of objects. 
+
+Wine bottles have easily findable identifiers that link to their information shadows, usually consisting of a large amount of user-generated content. In addition to the metadata that is on the label, like the year when it was bottled, or the grapes that were used, information shadows provide information ``about the people and processes that made the bottle and its contents'' \cite{Sterling2005}. He argues that the wine's carefully designed information aspects, like the web page and bar code, permanently change people's relation to wine.
+
+% Possible TODO "unique naming" papers on Mendeley
+
+Mavrommati et al \cite{Mavrommati2004} linked an XML-based description of an object's properties, services and capabilities with an artifact ID. This alphanumeric ID is mapped to a namespace-based identification scheme, using a similar process to the one used for computer MAC addresses.
+
+\cite{Tungare2007} identified an information object in their Syncables framework, used to migrate task data and state information across platforms, via a Uniform Resource Identifier (URI). They used the structure 
+
+\begin{verbatim}
+sync://<info-cluster-id>/<collection>/<type>/<path>/<object-name>	
+\end{verbatim}
+
+where the \emph{information cluster} is the set of all devices a user interacts with during the course of a day. Each of the devices in an information cluster ``offers a unique set of affordances in terms of processing capabilities, storage capacities, mobility constraints, user interface metaphors, and application formats''.
+
+Most service discovery mechanisms, for example those used by \ac{UPnP}, assume the user will use the Internet to establish connections \cite{Jeronimo2009}. However, when we are in close proximity to things, we can address these things by pointing at them, touching them or by standing near them, instead of having to search or select them through a \ac{GUI}.
+
+Olsen et al. \cite{Olsen2001} used the domain name or IP address of a software client associated with a device to identify it, and a URL to identify services associated with a specific device. A user was associated with a URL used for that user's current session. The physical user was identified using a Java ring, with a small Java virtual machine running on the ring's microcontroller. 
+
+% Possible TODO Rekimoto TranSticks colour coding
+% Possible TODO Hinckley bumping devices
+
+% \cite{Olsen2001} recognised that in ubiquitous computing scenarios it is important to be able to identify where the user is located relative to devices, and focused on \emph{identity} and \emph{adjacency} instead of geometry. A global geometry model is one way of solving the problem, but is quite complex. It may not be necessary to know exactly where the user is, but only what devices they are near.
+
+
+\cite{OReilly2009} argues that formal systems for adding a priori meaning to digital data are actually less powerful than informal systems that extract that meaning by feature recognition. They think that we will get to an Internet of Things via a ``hodgepodge of sensor data, contributing, bottom-up to machine-learning applications that gradually make more and more sense of the data that is handed to them''. As an example, consider that using smart meter data to extract a device's unique energy signature, it is possible to determine the make and model of each major appliance.
+
+Jeff Jonas's work on \emph{identity resolution} uses algorithms that semantically reconcile identities \cite{Segaran2009}. His \ac{NORA} technology is a \emph{semantically reconciled and relationship-aware directory} that is used by the Las Vegas gaming industry to identify cheating players within existing records. A semantically reconciled directory recognises when a newly reported entity references a previously observed entity.
+
+%\marginpar{``I think the only way forward is going from applying algorithms to individual transactions, to first placing information in context--pixels to pictures--and only applying algorithms after one sees how the transaction relates to the other data. It's the only way that I can see that it's going to close this sense-making gap.'' -- Jeff Jonas}
+
+We agree that waiting until every object has a unique identifier for the Internet of Things to work is futile. However, the Semantic Web was designed with this problem in mind. We can use a \ac{URI} to identify an entity we are talking about. Different people will use different \ac{URI}s to describe the same entity. We cannot assume that just because two \ac{URI}s are distinct, they refer to the same entity \cite{Allemang2011}. This feature of the Semantic Web is called, the \emph{Non-unique Naming Assumption}. When using \ac{OWL}, it is necessary to assert that individuals are unique using the \texttt{owl:allDifferent} or \texttt{owl:differentFrom} elements. Individuals can be inferred to be the same, or asserted using \texttt{owl:sameAs}. For \ac{OWL} classes and properties, we can use \texttt{owl:equivalentClass} and \texttt{owl:equivalentProperty}.
+
+\begin{figure}[bth]
+	\begin{center}
+	\digraph[scale=0.6]{identification}{
+		rankdir=LR;
+		string [label="xsd:string", shape="plaintext"];
+		SmartObject -> Identification [label="hasIdentification"];
+		Identification -> string [label="idValue"];
+		Identification -> IDType [label="ofIDType"];
+	}
+	\end{center}
+	\caption{Modelling identification in the ontology}
+	\label{identification}
+\end{figure}
+
+We modelled the identification of smart objects as shown in Figure \ref{identification}. An example of how the Squeezebox \ac{KP} can be modelled using both its IP address and \ac{RFID} tag is shown below:
+
+\begin{minted}{turtle}
+SqueezeboxKP a SmartObject .
+SqueezeboxKP hasIdentification id1234 .
+SqueezeboxKP hasIdentification id4567 .
+id1234 ofIDType IPAddress .
+id1234 idValue "192.168.1.4:1234" .
+id4567 ofIDType RFID_Mifare .
+id4567 idValue "12AB45CD67EF" .
+\end{minted}
+
+\subsection{Registering a device's functionality}
+
+In the first design iteration we used a very simple solution to modelling the capabilities of devices, where \texttt{provides} and \texttt{consumes} properties linked smart objects to the names of the capabilities. During the later design iterations we modelled capabilities as functionalities of a device instead.\marginpar{Examples of \texttt{provides} and \texttt{consumes} were shown in Section \ref{OntologyDesign1}.}
+
+To register the functionality of a device such as the Squeezebox internet radio, we can use the following triples:
+
+\begin{minted}{turtle}
+squeezeboxKP a SmartObject .
+squeezeboxKP functionalitySource Alarm .
+squeezeboxKP functionalitySink Alarm .
+squeezeboxKP functionalitySink Music .	
+\end{minted}
+
+This indicates that the device is capable of acting both as a source and as a sink for \texttt{Alarm} functionality, while can acts as a sink for \texttt{Music} functionality. Once these device capabilities are registered, we can use semantic reasoning to infer which devices can be connected to each other.
+
+
+
+\section{Reasoning with device capabilities}
+
+A smart object can have one or more functionalities that can be shared with other smart objects. As already shown in the previous section, we model a functionality as 
+
+\begin{minted}{turtle}               
+ie:Alarm a ie:Functionality .
+ie:phone1 a ie:SmartObject .
+ie:phone1 ie:functionalitySource ie:Alarm . 
+\end{minted}
+
+or in the case of modelling the functionality of a sink we use
+
+\begin{minted}{turtle}               
+ie:Music a ie:Functionality .
+ie:speaker1 a ie:SmartObject .
+ie:speaker1 ie:functionalitySink ie:Music . 
+\end{minted}
+
+To infer that two devices can be connected based on functionality as shown in Figure \ref{canConnectTo}, we use an \ac{OWL} 2 property chain:\marginpar{A similar method was used to match media types in Section \ref{SemanticMatching}}\\
+
+\noindent
+functionalitySource~\ensuremath{\circ}~isFunctionalityofSink~\ensuremath{\sqsubseteq}~canConnectTo\\%\footnote{The concatenation of two relations $R$ and $S$ is expressible by $R \circ S $, while $ R \sqsubseteq S$ indicates that $R$ is a subset of $S$ }\\
+
+\begin{figure}[bth]
+        \includegraphics[width=\linewidth]{canConnectTo}
+        \caption{Inferring connection possibilities based on functionality}
+        \label{canConnectTo}
+\end{figure}
+
+To prevent a smart object from having a \texttt{canConnectTo} relationship to itself (which will be the case for semantic transformers), the relationship is defined to be irreflexive. Inferring indirect connection possibilities is also possible with a property chain:\\
+
+\noindent
+canConnectTo~\ensuremath{\circ}~canConnectTo~\ensuremath{\sqsubseteq}~canIndirectlyConnectTo
+
+%When the \texttt{connectedTo} relationship is inserted, we also want to infer a \texttt{indirectlyConnectedTo} relationship. It turns out that this is something that is not expressible in OWL. (Q2336 (02/02/2012))
+
+
+\subsection{Representing functionalities as predicates}
+
+If we want to model the common functionalities between two smart objects, we can use the n-ary ontology design pattern \cite{Noy2006}.\marginpar{Ontology design patterns are discussed in Chapter \ref{OntologyEngineering}.} Unfortunately, this is not intuitively readable from its ontological representation, as shown in Figure \ref{naryFunctionality}). If we directly infer the matched functionalities as predicates, the result can be represented using three triples instead of nine triples, and it is also more intuitively understandable.
+
+\begin{figure}[bth]
+        \includegraphics[width=\linewidth]{naryFunctionality}
+        \caption{Representing matched functionalities: N-ary relations versus predicates}
+        \label{naryFunctionality}
+\end{figure}
+
+Representing an individual as a predicate is not valid OWL 2 DL and places the ontology into OWL 2 Full. Since we are using an OWL 2 RL/RDF Rules reasoning mechanism, this is not an issue. We can easily infer this relation using a \ac{SPIN} rule:
+
+\begin{minted}{sparql}
+CONSTRUCT {
+    ?this ?functionality ?sink .
+}
+WHERE {
+    ?this ie:functionalitySource ?functionality .
+    ?sink ie:functionalitySink ?functionality .
+}
+\end{minted}
+
+where \texttt{?this \ensuremath{\equiv} SmartObject}. For a semantic transformer, we need an additional \ac{SPIN} rule:
+
+\begin{minted}{sparql}
+CONSTRUCT {
+    ?source ?this ?sink .
+}
+WHERE {
+    ?source ie:canIndirectlyConnectTo ?this .
+    ?this ie:canIndirectlyConnectTo ?sink .
+}
+\end{minted}
+
+where \texttt{?this \ensuremath{\equiv} SemanticTransformer}. This infers the semantic transformer itself as the relation between the source and the sink, since it transforms the original functionalities.
+
+\marginpar{Preview events were first discussed in Section \ref{section:augmentedFunctionalFf}.}
+When two devices can be connected directly, the Connector object creates a temporary connection from itself to the sink, and generates a \texttt{PreviewEvent} with the matching functionality as \texttt{dataValue}. When the sink generates its own \texttt{PreviewEvent}, indicating that its preview is finished, the Connector object removes the temporary connection. However, when there is a semantic transformer between the source and the sink, the Connector object uses the semantic transformer to generate the appropriate \texttt{PreviewEvent}, as shown in Figure \ref{stPreview}.
+
+\begin{figure}[bth]
+	\digraph[scale=0.45]{stPreview}{
+		{rank=same; Source; ST [label="Semantic Transformer"]; Sink;}
+		{rank=max; Connector}
+		Connector->ST [label= "tempConnectedTo"];
+		ST->Sink [label = "tempConnectedTo"];
+		Source->ST [label = "canConnectTo"];
+		ST->Sink [label = "canConnectTo"];
+	}
+	\caption{Temporary connections for \texttt{PreviewEvent} when semantic transformer is used}
+	\label{stPreview}        
+\end{figure}
+

@@ -1,0 +1,23 @@
+msc {
+//hscale = "1.5";
+
+    A [label="Smart Object A"],sib [label="SIB"], connector [label="Connector Object"]; // B [label="Smart Object B"];
+A->sib [label="Register identification info"];
+A->sib [label="Register functionality"];
+    A->sib [label="Check for existing connections"];
+    --- [label="If connection exists", ID=1];
+    sib->A [label="Connection exists to B"];
+    A->sib [label="Subscribe to source events"];
+    --- [label="End if", ID=1];
+    A->sib [label="Subscribe to connection changes"];
+    A=>A [label="Waits for new event or connection"];
+    connector->sib [label="New connection from B to A"];
+    sib->A [label="New connection"];
+    A->sib [label="Subscribe to source events from A"];
+    A=>A [label="Waits for new event or connection"];
+    connector->sib [label="Connection removed from B to A"];
+    sib->A [label="Connection removed"];
+    A->sib [label="Unsubscribe from source events"];
+    A=>A [label="Waits for new event or connection"];
+}
+

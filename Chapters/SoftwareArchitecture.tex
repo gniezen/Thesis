@@ -1,0 +1,40 @@
+\chapter{Software architecture}
+\label{SoftwareArchitecture}
+
+\marginpar{Parts of this chapter have previously appeared in \cite{Niezen2010} and \cite{Niezen2012}}
+
+
+\section{Publish/subscribe paradigm}
+
+Publish/Subscribe mechanism (http://en.wikipedia.org/wiki/Publish/subscribe , distributed event handling system, Observer pattern as a subset that can be compared with MVC pattern, see) vs polling mechanism
+
+
+%SISS2010 start
+
+\subsection{Architectural patterns for pervasive computing}
+
+Existing architectural patterns for software like Model-View-Controller, Document-View and Presentation-Abstract-Control are considered to be inadequate when trying to design software architectures in the pervasive computing domain. Pervasive computing needs new kinds of mechanisms to meet flexibility to change the purpose, functionality, quality and context of a software system \cite{Niemela2004}. 
+
+The approach used in SOFIA is to make use of a blackboard architectural pattern to enable cross-domain interoperability. It also makes use of ontologies to enable interoperability without requiring standardization. The first core component of SOFIA's interoperability platform (IOP) is called Smart-M3 and an open source implementation is available online\footnote{Available from http://sourceforge.net/projects/smart-m3/}. 
+
+Given a set of smart devices, a blackboard may be used to share information between these devices, rather than have the devices explicitly send messages to one another. If this information is also stored according to some ontological representation, it becomes possible to share information between devices that do not share the same representation model, and focus on the semantics of that information \cite{Oliver2008}.
+
+SOFIA takes the agent, blackboard and publish/subscribe concepts and reimplements them in a lightweight manner suitable for small, mobile devices. These agents, which are termed Knowledge Processors (KPs) can operate autonomously and anonymously by sharing information through blackboard spaces (see figure \ref{blackboard}). The Semantic Information Broker (SIB) is the information store of the smart space, and contains the blackboard, ontologies, reasoner and required service interfaces for the KPs or agents.
+
+%SISS2010 end
+
+%SeNAmI start
+\section{M3 architecture and the Semantic Information Broker (SIB)}
+\label{m3}
+The M3 (multi-device, multi-vendor, multi-domain) architecture is an interoperability platform based on a blackboard architectural model that implements the ideas of space-based computing \cite{Honkola2010}. It consists of two main components: a SIB (Semantic Information Broker) that acts as a common, semantic-oriented store of information and device capabilities, and KPs (Knowledge Processors), virtual and physical smart objects that interact with one another through the SIB. Various SIB implementations exist that conform to the M3 specification, of which Smart-M3 was the first open source reference implementation released in 2009\footnote{http://sourceforge.net/projects/smart-m3/}. RIBS (RDF Information Base System) is a C-based implementation of M3 targeted for devices with low processing power, but requires a large amount of memory \cite{Etelapera2011}.  The SIB implementation used in the pilot is called ADK-SIB (Application Development Kit SIB) and was developed within the SOFIA project. 
+
+The ADK-SIB is a Jena-based\footnote{http://jena.sourceforge.net/} SIB written in Java and runs on the OSGi (Open Services Gateway initiative) framework. Some modifications were made to the standard ADK-SIB provided by the SOFIA project, such as reasoning support added with the TopBraid SPIN API 1.2.0\footnote{http://topbraid.org/spin/api/}.
+
+% A command-line tool called \texttt{ssls}\footnote{Available from \texttt{http://sourceforge.net/projects/ssls/}} was used to view information in the smart space.
+
+%SeNAmI end
+
+% The SOFIA IOP is based on a blackboard architectural model that implements the ideas of space-based computing \cite{Honkola2010}. It consists of two main components: a SIB (Semantic Information Broker) that acts as a common, semantic-oriented store of information and device capabilities, and KPs (Knowledge Processors), virtual and physical smart objects that interact with one another through the SIB. Various SIB implementations exist that conform to the M3 specification, of which Smart-M3 was the first open source reference implementation released in 2009\footnote{http://sourceforge.net/projects/smart-m3/}. RIBS (RDF Information Base System) is a C-based implementation of M3 targeted for devices with low processing power, but requires a high amount of memory \cite{Etelapera2011}.  The SIB implementation used in the pilot is called ADK-SIB (Application Development Kit SIB) and was developed within the SOFIA project. 
+% 
+% The ADK-SIB is a Jena-based\footnote{http://jena.sourceforge.net/} SIB written in Java and runs on the OSGi (Open Services Gateway initiative) framework. Some modifications were made to the standard ADK-SIB provided by the SOFIA project, such as reasoning support added with the TopBraid SPIN API 1.2.0\footnote{http://topbraid.org/spin/api/}. Reasoning on information contained within the SIB was performed using SPIN\footnote{http://wwwspinrdf.org} (SPARQL Inferencing Notation). With SPIN, rules are expressed in SPARQL, the W3C recommended RDF (Resource Description Framework) query language, which allows for the creation of new individuals using CONSTRUCT queries. OWL (Web Ontology Language) inferences for the OWL 2 RL (OWL 2 Rule Language) profile were executed by using SPIN rules\footnote{ http://topbraid.org/spin/owlrl-all}. OWL 2 RL is a syntactic subset of OWL 2 that is amenable to implementation using rule-based technologies. According to the OWL 2 RL W3C page\footnote{http://www.w3.org/TR/owl2-profiles/\#OWL\_2\_RL} the OWL 2 RL profile is aimed at applications that require scalable reasoning without sacrificing too much expressive power.
+

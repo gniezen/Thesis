@@ -1,0 +1,173 @@
+\chapter{OntologyEngineering}
+\label{OntologyEngineering}
+
+
+How can we model an ontology for smart environments that allows developers to specify a smaller amount of information, and then use semantic reasoning to derive the remainder automatically?
+
+In SOFIA, a reasoner may also be used for truth maintenance, belief revision, information consistency and/or information creation \cite{Oliver2008}.
+
+
+When applying inference to the physical world, the level of ambiguity and uncertainty is quite high. A system might infer that you are in a room because your RFID badge is in a room. What if you forgot your badge in the office? The challenge is to figure figure out what functions in the smart home are possible with limited inference, which are possible only through inference, and which require an oracle \cite{Edwards2001}. Systems that rely on inference will be wrong some of the time, and users will need to have models to figure out how the system arrives at its conclusions, along with ways to override the system's behaviour.
+
+
+The CanBe pattern: infers new object property between entities when certain conditions have been fulfilled, e.g. CanBeTransformedTo, canBeConnectedTo
+To specify an object property as a union of two existing properties, we first need to define a new class that specifies the union, and then specify the object property as part of that class. This is necessary as a property cannot by itself be specified as a union of other properties.
+
+the isClass pattern: Using local reflexivity (i.e. ObjectHasSelf) allows us to define a property that relates a class to itself. This can be used to transform a class to a property when creating property chains.
+E.g.:
+InputDevice is a Class.
+InputDevice is defined as InputDevice some Self [Hoekstra, Social Reality]
+chainProperty as property Chain: isInputDevice o someProperty o isInputDevice
+This would allow the chainProperty to be inferred only between InputDevices that has the someProperty.
+Can be used to prevent an inconsistent ontology by only allowing certain domains and ranges to be inferred.
+
+connection properties: using property chains to identify a path of interconnected properties
+
+Pattern: Using pre-defined individuals to define a range of values/cases, since instances of classes can only be related to other individuals.
+
+
+
+Dodds and Davis \cite{Dodds2011} used the following structure to document an ontology design pattern in their book ``Linked Data Patterns'':
+
+\begin{itemize}
+	\item Question - A question indicating the problem the pattern is designed to solve
+	\item Context - Description of of the goal and context of the pattern
+	\item Solution - Description of the pattern
+	\item Example(s) - Real-world implementations that make use of this pattern
+	\item Discussion - Analysis of the pattern and where it can be used
+	\item Related - List of comparable patterns
+\end{itemize}
+
+
+
+\section{Naming interaction events}
+
+\emph{How should the \ac{URI} of an interaction event be structured so that the name forms a natural hierarchy?}
+
+\subsection{Context}
+
+Interaction events tend to form natural groups, such as events related to a specific device class. Reflecting these groups in the name of the interaction event itself makes it easier for developers to understand existing and/or inferred groupings, and to classify new events into an existing hierarchical event structure.
+
+\subsection{Solution}
+
+We use the notation\\ 
+
+\noindent
+\texttt{[DeviceClass][Action]Event}\\
+
+ to define the interaction event. 
+
+\subsection{Example(s)}
+
+Consider a simple light switch with two states, \texttt{Up} and \texttt{Down}. We can define two interaction events, \texttt{switchDownEvent} and \texttt{switchUpEvent}, which can then later be grouped by either device class or by action.
+
+\subsection{Discussion}
+
+If the naming convention of a \ac{URI} follows a common pattern, they become easier to remember and easier to work with. They can even be constructed automatically. It makes the \ac{URI} human-readable and improves the relation between the name and the event it describes. 
+
+\subsection{Related}
+
+\begin{itemize}
+	\item Hierarchical URIs \cite{Dodds2011}
+	\item Patterned URIs \cite{Dodds2011}
+\end{itemize}
+
+
+
+
+\section{Qualified Cardinality Restrictions}
+
+In \ac{OWL} 2, it is possible to define a \ac{QCR}, which means the cardinality restriction can be applied to a specific class \cite{Hebeler2009}. In \ac{OWL} 1, defining something like  
+
+
+ This means that it is possible to define that a smart object has only one current state:
+
+\begin{minted}{turtle}
+	SmartObject
+	rdfs:subClassOf
+	          [
+	            rdf:type owl:Restriction;
+	            owl:qualifiedCardinality 1;
+	            owl:onProperty hasCurrentState;
+	            owl:onClass State
+	          ];
+\end{minted}
+
+If we then assert a certain smart object to have two current states, e.g.
+
+\begin{minted}{turtle}
+	phone1 hasCurrentState playing .
+	phone1 hasCurrentState stopped .
+\end{minted}
+
+it will violate the QCR if \texttt{playing} and \texttt{stopped} are distinct\footnote{Asserted that they are different individuals}. In earlier versions of OWL, it was not possible to define a specific class for a cardinality restriction. 
+
+
+
+\subsection{Semantic transformers}
+In the sleep use-case, a semantic transformer was implemented in order to generate lighting values for the dimmable lamp to create the desired wakeup experience. During the implementation, several observations and decisions were made:
+
+\begin{itemize}
+\item 	Between smart objects and semantic transformers only \texttt{indirectlyConnectedTo} connections can exist, as the semantic transformers are virtual entities that cannot be directly connected to smart objects using the Connector object.
+\item 	When a \texttt{canIndirectlyConnectTo} relationship is inferred between smart object A and the semantic transformer B, and between B and smart object C, a \texttt{canConnectTo} relation between A and C should be inferred (transitive).
+\item 	When a connection is made between two smart objects that can be connected through a semantic transformer, the semantic transformer is connected to the smart objects with  \texttt{indirectlyConnectedTo} relationships, and a \texttt{connectedTo} relationship between the smart objects is then automatically inferred.
+\item 	A semantic transformer thus acts as a bridge.
+\item 	A semantic transformer is \emph{not} a smart object. 
+\end{itemize}
+
+%\subsubsection{Using semantic transformers for control}
+When using semantic transformers to control other smart objects, we could make use of the n-ary ontology design pattern, which was also applied to creating media paths in Section \ref{SemanticMatching} on semantic matching: %\marginpar{Ontology design patterns are discussed in more detail in Chapter \ref{OntologyEngineering}.}
+
+\begin{itemize}
+	\item Subscribe to \texttt{controlSource} to see if it becomes a control source
+	\item When it becomes a control source, subscribe to the events generated by the control originator
+\end{itemize}
+
+While this is feasible, it is complicated and we would like to use a simpler solution using \texttt{connectedTo} relationships. What we would like to infer is shown in Figure \ref{semanticTransformerControl}.
+
+\begin{figure}[bth] %no empty lines allowed
+	\digraph[scale=0.6]{semanticTransformerControl}{
+		node [shape=box];
+		{rank=same; Source; ST [label="Semantic Transformer"]; Sink;}
+		Source -> ST [label="canConnectTo"];
+		ST -> Sink [label="canConnectTo"];
+		Source -> Sink [label="connectedTo"];
+		Source -> ST [label="connectedTo", style="dashed"];
+		ST -> Sink [label="connectedTo", style="dashed"];
+	}
+	\caption{Inferring \texttt{connectedTo} relationships between sources/sinks and a semantic transformer}
+	\label{semanticTransformerControl}        
+\end{figure}
+
+Basically, what we are trying to model could be called a ``property intersection'', where\\
+
+\noindent
+\texttt{x P1 y}~$\sqcap$~\texttt{x P2 y}~$\vdash$~\texttt{x P3 y}\\
+%see Q2336 Preventing other individuals in a class from inferring the same property
+
+At first glance, it seems like this might be expressed using property chains and local reflexivity, as described in the ontology design pattern in Section \ref{LocalReflexivity}. However, this is a special case which cannot be expressed in \ac{OWL}. It can, however, easily be expressed as a \ac{SPIN} rule as follows:
+
+\begin{minted}{sparql}
+CONSTRUCT {
+    ?source :connectedTo ?semanticTransformer .
+    ?semanticTransformer :connectedTo ?sink .
+}
+WHERE {
+    ?source :canConnectTo ?semanticTransformer .
+    ?semanticTransformer :canConnectTo ?sink .
+    ?source :connectedTo ?sink .
+}
+\end{minted}
+
+
+
+
+
+
+
+Possible TODO Pushing the boundaries, e.g. with SPIN
+\label{SPIN}
+
+
+
+
