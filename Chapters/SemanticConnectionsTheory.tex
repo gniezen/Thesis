@@ -344,7 +344,7 @@ Semantic transformers can be used to map and transformed shared content between 
 
 \section{Finite state machine example}
 
-We now use \ac{FSM}s to model and explain the different concepts introduced so far. \ac{FSM}s allow us to talk about user interaction in a way that describes how users think about user interaction, but that still makes sense to interaction programmers and designers. Turing machines and other sophisticated models of computing do not describe that what users think about \cite{Thimbleby2007}. The use of \ac{FSM}s also encourages simplicity.
+We now use \acp{FSM} to model and explain the different concepts introduced so far. \acp{FSM} allow us to talk about user interaction in a way that describes how users think about user interaction, but that still makes sense to interaction programmers and designers. Turing machines and other sophisticated models of computing do not describe that what users think about \cite{Thimbleby2007}. The use of \acp{FSM} also encourages simplicity.
 
 As a first example, consider a simple light with an up/down switch as a single device (seen in Figure \ref{FSMsimple}). There are two states (\texttt{On/Off}), an initial state (\texttt{Off}) and two events (\texttt{SwitchDownEvent/SwitchUpEvent}) that cause transitions between the states. If the switch is labeled, we can use more specific (meaningful) wording, for example \texttt{switch\-Off\-Event} instead of \texttt{switchDownEvent}. %(already defined as ODP:) We use the notation \texttt{[DeviceClass]} \texttt{[Action]Event} to define the interaction event - this makes them easier to classify into a hierarchical event structure.
 

@@ -2,7 +2,7 @@
 \label{EventModelling}
 
 \begin{flushright}{\slshape    
-[Artifacts] mediate activity that connects a person not only with \\
+[Artefacts] mediate activity that connects a person not only with \\
  the world of objects, but also with other people. This means \\
 that a person's activity assimilates the experience of humanity.} \\ \medskip
     ---  Aleksei N. Leontiev, founder of activity theory
@@ -10,20 +10,24 @@ that a person's activity assimilates the experience of humanity.} \\ \medskip
 
 \marginpar{Parts of this chapter appear in \cite{Niezen2011}.}
 
-Events can be used to associate occurrences with people, places and objects at a specific time instant or during a time interval. In the previous chapter we looked at how objects can be modelled. The focus of this chapter is how the occurrence and its associated time instant or interval can be modelled. The modelling of people and places is considered to be outside the scope of this work.
+Events can be used to associate occurrences with people, places and objects at a specific time instant, or during a specific time interval. In the previous chapter we looked at how objects and their capabilities can be modelled. The focus of this chapter is how the occurrence and its associated time instant/interval can be modelled. The modelling of people and places is considered to be outside the scope of this work.
 
 %- Event ontology
 %- Music ontology (uses Events ontology, also see 15/02/11)
 
 \marginpar{Interaction events were first introduced in Section \ref{OntologyDesign1}.}
-Interaction events are generated when a user interacts with a smart object that is connected to another smart object using semantic connections. Interaction events are high-level input events which report the intention of the user's action directly, rather than just reporting the associated hardware input event that triggered the action. This high level of abstraction enables developers to write applications which will work across different devices and services, without having to write specific code for each possible input device. The W3C Web Events Working Group defined four conceptual layers for interactions (for touch- and pen-tablet interaction) \cite{w3cevents}:
+Interaction events are generated when a user interacts with a smart object. Interaction events are high-level input events which report the intention of the user's action directly, rather than just reporting the associated hardware input event that triggered the action. This high level of abstraction enables developers to write applications which will work across different devices and services, without having to write specific code for each possible input device. 
+
+The W3C Web Events Working Group defined four conceptual layers for interactions (for touch- and pen-tablet interaction) \cite{w3cevents}:
 
 \begin{description}
-\item [physical] This is lowest level, and deals with the physical actions that a user takes when interacting with a device, such as pressing a physical button.
-\item [gestural] This is a middle layer between the physical and intentional, and describes specific mappings between the two; for example, a ``pinch'' gesture may represent the user placing two fingers on a screen and moving them together at the physical layer. This may map to a ``zoom-in'' event at the intentional layer.
-\item [representational] This is the highest level of abstraction in the event model, and indicates the means by which the user is performing a task, such as zooming in, panning, navigating to the next page, activating a control, etc.
+\item [physical] This is the lowest layer, and deals with the physical actions that a user takes when interacting with a device, such as pressing a physical button.
+\item [gestural] This is layer describes specific mappings between the lower and upper layers; for example, a ``pinch'' gesture may represent the user placing two fingers on a screen and moving them together at the physical layer. This may map to a ``zoom-in'' event at the intentional layer.
+\item [representational] This layer indicates the means by which the user is performing a task, such as zooming in, panning, navigating to the next page, activating a control, etc.
 \item [intentional] This layer indicates the intention of the task a user is trying to perform, such as viewing more or less detail (zooming in and out), viewing another part of the larger picture (panning), and so forth.
 \end{description}
+
+Interaction events are defined at three of the layers, with the exception of the intentional layer. In Table \ref{transformationTable} examples of possible interaction events are shown, together with possible entities associated with these events. Most of these interaction events exist at the representational layer, which is events that have significant meaning.
 
 \begin{table}
 \centering
@@ -44,7 +48,7 @@ StopEvent & Application, Media \\
 \label{transformationTable}
 \end{table}
 
-In Table \ref{transformationTable} examples of possible interaction events are shown, together with possible entities associated with these events. They exist at different interaction layers, mostly at the representational and intentional level.
+
 
 %An interaction event has more than one possible entity that it can be performed on, as well as more than one possible entity that triggers it, i.e., there exists some ambiguity. Only when no ambiguity exists as to which entity it is performed on, as well as the action which the user is trying to accomplish, we refer to it as an intentional event. Semantic transformations occur between physical actions (such as pressing a button or doing a gesture) and representational events, as well as between representational events and intentional events.
 
@@ -52,7 +56,7 @@ In Table \ref{transformationTable} examples of possible interaction events are s
 %end S3E
 
 
-In \ac{OWL}, there are are two approaches to modelling time:
+These events all occur at a specific time or during a specific time interval. In \ac{OWL}, there are are two approaches to modelling time:
 
 \begin{itemize}
 	\item Using datatype properties: Event instances can be related to a literal with a \ac{XSD} datatype such as \texttt{xsd:date} or \texttt{xsd:dateTime}. This is the approach that we used and is described later in this chapter.
@@ -109,20 +113,8 @@ Using \ac{SPIN}, can also cast a \texttt{xsd:dateTime} value to a string using t
 
 
 
-
-\section{User-action events}
-%begin S3E
-
-
-
-
-
-
-
-
-
 \section{Interaction events}
-An interaction event happens at a specific time, is generated by a smart object and has an optional data value associated with the event.
+We now turn our focus to how interaction events are modelled in the work described in this thesis. An interaction event happens at a specific time, is generated by a smart object and has an optional data value associated with the event.
 
 \begin{figure}[bth]
         \includegraphics[width=\linewidth]{interactionEvent}
@@ -175,12 +167,10 @@ ie:event-43495d51-29e3-11b2-807e-ac78eefc1f83
 
 The advantage of linking event instances directly with dates is simplicity. There are fewer abstractions to deal with, and it is easier to sort events chronologically and compare them \cite{Shaw2009}. 
 
-
 We distinguish between \emph{control} and \emph{content}. Interacting with a device, e.g. pressing a ``Play'' button or moving a volume slider, is considered control and described using interaction events. Content, e.g. a song or a photo stored on the device,  is referred to by where it exists on the device, as well as how it can be rendered using the media capabilities of the device. We consider interaction events to be traceable, reversible and identifiable. Each interaction event has an associated timestamp and a unique ID that is generated when the event occurs. 
 
 \marginpar{Intentional, incidental and expected interactions were introduced in Section \ref{intentionalSpectrum}.}
 An intentional interaction, like pressing a light switch, is an interaction event if the light switch shares this information with other devices. Incidental or expected interactions, like the light turning on if the presence sensor is triggered, are also interaction events. System events, like a \texttt{TimeSetEvent}, which are invisible to the user are not considered interaction events.
-
 
 In the iStuff toolkit \cite{Ballagas2003} \emph{hierarchical event} structures were used to abstract low-level events into application-level events. \marginpar{Also see the related work on task models in Section \ref{interactionTasks}.} We also introduce the notion of an event hierarchy, where low-level events are considered to be very \emph{generic}, as they do not report a user's intention directly \cite{Niezen2011}. These low-level events first need to be transformed into intentional events---events that express user intention.
 
@@ -226,29 +216,47 @@ The type of feedback required depends on the functionality of the connection. It
 The device used to make the connection (in our test setup - the Connector object) creates a temporary connection to the devices to be connected in order to generate a \texttt{PreviewEvent}. This \texttt{tempConnectedTo} property is a sub-property of the \texttt{connectedTo} property. This means that the smart objects will handle it as if it is a regular connection, and when the Connector object removes the \texttt{tempConnectedTo} relationship, the inferred \texttt{connectedTo} relationship will disappear as well.
 
 
+\subsection{Discussion \& Conclusion}
+
+Tungare et al. \cite{Tungare2007} defined a \emph{task disconnect} as ``the break in continuity that occurs due to the extra actions outside the task at hand that are necessary when a user attempts to accomplish a task using more than one device.'' \cite{Kuniavsky} states that consistency is the key aspect in creating task continuity across devices, and that \emph{interaction vocabularies} have recently emerged as a way of consistently interacting with a range of devices. This ranges from simple vocabularies of light patterns and motion as used by the (now discontinued) Nabaztag Internet-connected rabbit that could compose ``sentences'' with more complex meaning, to a set of visual icons by Timo Arnall \cite{Arnall2006} that represents various kinds of touch-based RFID interactions. Arnall's touch-based vocabulary is shown in Figure \ref{arnall}. Although the vocabulary is based around visual icons, he does introduce four classes of interactions: 
+
+\begin{itemize}
+	\item Circles, of which the ``Aura'' is an example
+	\item Card, of which the ``Card in hand'' is an example
+	\item Wireless, of which the ``Wireless dot'' is an example
+	\item Mobile, of which the ``Phone beaming'' is an example
+\end{itemize}
+
+\begin{figure}[bth]
+	\begin{center}
+        \includegraphics[width=250px]{arnall}
+	\end{center}
+        \caption{Examples from Arnall's ``A graphic language for touch'' \cite{Arnall2006}}
+        \label{arnall}
+\end{figure}
+
+The ``Aura'' icon communicates both the near-field communication capabilities of the technology, but also indicates that the physical object has capabilities beyond its form. The icons with cards or mobiles could improve consistency for a wide range of users which use these technologies on a daily basis.
+
+These interaction vocabularies try to smooth over task disconnects through consistency. We argue that by having a vocabulary, or ontology, for interaction events could improve consistency in ubiquitous computing environments. This is the intention of the work in this chapter, to provide an ontology of interaction events that improves consistency for users, as well interoperability between devices.
 
 
-===Event modelling
-To model an \texttt{AlarmSetEvent}, the following restriction was used:\\
-
-\noindent
-\texttt{AlarmSetEvent}~$\models$~\texttt{SetEvent}~$\sqcap$~\texttt{dataValue}~$\forall$~\texttt{xsd:dateTime}~$\sqcap$~\texttt{dataValue}~$= 1$\\
-
-This restriction will not infer that an event is an \texttt{AlarmSetEvent}, but it will restrict the descriptions of these events to what can actually be described.
 
 
 
+% TODO: Valkkynen2010,  Rekimoto et al. (Ayatsuka2003), Nordby2010
+
+% http://www.elasticspace.com/presentations/graphic_language_touch_rfid_nfc.pdf
+
+% Possible TODO: How we developed a vocabulary for semantic connections
+
+% Possible TODO: Creating a vocabulary of interaction events (based on existing task models)
 
 
-\subsection{Task Continuity}
 
-Tungare et al. \cite{Tungare2007} defined a \emph{task disconnect} as ``the break in continuity that occurs due to the extra actions outside the task at hand that are necessary when a user attempts to accomplish a task using more than one device.'' \cite{Kuniavsky} states that consistency is the key aspect in creating task continuity across devices, and that \emph{interaction vocabularies} have recently emerged as a way of consistently interacting with a range of devices. This ranges from simple vocabularies of light patterns and motion as used by the (now discontinued) Nabaztag Internet-connected rabbit that could compose ``sentences'' with more complex meaning, to a set of visual icons by Timo Arnall \cite{Arnall2006} that represents various kinds of touch-based RFID interactions.
-These interaction vocabularies try to smooth over task disconnects through consistency.
-
-TODO: Valkkynen2010,  Rekimoto et al. (Ayatsuka2003), Nordby2010
-
-TODO: Select subset of icons from % http://www.elasticspace.com/presentations/graphic_language_touch_rfid_nfc.pdf
-
-TODO: How we developed a vocabulary for semantic connections
-
-TODO: Creating a vocabulary of interaction events (based on existing task models)
+% ===Event modelling
+% To model an \texttt{AlarmSetEvent}, the following restriction was used:\\
+% 
+% \noindent
+% \texttt{AlarmSetEvent}~$\models$~\texttt{SetEvent}~$\sqcap$~\texttt{dataValue}~$\forall$~\texttt{xsd:dateTime}~$\sqcap$~\texttt{dataValue}~$= 1$\\
+% 
+% This restriction will not infer that an event is an \texttt{AlarmSetEvent}, but it will restrict the descriptions of these events to what can actually be described.
