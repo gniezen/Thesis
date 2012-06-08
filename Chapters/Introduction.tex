@@ -49,20 +49,20 @@ The information presented to the user should be filtered dynamically, based on t
 
 
 
-\section{Design challenge and research questions}
+\section{Context of the work and research questions}
 
-This section describes the context of the work and the design challenge that was addressed. The work was completed in close collaboration with another PhD candidate, Bram van der Vlist, whose thesis \cite{Bram} describes the more designer-related aspects in greater detail, whereas this thesis tends to focus on the more technical aspects of the work. Some overlap between the two theses is unavoidable, but we tried to keep this to a minimum. 
+This section describes the context of the work and the research questions that were addressed. The work was completed in close collaboration with another PhD candidate, Bram van der Vlist, whose thesis \cite{Bram} describes the more designer-related aspects in greater detail, whereas this thesis tends to focus on the more technical aspects of the work. Some overlap between the two theses is unavoidable, but we tried to keep this to a minimum. 
 
 The work described in this thesis was completed as part of a European research project called \ac{SOFIA}\footnote{http://www.sofia-project.eu/}. Some of the design choices were guided by collaboration with partners in the \ac{SOFIA} project. We worked with the project partners to elicit requirements and expose ourselves to other application areas, in order to gain a more holistic view of the problem.
 
 
 \subsection{The SOFIA project}\label{sofia}
 
-\ac{SOFIA} is an European research project within the ARTEMIS framework that attempts to make information in the physical world available for smart services --- connecting the physical world with the information world. The goal is to enable cross-industry interoperability and to create new user interaction and interface concepts, to enable users to benefit from smart environments. The centre of the software platform developed within \ac{SOFIA} is a common, semantic-oriented store of information and device capabilities called a \ac{SIB}. Various virtual and physical smart objects, termed \ac{KP}s, interact with one another through the \ac{SIB}. The goal is that devices will be able to interact on a semantic level, utilising (potentially different) existing underlying services.
+\ac{SOFIA} is an European research project within the ARTEMIS framework that attempts to make information in the physical world available for smart services --- connecting the physical world with the information world. The goal is to enable cross-industry interoperability and to create new user interaction and interface concepts, to enable users to benefit from smart environments. The centre of the software platform developed within \ac{SOFIA} is a common, semantic-oriented store of information and device capabilities called a \ac{SIB}. Various virtual and physical smart objects, termed \acp{KP}, interact with one another through the \ac{SIB}. The goal is that devices will be able to interact on a semantic level, utilising (potentially different) existing underlying services.
 
 The \ac{SOFIA} software architecture was taken as a departure point during each of the design iterations described in Part B. The various extensions and changes to the reference architecture are described in more detail in each design iteration description. A proposed software architecture to be used in future ubiquitous computing scenarios, based on the work done within \ac{SOFIA}, is described in Chapter \ref{SoftwareArchitecture}.
 
-Our focus within the \ac{SOFIA} project was on the user interaction aspects of devices in the smart home environment. While most of the examples in this thesis is specific to the smart home environment, the concepts are also applicable in the wider context of ubiquitous computing, for example the smart city or smart personal spaces.
+Our focus within the \ac{SOFIA} project was on the user interaction aspects of devices in the smart home environment. While most of the examples in this thesis are specific to the smart home environment, the concepts are also applicable in the wider context of ubiquitous computing, for example the smart city or smart personal spaces.
 
 
 \subsection{Ubiquitous computing}
@@ -74,7 +74,7 @@ Chalmer and MacColl \cite{Chalmers2003} questioned the more recent assumption in
 Ubiquitous computing products are a combination of hardware, software and services. It is not clear what kind of skills are required to design for this kind of environment \cite{Kuniavsky}. There is, however, a need for interaction designers and software developers to have a common vocabulary and framework when cooperating to create these products. This thesis attempts to move this idea forward, by defining common concepts that are prevalent in most ubiquitous computing environments, and establishing a framework that can be used by both designers and developers alike.
 
 \subsection{Ambient Intelligence}
-The Ambient Intelligence paradigm differs from that of Ubiquitous Computing in that it tries to create environments that are sensitive  to and responsive to the presence of people \cite{Aarts2004}. Devices disappear into the environment, necessitating virtual devices to support user interaction. It is expected that the devices adapt to to and even anticipates the user's needs. While our work is in principle closer to the vision of ubiquitous computing than ambient intelligence, there are some important aspects of ambient intelligence that needs to be considered.
+The Ambient Intelligence paradigm differs from that of Ubiquitous Computing in that it tries to create environments that are sensitive  to and responsive to the presence of people \cite{Aarts2004}. Devices disappear into the environment, necessitating virtual devices to support user interaction. It is expected that the devices adapt to to and even anticipate the user's needs. While our work is in principle closer to the vision of ubiquitous computing than ambient intelligence, there are some important aspects of ambient intelligence that need to be considered.
 
 % Start of SISS2010 Conclusion
 
@@ -94,8 +94,10 @@ We consider context awareness to be one of the most important features of a smar
 
 Where the system tries to predict what the user is trying to accomplish, by being adaptive and anticipatory, we need to identify ways to give the users appropriate means to express themselves. The possibilities, available services and information that exist in the smart environment needs to be communicated in a meaningful way. Only if this is done correctly will users be able to build helpful mental models of the functionality the environment has to offer, set goals and make plans on how to act. By developing novel and meaningful interaction devices, the user can then perform the necessary actions and the system can in turn try to understand the user's goals and make the match to its internal models. We see a vital role here for the theory of \emph{product semantics} \cite{Feijs2009}, the study of how artefacts acquire their meaning and use its theories to define common concepts and semantics.
 
+The ambient intelligence paradigm shows the importance of feedback in adaptive and anticipatory environments. In the thesis we describe the different kinds of feedback and feedforward that are applicable to these environments, as well as how it was implemented in a use case scenario. 
 
-\subsection{Design challenge}
+
+\subsection{Affordances}
 
 In their article ``At Home with Ubiquitous Computing: Seven Challenges'', Edwards and Grinter \cite{Edwards2001} describes a scenario where a couple come downstairs in the morning intent on listening to the radio, and realising that there is no sound coming from their speakers. It turns out that the neighbours bought a new set of Bluetooth-enabled speakers which, when installed, associated themselves with the nearest sound source -- the couple's Bluetooth-enabled stereo.
 
@@ -107,9 +109,11 @@ Norman \cite{Norman1999} defined affordances as the set of possible actions of a
 
 Interaction metaphors \cite{Kuniavsky} provide handles to these invisible technologies, where the metaphors are used to establish ideas about the meaning of physical affordances and potential ways to use these devices. For example, a Nintendo WiiMote is waved around much like a magic wand, so we can use ``an enchanted object'' as the interaction metaphor for the device.
 
+\subsection{Ontologies}
+
 The current state of ubiquitous computing is similar to that of desktop computing in the 1970s, where there is a whole range of new technologies without metaphors to communicate how they operate. The question then becomes how we then can model a device, not only in terms of its technical characteristics or capabilities, but from the user's point of of view, where metaphors, functionality and affordances play an important role.
 
-One possible solution is to make use of ontologies, a concept in computer science most often associated with the Semantic Web \cite{Berners-Lee2001}. Ontologies are formal representations of knowledge, consisting of various entities that are related to one another.They provide a shared vocabulary, which makes it easier to publish and share data. Ontologies allow us to model a domain in terms of its concepts, and the relationships between these concepts. They are also both machine-readable and human-understandable.
+One possible solution is to make use of ontologies, a concept in computer science most often associated with the Semantic Web \cite{Berners-Lee2001}. Ontologies are formal representations of knowledge, consisting of various entities that are related to one another. They provide a shared vocabulary, which makes it easier to publish and share data. Ontologies allow us to model a domain in terms of its concepts, and the relationships between these concepts. They are also both machine-readable and human-understandable.
 
 Ontologies are well suited to environments with a large number of devices. They have been designed to work at Web scale, they enable heterogeneous data sources to interoperate with one another, and they are based on technology standards which allow for easy and large scale adoption \cite{Sabou2010}.
  
@@ -124,19 +128,43 @@ The hypothesis is that \emph{user interaction in a smart environment can be bett
 
 \marginpar{``The greatest challenge to any thinker is stating the problem in a way that will allow a solution.'' -- Bertrand Russell}
 
-The thesis aims to answer the following research questions:
+The thesis aims to answer a number of research questions. In the previous section, ontologies were offered as a potential solution to solving the interoperability problem in ubiquitous environments. They are also well suited to describing user interaction in such an environment. This leads us to the first question:
 
-\begin{itemize}
+\begin{question}
+How can we use an ontology to model user interaction and devices in a smart space consisting of multiple devices and multiple interactions? 
+\end{question}
 
-\item How can we use an ontology to model user interaction and devices in a smart space consisting of multiple devices and multiple interactions? This question is addressed in Chapters \ref{DeviceCapabilityModelling}, \ref{EventModelling} and \ref{OntologyEngineering}. %How can interaction events be modeled, represented and reasoned about using a ontology language?
+%This question is addressed in Chapters \ref{DeviceCapabilityModelling}, \ref{EventModelling} and \ref{OntologyEngineering}. %How can interaction events be modeled, represented and reasoned about using a ontology language?
 
-\item How suitable is the publish/subscribe paradigm for handling ontology-based ubiquitous computing environments? Chapter \ref{SoftwareArchitecture} seeks to answer this question.
+% TODO Discuss http://en.wikipedia.org/wiki/Publish/subscribe, or change to blackboard pattern
 
-\item How responsive is a networked user interface that is implemented on top of a system architecture with a semantic reasoning engine? This question is addressed in Chapter \ref{Evaluation}.
+In the \ac{SOFIA} project, \acp{KP} communicate with a message broker using the blackboard architectural pattern, where the message broker contains a common knowledge base. This knowledge base, consisting of a triple store and an ontology, is used to share information between the various knowledge sources.
 
-\item How can we measure the usability of ontologies and software frameworks for developers of ubiquitous computing environments? This is explored further in Chapter \ref{Evaluation}.
+\begin{question}
+How suitable is the blackboard architectural pattern for handling ontology-based ubiquitous computing environments? 
+\end{question}
 
-\item How should feedback be provided in a networked user interface consisting of multiple connected devices? A possible solution to this problem is presented in Chapter \ref{DesignIteration3}.
+%Chapter \ref{SoftwareArchitecture} seeks to answer this question.
+
+If we make use of a triple store and ontology, a semantic reasoning engine is required to perform inferencing on the knowledge base of asserted triples. If triples are frequently inserted and removed, the time required for inferencing could have an adverse effect on the responsiveness of the user interface.  
+
+\begin{question}
+How responsive is a networked user interface that is implemented on top of a system architecture with a semantic reasoning engine? 
+\end{question}
+
+%This question is addressed in Chapter \ref{Evaluation}.
+
+Some work has been done to measure the usability of \acp{API} for developers \cite{Robillard2009}. However, we do not have a way to evaluate the usability of software frameworks and ontologies for ubiquitous computing environments from a developer point-of-view. 
+
+How can we measure the usability of ontologies and software frameworks for developers of ubiquitous computing environments? 
+
+%This is explored further in Chapter \ref{Evaluation}.
+
+Ambient intelligence research indicates that with adaptive, anticipatory systems feedback is required to help the user make sense of what is happening in the environment. When we consider multiple interconnected smart objects, feedback and feedforward gets spatially distributed. 
+
+How should feedback be provided in a networked user interface consisting of multiple connected devices? 
+
+%A possible solution to this problem is presented in Chapter \ref{DesignIteration3}.
 
 %How can description logic be applied to the modelling of smart environments?
 
@@ -150,7 +178,7 @@ The thesis aims to answer the following research questions:
 
 %Why is an ontological approach better than existing approaches, e.g. relational database?
 
-\end{itemize}
+%\end{itemize}
 
 %- Describe devices based on their capabilities/attributes, and use reasoner to infer connection possibilities.
 %- Multi-device user interaction
@@ -163,15 +191,16 @@ The thesis aims to answer the following research questions:
 %- Does not cover graphical user interfaces, but interaction events
 
 %Building a model of the user's interaction with the smart space allows us to establish a semantic mapping between user behaviour and the environment. 
-Ontological modelling may be used to create an interaction model of a user's interaction with the smart space, including the user's profile, preferences, goals and intentions. We may use the interaction model to map the user's tasks or goals onto the devices available in the smart space.  Devices should focus on supporting people's stated intentions, desires and needs, rather than trying to anticipate them \cite{Kuniavsky}.
+%Ontological modelling may be used to create an interaction model of a user's interaction with the smart space, including the user's profile, preferences, goals and intentions. We may use the interaction model to map the user's tasks or goals onto the devices available in the smart space.  Devices should focus on supporting people's stated intentions, desires and needs, rather than trying to anticipate them \cite{Kuniavsky}.
 
 \section{Outline of the thesis}
 
-The following chapter describes related work, including relevant research projects. Existing state-of-the-art ontologies for ubiquitous computing environments and context-aware systems are described, followed by a description of the various interaction models, task models and semantic models that were used as basis for our own interaction model. 
+In the remainder of Part A the related work, including relevant research projects, is discussed. Existing state-of-the-art ontologies for ubiquitous computing environments and context-aware systems are described, followed by a description of the various interaction models, task models and semantic models that were used as basis for our own interaction model. 
 
 An iterative approach was followed during the design process. Part B describes the three design iterations, detailing the requirements, design, implementation and evaluation processes. A theory of semantic connections is introduced, based on the output from the design iterations, that focuses on the meaning of the connections between the different entities in a smart environment. It is intended to enable interaction designers and developers to create interoperable smart objects, providing them with a common vocabulary and framework.
 
-Part C expands on the unique contributions of this thesis. Our approach to modelling the interaction capabilities of smart objects is described, which builds on earlier ontologies for context-aware systems. Another contribution of this thesis is in the way interaction events are modelled, utilising existing event modelling techniques to describe user interaction in smart environments. Ontology design patterns that were identified and used during the course of the design are documented. A software architecture based on the publish/subscribe messaging paradigm is described, expanding on work performed within the \ac{SOFIA} project. This is followed by an evaluation of the work, which includes a performance evaluation and usability analysis. 
+
+From the work done, concepts and techniques that can be applied to ubiquitous computing in general were discovered. These concepts and techniques were extracted from the design iterations and are discussed in more detail in Part C, to exist independently of the design iterations. Our approach to modelling the interaction capabilities of smart objects is described, which builds on earlier ontologies for context-aware systems. Another contribution of this thesis is in the way interaction events are modelled, utilising existing event modelling techniques to describe user interaction in smart environments. Ontology design patterns that were identified and used during the course of the design are documented. A software architecture based on the publish/subscribe messaging paradigm is described, expanding on work performed within the \ac{SOFIA} project. This is followed by an evaluation of the work, which includes a performance evaluation and usability analysis. 
 
 %In this thesis, the various models and technologies that may be combined to allow for semantic interaction in smart environments are investigated. 
 %  We also consider whether the blackboard architectural pattern, used by SOFIA to enable a smart space-based computing environment, may be combined with runtime task models and the Belief-Desire-Intention (BDI) model, to result in a usable software architecture for pervasive computing.
