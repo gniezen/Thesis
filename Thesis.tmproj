@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Chapters/Introduction.tex</string>
+	<string>Chapters/EventModelling.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -22,7 +22,7 @@
 			<key>filename</key>
 			<string>ClassicThesis.tex</string>
 			<key>lastUsed</key>
-			<date>2012-06-07T14:53:06Z</date>
+			<date>2012-06-08T09:10:33Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -77,33 +77,91 @@
 				<integer>377</integer>
 			</dict>
 		</dict>
+		<key>Chapters/DesignIteration3.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>7</integer>
+				<key>line</key>
+				<integer>288</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>282</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>36</integer>
+				<key>line</key>
+				<integer>288</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>7</integer>
+				<key>line</key>
+				<integer>288</integer>
+			</dict>
+		</dict>
+		<key>Chapters/EventModelling.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>61</integer>
+				<key>line</key>
+				<integer>154</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>129</integer>
+		</dict>
 		<key>Chapters/Introduction.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>11</integer>
+				<integer>18</integer>
 				<key>line</key>
-				<integer>191</integer>
+				<integer>202</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>83</integer>
 			<key>firstVisibleLine</key>
-			<integer>182</integer>
+			<integer>90</integer>
 		</dict>
-		<key>ClassicThesis.tex</key>
+		<key>Chapters/SemanticConnectionsTheory.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>1</integer>
 				<key>line</key>
+				<integer>201</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>201</integer>
+		</dict>
+		<key>ClassicThesis.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
 				<integer>77</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>48</integer>
+			<integer>9</integer>
 		</dict>
 		<key>FrontBackmatter/Acronyms.tex</key>
 		<dict>
@@ -125,6 +183,9 @@
 		<string>FrontBackmatter/Acronyms.tex</string>
 		<string>ClassicThesis.tex</string>
 		<string>Chapters/Introduction.tex</string>
+		<string>Chapters/EventModelling.tex</string>
+		<string>Chapters/SemanticConnectionsTheory.tex</string>
+		<string>Chapters/DesignIteration3.tex</string>
 		<string>Chapters/DesignIteration1.tex</string>
 	</array>
 	<key>shellVariables</key>
@@ -141,6 +202,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{367, 117}, {640, 659}}</string>
+	<string>{{567, 103}, {640, 659}}</string>
 </dict>
 </plist>
