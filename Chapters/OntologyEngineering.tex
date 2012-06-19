@@ -1,81 +1,174 @@
-\chapter{OntologyEngineering}
+\chapter{Ontology Engineering}
 \label{OntologyEngineering}
 
 
-How can we model an ontology for smart environments that allows developers to specify a smaller amount of information, and then use semantic reasoning to derive the remainder automatically?
+An ontology is a method of representing knowledge (facts, things, etc.) in terms of concepts within a specific domain of knowledge as well as the relationships between them. Ontologies make it easier to publish and share data. They are both machine-readable and human-understandable. The power of ontologies lies in their ability to create relationships among classes of objects, and to assign properties to those relationships that allows us to make inferences about them \cite{Jepsen2009}.
 
-In SOFIA, a reasoner may also be used for truth maintenance, belief revision, information consistency and/or information creation \cite{Oliver2008}.
-
-
-When applying inference to the physical world, the level of ambiguity and uncertainty is quite high. A system might infer that you are in a room because your RFID badge is in a room. What if you forgot your badge in the office? The challenge is to figure figure out what functions in the smart home are possible with limited inference, which are possible only through inference, and which require an oracle \cite{Edwards2001}. Systems that rely on inference will be wrong some of the time, and users will need to have models to figure out how the system arrives at its conclusions, along with ways to override the system's behaviour.
-
-
-The CanBe pattern: infers new object property between entities when certain conditions have been fulfilled, e.g. CanBeTransformedTo, canBeConnectedTo
-To specify an object property as a union of two existing properties, we first need to define a new class that specifies the union, and then specify the object property as part of that class. This is necessary as a property cannot by itself be specified as a union of other properties.
-
-the isClass pattern: Using local reflexivity (i.e. ObjectHasSelf) allows us to define a property that relates a class to itself. This can be used to transform a class to a property when creating property chains.
-E.g.:
-InputDevice is a Class.
-InputDevice is defined as InputDevice some Self [Hoekstra, Social Reality]
-chainProperty as property Chain: isInputDevice o someProperty o isInputDevice
-This would allow the chainProperty to be inferred only between InputDevices that has the someProperty.
-Can be used to prevent an inconsistent ontology by only allowing certain domains and ranges to be inferred.
-
-connection properties: using property chains to identify a path of interconnected properties
-
-Pattern: Using pre-defined individuals to define a range of values/cases, since instances of classes can only be related to other individuals.
-
-
-
-Dodds and Davis \cite{Dodds2011} used the following structure to document an ontology design pattern in their book ``Linked Data Patterns'':
-
+The word \emph{ontology} is used in the literature to mean different things:
 \begin{itemize}
-	\item Question - A question indicating the problem the pattern is designed to solve
-	\item Context - Description of of the goal and context of the pattern
-	\item Solution - Description of the pattern
-	\item Example(s) - Real-world implementations that make use of this pattern
-	\item Discussion - Analysis of the pattern and where it can be used
-	\item Related - List of comparable patterns
+	\item a formal specification of concepts and relations in a domain, using axioms to specify the intended meaning
+	\item an informal specification using UML class diagrams or entity-relationship models
+	\item a vocabulary, or collection of named concepts agreed on by a group, defined in natural language
 \end{itemize}
 
+What these different usages of the word have in common is that an ontology is a \emph{community contract}\label{CommunityContract} about the representation of a domain \cite{Hepp2007}. It also has to be maintained during its lifespan, and is created through clear conceptual modelling\marginpar{An example of clear conceptual modelling using roles is shown in Section \ref{Roles}} based on philosophical notions. 
+
+An \ac{OWL} file can be used to represent an ontology or the knowledge base it describes, or both the ontology and its individuals (instances) can be contained within the same file. For example, the concept \texttt{Man} could be defined as part of the ontology, and the individual \texttt{Gerrit} would form part of its knowledge base. The different types of restrictions that can be defined in \ac{OWL} are shown in Table {syntaxTable}, together with the various syntaxes that can be used to represent these restrictions.
+
+\begin{table}
+    \myfloatalign
+  \begin{tabularx}{\textwidth}{Xllll} 
+	\toprule
+    \tableheadline{Restriction} & \tableheadline{DL} & \tableheadline{\LaTeX} & \tableheadline{Manchester} & \tableheadline{OWL} \\
+    \midrule
+
+	Existential         & $ \exists $ & \verb|\exists| & \texttt{some}    & \texttt{owl:someValuesFrom} \\
+	Universal           & $ \forall $ & \verb|\forall| & \texttt{only}    & \texttt{owl:allValuesFrom} \\
+	Value		        & $ \ni $     & \verb|\ni|     & \texttt{value}   & \texttt{owl:hasValue} \\
+	Cardinality         & $ = $       & \verb|=|       & \texttt{exactly} & \texttt{owl:cardinality} \\
+	Minimum \mbox{cardinality} & $ \geq $    & \verb|\geq|    & \texttt{max}     & \texttt{owl:minCardinality} \\
+	Maximum \mbox{cardinality} & $ \leq $    & \verb|\leq|    & \texttt{min}     & \texttt{owl:maxCardinality} \\
+	
+    \bottomrule
+  \end{tabularx}
+  \caption{OWL restriction definitions in different syntaxes: Description Logic, \LaTeX, Manchester OWL Syntax\cite{Drummond2009}  and OWL syntax}
+\label{syntaxTable}
+\label{ManchesterSyntax}
+\end{table}
+
+% TODO other symbols and datatype restrictions
 
 
-\section{Naming interaction events}
+Even without using a reasoner to infer new facts, an ontology improves the usefulness of the data. Using unique identifiers to represent concepts and relationships enables a computer to find and aggregate new information. For example, the relationship \texttt{knows} in the \ac{FOAF} ontology can be used to find and aggregate relationships between two individuals. 
 
-\emph{How should the \ac{URI} of an interaction event be structured so that the name forms a natural hierarchy?}
+We distinguish between foundational ontologies, core ontologies, domain ontologies and application ontologies.
 
-\subsection{Context}
+\subsection{Foundational ontologies}
+Foundational or upper ontologies are aimed at modelling very basic and general concepts, as to be highly reusable in different scenarios \cite{Scherp2011}. They are used to align concepts in other ontologies, and to ensure consistency and uniqueness of these concepts. Examples of foundational ontologies include \ac{DOLCE}, \ac{BFO}, OpenCyc and \ac{SUMO}. These ontologies can serve as reference ontologies when a new ontology is developed.
 
-Interaction events tend to form natural groups, such as events related to a specific device class. Reflecting these groups in the name of the interaction event itself makes it easier for developers to understand existing and/or inferred groupings, and to classify new events into an existing hierarchical event structure.
+\subsection{Core ontologies}
 
-\subsection{Solution}
+Core ontologies are used to model knowledge about a specific field. A core ontology is based on a foundational ontology and should be modular and extensible \cite{Scherp2011}. A number of core ontologies exist for modelling things like events and multimedia objects. Core ontologies refine foundational ontologies by adding field-specific concepts and relations. The Event-Model-F ontology, for example, is used to model the causality, correlation and interpretation of events, and is based on \ac{DUL}. Core ontologies achieve modularity and extensibility by following a pattern-oriented approach. Event-Model-F uses the \ac{DnS} and Information Object patterns provided by \ac{DUL}. 
 
-We use the notation\\ 
+% Lynda Hardman worked on this ontology
+The \ac{COMM} ontology is used represent multimedia objects such as images, video and audio, and is also based on \ac{DUL}. An audio recording could be modelled as \texttt{AudioData}, while a text description could be modelled as \texttt{TextData}. However, \texttt{AudioData} (a subconcept of \ac{DUL} \texttt{InformationObject}) represents the information that is contained in the audio recording, not the digital audio stream itself \cite{Scherp2011}. The location of the audio file is represented with a \texttt{Uri} concept. 
+
+\subsection{Domain ontologies}
+Domain ontologies represent reusable knowledge in a specific domain and are usually handcrafted. The Gene ontology, for example, describes gene products in terms of their biological processes, cellular components, and molecular functions in a species-independent manner \cite{Jepsen2009}. Ontologies are particularly well-suited to domains such as biomedical research, where there is an abundance of available data with non-hierarchical relationships.
+
+\subsection{Application ontologies} 
+An application ontology is created for a specific application, so they are not considered to be reusable. However, the tools or processes used to create the ontology may be reusable. 
+
+
+
+
+
+
+\section{Reasoning with OWL}
+
+In order to make the data generated by the smart environment more useful, we need a consistent way of understanding the combination of data from multiple sources. Reasoning or inferencing provides a robust solution to understanding the meaning of novel combinations of terms \cite{Hebeler2009}. A reasoner may be used for truth maintenance, belief revision, information consistency and/or information creation \cite{Oliver2008}.
+
+As of October 2009 the \ac{OWL} 2 Web Ontology Language is the W3C recommendation for creating ontologies. Most semantic reasoners have some kind of support for \ac{OWL} as well as a rule language like \ac{SWRL}:
+
+\begin{itemize}
+	\item Pellet (Java): Supports \ac{OWL} 2 and \ac{SWRL} (DL-safe rules), has a command-line option with \texttt{explain} command
+ 	\item Fact++ (C++): Supports \ac{OWL} 1 DL, does not fully support \ac{OWL} 2
+	\item HermiT\footnote{http://hermit-reasoner.com/} (Java): Supports \ac{OWL} 2 and \ac{SWRL} (DL-safe rules without built-ins), uses hypertableau calculus to perform reasoning, comes pre-installed with Prot\'eg\'e editor, has command-line option
+	\item TopSPIN (Java): Supports \ac{OWL} 2 RL/RDF Rules defined as \ac{SPIN} rules, comes pre-installed with TopBraid Composer
+\end{itemize}
+
+% \subsubsection{Interfacing with reasoning engines}
+% * OWL-API (Java)
+% * Jena (Java)
+% * OWLLink (Successor to DIG) - only supports RacerPro, complicated
+
+% \subsection{Rule engines}
+% * SWRL
+% * SPIN
+% * JenaRules
+
+Let us look at a number of services provided by reasoners that can be applied to the context of smart environments.
+
+\subsubsection{Subsumption testing}
+
+One of the services provided by a reasoner is to test whether or not one class is a subclass of another class, also known as subsumption testing. The descriptions of the classes are used to determine if a superclass/subclass relationship exists between them. It also infers disjointness and equivalence of classes. By performing such tests on the classes in an ontology it is possible for a reasoner to compute the inferred ontology class hierarchy. The reasoner can also determine class membership for individuals based on their properties, i.e. class membership does not always have to be asserted. It is also possible to infer new property relations with other individuals.
+
+Subsumption refers to the reflexive, transitive and antisymmetric relationship between classes, that states that a class A subsumes a class B if and only if the set of instances of class A includes the set of instances of class B \cite{Preuveneers2008}. The same principle holds for OWL properties.
+
+Preuveneers and Berbers \cite{Preuveneers2008} evaluated the Pellet ontology reasoner on a smart phone for semantic matching, but it was considered unsuitable due to performance requirements. They developed an encoding scheme to provide a compact representation of subsumption relationships. It is based on the idea that subsumption of classes in an ontology is somewhat related to multiple inheritance in an object-oriented programming language, which means that inheritance-encoding algorithms can be used for subtype testing. However, the algorithm cannot test for satisfiability - whether instances of a specific class can actually exist. 
+
+Being able to use a reasoner to automatically compute the class hierarchy is one of the major benefits of building an ontology using OWL. When constructing large ontologies the use of a reasoner to compute subclass-superclass relationships between classes becomes almost vital. Without a reasoner it is very difficult to keep large ontologies in a maintainable and logically correct state. 
+
+With ontologies it is possible to have classes with many superclasses, also called multiple inheritance. Usually it is easier to construct the class hierarchy as a simple tree, and leave computing and maintaining multiple inheritance to the reasoner. Classes in the asserted hierarchy therefore have no more than one superclass. This helps to keep the ontology in a maintainable and modular state and minimises human errors that are inherent in maintaining a multiple inheritance 
+hierarchy.
+
+\subsection{Consistency checking}
+
+A reasoner performs consistency checking to check whether all axioms and assertions are consistent. Based on the description of a class the reasoner can check whether or not it is possible for the class to have any instances.  A class is deemed to be inconsistent if it cannot possibly have any instances. Also consider for example that a smart object is asserted to belong to a certain class, but the smart object has properties that do not belong to that class.
+
+
+\subsection{Necessary versus necessary and sufficient}
+
+A \emph{necessary} condition will allow a class to be inferred as a subclass (\texttt{rdfs:subClassOf}), compared to a \emph{necessary and sufficient} condition, which will make a class equivalent to another class (\texttt{owl:equivalentClass}). The second condition usually requires an intersection of classes to be defined using the \texttt{and} keyword.
+
+
+\subsection{Inverse properties}
+
+If you define a new inverse property of an existing property with a specified domain and range, the inverse domain and range will be inferred for new individuals with this property. Note that in Prot\'eg\'e this inverse domain and range might not show up for the property itself, but that it will be inferred for new individuals. As an example:\\
 
 \noindent
-\texttt{[DeviceClass][Action]Event}\\
-
- to define the interaction event. 
-
-\subsection{Example(s)}
-
-Consider a simple light switch with two states, \texttt{Up} and \texttt{Down}. We can define two interaction events, \texttt{switchDownEvent} and \texttt{switchUpEvent}, which can then later be grouped by either device class or by action.
-
-\subsection{Discussion}
-
-If the naming convention of a \ac{URI} follows a common pattern, they become easier to remember and easier to work with. They can even be constructed automatically. It makes the \ac{URI} human-readable and improves the relation between the name and the event it describes. 
-
-\subsection{Related}
-
-\begin{itemize}
-	\item Hierarchical URIs \cite{Dodds2011}
-	\item Patterned URIs \cite{Dodds2011}
-\end{itemize}
+SmartObject~\ensuremath{\equiv}~isSmartObject~\ensuremath{\exists}~Self\\
 
 
+Any individual that is related to itself via the \texttt{isSmartObject} property will be identified as an instance of \texttt{SmartObject}, and any individual asserted as an instance of SmartObject will be related to itself via that property \cite{Hoekstra2010}.
 
 
-\section{Qualified Cardinality Restrictions}
+\subsection{Property chains}
+
+A new feature introduced in \ac{OWL} 2 is property chains, which allows for the specification of the propagation of a property along some path of interconnected properties \cite{Hoekstra2008}. As an example, consider two devices that have the same resolution and we wish to infer a new matchesResolution property:
+
+\begin{minted}{turtle}
+:RedButton rdf:type :SmartObject .
+:RedButton :hasResolution :Binary .
+
+:blueLamp rdf:type :SmartObject .
+:blueLamp :requiresResolution :Binary .
+
+:isResolutionOf owl:inverseOf :hasResolution .
+\end{minted}
+
+Here we also make use of the OWL inverse property. The reasoner infers that there is a \texttt{sc:isResolutionOf} relationship from \texttt{sc:Binary} to \texttt{sc:RedButton}.
+
+and then define the property chain as\\ 
+
+\noindent
+hasResolution~\ensuremath{\circ}~isResolutionOf~\ensuremath{\sqsubseteq}~matchesResolution\footnote{The concatenation of two relations $R$ and $S$ is expressible by $R \circ S $, while $ R \sqsubseteq S$ indicates that $R$ is a subset of $S$ }\\ 
+
+\begin{minted}{turtle}
+[] rdfs:subPropertyOf sc:matchesResolution;
+owl:PropertyChain (
+	sc:requiresResolution
+	sc:isResolutionOf
+)
+\end{minted}
+
+TODO figure showing matchesResolution property chain (as in Some Reasoning Required)
+
+The reasoner infers a \texttt{matchesResolution} relationship between the two devices.
+
+
+\subsection{Using cardinality restrictions}
+
+When modelling cardinality in OWL 2, you might expect to be able to infer that an individual is a member of a class based on a cardinality restriction, for example
+
+\begin{minted}{turtle}
+TwoButtonDevice SubClassOf Device hasButton exactly 2 Button
+\end{minted}
+
+Unfortunately, due to the \ac{OWA}, you cannot know whether an individual might have additional properties of that type. The only way to identify an individual is using minimum cardinality. However, this approach can be problematic if the concept is underspecified \cite{Hoekstra2008}.
+
+Using cardinality restrictions and maximum cardinality restrictions are not commonly used, mainly due to the \ac{OWA}. What exactly you can infer is not always clear. However, using the minimum cardinality restriction is often quite useful, for example TODO
+
 
 In \ac{OWL} 2, it is possible to define a \ac{QCR}, which means the cardinality restriction can be applied to a specific class \cite{Hebeler2009}. In \ac{OWL} 1, defining something like  
 
@@ -100,11 +193,603 @@ If we then assert a certain smart object to have two current states, e.g.
 	phone1 hasCurrentState stopped .
 \end{minted}
 
-it will violate the QCR if \texttt{playing} and \texttt{stopped} are distinct\footnote{Asserted that they are different individuals}. In earlier versions of OWL, it was not possible to define a specific class for a cardinality restriction. 
+it will violate the \ac{QCR} if \texttt{playing} and \texttt{stopped} are distinct\footnote{Asserted that they are different individuals}. In earlier versions of \ac{OWL}, it was not possible to define a specific class for a cardinality restriction.
 
 
 
-\subsection{Semantic transformers}
+
+
+\section{Reasoning with SPIN}
+\label{SPIN}
+\ac{SPIN}\footnote{http://wwwspinrdf.org} is a W3C Member Submission created and maintained by TopQuadrant, who is also responsible for the TopBraid Composer ontology editor. With \ac{SPIN}, rules are expressed in \ac{SPARQL}, the W3C recommended \ac{RDF} query language, which allows for the creation of new individuals using CONSTRUCT queries. Let us now look at a few features in \ac{SPIN}.
+
+
+\subsection{Integrity constraints}
+
+\ac{SPIN} allows us to specify integrity constraints, e.g. that \mint{turtle}|ex:event1 ex:generatedBy ex:device1| should exist (see Q1476 on answers.semanticweb.com). Domain and range are not integrity constraints, but allow us to infer e.g. class type of new individuals, e.g. if \mint{turtle}|ex:generatedBy rdfs:range ex:SmartObject|, then asserting \mint{turtle}|ex:event1 ex:generatedBy ex:device1| would infer \mint{turtle}|ex:device1 rdf:type ex:SmartObject|
+
+%\ac{SPIN} constructor allows for the automatic creation of new properties when a new instance is created
+
+TODO:
+- Integrity constraints using SPARQL/SPIN (not possible using OWL OWA) (see 06/04/2011 notebook)
+
+
+\subsection{OWL 2 RL}
+
+To prevent the OWL 2 RL classes from showing up in the Classes view your ontology when using TopBraid Composer, use 
+
+\begin{minted}{turtle}
+spin:imports <http://topbraid.org/spin/owlrl-all>
+\end{minted}
+
+to import them instead of \texttt{owl:imports}. This also prevents unusual syntax errors when performing constraint checking. However, it is important to still import the SPIN library using 
+
+\begin{minted}{turtle}
+owl:imports <http://spinrdf.org/spin>
+\end{minted}
+
+instead of \texttt{spin:imports}, otherwise the SPIN rules cannot be resolved properly.
+
+\subsection{SPARQL Rules}
+
+
+\ac{SPIN} allows for fine-grained control of how rules are executed. For example, it is possible to have a rule fire only once, by setting the SPIN property \texttt{spin:rulePropertyMaxIterationCount} to 1, in cases where new inferences could case the rule engine to iterate infinitely. It is also possible to specify the order in which rules are executed using \texttt{spin:nextRuleProperty}.
+
+
+\subsection{Built-in SPARQL Functions}
+
+\ac{SPIN} has a number of built-in functions\footnote{The reference documentation for the built-in functions can be accessed in TopBraid Composer from \texttt{Help} $\rightarrow$ \texttt{Help Contents} $\rightarrow$ \texttt{TopBraid Composer} $\rightarrow$ \texttt{Reference} $\rightarrow$ \texttt{SPARQL Functions Reference}} that provides additional functionality not available in OWL 2. These built-in functions can be very helpful when creating your own SPIN rules, functions or magic properties. They can be used to retrieve substrings (\texttt{fn:substring}), perform modulo arithmetic (\texttt{spif:mod}), or generate random numbers (\texttt{spif:random})
+	
+An example of where they are used in our ontology is the \texttt{afn:now()} function in the \texttt{currentDateTime} magic property:
+
+\begin{minted}{sparql}
+SELECT ?datetime
+WHERE {
+	BIND(afn:now() AS ?datetime) .
+}
+\end{minted}
+
+Some built-in functions, like \texttt{spif:buildUniqueIRI} (used to create new URIs), are only available as part of the extended TopBraid SPIN API\footnote{Available under a commercial license from TopQuadrant}, and cannot be used with the free open-source edition\footnote{http://topbraid.org/spin/api/}. That said, it is possible to build your own \texttt{buildURI} function using \texttt{fn:concat} as we did in the second design iteration:
+
+\begin{minted}{sparql}
+BIND (IRI(fn:concat("http://sofia.gotdns.com/ontologies/SemanticConnections.owl#mediaPath_", afn:localname(?this), "_to_", afn:localname(?x3))) AS ?mp) .
+\end{minted}
+
+\marginpar{Built-in functions with \texttt{fn:} (XPath/Xquery) or \texttt{afn:} (ARQ Functions) prefix are also available as part of Jena ARQ.} 
+
+\subsection{Custom functions}
+
+It is possible to create your own custom functions in SPIN. These functions are written in SPARQL and stored in the ontology. If you use the \texttt{.spin.rdf} extension to store the ontology file, these functions will be loaded into TopBraid Composer on startup. 
+
+An example of a custom function we built\footnote{With help from Scott Henninger and Holger Knublauch from TopQuadrant} is \texttt{getMaxDateRsc}, which is used to retrieve the last interaction event that was generated by a specific smart object:
+
+\begin{minted}{sparql}
+SELECT ?lastEvent
+WHERE {
+    ?lastEvent events:generatedBy ?arg1 .
+    ?lastEvent events:inXSDDateTime ?last .
+}
+ORDER BY DESC (?last)
+LIMIT 1
+\end{minted}
+
+This was then combined with a SPIN rule to create an object for the \texttt{hasLastEvent} property:
+
+\begin{minted}{sparql}
+CONSTRUCT {
+    ?this events:hasLastEvent ?lastEvent .
+}
+WHERE {
+    BIND (events:getMaxDateRsc(?this) AS ?lastEvent) .
+}
+\end{minted}
+
+The SPIN rule is required as magic properties cannot be used in local restrictions on their own.
+
+When loading an ontology with SPIN functions into Jena, the functions should be registered using \mint{java}|SPINModuleRegistry.get().registerAll()|.
+
+\marginpar{Jena allows similar functionality to SPIN functions using a \texttt{FunctionFactory}, which allows you to define and register your own functions in Java.} 
+
+SPINx allows for the definition of more elaborate custom functions using JavaScript. Unfortunately it cannot access the triple graph at execution time, but it does operate on arguments.
+
+\subsection{Magic properties}
+Magic properties, also called property functions, may be used in \ac{SPIN} to dynamically compute values even if there are no corresponding triples in the model. For example, we created the magic property \texttt{currentDateTime} with the \ac{SPIN} body
+
+\marginpar{The inferencing engine does not always infer superclasses for \ac{SPARQL} queries, which could cause problems for magic properties.\footnote{This can be prevented by setting the inferencing engine to Complete Mode (\texttt{Configure Inferencing}~$\Rightarrow$~\texttt{Complete mode}).}}
+
+\begin{minted}{sparql}
+SELECT ?x
+WHERE {
+    BIND (afn:now() AS ?x) .
+}
+\end{minted}
+
+When we now create a query for something like \mint{turtle}|:phone1 :currentDateTime ?date| the current date/time is returned as an object. This allows us to write \ac{KP} queries at triple-level, without having to send a \ac{SPARQL} query from the \ac{KP} to the \ac{SIB}. Magic properties are more flexible than \ac{SPIN} functions and can return multiple values.
+
+
+
+
+
+
+
+
+
+
+
+\section{Ontology design patterns}\label{DesignPatterns}
+
+In software engineering, design patterns are generalised solutions to problems that commonly occur in a specific software context. An example of such a pattern is the Observer pattern, in which a software object maintains a list of observers which are notified of state changes. The Observer pattern is one of the original patterns described in the seminal book on design patterns by the \ac{GoF} \cite{Gamma1994}.  The blackboard pattern, used in our software architecture, is a generalised version of the observer pattern that allows multiple readers and writers. 
+\marginpar{The blackboard pattern was first mentioned in Section \ref{blackboard}.}
+
+A similar approach to design patterns has been applied to ontologies \cite{Gangemi2008, Hoekstra2009, Dodds2011}. Dodds and Davis \cite{Dodds2011} used the following pattern template to document an ontology design pattern in their book ``Linked Data Patterns'':
+
+\begin{itemize}
+	\item Question - A question indicating the problem the pattern is designed to solve
+	\item Context - Description of of the goal and context of the pattern
+	\item Solution - Description of the pattern
+	\item Example(s) - Real-world implementations that make use of this pattern
+	\item Discussion - Analysis of the pattern and where it can be used
+	\item Related - List of comparable patterns
+\end{itemize}
+
+They formalised a number of linked data patterns into a pattern catalogue, and we will now use the same pattern template to describe ontology design patterns that can be applied in the context of smart environments. In this section we first look at three examples of existing ontology design patterns, before we focus on the new patterns that were identified during the course of the work described in this thesis.
+
+One of the example patterns, \ac{DnS}, is an ontology design pattern provided by the \ac{ODP} initiative\footnote{http://ontologydesignpatterns.org/wiki/Submissions:DescriptionAndSituation}. They provide an entire online library of ontology design patterns, to be used as building blocks for creating new ontologies. 
+
+\ac{ODP} distinguishes between a number of different pattern types, including:
+
+\begin{itemize}
+	\item Content patterns, e.g. the Role pattern that defines \texttt{Student} as a role instead of a subclass of \texttt{Human}
+	\item Logical patterns, like the n-ary relation or Situation pattern
+	\item Reengineering patterns, e.g. converting microformats to \ac{RDF}
+	\item Alignment patterns, e.g. aligning \ac{FOAF} with VCard format
+	\item Anti-patterns, e.g. modelling \texttt{City} as a subclass of \texttt{Country}
+\end{itemize}
+
+The first example pattern below, called the Role pattern, is required to understand the \ac{DnS} pattern.
+
+
+\subsection{The Role pattern}\label{Roles}
+
+\emph{How can we represent the roles of devices and agents in an ontology?}
+
+\subsubsection{Context}
+An example of clear conceptual modelling\label{ClearConceptualModelling} is that a \texttt{Student} is not a subclass of \texttt{Human}, but a \emph{role}.
+
+\subsubsection{Solution}
+
+Roles can be modelled as classes, individuals or properties.
+
+\subsubsection{Example(s)}
+
+Roles can be modelled as classes: \mint{turtle}|Object rdf:type Role| or as individuals: 
+\begin{minted}{turtle}
+Jim rdf:type Person .
+SongWriter rdf:type Role .
+Jim hasRole SongWriter .
+\end{minted}
+
+\noindent
+or even as properties: \mint{turtle}|Table legs Books| where books are being used in the role of table legs.
+
+\subsubsection{Discussion}
+
+A commonly occurring issue when modelling ontologies is to whether model the concept as a property or a class. Consider the role \emph{student}, where \texttt{Mark} can be seen as either an individual of the \texttt{Student} class, or have a relationship via a \texttt{student} property with his university. Classes have stronger ontological commitment\footnote{See Section \ref{OntologicalCommitment}} than properties, but using properties are often more convenient for practical use \cite{Hoekstra2010}. \ac{OWL} 2 punning allows an entity to be treated as both a property and a class without comprising ontological commitment.
+
+\subsubsection{Related}
+
+\begin{itemize}
+	\item The Role pattern is described in detail in Hoekstra's PhD thesis \cite{Hoekstra2009}
+	\item The Time Indexed Person Role Pattern \cite{Gangemi2008}
+\end{itemize}
+
+
+
+
+\subsection{Descriptions and Situations (DnS) pattern}
+
+\emph{How do we model non-physical objects like plans, schedules and context in an ontology?}
+
+\subsubsection{Context}
+
+While modelling physical objects using an ontology is relatively straightforward, it becomes non-trivial when modelling \emph{non-physical objects} \cite{Gangemi2003} such as plans, schedules, social constructs, etc. Existing theoretical frameworks like \ac{BDI} theory and situation calculus are not at the level of concepts or relations, which we need to be able to model non-physical objects as a set of statements. The \ac{DnS} pattern grew out of the work done on the \ac{DOLCE}\marginpar{During a summer school attended by the author, Aldo Gangemi (co-creator of DOLCE) mentioned that he considers DOLCE as a collection of ontology design patterns.} ontology to solve this problem.
+
+
+\subsubsection{Solution}
+
+The \ac{DnS} design pattern provides an ontological formalisation of context \cite{Scherp2011}. It achieves this by using \emph{roles} to classify entities into a specific context. The pattern defines a \emph{situation} that satisfies a \emph{description}. The \texttt{describes} object property is used between a \texttt{Description} and an object, while the \texttt{satisfies} object property relates a \texttt{Situation} with a \texttt{Description}.
+
+\subsubsection{Example(s)}
+
+As an example, consider communication theory \cite{Shannon} as modelled with \ac{DnS} in Figure \ref{DnSExample}, where there is an encoder, a message, a context\footnote{What the message is about, not the circumstances surrounding the communication}, a code and channel. In \ac{DnS}, the encoder and decoder are modelled as agentive physical objects in DOLCE, while the channel is a non-agentive physical object. Messages are considered information objects. 
+
+\begin{figure}[bth]
+	\digraph[scale=0.45]{DnSExample}{
+		Endurant [label="dolce:Endurant"];
+		APO [label="dolce:AgentivePhysicalObject"];
+		PO [label="dolce:PhysicalObject"];
+		IO [label="dolce:InformationObject"];
+		CommRole [label= "DnS:CommunicationRole"];
+		APO -> Endurant;
+		PO -> Endurant;
+		IO -> Endurant;
+		Encoder -> InterpreterRole;
+		Decoder -> InterpreterRole;
+		InterpreterRole -> APO;
+		ChannelRole -> PO;
+		Message -> IO;
+		InterpreterRole -> CommRole;
+		MessageRole -> CommRole;
+		Context -> CommRole;
+		ChannelRole -> CommRole;
+	}
+	\caption{Example of modelling communication theory using \ac{DnS} and \ac{DOLCE}}
+	\label{DnSExample}        
+\end{figure}
+
+\subsubsection{Discussion}
+
+With \ac{DnS} one can also reify events and objects and describe the n-ary relation that exists between multiple events and objects.
+
+An \texttt{Action} represent an activity that takes place when executing a \texttt{Plan}. Different \texttt{InformationObject}s and agents can take part in an \texttt{Action}, and this is represented using the \texttt{hasParticipant} property. A \texttt{Task} \texttt{classifies} an \texttt{Action}, and can be prioritised with a \texttt{Priority} value \cite{Scherp2011}.
+
+\subsubsection{Related}
+
+\begin{itemize}
+	\item The \ac{DUL} ontology \cite{Gangemi2008}
+\end{itemize}
+
+
+
+
+\subsection{Defining n-ary relations}
+
+\emph{How do we represent relations among more than two individuals?}
+
+\subsubsection{Context}
+In \ac{OWL}, a property is a binary relation between two individuals. However, some relationships are not binary and involve more than two resources, for example when modelling events.
+
+\subsubsection{Solution}
+We can use n-ary relations\cite{Noy2006} to model relationships between more than two resources. A class is created to represent the relationship, with an instances of the class used to represent the relationship between the various resources.
+
+\subsubsection{Example(s)}
+\texttt{:event-43495d51-29e3-11b2-807e-ac78eefc1f83} is an example of an \texttt{Event} instance that represents the n-ary relation between the device \texttt{phone1} and the various event resources: 
+
+\begin{minted}{turtle}
+	
+:phone1 :generatesEvent :event-43495d51-29e3-11b2-807e-ac78eefc1f83. 
+	
+:event-43495d51-29e3-11b2-807e-ac78eefc1f83 
+	rdf:type :IncreaseLevelEvent ;
+	:inXSDDateTime "2012-01-17T11:23:06.887+01:00"^^xsd:dateTime ;
+	:dataValue 255 ;
+	:duration "PT3S"^^xsd:duration .
+\end{minted}
+
+
+\subsubsection{Discussion}
+This pattern is commonly used to represent complex relationships. This is quite a powerful pattern, as it can also be used to define the temporal order of sequences \cite{Noy2006}.
+
+
+\subsubsection{Related}
+
+\begin{itemize}
+	\item Qualified Relation pattern \cite{Dodds2011}
+\end{itemize}
+
+% TODO: which paper? (also see 07/04/11)
+
+
+
+
+
+\subsection{Naming interaction events}
+
+\emph{How should the \ac{URI} of an interaction event be structured so that the name forms a natural hierarchy?}
+
+\subsubsection{Context}
+
+Interaction events tend to form natural groups, such as events related to a specific device class. Reflecting these groups in the name of the interaction event itself makes it easier for developers to understand existing and/or inferred groupings, and to classify new events into an existing hierarchical event structure.
+
+\subsubsection{Solution}
+
+We use the notation\\ 
+
+\noindent
+\texttt{[DeviceClass][Action]Event}\\
+
+ to define the interaction event. 
+
+\subsubsection{Example(s)}
+
+Consider a simple light switch with two states, \texttt{Up} and \texttt{Down}. We can define two interaction events, \texttt{switchDownEvent} and \texttt{switchUpEvent}, which can then later be grouped by either device class or by action.
+
+\subsubsection{Discussion}
+
+If the naming convention of a \ac{URI} follows a common pattern, they become easier to remember and easier to work with. They can even be constructed automatically. It makes the \ac{URI} human-readable and improves the relation between the name and the event it describes. 
+
+\subsubsection{Related}
+
+\begin{itemize}
+	\item Hierarchical URIs \cite{Dodds2011}
+	\item Patterned URIs \cite{Dodds2011}
+\end{itemize}
+
+
+
+
+\subsection{Using local reflexivity in property chains}
+
+\emph{How can we specify classes as part of an \ac{OWL} 2 property chain?}
+
+\subsubsection{Context}
+
+Sometimes it is necessary to restrict property chains to specific classes. We need to be able to specify these classes as part of the property chain.
+
+\subsubsection{Solution}
+
+\label{LocalReflexivity}
+The \texttt{self} keyword\footnote{Manchester syntax, used when editing ontologies in Prot\'eg\'e and other ontology editors. See Table \ref{ManchesterSyntax}.} is used to indicate local reflexivity (also called a self restriction) in \ac{OWL} 2 and can be used to transform classes to properties when creating property chains.
+
+\subsubsection{Example(s)}
+
+We can apply local reflexivity to the class \texttt{Student}, for example\\
+
+\noindent
+Student~\ensuremath{\equiv} isStudent \texttt{some} \texttt{self}\\
+
+If the individual Mark has a \texttt{isStudent} relation with itself, it will be inferred that Mark is a \texttt{Student}. Also, if Mark is asserted as a \texttt{Student}, then the \texttt{isStudent} property will be inferred. This can then be combined with property chains where necessary, e.g.\\
+
+\noindent
+hasRole~\ensuremath{\circ}~isStudent~\ensuremath{\sqsubseteq}~student\\
+
+\subsubsection{Discussion}
+
+In his PhD thesis on ontology design patterns, Hoekstra \cite{Hoekstra2009} uses this pattern extensively to model actions, beliefs, intentions and social constructs. For example,\\
+
+\noindent
+Intention~\ensuremath{\sqsubseteq}~isIntention~\texttt{some}~\texttt{self}\\
+\ensuremath{\sqsubseteq}~PropositionalAttitude\\
+holds~\ensuremath{\circ}~isIntention~\ensuremath{\circ}~towards~\ensuremath{\sqsubseteq}~intends\\
+
+\subsubsection{Related}
+
+\begin{itemize}
+	\item \ac{DnS} pattern
+\end{itemize}
+
+% the isClass pattern: Using local reflexivity (i.e. ObjectHasSelf) allows us to define a property that relates a class to itself. This can be used to transform a class to a property when creating property chains.
+% E.g.:
+% InputDevice is a Class.
+% InputDevice is defined as InputDevice some Self [Hoekstra, Social Reality]
+% chainProperty as property Chain: isInputDevice o someProperty o isInputDevice
+% This would allow the chainProperty to be inferred only between InputDevices that has the someProperty.
+% Can be used to prevent an inconsistent ontology by only allowing certain domains and ranges to be inferred.
+
+
+
+\subsection{Semantic matching with property chains}
+\label{SemanticMatchingChains}
+
+\emph{How can we perform semantic matching of functionalities between devices using property chains?}
+
+\subsubsection{Context}
+
+Property chains are useful for semantic matching, but with basic property chains the inverse is inferred as well, which is not always desired. Property chains cannot be made irreflexive, as only \emph{simple} properties can be irreflexive in order to guarantee decidability \cite{Bao2009}. Defining domain and range to as constraints just makes the ontology inconsistent. Thus, when using property chains, the properties involved need to be symmetric, as in\\ 
+
+\noindent
+hasFunctionality~\ensuremath{\circ}~isFunctionalityOf\\
+
+\subsubsection{Solution}
+
+\begin{figure}[bth]
+	\digraph[scale=0.45]{canConnectTo}{
+		{rank=same; S1 [label="Smart Object 1"]; S2 [label="Smart Object 2"];}
+		%{rank=max; Connector}
+		S1 -> Functionality [label="hasFunctionality"];
+		S2 -> Functionality [label="hasFunctionality"];
+		S1 -> S2 [label="canConnectTo", style="dotted"];
+	}
+	\caption{Two individuals related to the same object}
+	\label{canConnectTo2}        
+\end{figure}
+
+When we have two individuals with the same object, but different predicates (see Figure \ref{canConnectTo2}), and we want to infer a new property, this is intuitively represented in \ac{SWRL}: \\
+
+\noindent
+\texttt{hasFunctionality(?s1,?s2), hasFunctionality(?s1, ?s2) $\Rightarrow$ canConnectTo(?x1,?x2)}\\
+
+However, this cannot be represented in the same fashion using a property chain, as 
+
+\noindent
+hasFunctionality~\ensuremath{\circ}~hasFunctionality~\ensuremath{\sqsubseteq}~canConnectTo\\
+
+is not equivalent. This is however, easily solved by introducing a symmetric property \texttt{isFunctionalityOf}, and the property chain becomes
+
+\noindent
+hasFunctionality~\ensuremath{\circ}~isFunctionalityOf~\ensuremath{\sqsubseteq}~canConnectTo\\
+
+\subsubsection{Example(s)}
+
+First we define two smart objects and their corresponding functionalities:
+
+\begin{minted}{turtle}               
+:Music a :Functionality .
+
+:phone1 a :SmartObject .
+:phone1 :functionalitySource :Music . 
+              
+:speaker1 a :SmartObject .
+:speaker1 :functionalitySink :Music . 
+\end{minted}
+
+Using the property chain\\
+
+\noindent
+functionalitySource~\ensuremath{\circ}~isFunctionalityofSink~\ensuremath{\sqsubseteq}~canConnectTo\\
+
+where \texttt{isFunctionalityofSink} is the inverse property of \texttt{functionalitySink}, we can infer that
+
+\begin{minted}{turtle}               
+:phone1 :canConnectTo :speaker1 .
+\end{minted}
+
+
+\subsubsection{Discussion}
+
+There are two caveats when using property chains to perform semantic matching. First, \ac{OWL} 2 property chains cannot be built with datatype properties, only object properties, i.e. use \mint{turtle}|ex:device1 ex:hasFunctionality ex:Audio| instead of \mint{turtle}|ex:device1 ex:hasFunctionality "audio"|. This means we cannot infer \mint{turtle}|ex:device1 ex:hasRFIDTag "ABCD123F"|, and we have to use a rule language like \ac{SWRL} or \ac{SPIN}.\marginpar{\ac{SWRL} was used for semantic matching in the second design iteration in Section \ref{SemanticMatching}. \ac{SPIN} was used in the third design iteration, with the implementation described in more detail in Chapter \ref{DeviceCapabilityModelling}.}
+
+The second caveat is that property chains cannot be used for cardinality restrictions. We have only tested this with the Pellet reasoner, and it is possible that other reasoners could allow for this to happen.
+
+\subsubsection{Related}
+
+\begin{itemize}
+	\item The Role pattern
+\end{itemize}
+
+
+
+
+\subsection{Inferring new individuals}
+
+\emph{How can new individuals be created when an existing literal value changes?}
+
+\subsubsection{Context}
+
+Ontology languages like \ac{OWL} are used to classify existing individuals, not create new ones. In some cases we want to insert a new individual when a literal value changes or is inserted. When using only \ac{OWL} and DL-safe rules (e.g. \ac{SWRL}), no new individuals may be inserted, and the work-around is that individuals are pre-populated in the triple store. For example, if \texttt{ex:OnEvent} and \texttt{ex:OffEvent} are pre-populated, you can model that \mint{turtle}|ex:event1 ex:dataValue 1| should infer \mint{turtle}|ex:event1 ex:mappedTo ex:OnEvent|\marginpar{\ac{SWRL} built-in atoms in rule heads \cite{Hebeler2009} present another solution to this problem, but these built-in atoms cannot be handled by reasoners like Pellet, which only supports DL-safe rules.}
+
+\subsubsection{Solution}
+
+A \ac{SPARQL} CONSTRUCT query, defined as a \ac{SPIN} rule, can be used to insert a new individual into the triple store.
+ 
+\subsubsection{Example(s)}
+
+A new individual, representing a media path, can be inferred using:
+
+\begin{minted}[%linenos,
+               %numbersep=5pt,
+               %frame=lines,
+               %framesep=2mm,
+   			   fontsize=\footnotesize]{sparql} 
+CONSTRUCT {
+    ?mp a sc:MediaPath .
+    ?x3 sc:hasMediaPath ?mp .
+    ?mp bonding:mediaSourceSO ?x2 .
+    ?mp bonding:mediaOriginator ?this .
+}
+WHERE {
+    ?this sc:convertsMediaType ?x2 .
+    ?x2 sc:convertsMediaType ?x3 .
+    ?this sc:connectedTo ?x3 .
+    BIND (IRI(fn:concat("example.com/ontology#mediaPath_", afn:localname(?this),
+     "_to_",afn:localname(?x3))) AS ?mp) .
+}
+\end{minted}
+
+In the example, a new \texttt{mediaPath} individual is created if two smart objects are connected to each other and there is a \texttt{mediaSourceSO} (semantic transformer) that converts the media types between them. This could be a media player transmitting music as source, an ambient lighting object that accepts RGB colour values as sink, and a semantic transformer that converts audio streams into RGB lighting information. For more information about media paths and semantic transformers, see \cite{Niezen2011}.
+
+The \texttt{?this} variable indicates to \ac{SPIN} how the definition should be applied to the members of a class, as the rule itself is defined as part of the class definition - thus defining the scope of the query. \texttt{fn:concat} and \texttt{afn:localname} are \ac{SPIN} functions used to concatenate the name of the individual and retrieve the local names of the variables used respectively.
+
+\subsubsection{Discussion}
+
+When a new individual is inserted using a \ac{SPIN} rule, care should be taken in how the name of the individual is generated. If we define the new individual as a blank node, the TopSPIN reasoning engine will not terminate, because a new blank node is defined with each iteration. The same issue arises if we assign a random value as the name. Using a fixed URI is a simpler solution, as shown in the example above.
+
+\subsubsection{Related}
+
+None.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Removing inferred triples}
+
+\emph{How do we remove inferred triples from the triple store when an asserted triple changes?}
+\subsubsection{Context}
+
+Removing inferred triples when an asserted triple changes, or is deleted from the model, can be notoriously difficult. For irreflexive properties, it is possible to use constraint violations to detect them, and then remove them one by one. Unfortunately constraint violation checking is very slow, for example taking 834 ms when the inferencing itself takes only 313 ms\footnote{Based on a model size of 2304 inferred triples}. Creating a \ac{SPIN} rule to clean up irreflexive properties does not work, as the properties get inserted and removed after each iteration of the inference engine. 
+
+\subsubsection{Solution}
+
+Two models are used in the triple store, one for the asserted model and one for the inferred model. The inferred model is cleared before each reasoning iteration.
+
+\subsubsection{Example(s)}
+
+Not applicable.
+
+\subsubsection{Discussion}
+
+According to TopQuadrant\footnote{\texttt{topbraid-users} mailing list discussion}, removing inferred triples based on a triple that was deleted is a tricky use case, requiring a \texttt{BufferingGraph} that is not available in the open source \ac{SPIN} \ac{API}.
+
+\subsubsection{Related}
+
+None.
+ 
+
+
+
+
+\subsection{Inferring subclass relationships using properties}
+
+\emph{Can we infer subclass relationships based on existing properties using OWL?}
+
+\subsubsection{Context}
+Suppose we wanted to use an object property called \texttt{mappedTo} to create a mapping between interaction events, for example \mint{turtle}|SwitchUpEvent mappedTo SwitchOnEvent| This prompts the question: Is it possible to create an \ac{OWL} restriction that says\\
+
+\noindent
+If Class A is related via Property B to Class C, then Class A is a subclass of Class C.\\ 
+
+When modelled in \ac{SPARQL}, it looks like this:
+
+\begin{minted}{sparql}
+CONSTRUCT{
+	?A rdfs:subClassOf ?C
+} WHERE {
+	?A :B ?C
+}
+\end{minted}
+
+\subsubsection{Solution}
+
+Evidently, this could be implemented as a \ac{SPIN} rule, but we would prefer an \ac{OWL}-only solution. It turns out that while it is not possible in \ac{OWL} 2 DL, it is possible in \ac{OWL} 2 RL/RDF Rules (which we are using): \mint{turtle}|:B rdfs:subPropertyOf rdfs:subClassOf|
+
+\subsubsection{Example(s)}
+
+To solve our original problem in the Context, we would define 
+
+\begin{minted}{turtle}
+mappedTo rdfs:subPropertyOf rdfs:subClassOf
+SwitchUpEvent mappedTo SwitchOnEvent
+\end{minted}
+
+which would then infer \mint{turtle}|SwitchUpEvent rdfs:subClassOf SwitchOnEvent|
+
+\subsubsection{Discussion}
+
+This simple but powerful pattern is a good example of meta-modelling.
+
+\subsubsection{Related}
+
+None.
+
+
+
+\subsection{Inferring connections between smart objects and semantic transformers }
+
+\emph{When we use semantic transformers to control devices, how can we infer these connections between the smart objects and the semantic transformer?}
+\subsubsection{Context}
+
 In the sleep use-case, a semantic transformer was implemented in order to generate lighting values for the dimmable lamp to create the desired wakeup experience. During the implementation, several observations and decisions were made:
 
 \begin{itemize}
@@ -115,7 +800,7 @@ In the sleep use-case, a semantic transformer was implemented in order to genera
 \item 	A semantic transformer is \emph{not} a smart object. 
 \end{itemize}
 
-%\subsubsection{Using semantic transformers for control}
+
 When using semantic transformers to control other smart objects, we could make use of the n-ary ontology design pattern, which was also applied to creating media paths in Section \ref{SemanticMatching} on semantic matching: %\marginpar{Ontology design patterns are discussed in more detail in Chapter \ref{OntologyEngineering}.}
 
 \begin{itemize}
@@ -139,11 +824,10 @@ While this is feasible, it is complicated and we would like to use a simpler sol
 	\label{semanticTransformerControl}        
 \end{figure}
 
-Basically, what we are trying to model could be called a ``property intersection'', where\\
 
-\noindent
-\texttt{x P1 y}~$\sqcap$~\texttt{x P2 y}~$\vdash$~\texttt{x P3 y}\\
-%see Q2336 Preventing other individuals in a class from inferring the same property
+
+
+\subsubsection{Solution}
 
 At first glance, it seems like this might be expressed using property chains and local reflexivity, as described in the ontology design pattern in Section \ref{LocalReflexivity}. However, this is a special case which cannot be expressed in \ac{OWL}. It can, however, easily be expressed as a \ac{SPIN} rule as follows:
 
@@ -159,15 +843,120 @@ WHERE {
 }
 \end{minted}
 
+\subsubsection{Example(s)}
+
+If the following triples are asserted:
+
+\begin{minted}{turtle}
+:phone1 a :SmartObject .
+:phone1 :functionalitySource :Alarm .
+
+:lamp1 a :SmartObject .
+:lamp1 :functionalitySink :AdjustLevel .
+
+:wakeup1 a :SemanticTransformer .
+:wakeup1 :functionalitySource :Alarm .
+:wakeup1 :functionalitySink :AdjustLevel .
+
+:phone1 :connectedTo :lamp1 .
+\end{minted}
+
+Using the pattern defined in Section \ref{SemanticMatchingChains}, we infer:
+
+\begin{minted}{turtle}
+:phone1 :canConnectTo :wakeup1 .
+:wakeup1 :canConnectTo :lamp1 .
+\end{minted}
+
+Using this pattern, we infer the following \texttt{connectedTo} relationships:
+
+\begin{minted}{turtle}
+:phone1 :connectedTo :wakeup1 .
+:wakeup1 :connectedTo :lamp1 .
+\end{minted}
+
+\subsubsection{Discussion}
+
+Basically, what we are trying to model could be called a ``property intersection'', where\\
+
+\noindent
+\texttt{x P1 y}~$\sqcap$~\texttt{x P2 y}~$\vdash$~\texttt{x P3 y}\\
+%see Q2336 Preventing other individuals in a class from inferring the same property
+
+
+\subsubsection{Related} 
+
+\begin{itemize}
+	\item N-ary pattern 
+	\item Semantic matching with property chains
+\end{itemize}
+
+
+\section{Discussion}
+
+When applying inference to the physical world, the level of ambiguity and uncertainty is quite high. A system might infer that you are in a room because your RFID badge is in a room. What if you forgot your badge in the office? The challenge is to figure figure out what functions in the smart home are possible with limited inference, which are possible only through inference, and which require an oracle \cite{Edwards2001}. Systems that rely on inference will be wrong some of the time, and users will need to have models to figure out how the system arrives at its conclusions, along with ways to override the system's behaviour.
+
+Sabou \cite{Sabou2010} argues that smart objects will require more sophisticated reasoning mechanisms than what is currently used in the area of sensor networks, which primarily relies on subsumption matching. They expect that smart spaces will rely on rule engines rather than DL reasoners, and that the ambiguities and uncertainties in smart environments will require fuzzy or probabilistic methods.
+
+Throughout the development of the ontology, we tried to avoid rule-based formalisms where possible, to see to what extent we can push the limits of OWL 2's expressive power. Hoekstra and Beuker \cite{Hoekstra2008} noted that to avoid problematic interactions between the two formalisms, it is undesirable to combine them. However, they also accepted that it is sometimes unavoidable, given the real problems that occur with elaborate concepts. 
+
+It is our experience that people commonly underestimate the differences between data modelling and ontology engineering. While some concepts in an ontology can be modelled using \ac{UML} class diagrams or represented using Java objects, there are some fundamental differences. Data modelling does not allow for axiomatisation to specify the semantics of the information, nor is it much concerned with conceptual modelling based on philosophical notions. 
+
+However, much is already gained with using some simple ontology engineering techniques, such as unique identifiers or distinguishing between actors and roles. As James Hendler, one of the authors of the seminal article on the Semantic Web in Scientific American \cite{Berners-Lee2001}, once stated, ``a little semantics goes a long way''.
 
 
 
+% Possible TODO pattern: The CanBe pattern: infers new object property between entities when certain conditions have been fulfilled, e.g. CanBeTransformedTo, canBeConnectedTo
+% To specify an object property as a union of two existing properties, we first need to define a new class that specifies the union, and then specify the object property as part of that class. This is necessary as a property cannot by itself be specified as a union of other properties.
+
+% Possible TODO pattern: Values/Cases Pattern: Using pre-defined individuals to define a range of values/cases, since instances of classes can only be related to other individuals.
+
+% Possible TODO pattern: \subsection{Combining existential and universal restrictions}
+% 
+% It is very unusual \cite{owl tutorial} for a universal restriction (see Table \ref{syntaxTable}) to describe a concept without a corresponding existential restriction. A common design pattern is to combine these restrictions for a given property. TODO examples
 
 
+% Possible TODO pattern: \subsection{Defining the superclass as a constraint}
+% 
+% When defining a class using necessary and sufficient conditions ($ \equiv $) we need to define the superclass as part of the restriction, e.g.
+% TODO example
+% otherwise you consider \emph{all} the individuals with those properties. This was a common cause of an inconsistent ontology during the development of our ontology.
 
-Possible TODO Pushing the boundaries, e.g. with SPIN
-\label{SPIN}
+% Possible TODO pattern: \subsection{Ontology mapping}
+% 
+% \texttt{owl:equivalentProperty} allows us to infer that properties are sub-properties of one another. With this we can map properties between ontologies, e.g. \mint{turtle}|ex1:generatedBy owl:equivalentProperty ex2:launchedBy |
 
+
+% Possible TODO pattern: \subsection{Modelling as string or individual}
+% 
+% A \texttt{sofia:isInState} property was used by the smart object to describe its current state, e.g. \mint{turtle}|PresenceKP1234 sofia:isInState "Present"|. This begs the question: Should states be modelled as strings, or rather as individuals? In the SOFIA pilot, strings was used as they are more flexible, for example:
+% 
+% \begin{minted}{turtle}
+% 	conante:spotlight1 sofia:isInState "projecting" .
+% 	sofia:nflKP1 sofia:isInState "lightingON" .
+% 	sofia:nflKP2 sofia:isInState "lightingOFF"
+% 	sofia:presenceKP1 sofia:isInState "Away" .
+% 	sofia:presenceKP2 sofia:isInState "Present" .
+% \end{minted}
+% 
+% Note that Conante's Spotlight Navigation device used the \emph{absence} of the \texttt{sofia:isInState} property to indicate that it was not projecting.
+
+
+% Possible TODO pattern: \subsection{Selecting URIs for products}
+
+% To uniquely identify each smart object in the scenario, it was necessary that each smart object has its own \ac{URI}. This was non-trivial, as all the partners had to agree on the naming scheme. As all the products were prototypes, they did not already have a product website \ac{URL} that could be used, and it was decided that \emph{hash URI}s would be used. For example, the Spotlight Navigation device was identified as \verb|http://www.conante.com/products/spotlight#spotlight1|.
+
+
+%A \texttt{hasLastEvent} property is only valid for a \texttt{SmartObject}. If we define \mint{turtle}|generatedBy rdfs:range SmartObject|, it will be inferred that e.g. \texttt{wakeup1} is a \texttt{SmartObject}, even if the developer forgot to define it as such.
+
+
+%Possible TODO Pushing the boundaries, e.g. with SPIN
+
+%Possible TODO: QUDT 07/12
+
+%Possible TODO: Music Ontology (15/02 notebook2)
+
+% How can we model an ontology for smart environments that allows developers to specify a smaller amount of information, and then use semantic reasoning to derive the remainder automatically?
 
 
 

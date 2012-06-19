@@ -136,39 +136,40 @@ sc:convertsMediaType
 		 sc:isAcceptedMediaTypeOf) .
 \end{minted}
 
-We realized early on that some kind of rule-based functionality will be required in addition to the functionality provided by an ontology language like OWL 2. Originally we considered using SWRL (Semantic Web Rule Language) \cite{Niezen2011}, but it was deemed not expressive enough. Due to it being a DL (Description Logic)-safe language, it is not possible to create new individuals based on inferences. With SPARQL, this is possible using a CONSTRUCT query, defined as a SPIN rule as shown in Listing \ref{constructspin}.
-
-
-\begin{figure*} % \begin{listing} does not seem to support twocolumn
-% to use sparl lexer, install https://github.com/gniezen/n3pygments	
-\begin{minted}[linenos,
-               numbersep=5pt,
-               %gobble=2,
-               frame=lines,
-               fontsize=\footnotesize,
-               framesep=2mm]{sparql} 
-CONSTRUCT {
-    ?mp a sc:MediaPath .
-    ?x3 sc:hasMediaPath ?mp .
-    ?mp bonding:mediaSourceSO ?x2 .
-    ?mp bonding:mediaOriginator ?this .
-}
-WHERE {
-    ?this sc:convertsMediaType ?x2 .
-    ?x2 sc:convertsMediaType ?x3 .
-    ?this sc:connectedTo ?x3 .
-    BIND (IRI(fn:concat("example.com/ontology#mediaPath_", afn:localname(?this),
-     "_to_",afn:localname(?x3))) AS ?mp) .
-}
-\end{minted} 
-\captionof{listing}{Creating a new individual using SPARQL CONSTRUCT and SPIN} 
-% see http://tex.stackexchange.com/a/12430/8419
-\label{constructspin}
-\end{figure*}
-
-In the example, a new \texttt{mediaPath} individual is created if two smart objects are connected to each other and there is a \texttt{mediaSourceSO} (semantic transformer) that converts the media types between them. This could be a media player transmitting music as source, an ambient lighting object that accepts RGB colour values as sink, and a semantic transformer that converts audio streams into RGB lighting information. For more information about media paths and semantic transformers, see \cite{Niezen2011}.
-
-The \texttt{?this} variable indicates to SPIN how the definition should be applied to the members of a class, as the rule itself is defined as part of the class definition - thus defining the scope of the query. \texttt{fn:concat} and \texttt{afn:localname} are SPIN functions used to concatenate the name of the individual and retrieve the local names of the variables used respectively.
+% (moved to OntologyEngineering)
+% We realized early on that some kind of rule-based functionality will be required in addition to the functionality provided by an ontology language like OWL 2. Originally we considered using SWRL (Semantic Web Rule Language) \cite{Niezen2011}, but it was deemed not expressive enough. Due to it being a DL (Description Logic)-safe language, it is not possible to create new individuals based on inferences. With SPARQL, this is possible using a CONSTRUCT query, defined as a SPIN rule as shown in Listing \ref{constructspin}.
+% 
+% 
+% \begin{figure*} % \begin{listing} does not seem to support twocolumn
+% % to use sparl lexer, install https://github.com/gniezen/n3pygments	
+% \begin{minted}[linenos,
+%                numbersep=5pt,
+%                %gobble=2,
+%                frame=lines,
+%                fontsize=\footnotesize,
+%                framesep=2mm]{sparql} 
+% CONSTRUCT {
+%     ?mp a sc:MediaPath .
+%     ?x3 sc:hasMediaPath ?mp .
+%     ?mp bonding:mediaSourceSO ?x2 .
+%     ?mp bonding:mediaOriginator ?this .
+% }
+% WHERE {
+%     ?this sc:convertsMediaType ?x2 .
+%     ?x2 sc:convertsMediaType ?x3 .
+%     ?this sc:connectedTo ?x3 .
+%     BIND (IRI(fn:concat("example.com/ontology#mediaPath_", afn:localname(?this),
+%      "_to_",afn:localname(?x3))) AS ?mp) .
+% }
+% \end{minted} 
+% \captionof{listing}{Creating a new individual using SPARQL CONSTRUCT and SPIN} 
+% % see http://tex.stackexchange.com/a/12430/8419
+% \label{constructspin}
+% \end{figure*}
+% 
+% In the example, a new \texttt{mediaPath} individual is created if two smart objects are connected to each other and there is a \texttt{mediaSourceSO} (semantic transformer) that converts the media types between them. This could be a media player transmitting music as source, an ambient lighting object that accepts RGB colour values as sink, and a semantic transformer that converts audio streams into RGB lighting information. For more information about media paths and semantic transformers, see \cite{Niezen2011}.
+% 
+% The \texttt{?this} variable indicates to SPIN how the definition should be applied to the members of a class, as the rule itself is defined as part of the class definition - thus defining the scope of the query. \texttt{fn:concat} and \texttt{afn:localname} are SPIN functions used to concatenate the name of the individual and retrieve the local names of the variables used respectively.
 
 % Although SWRL is supported by the Pellet and HeRMiT reasoners, it is not yet standardized and has stayed a W3C Member Submission\footnote{http://www.w3.org/Submission/SWRL/} since 2004. SPARQL is a W3C Recommendation, actively developed and well supported by the Semantic Web community.
 
@@ -292,6 +293,31 @@ The scalability of the system should still be evaluated with larger triple sizes
 
 
 %SeNAmI end
+
+
+\section{Evaluating the ontology}
+
+A variety of methods have been proposed \cite{DAquin2011} to evaluate ontology quality:
+
+\begin{itemize}
+	\item Testing and assessing the formal properties, e.g. using OntoClean (see Section TODO)
+	\item Using ontology design patterns (see Section \ref{DesignPatterns})
+	\item Using unit tests as employed in software engineering
+	\item Using opinions and rating using crowd-sourcing
+	\item Using automatically generated metrics
+\end{itemize}
+
+In the book Beautiful Data \cite{Segaran2009}, the notion of beauty is described as ``a simple and elegant solution to some kind of problem''. In a paper on the notion of beauty when building and and evaluating ontologies, D'Aquin and Gangemi \cite{DAquin2011} argue that the GoodRelations\footnote{http://www.heppnetz.de/projects/goodrelations/} e-commerce ontology could be considered an example of a beautiful ontology. It addresses a complex domain and covers many of the complex situations that can occur in the domain. It is well designed, ontologically consistent, lightweight and used extensively by practitioners in the domain. GoodRelations is an OWL 1 DL ontology that is used by stores to describe products and their prices and features. Companies using the ontology include, Google, BestBuy, Sears, K-Mart and Yahoo.
+
+Hepp \cite{Hepp2007} describes a number of characteristics that can be used to evaluate an ontology:
+
+\begin{itemize}
+	\item Expressiveness: An ontology of higher expressiveness would be richly axiomatised in higher order logic, while a simple vocabulary would be of low expressiveness.
+	\item Size of community: As ontologies are considered community contracts (see Section \ref{CommunityContract}), an ontology targeted towards a large community should be easy to understand, well documented and of a reasonable size.
+	\item Number of conceptual elements: A larger ontology is more difficult to visualise and review. A reasoner could also take a long time to converge when the ontology is very large.
+	\item Degree of subjectivity: This is very much related to the domain of the ontology, where something like religion would be more subjectively judged than engineering.
+	\item Average size of specification per element: The number of axioms or attributes used to describe each concept influences the ontological commitment\label{OntologicalCommitment} that must be made before adopting the ontology. \marginpar{Ontological commitment relates to \emph{premature commitment}, which is described in more detail in Section TODO on the Cognitive Dimensions framework.}
+\end{itemize}
 
 
 
