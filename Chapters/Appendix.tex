@@ -95,5 +95,22 @@ While \texttt{basic\_test.py} is running, \texttt{sib-tcp} remains silent, but \
 Using \texttt{sofia\_release\_1305} from the SOFIA website is also possible by running \verb|python SIB.py X| where X is the name of the smart space. You may then connect to the smart space using the the \texttt{basic\_test.py} program supplied.
 \texttt{explorer.py} is a Qt-based viewer that may be used to view the triples in the triple store.
 
+
+\section{Working with TopBraid Composer}
+
+To prevent the OWL 2 RL classes from showing up in the Classes view your ontology when using TopBraid Composer, use 
+
+\begin{minted}{turtle}
+spin:imports <http://topbraid.org/spin/owlrl-all>
+\end{minted}
+
+to import them instead of \texttt{owl:imports}. This also prevents unusual syntax errors when performing constraint checking. However, it is important to still import the SPIN library using 
+
+\begin{minted}{turtle}
+owl:imports <http://spinrdf.org/spin>
+\end{minted}
+
+instead of \texttt{spin:imports}, otherwise the SPIN rules cannot be resolved properly.
+
 Possible TODO: Device documentation from ~/code/semanticconnections/docs
 Possible TODO: Smart-M3 SIB installation 06/09/10

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Chapters/OntologyEngineering.tex</string>
+	<string>Chapters/RelatedWork.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -52,14 +52,30 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>302</integer>
+				<integer>7</integer>
 				<key>line</key>
-				<integer>98</integer>
+				<integer>242</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>164</integer>
 			<key>firstVisibleLine</key>
-			<integer>89</integer>
+			<integer>235</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>22</integer>
+				<key>line</key>
+				<integer>242</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>7</integer>
+				<key>line</key>
+				<integer>242</integer>
+			</dict>
 		</dict>
 		<key>Chapters/DesignIteration2.tex</key>
 		<dict>
@@ -94,29 +110,29 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>27</integer>
+				<integer>7</integer>
 				<key>line</key>
-				<integer>253</integer>
+				<integer>1</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>233</integer>
+			<integer>0</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>9</integer>
+				<integer>32</integer>
 				<key>line</key>
-				<integer>253</integer>
+				<integer>1</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>27</integer>
+				<integer>7</integer>
 				<key>line</key>
-				<integer>253</integer>
+				<integer>1</integer>
 			</dict>
 		</dict>
 		<key>Chapters/Evaluation.tex</key>
@@ -124,14 +140,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>250</integer>
+				<integer>69</integer>
 				<key>line</key>
-				<integer>309</integer>
+				<integer>322</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>554</integer>
+			<integer>79</integer>
 			<key>firstVisibleLine</key>
-			<integer>287</integer>
+			<integer>311</integer>
 		</dict>
 		<key>Chapters/EventModelling.tex</key>
 		<dict>
@@ -168,58 +184,44 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>17</integer>
+				<integer>19</integer>
 				<key>line</key>
-				<integer>139</integer>
+				<integer>31</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
-			<integer>83</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>128</integer>
+			<integer>26</integer>
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>13</integer>
 				<key>line</key>
-				<integer>139</integer>
+				<integer>31</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>17</integer>
+				<integer>19</integer>
 				<key>line</key>
-				<integer>139</integer>
+				<integer>31</integer>
 			</dict>
-		</dict>
-		<key>Chapters/OntologyEngineering.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>58</integer>
-				<key>line</key>
-				<integer>306</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>289</integer>
 		</dict>
 		<key>Chapters/RelatedWork.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>315</integer>
+				<integer>103</integer>
 				<key>line</key>
-				<integer>74</integer>
+				<integer>561</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>157</integer>
 			<key>firstVisibleLine</key>
-			<integer>477</integer>
+			<integer>545</integer>
 		</dict>
 		<key>Chapters/SemanticConnectionsTheory.tex</key>
 		<dict>
@@ -282,16 +284,12 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>FrontBackmatter/Acronyms.tex</string>
 		<string>ClassicThesis.tex</string>
-		<string>Chapters/OntologyEngineering.tex</string>
-		<string>Chapters/DesignIteration2.tex</string>
-		<string>Chapters/DesignIteration3.tex</string>
-		<string>Chapters/Evaluation.tex</string>
-		<string>Chapters/EventModelling.tex</string>
-		<string>Chapters/DeviceCapabilityModelling.tex</string>
+		<string>Chapters/RelatedWork.tex</string>
 		<string>Chapters/DesignIteration1.tex</string>
+		<string>Chapters/Evaluation.tex</string>
 		<string>Chapters/Introduction.tex</string>
+		<string>Chapters/DeviceCapabilityModelling.tex</string>
 	</array>
 	<key>shellVariables</key>
 	<array>

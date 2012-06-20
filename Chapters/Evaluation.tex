@@ -2,7 +2,7 @@
 \label{Evaluation}
 
 \section{Evaluating the system performance of the software architecture}
-
+\label{performance}
 %SeNAmI start
 \subsection{Related work}
 The two M3-based smart space implementations described in Section \ref{m3} were evaluated by Etel\"aper\"a et al \cite{Etelapera2011}. They performed both a qualitative evaluation and quantitative measurements. The performance measurements were made on a Intel Atom 1.6GHz laptop connected via a 100Mbps Ethernet router to a Intel Pentium M 1.7GHz laptop. The qualitative evaluation focused on documentation, installation process and portability as well as run-time usability. According to \cite{Etelapera2011} RIBS is up to 237 times faster than Smart-M3 in certain instances, but that its memory model limits the number of use cases it can be applied to. RIBS uses static memory allocation (with no disk storage) and a bitcube triple store, which means that the maximum number of triples have to be known a priori.
@@ -176,9 +176,7 @@ sc:convertsMediaType
 We made use of OWL 2 RL/RDF Rules, which is a \emph{semantic} subset of OWL 2 \emph{Full}. This should not be confused with the first part of the OWL 2 RL Profile\footnote{http://www.w3.org/TR/owl-profiles/}, which is a \emph{syntactic} subset of OWL 2 \emph{DL}, and restricted in the type of inferences that can be performed. In practice, most OWL 2 reasoners implement OWL 2 RL/RDF Rules (from here on known as OWL 2 RL). OWL 2 RL addresses a significant subset of OWL 2, including property chains and transitive properties. It is fully specified as a set of rules - in our case, as a set of SPIN rules\footnote{ http://topbraid.org/spin/owlrl-all}. This means that it is even possible to select only the parts of OWL 2 that are required for a specific ontology, to allow for scalable reasoning.
 % Could add info about tractability
 
-\subsubsection{Smart Space Access Protocol}
-
-KPs communicate with the SIB through SSAP (Smart Space Access Protocol) messages \cite{Honkola2010} over TCP/IP. SSAP consists of a number of operations to insert, update and subscribe to information in the SIB. These operations are encoded using XML. During the smart home pilot, all SSAP messages received by the SIB were logged for further analysis.
+During the smart home pilot, all SSAP messages received by the SIB were logged for further analysis.
 
 \subsection{Experimental Results}
 \label{results}
@@ -318,6 +316,267 @@ Hepp \cite{Hepp2007} describes a number of characteristics that can be used to e
 	\item Degree of subjectivity: This is very much related to the domain of the ontology, where something like religion would be more subjectively judged than engineering.
 	\item Average size of specification per element: The number of axioms or attributes used to describe each concept influences the ontological commitment\label{OntologicalCommitment} that must be made before adopting the ontology. \marginpar{Ontological commitment relates to \emph{premature commitment}, which is described in more detail in Section TODO on the Cognitive Dimensions framework.}
 \end{itemize}
+
+
+\section{Validating the work using the Cognitive Dimensions framework}
+\label{CognitiveDimensions}
+
+The Cognitive Dimensions (CD) framework is a broad-brush approach to evaluating the usability of interactive devices and non-interactive notations, e.g. programming languages and APIs. It establishes a vocabulary of terms to describe the structure of an artefact and shows how these terms can be traded off against each other.These terms are (in principle) mutually orthogonal.
+Traditional HCI evaluation techniques focus on 'simple tasks' like deleting a word in a text editor, or trying to determine the time required to perform a certain task. They are not well suited to evaluating programming environments or notational issues. The CD framework has been used to perform usability analyses of visual programming environments \cite{Green1996} as well as APIs \cite{Clarke2004}. \cite{Mavrommati2004} used the framework to evaluate the usability of an editing tool that is used to manage device associations in a home environment.
+
+For our evaluation, we focused on a subset of cognitive dimensions that are related to ubicomp ontologies and systems. What follows is a list of these dimensions, including a short description (where necessary) as well as an example question.
+
+
+\begin{description}
+  \item[Levels of abstraction] 	\label{cdDef}
+	An abstraction is a grouping of elements that is treated as one entity, either for convenience or to change the conceptual structure \cite{Green1996}. \emph{What are the minimum and maximum levels of abstractions?}
+    \item[Closeness of mapping] \emph{How clearly did the available components map onto the problem domain?}
+	\item[Consistency] \emph{When some of the language has been learnt, how much of the rest can be inferred by the developer? Where there were concepts in the ontology that mean similar things, is the similarity clear from the way they appear?}
+	\item[Viscosity] To solve problems of viscosity, usually more abstractions (see earlier definition) are introduced in order to handle a number of components as one group, for example in object-oriented programming \cite{Green1996}. An example of viscosity is where it is necessary to make a global change by hand because the environment used does not have a global update tool. \emph{How much effort was required to make a change to the environment?}
+	\item[Role expressiveness]
+		The dimension of role expressiveness is intended to describe how easy it is determine what a certain part is for. \emph{Are there parts of the ontology that are particularly difficult to interpret?}
+	\item[Hard mental operations] \emph{Are there places where the developer needs to resort to fingers or pencilled annotation to keep track of what is happening? What kind of things required the most mental effort with this system and ontology?}
+	\item[Error-proneness] \emph{Did some kinds of mistakes seem particularly common or easy to make?}
+	\item[Hidden dependencies] \emph{If some parts were closely related to other parts, and changes to one may affect the other, are those dependencies visible? }
+\end{description}
+
+
+ 
+% \subsection{Progressive evaluation}
+% \label{progressive}
+% For novices, it should be easy to check a program fragment before adding to it \cite{Green1996}. A partially-complete program should have the ability to be executed to obtain feedback on whether the developer has implemented new functionality correctly.
+
+
+\section{Related work}
+	Microsoft \cite{Clarke2004} used the CD framework to evaluate API usability, as part of a user-centered design approach to API design. Every API has a set of actions that it performs. However, developers browsing the API might not comprehend all the possible actions that the API offers. In a usability study they asked a group of developers to use an API to perform a set of tasks, and then asked a set of questions for each dimension. For example, for role expressiveness(see Section \ref{cdDef}), the question was posed that when reading code that uses the API, if it was easy to tell what each section of the code does and why.
+
+\section{Evaluating ontologies}
+    
+Every notation highlights some kinds of information at the expense of obscuring other kinds \cite{Green1996}. For example, rule-based languages highlight conditions under which certain actions are taken, while it hides the sequential ordering of these actions. There must also be a cognitive fit between the mental representation and external representation. For example, if your mental representation is in control flow form, a data flow language will be difficult to use. 
+
+
+
+
+\section{Method}
+
+The original Cognitive Dimensions questionnaire \cite{Blackwell2007} was adapted for use with ubicomp ontologies. Non-relevant questions were eliminated and some wording and questions were adjusted to the subject matter, without changing the fundamental meaning of the questions themselves. 
+
+Developers of the SOFIA Smart Home pilot completed the questionnaire, as well as students and developers affiliated to the University of Bologna.
+
+\begin{figure}[bth]
+        \subfloat[Background of correspondents]
+        {\includegraphics[width=.45\linewidth]{background}} \quad
+        \subfloat[Correspondents' experience with software engineering and programming]
+        {\label{experience}%
+         \includegraphics[width=.45\linewidth]{experience}} \\
+        \subfloat[Correspondents' experience with ontologies and semantic technologies]
+        {\includegraphics[width=.45\linewidth]{expOntologies}} \quad
+        
+        \caption{Correspondent demographics}\label{demographics}
+\end{figure}
+
+% \begin{figure}
+%         \includegraphics[width=250px]{background}
+%         \caption{Background of correspondents}
+% 		\label{background}
+% \end{figure}
+% 
+% \begin{figure}[bth]
+%         \includegraphics[width=.45\linewidth]{experience}
+%         \caption{Correspondents' experience with software engineering and programming}
+% 		\label{experience}
+% \end{figure}
+% 
+% 
+% \begin{figure}[bth]
+%         \includegraphics[width=.45\linewidth]{expOntologies}
+%         \caption{Correspondents' experience with ontologies and semantic technologies}
+% 		\label{expOntologies}
+% \end{figure}
+
+\section{Results}
+
+
+\subsection{Levels of abstraction}
+
+\begin{quote}
+	\emph{Were you able to define your own concepts and terms using the system and ontology? Did you make use of different levels of abstraction?} An abstraction is a grouping of elements to be treated as one entity. In the ontology, these are defined as superclasses and subclasses, e.g. PlayEvent is a subclass of MediaPlayerEvent. Please indicate to what extent you made use of different levels of abstraction. If you did not use it, please indicate why.
+\end{quote}
+
+Most developers were able to make use of the existing concepts as defined, where the definition included different abstraction levels. Where necessary, developers were able to define their own concepts using different abstraction levels. Some of the developers used a simple ontology that did not require different levels of abstraction. As the level of knowledge about ontologies differed between different parties working on the same project, this necessitated the simplification of the ontology to a schema without semantics in some cases. Others avoided ontological reasoning altogether by embedding the logic in the KP itself.
+
+
+\subsection{Closeness of mapping}
+\label{resultsCloseness}
+
+\begin{quote}
+	\emph{How clearly did the available components map to the problem domain?}
+	Did you have to define any of your own components, or were any special tricks needed to accomplish specific functionality?
+\end{quote}
+
+
+Most of the developers experienced a clear, consistent mapping, with the domain mapped to already available components. In a few cases, developers developed their own components.
+
+While it was easy to achieve the required functionality, it remains difficult to achieve component re-use. This becomes problematic for achieving emergent intelligent behaviour. 
+It was also stated that more detailed descriptions of device capabilities, for example the coverage area of a presence sensor, are required.
+
+
+\subsection{Consistency}
+
+\begin{quote}
+	\emph{Where there were concepts in the ontology that mean similar things, is the similarity clear from the way they appear?}
+	Are there places where some things ought to be similar, but the ontology defines them differently? Please give examples.
+\end{quote}
+
+Most developers thought that similar entities in the ontology were subclassed correctly. It was indicated that \texttt{owl:sameAs} may be useful to indicate that different terms with the same meaning are in fact the same thing.
+
+Developers not well acquainted with ontologies found it difficult to understand the difference between declaring entities using \texttt{rdfs:subClassOf} and declaring them as \emph{individuals} or instances, as well as how to model an entity that \emph{contains} another entity.
+
+Similar entities were not always instantiated in the same way, for example no state information was available for some smart objects.
+Where multiple domain ontologies with similar concepts were used, these concepts were not aligned - most developers expected some upper (or core) ontology to align and unify main concepts.
+Concepts need a clear textual description and usage examples to make them easier to understand.
+
+\subsection{Viscosity}
+
+\begin{quote}
+	\emph{How much effort was required to make a change to the environment? Why?}
+	How difficult is it to make changes to your program, the ontology or the system? For example, was it necessary to make a global change by hand because no global update tools were available?
+\end{quote}
+
+Although different domains used different terms to define ontological concepts, most developers found it quite easy to make changes for ontological agreement. However, changes to the ontology sometimes necessitated changes at code level. In most cases, it was easier to adapt to changes on a semantic level, as the KP domain boundaries were well defined.
+
+Using ontologies made it easier to allow for definition changes at run-time. Depending on the inferencing method used, changes to the ontology could require some existing inferences to be removed. 
+
+Embedded system developers found changes to be more difficult to implement, as it still required rebuilding images and downloading them to embedded boards for each modification. Some found it difficult to view changes made to the environment, due to a lack of tools to explore the contents of the SIB.
+
+
+\subsection{Role expressiveness}
+
+\begin{quote}
+	\emph{Are there parts of the ontology that are particularly difficult to interpret?}
+	How easy is it to answer the question: 'What is this bit for?' Which parts are difficult to interpret?
+\end{quote}
+
+Most responses indicated that ontology was easy to understand. More clarifying comments inside ontology could be useful - this can be implemented using the \texttt{rdfs:comment} field. Some developers indicated that application ontologies (ontologies that are device-specific) were still hard to interpret. 
+
+Some concepts might be instinctively interpreted differently, but the defined meaning became clear when viewed in context with the rest of the ontology. The ontology provides the structure that is necessary to make sense of the concepts.
+
+
+\subsection{Hard mental operations}
+
+\begin{quote}
+	\emph{What kind of things required the most mental effort with this system and ontology?}
+	Did some things seem especially complex or difficult to work out in your head (e.g. when combining several things)? What are they?
+\end{quote}
+
+Multiple developers indicated that ontologies are not an easy concept to grasp and that common practice is not always clear. Once familiar with ontologies, and understanding the specific ontologies involved, developers thought they were easy to use.  
+
+There is still effort required to make the system adaptive. This issue is also mentioned in Section \ref{resultsCloseness}.
+
+
+\subsection{Error-proneness}
+
+\begin{quote}
+	\emph{Did some kinds of mistakes seem particularly common or easy to make? Which ones?}
+	Did you often find yourself making small slips that irritate you or make you feel stupid? What are some examples?
+\end{quote}
+
+Some developers found it quite easy to mistype strings literals, indicating that it would be better to define entities to represent strings that occur more than once. Mistyping URIs was another common error, as well as mixing up namespaces. Developers not familiar with ontologies also mixed up or misunderstood the differences between URIs and literals.
+
+\subsection{Hidden dependencies}
+
+\begin{quote}
+	\emph{If some parts were closely related to other parts, and changes to one may affect the other, are those dependencies visible?}
+	What kinds of dependencies were hidden? How difficult was it to test the implemented system? Were there hidden faults that were difficult to find?
+\end{quote}
+
+Multiple developers noted that using ontologies made the relationships among entities/parts more visible. 
+
+Changes to the ontology may affect others, therefore versioning and update notification are important. In the system used no errors were raised when components adhered to different versions of the ontology. Broken dependencies were only visible when the overall system failed.
+
+One developer indicated that the publish/subscribe approach followed by the system architecture allowed for minimal dependencies due to loose coupling.
+
+Some developers noted that it was difficult to determine when something did not work. This was especially noticeable in the case of subscriptions, were it becomes really difficult to understand why a certain subscription-based notification was not received.
+
+One developer suggested that an ontology viewer could be used to make dependencies more visible, and that Prot\'eg\'e\footnote{http://protege.stanford.edu} ontology editor is too complex for most users.
+
+
+
+
+
+\subsection{Non-CD related questions}
+
+Some questions in the questionnaire was not directly related to the cognitive dimensions, but were meant to elicit more general responses to the usability of the ontologies and system.
+
+\subsubsection{What obstacles made it difficult to use the system?}
+
+This question was based on a survey done by \cite{Robillard2009} to determine aspects that make APIs hard to learn. The question was phrased as follows:
+
+\begin{quote}
+\emph{What obstacles made it difficult for you to use the system? }Obstacles can have to do with the system itself, with your background, with learning resources etc. List the three most important obstacles, in order of importance (1 being the biggest obstacle). Please be more specific than the general categories mentioned here.
+\end{quote}
+
+Responses included:
+
+\begin{itemize}
+	\item Lack of background in ontologies
+	\item Poor documentation
+	\item Insufficient code examples
+	\item SSAP poorly documented
+	\item Difficult setup and installation procedure
+	\item Lack of proper tools for viewing and exploring contents of SIB
+	\item Reliability of subscription mechanism, especially on wireless networks
+	\item QNames not supported on all platforms, requiring full URI to be specified
+	\item Ontology agreement
+	\item Stability, performance, network issues
+\end{itemize}
+
+
+
+
+\subsubsection{What did you appreciate most about the system and ontology?}
+
+\begin{itemize}
+	\item Decoupling of interaction between components (i.e. all communication through broker, but could be single point of failure)
+	\item Semantic interoperability between different devices, manufacturers and architectures
+	\item Easy and quick to define new applications based on ontologies (after training)
+	\item Using semantic connections to connect devices
+	\item Ontology usable in different domains and more complex scenarios
+	\item Ability to react to context changes through subscriptions
+\end{itemize}
+
+
+\begin{quote}
+Once you have agreed on the ontologies and the KP's functionalities, you can focus on handling the various subscriptions and inserting the necessary triples. One does not have to focus on the communication protocols used or on the communication with the other components themselves.
+\end{quote}
+
+\subsubsection{Can you think of ways the design of the system and ontology can be improved?}
+\begin{itemize}
+
+	\item SIB discovery
+	\item Agreement on ontological concepts to be used by a technical group
+	\item Tools for ontology design (currently external tools are required)
+	\item Better documentation
+	\item Self-description of UI concepts and component functionality 
+	\item Hierarchic Smart Spaces
+	\item Locality/routing/separation of message buses
+	\item Authentication/security/locking
+	\item Forcing a programming paradigm like OOP influences semantic treatment
+	\item How to handle faulty smart objects
+\end{itemize}
+
+
+\section{Discussion}
+
+Ontologies allow developers to create additional levels of abstraction when the existing abstractions are not sufficient. The bigger issue seems to be unfamiliarity with ontologies, with some developers going so far as to embed all logic in the code itself (in order to avoid using ontologies).
+
+For the ontologies we defined, there seems to be clear mapping between objects in the domain and the ontological entities that they are mapped to. Adding additional components where necessary did not present any problems. One area that needs more attention is the extending the level of detail for device capability descriptions. Keep in mind, however, that too many low-level primitives create a cognitive barrier to programming \cite{Green1996}. It is not easy to deal with entities in the program domain that do not have corresponding entities in the problem domain. For example, having many ways to describe a presence sensor, when only one or two of these are relevant to the problem domain, makes it more difficult for the developer to comprehend.
+
+When creating an ontology, it is important to provide clear textual descriptions, clarifying comments and usage examples for concepts to make them easier to understand. The GoodRelations\footnote{http://purl.org/goodrelations/v1} e-commerce ontology is a good example of how this can be achieved.
+
+Tools to explore the contents of the triple store more efficiently could decrease viscosity, as it would simplify viewing changes made to the environment and make dependencies more visible. Existing ontology viewers are still considered complex to use, usually only by ontology experts. Tools to automatically detect namespaces and prevent mistyping of URIs and strings used in the ontology would also be very useful.
+
+There is still effort required to make the system adaptive in order to achieve emerging behavior. There is not enough component re-use, which may be due to lack of knowledge of existing components and their behavior. Existing components should be easy to repurpose and shared behavior must be properly documented. 
 
 
 
