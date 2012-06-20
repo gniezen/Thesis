@@ -8,26 +8,31 @@ activities that enrich the users' experiences. } \\ \medskip
 	    --- Ben Shneiderman
 	\end{flushright}
 
-In the field of ubiquitous computing there are a substantial number of past and current projects and relevant software frameworks that exist, most of them in the area of context-aware computing. In the following sections we will focus on those projects that are the closest in scope to the issues that are addressed by the work described in this thesis:
+In this chapter we describe related work. The work can be related in several ways, depending on which aspect of the work is considered. Therefore the chapter is subdivided into five sections, each devoted to one aspect. These are Related projects and frameworks (Section \ref{RelatedProjects}), Ubicomp ontologies (Section \ref{UbicompOntologies}), Interaction models (Section \ref{InteractionModels}), Task models (Sections \ref{interactionTasks}) and Semantic models (Section \ref{interactionFrogger}).
 
-\begin{itemize}
-	\item Multi-device user interaction
-	\item Configuring connections between devices
-	\item Sharing information between devices
-	\item Using one device to control another
-	\item Serendipitous interoperability
-\end{itemize}
 
-The rest of the chapter will introduce ontologies considered to be state-of-the-art  in ubiquitous computing, as well as related interaction models, task models and semantic models.
+
+
 
 
 \section{Related projects and frameworks}
-
+\label{RelatedProjects}
 % Possible TODO Amigo, Embassi
 % 
 % \subsection{Amigo}
 % 
 % The Amigo project\footnote{http://www.hitech-projects.com/euprojects/amigo/} is a European project that ran from 2005 to 2008. 
+
+In the field of ubiquitous computing there are a substantial number of past and current projects and relevant software frameworks that exist, most of them in the area of context-aware computing. In the following sections we will focus on those projects that are the closest in scope to the issues that are addressed by the work described in this thesis:
+
+\begin{itemize}
+	\item Serendipitous interoperability, as addressed by the \emph{recombinant computing} approach of the SpeakEasy project
+	\item Sharing information between devices, as addressed by the Event\-Heap shared event system and its tuple space protocol
+	\item Using one device to control another, as addressed by the \emph{opportunistic assemblies} of the the XWeb architecture
+	\item Multi-device user interaction, as addressed by the \emph{Media Cubes} of the AutoHAN project
+	\item Configuring connections between devices, as addressed by the \emph{plug-synapse model} of the e-Gadgets project
+\end{itemize}
+
 
 
 \subsection{SpeakEasy}
@@ -44,13 +49,15 @@ We cannot expect all devices to have a priori knowledge of all the other devices
 % \item Predictions of likely outcomes from interaction
 % \end{itemize}
 
-Newman et al \cite{Newman2002} developed an approach which they named \emph{recombinant computing}, used in the SpeakEasy project at Xerox PARC. With this approach components are designed with the thought that they may be used in multiple ways, under different circumstances and for different purposes. Components expose \emph{recombinant interfaces} that are simple, domain-independent programmatic interfaces governing how components can interoperate with one another.
+This line of thinking was a starting point for Newman et al \cite{Newman2002}, who developed an approach which they named \emph{recombinant computing}, used in the SpeakEasy project at Xerox PARC. With this approach components are designed with the thought that they may be used in multiple ways, under different circumstances and for different purposes. Components expose \emph{recombinant interfaces} that are simple, domain-independent programmatic interfaces governing how components can interoperate with one another.
 % End TiiS
 
 \label{InformationFiltering} % this part on information filtering was on Notational Velocity
 The SpeakEasy project focused on what users might be trying to accomplish in a specific situation when connecting entities to one another. Possible examples include connecting devices in order to give a presentation, or in order to send contact information. They created templates of common tasks that contained a partially specified set of connections and entities, which could be fully specified and instantiated by users at run-time. An instantiated template was then added to a list of current tasks. It was noted that templates impose a layer of semantics on top of the raw infrastructure. Templates assisted users by constraining the available component choices to only those that were appropriate for the task at hand.
 
-The SpeakEasy environment consisted of a web application that allows users to browse for components, which can be viewed and organised in different ways, for example grouped by location or owner.
+The SpeakEasy environment consisted of a web application that allows users to browse for components, which can be viewed and organised in different ways, for example grouped by location or owner.\marginpar{The e-Gadgets project in Section \ref{egadgets} also made use of a web application to configure components.}
+
+What can be learned from the SpeakEasy project is the importance of describing the interfaces of components, such that they can be combined with other components. These interface descriptions help to enable serendipitous interoperability, and described in more detail in Chapter \ref{DeviceCapabilityModelling}. 
 
 
 \subsection{EventHeap}
@@ -78,7 +85,7 @@ Patch Panel \cite{Ballagas2004} is a mechanism in the iStuff toolkit that tries 
 
 
 \subsection{The XWeb architecture}
-The goal of the XWeb architecture \cite{Olsen2001} is to allow for \emph{opportunistic assemblies} of interactive resources in order to accomplish a particular task. Olsen et al recognised that both a interactive model for acquiring and using the interaction resources, as well as a underlying infrastructure is needed. In their model, each interaction resource resolves user intent independently, instead of merging inputs from a variety of modalities.
+The goal of the XWeb architecture \cite{Olsen2001} is to allow for \emph{opportunistic assemblies} of interactive resources in order to accomplish a particular task. Olsen et al recognised that both an interactive model for acquiring and using the interaction resources, as well as an underlying infrastructure is needed. In their model, each interaction resource resolves user intent independently, instead of merging inputs from a variety of modalities.
 
 A client-server architecture was used to create the infrastructure, with \ac{XML} objects used to model resources and services. Tasks were defined using a two-part \ac{URL} in the form \texttt{dataReference::viewReference}, where the \emph{view} is an abstract definition of a particular interaction. These views are defined as a tree of \emph{interactors}, where the data and the view of the current task as well as the path of the interactor is used to characterise the current state of the device.
 
@@ -123,7 +130,7 @@ Blackwell distinguishes between two different abstractions that users have to co
 
 \marginpar{The representations of AutoHAN's abstractions are notational systems, validated by the Cognitive Dimensions framework discussed in more detail in Section \ref{CognitiveDimensions}.}
 
-Within the AutoHAN project the \emph{Media Cubes} language was created --- a tangible representation of an abstract situation. Each cube has a button for input, and a LED and piezo-electric transducer for feedback. Cubes communicate with the AutoHAN network via infrared ports, and use induction coils on four faces of the cube to detect proximity to other cubes. By holding one face of a cube against an appliance, the cube can be \emph{associated} with some function of that appliance. Each individual cube is regarded by the user as a direct manipulation interface to some appliance function, where many different devices may implement this function. This is in contrast to a remote control, that is dedicated to a single appliance but provides access to many different functions. 
+Within the AutoHAN project the \emph{Media Cubes} language was created --- a tangible representation of an abstract situation. Each cube has a button for input, and a LED and piezo-electric transducer for feedback. Cubes communicate with the AutoHAN network via infrared ports, and use induction coils on four faces of the cube to detect proximity to other cubes. By holding one face of a cube against an appliance, the cube can be \emph{associated} with some function of that appliance. Each individual cube is regarded by the user as a direct manipulation interface to some appliance function, where many different devices may implement this function. This is in contrast to a remote control, that is dedicated to a single appliance but provides access to many different functions.\marginpar{The cubes of the AutoHAN project can be viewed as a forerunner to the cubes used with our Interaction Tile (described in Section \ref{InteractionTile}), except that the AutoHAN cubes represent tasks, whereas the Interaction Tile cubes represent devices.} 
 
 Each cube has a unique identifier, and each face of the cube can also be identified. This means that a combination of cubes and neighbouring faces can be used as a type of programming language. Cubes may also be associated with virtual devices: software components running somewhere on the network. The user regards these virtual devices to be the same as physical appliances that are placed in the broom cupboard, like a network router or home server.
 
@@ -150,6 +157,7 @@ In the linguistic paradigm, cubes represent words in a language, for example a s
 
 
 \subsection{e-Gadgets}
+\label{egadgets}
 
 The e-Gadgets\footnote{http://extrovert-gadgets.net/} project was a European project within the Disappearing Computer initiative. An architectural style, called \ac{GAS}, was developed for devices to communicate with one another. To evaluate \ac{GAS}, a supporting infrastructure and computationally enhanced artefacts, called e-Gadgets, were created.
 
@@ -175,8 +183,10 @@ Synapses and plugs are viewed and modified using an \ac{GUI} editor. A concept e
 
 They also noted that the possibility to combine the functionality of devices opens up possibilities for emergent behaviour, where the emergence results from how the devices are actually used. 
 
-\section{Ubicomp ontologies}
+The rest of the chapter will introduce ontologies considered to be state-of-the-art  in ubiquitous computing, as well as related interaction models, task models and semantic models.
 
+\section{Ubicomp ontologies}
+\label{UbicompOntologies}
 In this section we will look at the various ubicomp ontologies that have been developed for context-aware computing. The ontologies described later in this thesis builds upon this existing work, but with a stronger focus on interaction-related aspects. 
  
 %We also hope to use the low-level events and command currently implemented in the system to automatically infer higher-level tasks and goals, with the final step being able to model the user's (and/or agent's) intentions using an ontology.
@@ -235,7 +245,9 @@ Ngo et al. \cite{Ngo2004} developed the \ac{CAMUS} ontology in \ac{OWL} to suppo
 
 One of the major goals of context-aware computing is to provide services that are appropriate for a person at a particular place, time, situation etc. In \ac{CAMUS}, context entities and contextual information are described in the ontology \cite{Ngo2004}. For the entities related to agents, there is a top level concept called \texttt{Agent}. It has been further subclassed into \texttt{SoftwareAgent}, \texttt{Person}, \texttt{Organization}, and \texttt{Group}. Each \texttt{Agent} has a property \texttt{hasProfile} associated with it, whose range is \texttt{AgentProfile}. An \texttt{Agent} is also related through the \texttt{isActorOf} relationship to an \texttt{Activity}. %The Device ontology is based the the FIPA device ontology specification, with every \texttt{Device} having the properties of \texttt{hasHWProfile}, \texttt{hasOwner}, \texttt{hasService} and \texttt{hasProductInfo}.
 
-There are some conceptual modelling issues with \ac{CAMUS}, for example having organisations and groups being direct subclasses of the \texttt{Agent} class.\marginpar{For examples of clear, conceptual modelling in ontologies, see Section \ref{ClearConceptualModelling}.} Another issue that is not addressed by \ac{CAMUS} is how to model user interaction, which is the focus of the next section.
+% There are some conceptual modelling issues with \ac{CAMUS}, for example having organisations and groups being direct subclasses of the \texttt{Agent} class.\marginpar{For examples of clear, conceptual modelling in ontologies, see Section \ref{ClearConceptualModelling}.}
+
+An issue that is not addressed by \ac{CAMUS} or the other ontologies is how to model user interaction, which is the focus of the next section.
 
 %However, it makes sense to distinguish between software agents and persons, and also to link a profile to each one. %The BDI model may form part of the user/agent's profile.
 
@@ -274,7 +286,6 @@ There are some conceptual modelling issues with \ac{CAMUS}, for example having o
 %begin TiiS
 
 A user interface software architecture, also known as a \ac{UIMS}, creates a separation of concerns between the user interface and the implementation of a software application or system. Of these, the \ac{MVC} model is currently the most used, and inspired Ullmer \& Ishii's \cite{Ullmer2000} \ac{MCRpd} interaction model for tangible user interfaces. Other UI software architectures include the Arch model \cite{Bass1992}, Nielsen's virtual protocol model \cite{Nielsen1986} and Foley's linguistic model \cite{Foley1996}.
-\label{mcrpd}	
 	An interaction can be described in several layers. Norman \cite{Norman1998} describes an interaction using seven layers:
 
 \begin{enumerate}	
@@ -290,6 +301,31 @@ A user interface software architecture, also known as a \ac{UIMS}, creates a sep
 %	 A user with a specific goal and intention formulates a task and subtasks. These actions are then carried out (with feedback) on the physical level, after which the result is evaluated. An action is usually initiated in order to achieve some higher order goal or intention, which has to be prepared and verbalised and finally presented and articulated through physical actions and utterances \cite{Bongers2007}. 
 
 In the interaction models described below, these layers are described using different levels. 
+
+
+\subsection{Ullmer \& Ishii's MCRpd model}
+
+\begin{figure}
+	\centering
+	\centerline{\includegraphics[width=300px]{mcrpd}}
+	\caption{The MCRpd model of Ullmer \& Ishii for \acp{TUI}}
+	\label{mcrpd}
+\end{figure}
+
+\acp{TUI} in general attempt to use the physical appearance of an object to communicate its virtual affordances \cite{Bellotti2002}. A user working with a \ac{GUI} only manipulates virtual objects, whereas \acp{TUI} allow the user to manipulate both physical and virtual objects, which coexist and share information with each other \cite{Shaer2004}. In a \ac{TUI}, the behaviour of a physical object is determined by the object's interactions with other physical and virtual objects - this is also the case in a smart environment.
+
+Ullmer and Ishii \cite{Ullmer2000} extended the traditional \ac{MVC} model for \acp{TUI}, as shown in Figure \ref{mcrpd}. They distinguish between the physical and digital domains by placing the physical domain above the waterline, and the digital domain below the waterline. The model element is carried over from the \ac{MVC} model and represents the intangible digital information. The control element is also carried over from the \ac{MVC} model, while the view element is split into two subcomponents: 
+
+\begin{itemize}
+	\item Physical representations (Rep-p) -- represents the physically embodied elements of tangible interfaces
+	\item Digital representations (Rep-d) -- represents the computationally mediated components of tangible interfaces without embodied form, for example video and audio, that can be observed in the physical world  
+\end{itemize}
+
+\marginpar{The interaction model introduced in Section \ref{InteractionModel} was inspired by the \ac{MCRpd} model.}
+
+In a tangible interface, the physical representations (Rep-p) are computationally coupled to the underlying digital information (model), as well as perceptually coupled to the computationally mediated digital representations (Rep-d). 
+
+
 	
 	
 \subsection{Foley's linguistic model}
@@ -310,13 +346,13 @@ In the interaction models described below, these layers are described using diff
 	
 \subsubsection{Arch/Slinky model}
 	
-	Bass et al \cite{Bass1992} contends that no single software architecture will satisfy all the design goals of an interactive system. With the Arch/Slinky model the buffering of a system from changes in technology was selected as the most important criteria. Here are some of the other design criteria they defined, which we consider to be especially important to ubiquitous computing systems:
+	Bass et al \cite{Bass1992} contend that no single software architecture will satisfy all the design goals of an interactive system. With the Arch/Slinky model the buffering of a system from changes in technology was selected as the most important criterium. Here are some of the other design criteria they defined, which we consider to be especially important to ubiquitous computing systems:
 	
 	\begin{itemize}
 		\item target system performance (e.g. size and speed)
 		\item 	buffering from changes in application domain and hardware platform
 		\item 	conceptual simplicity
-		\item 	complexity of specification
+		%\item 	complexity of specification
 		\item 	target system extensibility
 		\item 	compatibility with other systems
 	\end{itemize}
@@ -337,7 +373,7 @@ The separation of functionality into the different components was done to minimi
 
 \subsubsection{Nielsen's virtual protocol model}
 \label{nielsenVPM}
-Nielsen's virtual protocol model for human-computer interaction \cite{Nielsen1986} was inspired by the 7-layer OSI model for computer networks, as shown in Table \ref{VirtualProtocolModel}. The task layer deals with general computer-related concepts that are representations of the real world concepts from level 7, that may have to be realised by a sequence of operations from level 5. \emph{Level 5 handles the meaning of the interaction, where there are a finite number of concepts in the system and each have an exact definition}. The lexical tokens on level 4 (``DELETE 27'') realises the semantic command ``remove a specific line''. Lexemes are information-carrying units that do not have any meaning by themselves. Screen layout could be considered a two-dimensional syntax that can also be defined in terms of lexical tokens. Direct manipulation \cite{Shneiderman1997} could be seen as using the syntax level to mirror the semantic level.
+Nielsen's virtual protocol model for human-computer interaction \cite{Nielsen1986} was inspired by the 7-layer OSI model for computer networks, as shown in Table \ref{VirtualProtocolModel}. The task layer deals with general computer-related concepts that are representations of the real world concepts from level 7, that may have to be realised by a sequence of operations from level 5. Level 5 handles the meaning of the interaction, where there are a finite number of concepts in the system and each have an exact definition. The lexical tokens on level 4 (``DELETE 27'') realises the semantic command ``remove a specific line''. Lexemes are information-carrying units that do not have any meaning by themselves. Screen layout could be considered a two-dimensional syntax that can also be defined in terms of lexical tokens. Direct manipulation \cite{Shneiderman1997} could be seen as using the syntax level to mirror the semantic level.
 
 Nielsen compared his model to Foley's model and Buxton's extended version, as well as an earlier model by Moran called \ac{CLG} that consisted of six levels: task level, semantic level, syntactic level, interaction level and device level \cite{Nielsen1986}. He noticed that all models seem to agree on the visible (defining the form) part of the communication, as well as the invisible part (defining the meaning). Nielsen noted that Foley's model does not include the real-world concepts of his goal level, or the hardware-related detail of his physical level.
 
@@ -374,11 +410,9 @@ According to Nielsen the purpose of his model is to improve the usability of sof
 
 Both components and relationships may have characteristics. For components, this includes the location where the information is perceived (e.g. top of table) and action/sense required from the user (e.g. sight, touch or physical action). For relationships, characteristics include the dimensionality of the information (e.g. 2D or 3D) and the type of language used (e.g. text or graphics).
 
-A sequence of such entities and their relationships in an interaction forms an \emph{interaction path}. The interaction exchange or action between elements in the path is conducted via one or more \emph{interaction channels} along which information or action is communicated. An interaction channel may be described in terms of its properties, either physical or digital depending on the channel, e.g. a digital channel may be described in terms of bandwidth, uptime and the nature of the connection.
+A sequence of such entities and their relationships in an interaction forms an \emph{interaction path}. The interaction exchange or action between elements in the path is conducted via one or more \emph{interaction channels} along which information or action is communicated. An interaction channel may be described in terms of its properties, either physical or digital depending on the channel, e.g. a digital channel may be described in terms of bandwidth, uptime and the nature of the connection. Adaptors are used transform information from the physical environment to the digital world and vice versa. An accelerometer for example may be modelled as a separate device, but if integrated into smart phones it can be abstracted away as part of an interaction path. 
 
-Adaptors perform a transform information from the physical environment to the digital world and vice versa. An accelerometer for example may be modelled as a separate device, but if integrated into smart phones they can be abstracted away as part of an interaction path. 
-
-Interaction carriers are mediating entities that are necessary for information communication. Passive carriers can carry and store part of the information communicated along an interaction path, e.g. a tangible object left in a particular position. Active carriers are transmitter of non-persistent information along the interaction path, e.g. a stylus used to transmit a precise position on a touch screen. Contextual entities are physical entities involved in an interaction (e.g. a table), and are also considered mediating entities.
+Interaction carriers are mediating entities that are necessary for information communication. Passive carriers can carry and store part of the information communicated along an interaction path, e.g. a tangible object left in a particular position. Active carriers are transmitters of non-persistent information along the interaction path, e.g. a stylus used to transmit a precise position on a touch screen. Contextual entities are physical entities involved in an interaction (e.g. a table), and are also considered mediating entities.
 
 The intended user model refers to what the user should know about the interaction in order to carry it out successfully. It may refer to one atomic interaction path (e.g. a channel, source and destination), or it may refer to more complex paths. 
 
@@ -397,46 +431,48 @@ An interaction group refers to a set of entities and channels that together have
 
 \end{itemize}
 
-Dubois and Gray \cite{Dubois2008} consider their interaction model similar to that of Coutrix et al \cite{Coutrix2006} (described in section \ref{mixedreality}), in the sense that both combine the physical and digital dimensions of the interaction. 
+An advantage of the \ac{ASUR} interaction model is that it combines both the physical and digital dimensions of user-system interaction.
 
-\subsubsection{The Mixed Reality interaction model}
-\label{mixedreality}
-
-An interaction model aims at providing a framework for guiding designers to create interactive systems \cite{Coutrix2006}, characterised by their:
-
-\begin{itemize}
-\item descriptive/classification power: describes existing interfaces and classifies them
-
-\item generative power: helps designers create new designs
-
-\item comparative power: helps to assess multiple design alternatives
-
-\end{itemize}
-
-Given that \emph{d} is a physical device that acquires or delivers information, and \emph{l} is an interaction language that defines a set of well-formed expressions that convey meaning, a modality \emph{m} is a pair \emph{(d,l)}. Modalities that define the link between digital and physical properties are known as \emph{linking modalities}, and modalities used by the user to interact with the mixed environment are known as \emph{interaction modalities}.
-
-\begin{itemize}
-\item An input linking modality ($d_o^i, l_o^i$) is responsible for
-
-\begin{enumerate}
-\item acquiring a subset of \emph{physical properties}, using a $d_o^i$ device (object input device)
-
-\item interpreting these \emph{acquired physical data} in terms of \emph{digital properties}, using a language $l_o^i$ (object input language)
-
-\end{enumerate}
-
-\item An output linking modality is in charge of
-
-\begin{enumerate}
-\item generating data based on the set of \emph{digital properties}, using a language $l_o^o$ (object output language),
-
-\item translating these \emph{generated physical data} into perceivable \emph{physical properties} thanks to a device $d_o^o$ (object output device).
-
-\end{enumerate}
-
-\end{itemize}
-
-An interaction language $l_i^i$ translates the digital properties of a mixed tool into elementary task to be performed (e.g. collect select puzzle piece). Using the linking modalities, different modalities may be generated to describe the mixed tool.
+% Dubois and Gray \cite{Dubois2008} consider their interaction model similar to that of Coutrix et al \cite{Coutrix2006} (described in section \ref{mixedreality}), in the sense that both combine the physical and digital dimensions of the interaction. 
+% 
+% \subsubsection{The Mixed Reality interaction model}
+% \label{mixedreality}
+% 
+% An interaction model aims at providing a framework for guiding designers to create interactive systems \cite{Coutrix2006}, characterised by their:
+% 
+% \begin{itemize}
+% \item descriptive/classification power: describes existing interfaces and classifies them
+% 
+% \item generative power: helps designers create new designs
+% 
+% \item comparative power: helps to assess multiple design alternatives
+% 
+% \end{itemize}
+% 
+% Given that \emph{d} is a physical device that acquires or delivers information, and \emph{l} is an interaction language that defines a set of well-formed expressions that convey meaning, a modality \emph{m} is a pair \emph{(d,l)}. Modalities that define the link between digital and physical properties are known as \emph{linking modalities}, and modalities used by the user to interact with the mixed environment are known as \emph{interaction modalities}.
+% 
+% \begin{itemize}
+% \item An input linking modality ($d_o^i, l_o^i$) is responsible for
+% 
+% \begin{enumerate}
+% \item acquiring a subset of \emph{physical properties}, using a $d_o^i$ device (object input device)
+% 
+% \item interpreting these \emph{acquired physical data} in terms of \emph{digital properties}, using a language $l_o^i$ (object input language)
+% 
+% \end{enumerate}
+% 
+% \item An output linking modality is in charge of
+% 
+% \begin{enumerate}
+% \item generating data based on the set of \emph{digital properties}, using a language $l_o^o$ (object output language),
+% 
+% \item translating these \emph{generated physical data} into perceivable \emph{physical properties} thanks to a device $d_o^o$ (object output device).
+% 
+% \end{enumerate}
+% 
+% \end{itemize}
+% 
+% An interaction language $l_i^i$ translates the digital properties of a mixed tool into elementary task to be performed (e.g. collect select puzzle piece). Using the linking modalities, different modalities may be generated to describe the mixed tool.
 
 	
 \section{Task models}
@@ -476,11 +512,11 @@ An interaction language $l_i^i$ translates the digital properties of a mixed too
 	
 	Some characteristics of the physical interaction devices are not shown in the table.  The positioning of tablets and touch panels are \emph{absolute}, while that of trackballs, joysticks and mice are \emph{relative}. A touch panel is considered \textit{direct}, as the user directly points at the screen, while a tablet is \textit{indirect}. Joysticks, tablets and mice are \emph{continuous}, while a keyboard is \emph{discrete}. Dials can either be \emph{bounded} or \emph{unbounded}.
 	
-	The \emph{positioning} interaction task involves specifying an (x,y) or (x,y,z) position. Characteristics of this task include different coordinate systems, resolution and spatial feedback. The \emph{select} interaction task involves choosing an element from a choice set, while the \emph{text} interaction task entails entering character strings to which the system does not assign specific meaning. The \emph{quantify} interaction task involves specifying a numeric value between some minimum and maximum value. The \emph{path} interaction task consists of a number of positions over a specific time or distance interval. The \emph{orient} interaction task is also called \emph{rotate}, but is not often used \cite{DeRuiter1988}.
+	The \emph{positioning} interaction task involves specifying an (x,y) or (x,y,z) position. Characteristics of this task include different coordinate systems, resolution and spatial feedback. The \emph{select} interaction task involves choosing an element from a choice set, while the \emph{text} interaction task entails entering character strings to which the system does not assign specific meaning. The \emph{quantify} interaction task involves specifying a numeric value between some minimum and maximum value. The \emph{path} interaction task consists of specifying a number of positions over a specific time or distance interval. The \emph{orient} interaction task is also called \emph{rotate}, but is not often used \cite{DeRuiter1988}.
 	
 	Card et al \cite{Card1991} argued that the Foley taxonomy has not tried to define a notion of completeness, and is thus not generic enough. They pointed out that single devices appear many times in the levels of the tree, which makes it difficult to understand the similarities among devices. MacKinlay, Card and Robertson \cite{MacKinlay1990} extended Buxton's work to propose additional physical properties that underly most devices. They follow mappings from the raw physical transducers of an input device into the semantics of the application.
 	
-	Dix et al \cite{Dix2008} noted that Card et al's analysis are not only relevant to GUIs, as they used a running example of a radio with knobs and dials. Their work not only abstracts devices into classes, but also takes into account that rotating a dial is different from moving a slider, i.e. the physical nature of the interaction is also important.
+	Dix et al \cite{Dix2008} noted that Card et al's analysis is not only relevant to GUIs, as they used a running example of a radio with knobs and dials. Their work not only abstracts devices into classes, but also takes into account that rotating a dial is different from moving a slider, i.e. the physical nature of the interaction is also important.
 	
 	
 	 Ballagas et al \cite{Ballagas2006} surveyed interaction techniques that use mobile phones as input devices to ubiquitous computing environments, and used Foley's six interaction tasks as a framework for their analysis. In their work on iStuff \cite{Ballagas2003} they state that the set of interactions tasks are only sufficient for describing graphical user interfaces, not physical user interfaces, or user interfaces in general. The same paper notes that Buxton's taxonomy, and the extension by MacKinlay, Card and Robertson, is too narrow for ubiquitous computing environments, as it does not classify devices with different modalities and only describes input devices. They extended the taxonomy further to describe attributes like direction and modality. The direction attribute is used to indicate whether a device provides input, output or both. The modality attribute describes different visual, auditory haptic and manual modalities for input and output. Additional attributes they identified include directionality/scope (where a device is targeted to one, many, or all the users in a room) and mount time (the effort necessary to use an interaction device).
@@ -497,7 +533,7 @@ An interaction language $l_i^i$ translates the digital properties of a mixed too
 
 	In \cite{VanWelie1998} it is suggested that task models should be based on an ontology that describes the relevant concepts and the relationships between them, independently of any used graphical representations. This also allows for different visualisations of the same task model. Task decomposition is the most common ingredient of task models. This creates a task tree or hierarchy that can easily be modelled by an ontology. The most important purpose of a task is that it changes something, otherwise it has no reason for existing.
 
-	Van Welie et al \cite{VanWelie1998} state that task models should be able to represent the psychological, social, environmental and situational aspects of agents and their tasks. This is why we consider runtime task models a good fit for the \ac{BDI} model used for constructing intelligent agents.
+\marginpar{Van Welie et al \cite{VanWelie1998} state that task models should be able to represent the psychological, social, environmental and situational aspects of agents and their tasks. This is why we consider runtime task models a good fit for the \ac{BDI} model used for constructing intelligent agents.}
 	
 	
 
@@ -516,7 +552,7 @@ While feedback is information that occurs after or during the interaction, feedf
 \subsection{Models of intentionality}
 \label{intentionalSpectrum}
 	
-	At the semantic level, we are interested in the meaning of the action. A gesture may mean nothing, until it encounters for instance light switch \cite{Bongers2007}. In traditional software applications, a user is expected to have a clear intention of what he/she wants to achieve, with purposeful and direct actions. In ubiquitous computing scenarios, the interactions are less explicit. Input is implicit, sensor-based and ``calm'', and output is ambient and non-intrusive. With \emph{incidental interactions} \cite{Dix2004}, a user performs an action for some purpose (say opening a door to enter a room), the system senses this and incidentally uses it for some purpose of which the user is unaware (e.g. adjust the room temperature), affecting the user's future interaction with the system.
+	At the semantic level, we are interested in the meaning of the action. A gesture may mean nothing, until it encounters for instance a light switch \cite{Bongers2007}. In traditional software applications, a user is expected to have a clear intention of what he/she wants to achieve, with purposeful and direct actions. In ubiquitous computing scenarios, the interactions are less explicit. Input is implicit, sensor-based and ``calm'', and output is ambient and non-intrusive. With \emph{incidental interactions} \cite{Dix2004}, a user performs an action for some purpose (say opening a door to enter a room), the system senses this and incidentally uses it for some purpose of which the user is unaware (e.g. adjust the room temperature), affecting the user's future interaction with the system.
 	
 \begin{figure}
 	\centering
@@ -534,8 +570,11 @@ While feedback is information that occurs after or during the interaction, feedf
 	\item The task that the incidental interaction is attempting to support/achieve
 	\end{itemize}
 
-We try to improve this comprehension by actively involving users in configuring the relationships between the smart objects in their environment, which is described in more detail in the next section. When users are able to explore and manipulate the relationships between the smart objects, it becomes easier for them to begin to comprehend how things work (or can potentially work together). They can project their experiences with a part of a smart environment to see what may potentially work for other parts of the environment as well. %we can close this loop in the discussion with results from the user experiment.
+We try to improve this comprehension by actively involving users in configuring the relationships between the smart objects in their environment. When users are able to explore and manipulate the relationships between the smart objects, it becomes easier for them to begin to comprehend how things work (or can potentially work together). They can project their experiences with a part of a smart environment to see what may potentially work for other parts of the environment as well. %we can close this loop in the discussion with results from the user experiment.
 By allowing users to configure their smart environment themselves, they are in control of deciding how the environment responds to their actions.
 
-
 %end TiiS
+
+\section{Outlook}
+
+We build further on many of the concepts and proposals reviewed in this chapter. In particular, we focus on configuring the connections between the devices in Chapters \ref{DesignIteration1} to \ref{DesignIteration3} and Chapter \ref{SemanticConnectionsTheory}, while serendipitous interoperability and sharing information between devices form the cornerstones of Chapter \ref{DeviceCapabilityModelling} and Chapter \ref{EventModelling}. 
