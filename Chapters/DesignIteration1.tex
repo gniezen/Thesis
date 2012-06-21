@@ -8,7 +8,7 @@ context --- pixels to pictures --- and only applying algorithms \\
 after one sees how the transaction relates to the other data.\\
 It's the only way that I can see that it's going to close this\\
  sense-making gap.} \\ \medskip
-    --- Jeff Jones \cite{AlexWoodie}
+    --- Jeff Jonas \cite{AlexWoodie}
 \end{flushright}
 
 
@@ -30,7 +30,7 @@ The first takeaway from this scenario is that the focus is on the connections be
 
 
 \begin{description}
-	\item [Semantic Connection] A semantic connection is a relationship between two entities in a smart environment and focuses on the semantics---or meaning---of the connections between these entities. 
+	\item [Semantic Connection] A semantic connection is a relationship between two entities in a smart environment for which we focus on the semantics---or meaning---of the connections between these entities. 
 \end{description}
 
 The term semantic connections is used to refer to meaningful connections and relationships between entities in a smart environment. These connections are both real ``physical'' connections (e.g. wired or wireless connections that exist in the real world) and ``mental'' conceptual connections that seem to be there from the user's perspective. The context of the connections, for example the objects that they connect, provide meaning to the connections. The term ``semantics'' refers to the meaningfulness of the connections. The type of connection, which often has the emphasis now (e.g. WiFi, Bluetooth or USB) is not considered to be the most relevant, but what the connection can do for someone --- its functionality --- even more.
@@ -106,7 +106,7 @@ An interaction event in the smart space consists of an event ID, timestamp and o
 
 \begin{itemize}
 	\item Network events: A \texttt{ConnectEvent} indicates that a device is entering the smart space, while a \texttt{DisconnectEvent} means that the device is exiting the smart space. 
-	\item \ac{NFC} events: An \texttt{NFCEnterEvent} signifies that an \ac{NFC} tag has entered the \texttt{RFID} field, and generates a \texttt{NFCExitEvent} when it leaves the field.
+	\item \ac{NFC} events: An \texttt{NFCEnterEvent} signifies that an \ac{NFC} tag has entered the \texttt{RFID} field, and a \texttt{NFCExitEvent} is generated when it leaves the field.
 	\item Media player events: When the user presses the Play button on the media player, a \texttt{PlayEvent} is generated. When the music is stopped, or at the end of the song, a \texttt{StopEvent} is generated. Pressing the Forward button forwards the song by 5 seconds. This time period is attached to a \texttt{CueEvent} using an \texttt{atTime} relationship.
 \end{itemize}
 
@@ -114,9 +114,9 @@ The following properties were defined:\marginpar{All \ac{OWL} code listings in t
 
 \begin{minted}{turtle}
 	:connectedTo
-		a  owl:ObjectProperty;
+	    a owl:ObjectProperty;
 	    a owl:IrreflexiveProperty;
-		a owl:SymmetricProperty ;
+	    a owl:SymmetricProperty ;
 	    rdfs:domain :SmartObject ;
 	    rdfs:range :SmartObject .
 
@@ -149,7 +149,7 @@ The \texttt{connectedTo} object property is both \emph{symmetric} and \emph{irre
 An irreflexive property is a property that never relates an individual to itself \cite{Hebeler2009}. This allows us to restrict our model by not allowing a \texttt{connectedTo} relationship from a device to itself.
 
 
-An example with individuals, also called instances, that make use of the ontology is shown in Figure \ref{ontologyInstance}. In the figure, classes are denoted with ellipses, individuals with boxes and datatypes as plain text. Subclass relationships are denoted with dotted lines and relationships with solid lines. It shows a Nokia N900 and N95 smartphone instantiated as \texttt{SmartObjects} with their associated \ac{RFID} tags.\marginpar{Why an \ac{RFID} tag? in Section \ref{Identification} we argue that that each smart object must be uniquely identifiable in the physical world by digital devices.}
+An example with individuals, also called instances, that make use of the ontology is shown in Figure \ref{ontologyInstance}. In the figure, classes are denoted with ellipses, individuals with boxes and datatypes as plain text. Class membership is denoted with dotted lines and relationships are denoted with solid lines. It shows a Nokia N900 and N95 smartphone instantiated as \texttt{SmartObjects} with their associated \ac{RFID} tags.\marginpar{Why an \ac{RFID} tag? in Section \ref{Identification} we argue that that each smart object must be uniquely identifiable in the physical world by digital devices.}
 
 An instantiated \texttt{NFCExitEvent}, called \texttt{event-1cecdba5}, is also shown. When an event is generated a \ac{UUID} is assigned to it, to enable the event to be uniquely identified in the smart space. It is also associated with a smart object using the \texttt{generatedBy} property. The \texttt{hasPosition} relationship provides additional metadata required by the interaction tile, which is described in the next section.  
 
@@ -180,18 +180,18 @@ An instantiated \texttt{NFCExitEvent}, called \texttt{event-1cecdba5}, is also s
 \end{figure}
 
 
-\ac{SPARQL}\footnote{http://www.w3.org/TR/rdf-sparql-query/} is the query language for the Semantic Web. Along with \ac{OWL}, it is one of the core technologies of the Semantic Web, having been a W3C Recommendation since January 2008. \ac{SPARQL} queries are based on the idea of graph pattern matching \cite{Sequeda2012}, where data that is returned from the query is set to match the pattern.\marginpar{We also makes use of \ac{SPARQL} to define rules, which is described in Section \ref{SPIN}.}
+\ac{SPARQL}\footnote{http://www.w3.org/TR/rdf-sparql-query/} form the query language for the Semantic Web. Along with \ac{OWL}, it is one of the core technologies of the Semantic Web, having been a W3C Recommendation since January 2008. \ac{SPARQL} queries are based on the idea of graph pattern matching \cite{Sequeda2012}, where data that is returned from the query is set to match the pattern.\marginpar{We also make use of \ac{SPARQL} to define rules, which is described in Section \ref{SPIN}.}
 
-To determine which other smart objects a specific device is connected to, a simple \ac{SPARQL} query suffices:
+To determine which other smart objects a specific device, for example a mobile phone, is connected to, a simple \ac{SPARQL} query suffices:
 
 \begin{minted}{sparql}
 SELECT DISTINCT ?object WHERE {
-:deviceID :connectedTo ?object .
+:phone1 :connectedTo ?object .
 }
 \end{minted}
 
 \label{Jena}
-A \emph{triple store} is used to store both the instances and the ontology. A triple store is a purpose-built database for storing and retrieving triples, in the format subject-predicate-object. In the above example \emph{deviceID} would be the subject, \emph{connectedTo} the predicate and \emph{?object} the object. There are a number of commercial and open-source triple store implementations. The Jena\footnote{http://jena.apache.org/} framework is a Java \ac{API} that enables access to many triple store implementations, supports \ac{SPARQL} and also has its own persistent triple store. It was used in this first implementation and was also later adopted by the \ac{SOFIA} project.
+A \emph{triple store} is used to store both the instances and the ontology. A triple store is a purpose-built database for storing and retrieving triples, in the format subject-predicate-object. In the above example \emph{phone1} would be the subject, \emph{connectedTo} the predicate and \emph{?object} the object. There are a number of commercial and open-source triple store implementations. The Jena\footnote{http://jena.apache.org/} framework is a Java \ac{API} that enables access to many triple store implementations, supports \ac{SPARQL} and also has its own persistent triple store. It was used in this first implementation and was also later adopted by the \ac{SOFIA} project.
 
 An advantage of using \ac{SPARQL} and a triple store is that it is easy to add additional constraints and/or specifics to the query, compared to a traditional \ac{SQL} database, where unions between columns and tables can get quite complicated very quickly.
 
@@ -260,13 +260,14 @@ The interaction tile, shown in Figure \ref{tile1}, was inspired by Kalanithi and
 The interaction tile visualises the various connections by allowing a user to explore which objects are currently connected, and what connections are possible. By means of putting a cube representing a device close to one of the four sides of the tile, a user can check if there is a connection, and if not, whether a connection is possible. By shaking the tile it is possible to create a connection between two devices, or where there is an existing connection, to break the connection. The interaction tile consists of the following components:
 
 \begin{itemize}
-	\item Arduino 
+	\item Arduino Duemilanove with Atmel ATMega328 microcontroller
 	\item ACR122/Touchatag 13.56MHz \ac{RFID} reader
+	\item RF Solutions ANT-1356M 13.56MHz \ac{RFID} Antenna Coil
 	\item Multi-colour LEDs
-	\item Accelerometer
+	\item Accelerometer 
 	\item Vibration motor
 	\item Piezoelectric speaker
-	\item magnetic switches
+	\item Magnetic switches
 \end{itemize}
 
 The Arduino communicates with a PC via a serial interface over USB, while the \ac{RFID} reader uses \ac{PC/SC} drivers over USB.\marginpar{The \ac{RFID} reader component has been tested under Windows, Linux and Mac OS X.} The accelerometer is used to measure when the user is shaking the tile, while the vibration motor and speaker provide haptic and auditory feedback. The magnetic switches are used to determine which side of the tile a cube has been placed. The final laser-cut version of the interaction tile prototype is shown in Figure \ref{tile2}.
@@ -295,7 +296,7 @@ The coloured lighting can be changed by sending three RGB values (in the range 0
 
 \subsection{Mobile phones}
 
-For the first iteration, a Nokia N95 and Nokia 5800 XpressMusic phone (shown in Figure \ref{lampphone}) was used. The two phones use the Symbian S60 operating system, and Python for S60 was used to write software for the mobile phones.\marginpar{Python for S60 is Nokia's port of the Python programming language for Symbian devices.}
+For the first iteration, a Nokia N95 and Nokia 5800 XpressMusic phone (shown in Figure \ref{lampphone}) were used. The two phones use the Symbian S60 operating system, and Python for S60 was used to write software for the mobile phones.\marginpar{Python for S60 is Nokia's port of the Python programming language for Symbian devices.}
 
 \begin{figure}[bth]
 \centering
@@ -304,10 +305,17 @@ For the first iteration, a Nokia N95 and Nokia 5800 XpressMusic phone (shown in 
 \label{lampphone}
 \end{figure}
 
+\subsection{RFID reader used in interaction tile}
+
+Most of the \ac{RFID} readers and tags targeted at the amateur and hobbyist markets, like the PhidgetRFID and Innovations ID-12 modules, operate in the 125KHz range. While they are relatively cheap and readily available, the 125KHz readers cannot read multiple tags within range of the reader at the same time. For this a 13.56MHz reader is required. The most widely used \ac{RFID} tags at the moment, the MiFare range owned by NXP, operate at 13.56MHz. These tags are used in most public transport payment systems, including the London Oyster Card and the Dutch OV-Chipkaart system.
+
+A relatively cheap 13.56MHz \ac{RFID} reader system, the ACR122, is developed by Hong Kong-based \ac{ACS}. It uses the NXP PN532 chip to read \ac{RFID} tags. \marginpar{A rebranded version of the ACR122, called the Touchatag\footnote{http://www.touchatag.com/}, is currently sold with 10 tags for around \euro 30.} The reader has an onboard PCB antenna -- to extend the range of the unit we removed two capacitors on the PCB and soldered in an external ANT-1356M coil antenna from RF Solutions.
+%- Hacking the Touchatag (\euro 33) by adding our own external antenna (see circuit diagram)
+
 
 
 \section{Implementation}
-
+\label{D1Implementation}
 \begin{figure}[bth]
 \centering
 \includegraphics[width=360pt]{SemanticConnections.eps}
@@ -329,11 +337,11 @@ Each device in the demonstrator is represented by a \ac{KP} software module. \ac
 
 \subsection{Interaction Tile KP}
 
-The interaction tile \ac{KP} was written in Python and tested on Ubuntu Linux 10.04. On startup, the \ac{KP} connects to the Arduino inside the interaction tile via the serial-over-USB interface. It established a connection with the \ac{SIB}, after which it connects to the \ac{RFID} reader inside the tile.\marginpar{The open-source rfidiot.org library was used to communicate with the \ac{RFID} reader.}
+The interaction tile \ac{KP} was written in Python and tested on Ubuntu Linux 10.04. On startup, the \ac{KP} connects to the Arduino inside the interaction tile via the serial-over-USB interface. It establishes a connection with the \ac{SIB}, after which it connects to the \ac{RFID} reader inside the tile.\marginpar{The open-source rfidiot.org library was used to communicate with the \ac{RFID} reader.}
 
 The \ac{KP} then enters an event loop, waiting until a cube is placed next to the tile. When this happens, the Arduino sends the position of the cube next to the tile to the \ac{KP} via the serial interface. The \ac{RFID} tag is read, and a \texttt{NFCEnterEvent} is generated. After the \ac{RFID} tag is read it is temporarily disabled, to ensure that the tag will only be read again after being removed from the field and coming into range again.
 
-If the tile is shaken and a connection is possible, the \ac{KP} updates the \ac{SIB} by inserting \texttt{connectedTo} relationships between the devices, represented by the cubes next to the tile. If there are existing connections, the \texttt{connectedTo} relationships are removed instead. When a cube is removed from the tile, the Arduino again send the position of the cube via the serial interface to notify the \ac{KP}. The \texttt{python-pyscard}, \texttt{pcsc-tools} and \texttt{pcscd} \ac{PC/SC} libraries are required on Ubuntu Linux to communicate with \ac{RFID} reader.
+If the tile is shaken and a connection is possible, the \ac{KP} updates the \ac{SIB} by inserting \texttt{connectedTo} relationships between the devices, represented by the cubes next to the tile. If there are existing connections, the \texttt{connectedTo} relationships are removed instead. When a cube is removed from the tile, the Arduino again sends the position of the cube via the serial interface to notify the \ac{KP}. The \texttt{python-pyscard}, \texttt{pcsc-tools} and \texttt{pcscd} \ac{PC/SC} libraries are required on Ubuntu Linux to communicate with the \ac{RFID} reader.
 
 \subsection{Music Player KP}
 \label{MusicPlayerKP}
@@ -342,20 +350,71 @@ This Python-based \ac{KP} runs on Symbian S60. It has been tested on a Nokia N95
 Another version of the music player \ac{KP} was developed for a Nokia N900 smartphone that runs on Maemo 5 Linux. This \ac{KP} was also written in Python and makes use of the PyQt4 library. This \ac{KP} is functionally equivalent to the Symbian S60 version, apart from running on the Maemo platform and using the Qt4 Phonon framework to provide music play/stop/forward capabilities.
 % - N900 - used pyside and QtMobility (24/08/10)
 
-\subsubsection{Light KP}
+\subsection{Light KP}
 
 This \ac{KP} was written in Java and makes use of the Minim audio library\footnote{http://code.compartmental.net/tools/minim/} for beat detection, in order to generate meaningful lighting patterns that can be sent to the table lamp.\marginpar{The Minim audio library is part of the Processing software development environment, used for interaction design prototyping.}
 
 The \ac{KP} listens for media player events from connected devices, and generates RGB values based on the rhythm of the music. These RGB values are then sent to the Arduino in the table lamp via the serial-over-Bluetooth interface. On Ubuntu Linux the \texttt{librxtx-java} package is required for serial communication when using Java.
 
+Part of the event handler that handles subscriptions from the \ac{SIB} is shown in the following code fragment:
+
+\begin{minted}{java}
+@Override
+public void kpic_SIBEventHandler(String xml) {
+String subject = null;
+String object = null;
+String predicate = null;
+
+println("Subscription notification!");
+//Get triples that were added or updated in the SIB
+Vector<Vector<String>> triples = xmlTools.getNewResultEventTriple(xml);
+
+if(triples!=null){
+	for(int i=0; i<triples.size() ; i++ ){ 
+		Vector<String> t=triples.get(i);
+		subject=xmlTools.triple_getSubject(t);
+		predicate=xmlTools.triple_getPredicate(t);
+		object=xmlTools.triple_getObject(t);
+
+		//when we have a new connectedTo relationship to the LightKP
+		if(predicate.contains("connectedTo") && object.contains(deviceID)){
+
+			//subscribe to source events
+			subscribeToSourceEvents(subject);
+		}
+   ...	
+\end{minted}
+
+When the Light \ac{KP} is connected to another device \ac{KP} using a \texttt{connectedTo} relationship, we subscribe to the interaction events generated by that device using the \texttt{subscribeToSourceEvents()} function. This code fragment is shown below as an example of how subscriptions are created using the Java \ac{KP} interface:
+
+\begin{minted}{java}
+void subscribeToSourceEvents(String source) {
+
+println("Subscribing to source events from " + source); 
+xml=kp.subscribeRDF( null , sofia + "launchedBy" , source, URI);
+
+if(xml==null || xml.length()==0){
+print("Subscription message NOT valid!\n"); return;}
+print("Subscribe confirmed:"+
+(this.xmlTools.isSubscriptionConfirmed(xml)?"YES":"NO")+"\n");
+
+if(!this.xmlTools.isSubscriptionConfirmed(xml)){return;}
+String sub_id = this.xmlTools.getSubscriptionID(xml);
+println("Subscription ID: " +sub_id);
+subscriptions.put(source,sub_id);
+}	
+\end{minted}
+
+
 %- Use ~/code/semanticconnections/docs to describe technical implementation 
 %	- C-based SIB (Piglet triple store, with component requirements 19/05/10 - to appendix?)
 %	- dependencies (06/09/10)
 
-\subsubsection{SIB}
+\subsection{SIB}
 %- Components required are (18/05/10 Notebook1)
 
 The first \ac{SIB} implementation used in the \ac{SOFIA} project is called Smart-M3, developed by Nokia, and an open source implementation is available online\footnote{http://sourceforge.net/projects/smart-m3/}. The \ac{SIB} is written in C and uses Nokia's Piglet triple store as a database backend. It is only available on Linux as it makes of the D-Bus message bus system. Other dependencies include the Avahi service discovery framework and Expat XML parser.  The \ac{SIB} consists of a daemon called \texttt{sibd}, which communicates with \acp{KP} over TCP/IP using a \texttt{sib-tcp} connector module.  
+
 
 
 \section{Discussion \& Conclusion}
@@ -369,17 +428,13 @@ The first \ac{SIB} implementation used in the \ac{SOFIA} project is called Smart
 
 This first iteration constructed a number of devices that could be reused in future iterations, and explored approaches to creating connections between devices. These approaches were focused at proximal interactions with tangible interfaces instead of the usual \ac{GUI}-based solutions. Let us look at some issues that were uncovered during the implementation, followed by a conclusion. 
 
-Most of the \ac{RFID} readers and tags targeted at the amateur and hobbyist markets, like the PhidgetRFID and Innovations ID-12 modules, operate in the 125KHz range. While they are relatively cheap and readily available, the 125KHz readers cannot read multiple tags within range of the reader at the same time. For this a 13.56MHz reader is required. The most widely used \ac{RFID} tags at the moment, the MiFare range owned by NXP, operate at 13.56MHz. These tags are used in most public transport payment systems, including the London Oyster Card and the Dutch OV-Chipkaart system.
-
-A relatively cheap 13.56MHz \ac{RFID} reader system, the ACR122, is developed by Hong Kong-based \ac{ACS}. It uses the NXP PN532 chip to read \ac{RFID} tags. \marginpar{A rebranded version of the ACR122, called the Touchatag\footnote{http://www.touchatag.com/}, is currently sold with 10 tags for around \euro 30.} The reader has an onboard PCB antenna -- to extend the range of the unit we removed two capacitors on the PCB and soldered in an external ANT-1356M coil antenna from RF Solutions.
-%- Hacking the Touchatag (\euro 33) by adding our own external antenna (see circuit diagram)
-
 This iteration details the first use of Smart-M3, where \acp{KP} communicate with a \ac{SIB} using \ac{SSAP}\cite{Honkola2010}. \ac{SSAP} consists of a number of operations to insert, update and subscribe to information in the SIB. These operations are encoded using XML. A triple-format query from a \ac{KP} is sent, and the response from the \ac{SIB} is in triple-format as well. %An example of a triple-format query is \mint{turtle}|None hasRFIDTag None| where \texttt{None} is used to denote the wildcards in the query. The response to this query would be a list of triples containing smart objects and their associated \ac{RFID} tags.
 
 We attempt to solve the interoperability problem by following a blackboard-based approach. Some of the problems associated with current blackboard-based platforms are scalability and access rights. While the goals of this thesis do not involve solving these problems, they should be considered as possible constraints. In Chapter \ref{Evaluation} we will look in more detail at the performance-related issues of the system architecture. 
 
 The evaluation of this iteration, where the various alternative tangible approaches are compared in a usability study, is discussed in more detail in \cite{Kwak2011}. This study was performed in the Context Lab at the Eindhoven University of Technology, and made use of the Teach-Back protocol \cite{VanDerVeer2003} and Norman's Action Cycle Diagram \cite{Norman1998}.
 
+From this first iteration we learned that using interaction events to model device and user interaction works well. Yet the different types of interaction events need to be generalised, so that they can be reused in other scenarios and environments. One difficulty we encountered was how to model the capabilities of devices in more detail so that they can be shared with other devices. In the next chapter we extend the scenario to include devices from our various partners in the \ac{SOFIA} project, and model the media capabilities of devices in order to perform semantic matching of different media types.  
 
 
 
