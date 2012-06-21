@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Chapters/RelatedWork.tex</string>
+	<string>Chapters/DesignIteration1.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -22,7 +22,7 @@
 			<key>filename</key>
 			<string>ClassicThesis.tex</string>
 			<key>lastUsed</key>
-			<date>2012-06-19T14:32:03Z</date>
+			<date>2012-06-21T09:52:15Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -52,190 +52,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>7</integer>
+				<integer>108</integer>
 				<key>line</key>
-				<integer>242</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>164</integer>
-			<key>firstVisibleLine</key>
-			<integer>235</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>22</integer>
-				<key>line</key>
-				<integer>242</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>7</integer>
-				<key>line</key>
-				<integer>242</integer>
-			</dict>
-		</dict>
-		<key>Chapters/DesignIteration2.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>47</integer>
-				<key>line</key>
-				<integer>426</integer>
+				<integer>436</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>0</integer>
+			<integer>238</integer>
 			<key>firstVisibleLine</key>
-			<integer>421</integer>
-		</dict>
-		<key>Chapters/DesignIteration3.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>47</integer>
-				<key>line</key>
-				<integer>385</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>375</integer>
-		</dict>
-		<key>Chapters/DeviceCapabilityModelling.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>7</integer>
-				<key>line</key>
-				<integer>1</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>32</integer>
-				<key>line</key>
-				<integer>1</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>7</integer>
-				<key>line</key>
-				<integer>1</integer>
-			</dict>
-		</dict>
-		<key>Chapters/Evaluation.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>69</integer>
-				<key>line</key>
-				<integer>322</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>79</integer>
-			<key>firstVisibleLine</key>
-			<integer>311</integer>
+			<integer>430</integer>
 		</dict>
 		<key>Chapters/EventModelling.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>380</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>97</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>166</integer>
-			<key>firstVisibleLine</key>
-			<integer>89</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>375</integer>
-				<key>line</key>
-				<integer>97</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>380</integer>
-				<key>line</key>
-				<integer>97</integer>
-			</dict>
-		</dict>
-		<key>Chapters/Introduction.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>19</integer>
-				<key>line</key>
-				<integer>31</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>26</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>13</integer>
-				<key>line</key>
-				<integer>31</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>19</integer>
-				<key>line</key>
-				<integer>31</integer>
-			</dict>
-		</dict>
-		<key>Chapters/RelatedWork.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>103</integer>
-				<key>line</key>
-				<integer>561</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>157</integer>
-			<key>firstVisibleLine</key>
-			<integer>545</integer>
-		</dict>
-		<key>Chapters/SemanticConnectionsTheory.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>249</integer>
-				<key>line</key>
-				<integer>213</integer>
+				<integer>2</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>280</integer>
+			<integer>124</integer>
 		</dict>
 		<key>ClassicThesis.tex</key>
 		<dict>
@@ -244,52 +82,19 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>78</integer>
+				<integer>72</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>134</integer>
-		</dict>
-		<key>FrontBackmatter/Acronyms.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>10</integer>
-				<key>line</key>
-				<integer>6</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>7</integer>
-				<key>line</key>
-				<integer>6</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>10</integer>
-				<key>line</key>
-				<integer>6</integer>
-			</dict>
+			<integer>65</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>ClassicThesis.tex</string>
-		<string>Chapters/RelatedWork.tex</string>
 		<string>Chapters/DesignIteration1.tex</string>
-		<string>Chapters/Evaluation.tex</string>
-		<string>Chapters/Introduction.tex</string>
-		<string>Chapters/DeviceCapabilityModelling.tex</string>
+		<string>Chapters/EventModelling.tex</string>
 	</array>
 	<key>shellVariables</key>
 	<array>
@@ -305,6 +110,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{544, 83}, {640, 659}}</string>
+	<string>{{622, 119}, {640, 659}}</string>
 </dict>
 </plist>
