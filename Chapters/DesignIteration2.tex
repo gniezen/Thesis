@@ -43,12 +43,38 @@ The \emph{Semantic Media} ontology and \emph{Semantic Interaction} ontology were
 \label{SemanticMediaOntology}
 
 %begin S3E
-\begin{figure}
-\centering
-\includegraphics[width=300px]{SemanticMediaOntology}
-\caption{Semantic Media Ontology}
-\label{semanticMediaOntology}
-\end{figure}
+% \begin{figure}
+% \centering
+% \includegraphics[width=300px]{SemanticMediaOntology}
+% \caption{Semantic Media Ontology}
+% \label{semanticMediaOntology}
+% \end{figure}
+
+
+\begin{figure}[bth]
+	\digraph[scale=0.45]{ontologyInstance}{
+		rankdir=LR;
+		%node[shape="box"];
+		anyURI [label="xsd:anyURI", shape="plaintext"];
+		integer [label="xsd:integer", shape="plaintext"];
+		datetime [label="xsd:datetime", shape="plaintext"];
+		SmartObject -> MediaPlayerEvent [label="launchesEvent"];
+		SmartObject -> MediaType [label="rendersMediaAs"];
+		SmartObject -> MediaType [label="transmitsMediaType"];
+		SmartObject -> MediaType [label="acceptsMediaType"];
+		SmartObject -> anyURI [label="hasMedia"];
+		MediaPlayerEvent -> StopEvent [style="dotted"];
+		MediaPlayerEvent -> PlayEvent [style="dotted"];
+		MediaPlayerEvent -> CueEvent [style="dotted"];
+		CueEvent -> integer [label="cueAt"];
+		Event -> MediaPlayerEvent [style="dotted"];
+		Event -> datetime [label="inXSDDateTime"];
+	}
+	\caption{Semantic Media Ontology}
+	\label{semanticMediaOntology}
+\end{figure}\marginpar{The notation used for Figure \ref{semanticMediaOntology} was also used in Figure \ref{ontologyInstance} in Section \ref{OntologyDesign1}, where class membership is denoted with dotted lines and relationships are denoted with solid lines.}
+
+
 
 The Semantic Media ontology, shown in Figure \ref{semanticMediaOntology}, is an application ontology that allows for describing media-specific device capabilities and related media content. A mobile device may be described as follows:
 
@@ -89,12 +115,33 @@ The concept of a semantic transformers is considered an important part of the th
 \subsection{Semantic Interaction ontology}
 \label{sectionSemanticInteractionOntology}
 
-\begin{figure}
-\centering
-\includegraphics[width=350px]{SemanticInteractionOntology}
-\caption{Semantic Interaction Ontology}
-\label{semanticInteractionOntology}
-\end{figure} 
+% \begin{figure}
+% \centering
+% \includegraphics[width=350px]{SemanticInteractionOntology}
+% \caption{Semantic Interaction Ontology}
+% \label{semanticInteractionOntology}
+% \end{figure} 
+
+
+\begin{figure}[bth]
+	\digraph[scale=0.45]{ontologyInstance2}{
+		rankdir=LR;
+		%node[shape="box"];
+		etc [label="xsd:string / xsd:boolean / etc.", shape="plaintext"];
+		string [label="xsd:string", shape="plaintext"];
+		SmartObject -> InteractionPrimitive [label="hasInteractionPrimitive"];
+		SmartObject -> Event [label="launchesEvent"];
+		InteractionPrimitive -> etc [label="dataValue"];
+		InteractionPrimitive -> RangeMeasure [label="hasRangeMeasure"];
+		InteractionPrimitive -> Event [label="canBeTransformedTo"];
+		SmartObject -> Identification [label="hasIdentification"];
+		Identification -> string [label="idValue"];
+		Identification -> IDType [label="ofIDType"];
+	}
+	\caption{Semantic Interaction Ontology}
+	\label{semanticInteractionOntology}
+\end{figure}
+
 
 The Semantic Interaction ontology we have developed is shown in Figure \ref{semanticInteractionOntology}.  A device, defined as a \texttt{SmartObject}, is uniquely identified by some kind of \texttt{Identification}, for example a IP address and port number, \ac{RFID} tag or barcode. \marginpar{Identification is discussed in Section \ref{Identification}.} Different ID types can be defined as required. Devices can then launch events, for example a media player can generate a \texttt{PlayEvent} when music starts playing.
 
@@ -105,7 +152,7 @@ A smart object is described in terms of its \emph{interaction primitives}. \marg
 	\item [Interaction primitive]An \emph{interaction primitive} is defined to be the smallest addressable element that has a meaningful relation to the interaction itself. 
 \end{description}
 
-As an example of how the ontology may be used, we start off by defining a smart object and its interaction primitives. Recalling that it is only necessary to describe interaction primitives of a device if we use that device's interaction primitive to control another device through the smart space, we can describe the volume control rocker switch on a smart phone as an interaction primitive:
+As an example of how the ontology may be used, we start off by defining a smart object and its interaction primitives. Recall that it is only necessary to describe interaction primitives of a device if we use that device's interaction primitive to control another device through the smart space. We can, for example, describe the volume control rocker switch on a smart phone as an interaction primitive:
 
 \begin{minted}{turtle}
 SmartPhone rdf:type SmartObject .
@@ -168,7 +215,7 @@ where the \texttt{"up"} data value may then be mapped to \texttt{VolumeUpEvent} 
 
 \section{Device Design}
 
-In the Smart Home pilot, the partners involved each created their own device or system to showcase the work they have performed during the \ac{SOFIA} project. The interoperability of the system architecture by having these devices working together, even though they were created by different manufacturers at different times. We now describe these devices in more detail.
+In the Smart Home pilot, the partners involved each created their own device or system to showcase the work they have performed during the \ac{SOFIA} project. The interoperability of the system architecture was tested and demonstrated by having these devices working together, even though they were created by different manufacturers at different times. We now describe these devices in more detail.
 
 \subsection{Wall-wash lighting and presence sensors}
 
@@ -299,27 +346,45 @@ The goals of the Smart Home pilot were as follows:
 
 %In this section we describe implementation details of how the concepts of the theory are modelled
 
-During the pilot, users interacted with various automated and interactive appliances and devices defined as smart objects. There exist several semantic connections between the smart objects (both explicit and implicit relations), of which some can be explicitly interacted with through two interaction devices: a Spotlight Navigation device placed in the study of the pilot setup upstairs, or a Connector device placed in the living room of the pilot setup downstairs. 
-
-% The Spotlight Navigation device is a mobile device containing a pico projector that visualises connection possibilities between devices in the environment. By using direct pointing gestures with the device in the user's hand, users can intuitively explore and manipulate the virtual network connections as if they are part of the user's real world environment. The Connector device follows a tangible interaction approach, enabling users to physically select devices in their environment and directly view and manipulate the connections in a simple, universal way. It is a hand-held device that identifies devices by scanning RFID tags that are located on the devices themselves. By holding the Connector on top of the tag, users can explore the connection possibilities that are visualised with lights on top of the Connector. After holding the device in the RFID field for a moment, the device-ID is locked and the other device to be connected can be selected in a similar fashion. With a push-to-click action a connection between two devices can be established. For removing an existing connection, the ring on the lower part of the device should be pulled until it clicks. 
-
-Figure \ref{pilotSetup} shows a brief overview of the different parts of the system. The experiment took place in two rooms, the study and the living room of the Experience Lab on the High Tech Campus in Eindhoven. %A video of the Smart Home pilot is available online\footnote{}. (Not public)
-
 \begin{figure}
-\centering
-\includegraphics[width=\columnwidth]{pilotSetup}
+\centerline{
+\includegraphics[width=\paperwidth-40mm]{pilotSetup}}
 \caption{The devices and their connections as used in the system}
 \label{pilotSetup}
 \end{figure}
 
+Figure \ref{pilotSetup} shows a brief overview of the different parts of the system. The experiment took place in two rooms, the study and the living room of the Experience Lab on the High Tech Campus in Eindhoven. During the pilot, users interacted with various automated and interactive appliances and devices defined as smart objects. There exist several semantic connections between the smart objects, for example the media-content connection between the phone and the lighting device, and the lighting-control connection between the lighting device and the non-functional lighting. Some of these connections can be explicitly interacted with through two interaction devices: a Spotlight Navigation device placed in the study of the pilot setup upstairs, or a Connector device placed in the living room of the pilot setup downstairs. 
+
+% The Spotlight Navigation device is a mobile device containing a pico projector that visualises connection possibilities between devices in the environment. By using direct pointing gestures with the device in the user's hand, users can intuitively explore and manipulate the virtual network connections as if they are part of the user's real world environment. The Connector device follows a tangible interaction approach, enabling users to physically select devices in their environment and directly view and manipulate the connections in a simple, universal way. It is a hand-held device that identifies devices by scanning RFID tags that are located on the devices themselves. By holding the Connector on top of the tag, users can explore the connection possibilities that are visualised with lights on top of the Connector. After holding the device in the RFID field for a moment, the device-ID is locked and the other device to be connected can be selected in a similar fashion. With a push-to-click action a connection between two devices can be established. For removing an existing connection, the ring on the lower part of the device should be pulled until it clicks. 
+
+ %A video of the Smart Home pilot is available online\footnote{}. (Not public)
+
+
+
 In the Smart Home pilot, media content is shared among several smart objects in a smart home setting. Music can be shared between a mobile device, a stereo speaker set and a lighting device that can render the mood of the music with coloured lighting. The music experience is also shared remotely between friends living in separate homes through the lighting device. This light and music information is shared between the two lighting devices. Other lighting sources, like the smart functional lighting (FL, Figure \ref{pilotSetup}) and the smart wall wash lights (NFL, Figure \ref{pilotSetup}) are sensitive to user presence and the use of other lighting sources in the environment. The setup was built using the \ac{SOFIA} software platform as is described in Chapter \ref{SoftwareArchitecture}. A diagram showing the technical details of the Smart Home pilot is shown in Figure \ref{SmartHomePilotDiagram}. It gives an indication of the variety and complexity of the hardware platforms, operating systems and wireless protocols that were used.
 
+%alternative is to use pdfpages, but textpos seem to work fine
+% \newpage
+% \thispagestyle{empty}
+% \begin{textblock*}{\paperwidth-10mm}(10mm,10mm)
+%         \begin{figure}
+% 		\centering
+% 		\includegraphics[width=\paperwidth-20mm]{SmartHomePilotDiagram}
+% 		\caption{Technical details of the Smart Home pilot}
+% 		\label{SmartHomePilotDiagram}
+% 		\end{figure}
+% \end{textblock*}
+% \mbox{}\newpage
+
+
 \begin{figure}
-\centering
-\includegraphics[width=350px]{SmartHomePilotDiagram}
-\caption{Technical details of the Smart Home pilot}
-\label{SmartHomePilotDiagram}
+		\centerline{
+		\includegraphics[width=\paperwidth-40mm]{SmartHomePilotDiagram}}
+		\caption{Technical details of the Smart Home pilot}
+		\label{SmartHomePilotDiagram}
 \end{figure}
+
+
 
 % from deliverable
 % During the pilot, users experience a smart space with various automated and interactive appliances and devices (smart objects). The appliances in the smart space are interoperable, sensitive to changes in their environment and exchange information with one another. There are several explicit and implicit relations between the smart objects, of which some can be explicitly viewed or manipulated with the Spotlight Navigation device or the Connector device, available in two different locations.
@@ -396,15 +461,13 @@ This allows us to match media types between smart objects. We can then infer a \
 convertsMediaType~\ensuremath{\circ}~convertsMediaType~\ensuremath{\sqsubseteq}~mediaPath
 \end{quote}
 
-\noindent To then determine the media source itself we use \ac{SWRL}\footnote{http://www.w3.org/Submission/SWRL/}, as the expressivity of \ac{OWL} does not allow for inferring the media source if there are more than one \texttt{convertsMediaType} relationship linked to the lighting device:\marginpar{This \ac{SWRL} implementation was later replaced using another Semantic Web technology called SPIN, detailed in Chapter \ref{OntologyEngineering}.}
+\noindent To then determine the media source itself we use \ac{SWRL}\footnote{http://www.w3.org/Submission/SWRL/}, as the expressivity of \ac{OWL} does not allow for inferring the media source if there are more than one \texttt{convertsMediaType} relationship linked to the lighting device:\marginpar{This \ac{SWRL} implementation was later replaced using another Semantic Web technology called SPIN, detailed in Chapter \ref{OntologyEngineering}.}\\
 
-\begin{quote}
+
 \texttt{\scriptsize
-convertsMediaType(?x1,?x2)~\ensuremath{\wedge}~convertsMediaType(?x2,?x3)~\ensuremath{\Rightarrow}~mediaSourceSO(?x3, ?x2)}
-\end{quote}
+convertsMediaType(?x1,?x2)~\ensuremath{\wedge}~convertsMediaType(?x2,?x3)~\ensuremath{\Rightarrow}~mediaSource(?x3, ?x2)}
 
-
-\noindent We can also infer whether a device is a semantic transformer or not using:
+The media source is the semantic transformer, \texttt{?x2}, while the media path is between the two smart objects, \texttt{?x1} and \texttt{?x3}. The \texttt{mediaSource} relationship is thus inferred from the smart object to the semantic transformer. We can also infer whether a device is a semantic transformer or not using:
 
 
 \begin{minted}{turtle}
@@ -422,6 +485,8 @@ Class: SemanticTransformer
 The end result is that the lighting device responds to the mobile device's media events (based on the Semantic Connections \texttt{connectedTo} relationship), but uses the Sound/Light KP as a media source for generating dynamic lighting. The \texttt{connectedTo} relationship between the mobile device and the lighting device should only be possible if a media path exists between the two devices. Figure \ref{mediapath} illustrates the entire process of inferring the media path from the original media type definitions.
 %end africon
 
+If the reasoner infers a media path between two smart objects, it does not mean that they are automatically connected -- it means that a connection is possible. The user can view this connection possibility using either the Connector device or the Spotlight Navigation device, and then establish the connection if necessary.
+
 \subsection{Device states}
 
 Interaction events (Chapter \ref{EventModelling}) cause device state changes. Most of the developers that worked on the Smart Home Pilot preferred to describe their smart objects in terms of the device states, and also shared these device states with other smart objects using the SIB. The current state of the smart object was defined using the \texttt{sofia:isInState} property:
@@ -434,14 +499,16 @@ Interaction events (Chapter \ref{EventModelling}) cause device state changes. Mo
 	sofia:presenceKP5678 sofia:isInState "Present" .
 \end{minted}
 
-These smart objects were all simple two-state devices, where the device state was indicated using a text field. Note that \texttt{conante:spotlight1} used the absence of \texttt{sofia:isInState} property to indicate that it was not projecting. We could use the ontology to restrict this type of behaviour, forcing smart objects to report their current state at all times.
+These smart objects were all simple two-state devices, where the device state was indicated using a text field. Note that \texttt{conante:spotlight1} used the absence of \texttt{sofia:isInState} property to indicate that it was not projecting. This statement is valid with a \ac{CWA}, the presumption that that what is not currently known to be true, is false. The programmer that created this state description is well versed in the Prolog programming language, which makes the \ac{CWA}. \ac{OWL}, on the other hand, operates under the \ac{OWA}. With \ac{OWA}, we assume that new information can become available at any time, so that we cannot draw conclusions based on the assumption that all information is already available \cite{Allemang2011}. We can use the ontology to restrict how state descriptions are reported, forcing smart objects to report their current state at all times.\marginpar{The \ac{OWA} is also discussed in Section \ref{CardinalityRestrictions}.}
+
+
 
 
 \section{Evaluation}
 
 A number of issues were identified during the evaluation of the Smart Home pilot. In the Smart Home pilot there were two locations connected via a permanent semantic connection between the lighting devices. What if Sofia were to play a song in her room --- will the same song play back at the home of Mark and Dries? If this is the case, we clearly need to introduce a notion of directionality in the semantic connections. This issue is addressed in Design Iteration III in the next chapter.
 
-The Pellet reasoning engine with \ac{SWRL} rules proved to be a performance bottleneck in the system. For example, Pellet took about 3 seconds to infer 107 statements.\marginpar{In one instance, a \ac{SWRL} rule took up to 28 seconds to execute.} TopBraid Composer's TopSPIN reasoning engine supports \ac{SPIN} rules and \ac{OWL} 2, so it was tested as a possible alternative. The TopSPIN engine with OWL 2 RL/RDF Rules took less than a second to infer 11 361 triples. By using a hashmap to store our inferred triples, we were able to improve performance even further. We also reduced number of inferred triples on startup form 10 491 to 5 122.
+The Pellet reasoning engine with \ac{SWRL} rules proved to be a performance bottleneck in the system. For example, Pellet took about 3 seconds to infer 107 statements.\marginpar{In one instance, a \ac{SWRL} rule took up to 28 seconds to execute.} TopBraid Composer's TopSPIN reasoning engine supports \ac{SPIN} rules and \ac{OWL} 2, so it was tested as a possible alternative. The TopSPIN engine with OWL 2 RL/RDF Rules took less than a second to infer 10 491 triples. By using a hashmap to store our inferred triples, we were able to improve performance even further. Some of the inferred triples were redundant inferences -- by using a hashmap we were able to reduce the number of inferred triples on startup from 10 491 to 5 122, eliminating redundant triples.
 
 A more formal performance evaluation as well as a user evaluation of the ontology, both of which were performed on the work done in this iteration, is discussed in Chapter \ref{Evaluation}.
 
@@ -461,38 +528,33 @@ A more formal performance evaluation as well as a user evaluation of the ontolog
 
 Modelling constraints in the ontology is done using \emph{restrictions}.  When modelling concepts in an \ac{OWL} ontology, restrictions are defined either as part of \texttt{rdfs:subClassOf} or as part of \texttt{owl:equivalentClass}. There is a subtle difference, and it has to do with \emph{necessary and sufficient conditions}.
 
-When we have necessary and sufficient conditions (also known as \emph{if and only if} and denoted as $ \equiv $, $ \leftrightarrow $ or $ \Leftrightarrow $), the \texttt{owl:equivalentClass} restriction (denoted as $ \equiv $) is used. When we only have necessary conditions, the \texttt{rdfs:subClassOf} restriction (denoted as $ \sqsubseteq $) is used. \emph{Necessary and sufficient} means that the restriction is sufficiently constrained that only individuals belonging to that class will be classified as such.\footnote{In the Prot\'eg\'e ontology editor these are also called \emph{defined classes}.} An example is shown in Section \ref{SemanticMatching}.
-
-%begin S3E
-Judging from the experience of implementing the semantic transformers, the approach of using them to solve interoperability problems appears promising. Using the Semantic Media Ontology, we were able to define a smart object in terms of the media types it accepts and transmits. Based on these descriptions, semantic transformers can be used to transform media types in order to enable information exchange between devices that would normally not be able to communicate. With only a minimal set of device capabilities described, the system is able to perform self-configuration using semantic reasoning.
-%end S3E
-
-%begin africon
-Even though the Semantic Interaction Ontology describes parts of a \texttt{SmartObject}, it does not fully describe all the properties and capabilities of the smart object. It only describes its interaction-related properties. Particularly it defines the \texttt{SmartObject} interaction primitives and means of identification. In the next iteration we will focus on expanding the possibilities of describing a device's functionality and capabilities.
-
-Idempotency is the property of being able to perform the same action twice or more times in sequence, and end up with the same result as if the action was performed once. In the triple store, defining a smart object or interaction primitive is idempotent as long as the definition  doesn't change on the triple-level. The idempotency of interaction events depends on whether a new timestamp is used when inserting the event into the triple store.
+When we have necessary and sufficient conditions (also known as \emph{if and only if} and denoted as $ \equiv $, $ \leftrightarrow $ or $ \Leftrightarrow $), the \texttt{owl:equivalentClass} restriction (denoted as $ \equiv $) is used. When we only have necessary conditions, the \texttt{rdfs:subClassOf} restriction (denoted as $ \sqsubseteq $) is used. \emph{Necessary and sufficient} means that the restriction is sufficiently constrained that only individuals belonging to that class will be classified as such.\footnote{In the Prot\'eg\'e ontology editor these are also called \emph{defined classes}.} An example is shown in Section \ref{SemanticMatching}. \marginpar{An \ac{OWL} reasoner follows a bottom-up approach, where new information is inferred from asserted facts, compared to a theorem prover that starts from its goal.}
 
 
-==TODO Idempotence
-Idempotence is the property of being able to perform the same action twice or more times in sequence, and end up with the same result as if it was performed once. As an example, consider the different HTTP methods:
 
-\begin{itemize}
-	\item PUT - uploads a representation of a specified resource
-	\item DELETE - deletes the specified resource
-	\item POST - can either update an existing resource or create a new resource
-\end{itemize}
-
-PUT and DELETE are idempotent, while POST is not. In our case, creating a new interaction event is not idempotent, but inserting the same triple twice is. In the triple store, defining a smart object or interaction primitive is idempotent as long as the definition  does not change on the triple level. The idempotence of interaction events depends on whether a new timestamp is used when inserting the event into the triple store.
+% Idempotency is the property of being able to perform the same action twice or more times in sequence, and end up with the same result as if the action was performed once. In the triple store, defining a smart object or interaction primitive is idempotent as long as the definition  doesn't change on the triple-level. The idempotency of interaction events depends on whether a new timestamp is used when inserting the event into the triple store.
+% 
+% 
+% ==TODO Idempotence
+% Idempotence is the property of being able to perform the same action twice or more times in sequence, and end up with the same result as if it was performed once. As an example, consider the different HTTP methods:
+% 
+% \begin{itemize}
+% 	\item PUT - uploads a representation of a specified resource
+% 	\item DELETE - deletes the specified resource
+% 	\item POST - can either update an existing resource or create a new resource
+% \end{itemize}
+% 
+% PUT and DELETE are idempotent, while POST is not. In our case, creating a new interaction event is not idempotent, but inserting the same triple twice is. In the triple store, defining a smart object or interaction primitive is idempotent as long as the definition  does not change on the triple level. The idempotence of interaction events depends on whether a new timestamp is used when inserting the event into the triple store.
 
 
 
 The ontology supports the description of interaction data generated by interaction devices and sensors. Additionally, it shows that an interaction primitive may trigger an interaction event or a state change that may need to be specified in more detail by a more application-specific ontology. That is to say, this ontology may also be used to perform semantic mapping from the interaction data to user goals and/or available services \cite{Niezen2010}. Any additional information related to the smart object may be added by extending the schema defined in the Semantic Interaction Ontology. 
 
-The ontology opens up the way to context-based interaction device reconfiguration. For example, if a Context Monitor application recognises a situation where the \texttt{PhoneRockerSwitch} should no longer control the volume, but adjust the level of lighting instead, the triple could be modified accordingly. Just such a simple change would implement a behaviour that adapts to the situation.
+Another advantage of the ontology described in this section is that opens up the way to context-based interaction device reconfiguration. For example, if a Context Monitor application recognises a situation where the \texttt{PhoneRockerSwitch} should no longer control the volume, but adjust the level of lighting instead, the triple could be modified accordingly. Just such a simple change would implement a behaviour that adapts to the situation.
 
-Context-dependent functionality changes of a control may not necessarily be a desirable feature and there is a long standing discussion on whether or not to allow for such behaviour in user interface research. It should however be noted that we only consider context-dependent meaning change with generic interaction primitives, that in itself do not have a specific, function related meaning (and might already being used for different functions, like the rocker switch in the example). Additionally, the re-mapping is only considered for those interaction elements with compatible transformational properties, e.g. the rocker switch may only be mapped to other \texttt{AdjustLevel} transformations, and not to \texttt{Start/Stop}. The specified range measures are used to control the re-mapping between a interaction primitive and an interaction event, in a similar way that the input and output domains of \cite{MacKinlay1990} are used to control the expressiveness between an input device and its application parameter.
+Context-dependent functionality changes of a control may not necessarily be a desirable feature and there is a long standing discussion on whether or not to allow for such behaviour in user interface research. It should however be noted that we only consider context-dependent meaning change with generic interaction primitives, that in itself do not have a specific, function related meaning (and might already being used for different functions, like the rocker switch in the example). Additionally, the re-mapping is only considered for those interaction elements with compatible transformational properties, e.g. the rocker switch may only be mapped to other \texttt{AdjustLevel} transformations, and not to \texttt{Start/Stop}. The specified range measures are used to control the re-mapping between a interaction primitive and an interaction event, in a similar way that the input and output domains of \cite{MacKinlay1990} are used to control the expressiveness between an input device and its application parameter. 
 
-Besides automatic context-dependent functionality changes of controls, we especially consider user-initiated re-mapping of controls. By enabling users to make associations, or semantic connections \cite{VanderVlist2010} between devices or interaction elements and devices, users can express their intentions in terms of mapping controls \cite{Niezen2010}. 
+The question then becomes how to inform the user of the remapping in a user-friendly way. In the next chapter we consider the different types of feedback that can be used. Besides automatic context-dependent functionality changes of controls, we especially consider user-initiated re-mapping of controls. By enabling users to make associations, or semantic connections \cite{VanderVlist2010} between devices or interaction elements and devices, users can express their intentions in terms of mapping controls between devices \cite{Niezen2010}. 
 
 % While most of the issues discussed in this paper also applies to user interaction in general, 
 % the way in which interaction events and interaction primitives are distributed between multiple devices makes our work very applicable to ubiquitous computing environments. Semantic mapping between interaction primitives and interaction events on different devices is also supported.
@@ -500,8 +562,15 @@ Besides automatic context-dependent functionality changes of controls, we especi
 % The use of interaction primitives to model the essential elements of user interaction is currently being implemented by various project partners, and up until now seem promising. A thorough evaluation and validation is part of our next steps, as well as integration of the introduced concepts into the SOFIA core ontology or application- or domain-specific ontologies.
 %end africon
 
-Spotlight Navigation and the Connector are two alternative user interface approaches to configuring ubiquitous computing infrastructure. Although we cannot directly compare the mental models elicited during the user experiment, which would have asked for a more controlled setting (e.g. having the same setup and having an equal number of participants for both treatments), we did make some interesting observations.
+% Spotlight Navigation and the Connector are two alternative user interface approaches to configuring ubiquitous computing infrastructure. Although we cannot directly compare the mental models elicited during the user experiment, which would have asked for a more controlled setting (e.g. having the same setup and having an equal number of participants for both treatments), we did make some interesting observations.
 
-The most striking difference between the way users described the setup was the perception of the users that the Connector was part (if not the central part) of the system, while the Spotlight Navigation was often considered outside of the system. We hypothesise that this is due to the different roles that the Spotlight Navigation and the Connector have in the interaction with the connections. The Connector is used to conceptually ``carry'' the content between the two devices and in itself represents the relation between these two artefacts. The Spotlight Navigation is, in contrast, perceived as a ``remote control'' that visualises the connections in physical space. This might lead the users to conclude that the projected lines are the connections, directly between the devices, and leave the Spotlight Navigation itself outside of this network.
+% The most striking difference between the way users described the setup was the perception of the users that the Connector was part (if not the central part) of the system, while the Spotlight Navigation was often considered outside of the system. We hypothesise that this is due to the different roles that the Spotlight Navigation and the Connector have in the interaction with the connections. The Connector is used to conceptually ``carry'' the content between the two devices and in itself represents the relation between these two artefacts. The Spotlight Navigation is, in contrast, perceived as a ``remote control'' that visualises the connections in physical space. This might lead the users to conclude that the projected lines are the connections, directly between the devices, and leave the Spotlight Navigation itself outside of this network.
+
+%begin S3E
+Judging from the experience of implementing the semantic transformers, the approach of using them to solve interoperability problems appears promising. Using the Semantic Media Ontology, we were able to define a smart object in terms of the media types it accepts and transmits. Based on these descriptions, semantic transformers can be used to transform media types in order to enable information exchange between devices that would normally not be able to communicate. With only a minimal set of device capabilities described, the system is able to perform self-configuration using semantic reasoning.
+%end S3E
+
+%begin africon
+Even though the Semantic Interaction Ontology describes parts of a \texttt{SmartObject}, it does not fully describe all the properties and capabilities of the smart object. It only describes its interaction-related properties. Particularly it defines the \texttt{SmartObject} interaction primitives and means of identification. In the next chapter, while describing the next iteration, we will focus on expanding the possibilities of describing a device's functionality and capabilities.
 
 
