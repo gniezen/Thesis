@@ -8,7 +8,7 @@ activities that enrich the users' experiences. } \\ \medskip
 	    --- Ben Shneiderman
 	\end{flushright}
 
-In this chapter we describe related work. The work can be related in several ways, depending on which aspect of the work is considered. Therefore the chapter is subdivided into five sections, each devoted to one aspect. These are Related projects and frameworks (Section \ref{RelatedProjects}), Ubicomp ontologies (Section \ref{UbicompOntologies}), Interaction models (Section \ref{InteractionModels}), Task models (Sections \ref{interactionTasks}) and Semantic models (Section \ref{interactionFrogger}).
+In this chapter we describe related work. The work can be related in several ways, depending on which aspect of the work is considered. Therefore the chapter is subdivided into five sections, each devoted to one aspect. These are related projects and frameworks (Section \ref{RelatedProjects}), ubicomp ontologies (Section \ref{UbicompOntologies}), interaction models (Section \ref{InteractionModels}), task models (Sections \ref{interactionTasks}) and semantic models (Section \ref{interactionFrogger}).
 
 
 
@@ -35,7 +35,7 @@ In the field of ubiquitous computing there are a substantial number of past and 
 
 
 
-\subsection{SpeakEasy}
+\subsection{SpeakEasy (circa 2000-2003)}
 
 We cannot expect all devices to have a priori knowledge of all the other devices they might possibly be connected to. We can, however, expect users to have knowledge about the devices they might encounter in their environment. Even if my smart phone does not know how to communicate with a specific printer, the software infrastructure could provide the necessary technical building blocks to allow them to communicate. The user understands what a printer does and makes the decision to connect the smart phone to the printer, as well as what to print.
 
@@ -55,12 +55,12 @@ This line of thinking was a starting point for Newman et al \cite{Newman2002}, w
 \label{InformationFiltering} % this part on information filtering was on Notational Velocity
 The SpeakEasy project focused on what users might be trying to accomplish in a specific situation when connecting entities to one another. Possible examples include connecting devices in order to give a presentation, or in order to send contact information. They created templates of common tasks that contained a partially specified set of connections and entities, which could be fully specified and instantiated by users at run-time. An instantiated template was then added to a list of current tasks. It was noted that templates impose a layer of semantics on top of the raw infrastructure. Templates assisted users by constraining the available component choices to only those that were appropriate for the task at hand.
 
-The SpeakEasy environment consisted of a web application that allows users to browse for components, which can be viewed and organised in different ways, for example grouped by location or owner.\marginpar{The e-Gadgets project in Section \ref{egadgets} also made use of a web application to configure components.}
+The SpeakEasy environment consisted of a web application that allows users to browse for components, which can be viewed and organised in different ways, for example grouped by location or owner.\marginpar{The e-Gadgets project in Section \ref{egadgets} also made use of a web application to configure components.} Our work takes a different approach to configuring components, by using tangible interaction techniques instead of \ac{GUI}-based interaction.
 
-What can be learned from the SpeakEasy project is the importance of describing the interfaces of components, such that they can be combined with other components. These interface descriptions help to enable serendipitous interoperability, and described in more detail in Chapter \ref{DeviceCapabilityModelling}. 
+What can be learned from the SpeakEasy project is the importance of describing the interfaces of components, such that they can be combined with other components. These interface descriptions help to enable serendipitous interoperability, and are described in more detail in Chapter \ref{DeviceCapabilityModelling}. 
 
 
-\subsection{EventHeap}
+\subsection{EventHeap (circa 2000-2005)}
 
 Stanford University's shared event system, called the EventHeap, provides a base set of capabilities that link devices in a room \cite{Winograd2005}. It allows users to move data and applications between areas, for example redirecting a pointer from one device to another. One of these devices, the DynaWall, is a wall-size touch-sensitive interactive display. Gesture-based interaction facilitates moving information objects from the wall from one side to another, by throwing and shuffling visual objects with different accelerations and sounds.
 
@@ -82,10 +82,17 @@ The iStuff toolkit \cite{Ballagas2003} was developed within Stanford to explore 
 Patch Panel \cite{Ballagas2004} is a mechanism in the iStuff toolkit that tries to solve incremental integration, the problem of integrating new devices and applications that may not have a priori knowledge of each others existence of function. They noted that SpeakEasy allows for direct user intervention via \acp{GUI}, but does not support automated connections free of user intervention, for example data from presence sensors that may be used to turn on the lights. Patch Panel uses an approach called intermediation, with a decoupled communication model (such as publish/subscribe) for inter-component communication. \marginpar{A similar decoupled model was used for the work described in this thesis.} Patch Panel uses a set of mappings between triggers and output events to enable intermediation. These mappings are defined using the Patch Panel Manager \ac{GUI} or \ac{FSM}-based scripting language, and users configure connections using a web-based configuration wizard.
 
 % end TiiS
+While our approach to sharing information between devices is similar to that of EventHeap and Patch Panel, it differs in in the following ways:
+
+\begin{itemize}
+    \item We use ontologies describe device capabilities and interactions events
+    \item We use semantic reasoning to resolve semantic mismatches between devices
+    \item Tangible interaction is used instead of \ac{GUI}-based interaction to configure connections
+\end{itemize}
 
 
-\subsection{The XWeb architecture}
-The goal of the XWeb architecture \cite{Olsen2001} is to allow for \emph{opportunistic assemblies} of interactive resources in order to accomplish a particular task. Olsen et al recognised that both an interactive model for acquiring and using the interaction resources, as well as an underlying infrastructure is needed. In their model, each interaction resource resolves user intent independently, instead of merging inputs from a variety of modalities.
+\subsection{The XWeb architecture (circa 2001-2003)}
+The goal of the XWeb architecture is to allow for \emph{opportunistic assemblies} of interactive resources in order to accomplish a particular task. Olsen et al \cite{Olsen2001} recognised that both an interactive model for acquiring and using the interaction resources, as well as an underlying infrastructure is needed. In their model, each interaction resource resolves user intent independently, instead of merging inputs from a variety of modalities.
 
 A client-server architecture was used to create the infrastructure, with \ac{XML} objects used to model resources and services. Tasks were defined using a two-part \ac{URL} in the form \texttt{dataReference::viewReference}, where the \emph{view} is an abstract definition of a particular interaction. These views are defined as a tree of \emph{interactors}, where the data and the view of the current task as well as the path of the interactor is used to characterise the current state of the device.
 
@@ -117,12 +124,14 @@ Opportunistic annexing allows interaction at one scale to be controlled by a dev
 
 Pierce and Mahaney expect that the primary benefit of annexing input resources will be faster input rates. This means that the actual annexing action should be faster than the time required to perform the action. For example, if a user will save 5 seconds by typing a note on a keyboard rather than on a mobile device, annexing the keyboard to the mobile device should take less than 5 seconds.
 
-\subsection{AutoHAN}
+In our approach we go beyond \ac{XML}-based descriptions to modelling resources and services, by using ontologies to describe devices, and performing semantic reasoning to discover the different ways these devices can be connected to one another. 
+
+\subsection{AutoHAN (circa 2001)}
 
 AutoHAN is a networking and software architecture to enable user-programmable specification of interaction between appliances in a home environment \cite{Blackwell2001}. It tries to solve the issue of potential complexity between digital devices that interact with each other, especially if these devices are manufactured by different companies (as it is the user who has to specify how they will interact with one another).
 
 %Blackwell considers direct manipulation to be far more important than pictorial metaphors for assisting end-users in learning a novel programming language. 
-Blackwell distinguishes between two different abstractions that users have to consider:
+Blackwell distinguishes between two different abstractions that users have to consider  \cite{Blackwell2001}:
 \begin{itemize}
 	\item \emph{Abstraction over time}, where an appliance has to do something in the future, for example recording a TV programme
 	\item \emph{Abstraction over a class} of entities, where the user is referring to a set of entities, for example a playlist of music
@@ -134,7 +143,7 @@ Within the AutoHAN project the \emph{Media Cubes} language was created --- a tan
 
 Each cube has a unique identifier, and each face of the cube can also be identified. This means that a combination of cubes and neighbouring faces can be used as a type of programming language. Cubes may also be associated with virtual devices: software components running somewhere on the network. The user regards these virtual devices to be the same as physical appliances that are placed in the broom cupboard, like a network router or home server.
 
-AutoHAN devices communicate using \ac{UPnP} \ac{GENA}. \ac{GENA} is a publish/subscribe system that uses HTTP as transport mechanism. It defines three new HTTP methods to manage event subscriptions and deliver messages:
+AutoHAN devices communicate using \ac{UPnP} \ac{GENA}. \ac{UPnP} control points and services use \ac{GENA} to implement eventing. \ac{GENA} is a publish/subscribe system that uses HTTP as transport mechanism. Conceptually, \ac{UPnP} control points are subscribers, while \ac{UPnP} services are publishers \cite{Jeronimo2009}. \ac{GENA} defines three new HTTP methods to manage event subscriptions and deliver messages:
 
 \begin{itemize}
 	\item SUBSCRIBE to subscribe to event notifications and renew existing subscriptions
@@ -142,29 +151,31 @@ AutoHAN devices communicate using \ac{UPnP} \ac{GENA}. \ac{GENA} is a publish/su
 	\item NOTIFY to send an event notification to a subscriber
 \end{itemize}
 
-AutoHAN entities make subscription requests to receive certain types of events. When such an event occurs, an HTTP NOTIFY request is sent to the subscriber, with additional parameters (such as which button on a control panel was pressed) are encoded in the \ac{GENA} Notification subtype or in the message body.
+AutoHAN entities make subscription requests to receive certain types of events. When such an event occurs, an HTTP NOTIFY request is sent by the AutoHAN server to the subscriber, with additional parameters (such as which button on a control panel was pressed) are encoded in the \ac{GENA} Notification subtype or in the message body.
 
-Two alternative programming paradigms were considered for the Media Cubes language - an \emph{ontological paradigm} and a \emph{linguistic paradigm}. In the ontological paradigm, tokens represent ``natural categories'' in the user's mental model. Concepts were identified which have a close correspondence between primitive remote control operations, appliance functions, capabilities and user skills, representing a primitive ontology of home automation. These abstract types were incorporated into four cubes:
+Two alternative programming paradigms were considered for the Media Cubes language - an \emph{ontological paradigm} and a \emph{linguistic paradigm}. In the ontological paradigm, tokens represent ``natural categories'' in the user's mental model. Concepts were identified which have a close correspondence between primitive remote control operations, appliance functions, capabilities and user skills, representing a primitive ontology of home automation. These abstract types were incorporated into four types of  cubes:
 
 \begin{itemize}
-	\item The \emph{Event} cube (``on''/``off'', ``go''/``stop'') represents a change of state, such as a sensor activation (e.g. a doorbell) or automated function (e.g. alarm clock). ``Go'' and ``on'' is functionally identical, but labeled separately to help users reason about equivalence between events and processes.
-	\item The \emph{Channel} cube can be used to associate a media channel/stream with a media source, and direct the stream to a media sink.
-	\item The \emph{Index} cube selects content from a channel and can be associated with particular index values, to select content that matches that value. 
-	\item The \emph{Aggregate} cube allows the user to refer to abstract collections rather than individual instances.
+	\item An \emph{Event} cube (``on''/``off'', ``go''/``stop'') represents a change of state, such as a sensor activation (e.g. a doorbell) or automated function (e.g. alarm clock). ``Go'' and ``on'' is functionally identical, but labeled separately to help users reason about equivalence between events and processes.
+	\item A \emph{Channel} cube can be used to associate a media channel/stream with a media source, and direct the stream to a media sink.
+	\item An \emph{Index} cube selects content from a channel and can be associated with particular index values, to select content that matches that value. 
+	\item An \emph{Aggregate} cube allows the user to refer to abstract collections rather than individual instances.
 \end{itemize}
 
 In the linguistic paradigm, cubes represent words in a language, for example a single face of a cube may be labelled \emph{Clone}. When this face is placed against another cube face and activated, the second face takes on the identity and function of the first. A \emph{List} cube has three active faces: Add Item, Remove Item and Contents.
 
+In our approach we try to improve on the ontological paradigm presented in the AutoHAN project, by expanding on how the events and channels, or connections, are modelled. We make use of the blackboard architectural pattern in addition to the publish/subcribe approach to share information between devices. 
 
-\subsection{e-Gadgets}
+
+\subsection{e-Gadgets (circa 2004)}
 \label{egadgets}
 
-The e-Gadgets\footnote{http://extrovert-gadgets.net/} project was a European project within the Disappearing Computer initiative. An architectural style, called \ac{GAS}, was developed for devices to communicate with one another. To evaluate \ac{GAS}, a supporting infrastructure and computationally enhanced artefacts, called e-Gadgets, were created.
+The e-Gadgets\footnote{http://extrovert-gadgets.net/} project was a European project within the Disappearing Computer initiative\footnote{http://www.disappearing-computer.net/}. An architectural style, called \ac{GAS}, was developed for devices to communicate with one another. To evaluate \ac{GAS}, a supporting infrastructure and computationally enhanced artefacts, called e-Gadgets, were created.
 
 Mavromatti et al. \cite{Mavrommati2004} developed an approach to allow users to treat these e-Gadgets as reusable components which can be connected to one another. They defined the following requirements for such a system:
 
 \begin{itemize}
-	\item Devices should interoperate via a universal system architecture that accommodates existing communication protocols, e.g. WiFi and Bluetooth.
+	\item Devices should interoperate via a universal system architecture that accommodates existing communication technologies, e.g. WiFi and Bluetooth.
 	\item Tools and interfaces should allow people to control devices and services. These can either be contained within existing devices or created for a specific purpose.
 	\item Invisible connections will exist between the different physical and virtual devices. Tools must visualise this device structure, make device states visible, explain device functionality and help people to manage the inter-device associations.
 \end{itemize}
@@ -183,7 +194,9 @@ Synapses and plugs are viewed and modified using an \ac{GUI} editor. A concept e
 
 They also noted that the possibility to combine the functionality of devices opens up possibilities for emergent behaviour, where the emergence results from how the devices are actually used. 
 
-The rest of the chapter will introduce ontologies considered to be state-of-the-art  in ubiquitous computing, as well as related interaction models, task models and semantic models.
+In our approach we use an \ac{OWL} 2 ontology instead of DAML+OIL, and use a reasoning engine to perform semantic matching of devices. As mentioned earlier in this section, we also tried to move beyond the traditional \ac{GUI}-abased approach to configure the connections between devices. 
+
+Apart from these projects and frameworks presented here, we also want to look at the other aspects that are related to our work. The rest of the chapter will introduce ontologies considered to be state-of-the-art  in ubiquitous computing, as well as related interaction models, task models and semantic models.
 
 \section{Ubicomp ontologies}
 \label{UbicompOntologies}
@@ -196,46 +209,52 @@ In this section we will look at the various ubicomp ontologies that have been de
 
 Chen et al. \cite{Chen2004} created \ac{SOUPA}, a context ontology based on \ac{OWL}, to support ubiquitous agents in their \ac{CoBrA}. The ontology supports describing devices on a very basic level (e.g. typical object properties are \texttt{bluetoothMAC} or \texttt{modelNumber}), but it has no explicit support for modelling more general device capabilities.
 
-In the \ac{SOUPA} ontology, both computational entities and human users may be modelled as agents. An agent ontology is used to describe actors in a system, where actors include both human and software agents (or computing entities). In \ac{SOUPA} a computing entity is characterised by a set of mentalistic notions in the \ac{BDI} model, such as knowledge, belief, intention and obligation. The properties of a person agent includes basic profile information (name, gender, age etc.) and contact information (e-mail, phone number, mailing address etc.) \ac{SOUPA} references several domain ontologies to achieve this:
+In the \ac{SOUPA} ontology, both computational entities and human users may be modelled as agents. An agent ontology is used to describe actors in a system, where actors include both human and software agents or computing entities. In \ac{SOUPA} a computing entity is characterised by a set of mentalistic notions in the \ac{BDI} model, such as knowledge, belief, intention and obligation. The properties of a person agent includes basic profile information, like name, gender, and age, as well as contact information, which includes e-mail, phone number, mailing address etc. \ac{SOUPA} references several domain ontologies to achieve this, for example \ac{FOAF}\footnote{http://http://www.foaf-project.org/}, one of the most well-known ontologies, used to describe people, their activities and relations to people and objects. \ac{SOUPA} uses \ac{FOAF} to express and reason about a person's contact profile and social connections with other people.
 
-\begin{itemize}
-\item \ac{FOAF}\footnote{http://http://www.foaf-project.org/} - one of the most well-known ontologies, used to describe people, their activities and relations to people and objects. \ac{SOUPA} uses \ac{FOAF} to express and reason about a person's contact profile and social connections with other people.
-\item MoGATU BDI - an ontology developed by the same research group at the University of Maryland \cite{Yesha2004}, that describes an abstract semantic model for representing and computing over a user's or an agent's profile in terms of their prioritised and temporally ordered actions, beliefs, desires, intentions and goals. %\ac{SOUPA} uses this model to help independent agents to share a common understanding of their ``mental'' states, so that they can cooperate and collaborate. The agents also help to reason about the intentions, goals, and desires of the human users of a system. 
-\end{itemize}
+\ac{SOUPA} covers contexts in the office/campus environment, but it has no explicit support for modelling general contexts in heterogeneous environments. We now look at the \ac{BDI} model, and the MoGATU \ac{BDI} ontolgoy used in \ac{SOUPA}, in more detail.
 
-%start Some Reasoning Required
-In a smart environment, we wish to infer a user's intention based on his/her context and interaction with the environment. In \ac{BDI} theory, a user's \emph{intention} is a \emph{desire} to which the user has committed. \emph{Goals} are desires which are consistent with one another. \emph{Plans} are a sequence of \emph{actions} to reach a specific goal. We can therefore infer intention based on an action, or sequence of actions. A sequence of actions (plan) to achieve a certain intention may be modelled using an ontology, and events are used to trigger the plan, update beliefs or modify goals.\marginpar{Modelling events is described in more detail in Chapter \ref{EventModelling}.}
-%end Some Reasoning Required
+\subsection{BDI and the MoGATU ontology}
 
 The \ac{BDI} model is a philosophical model of human practical reasoning originally developed by Michael Bratman \cite{Bratman1987}, with a number of successful implementations and applications in the agent research community \cite{Bratman1988, Georgeff1996}. It could be argued that the \ac{BDI} model is somewhat dated, as the principles of the architecture were established in the mid-1980s and have remained essentially unchanged since then \cite{Georgeff1999}. 
 
-A desire is the motivational state of an agent, with a goal having the added restriction that multiple active desires must be consistent (e.g. concurrent desires of ``going to a party'' and ``staying at home'' is not possible). When an agent commits to a specific plan with subgoals (based on a belief, or the informational state of the agent) it needs the capability to reconsider these at appropriate times when the world dynamics change. These committed plans and procedures are called intentions, or the deliberative state of the agent.
+%start Some Reasoning Required
+In a smart environment, we wish to infer a user's intention based on his/her context and interaction with the environment. In \ac{BDI} theory, a \emph{desire} is the motivational state of an agent, with a \emph{goal} having the added restriction that multiple active desires must be consistent (e.g. concurrent desires of ``going to a party'' and ``staying at home'' is not possible). A user's \emph{intention} is a desire to which the user has committed. \emph{Plans} are a sequence of actions to reach a specific goal. We can therefore infer intention based on an action, or sequence of actions. When an agent commits to a specific plan with subgoals based on a \ac{belief}, or informational state of the agent, it needs the capability to reconsider these subgoals at appropriate times when the beliefs change.\marginpar{Modelling events is described in more detail in Chapter \ref{EventModelling}.}
+%A plan to achieve a certain intention may be modelled using an ontology, and interaction events are used to trigger the plan, update beliefs or modify goals.
+%end Some Reasoning Required
+
+  %These committed plans and procedures are called intentions, or the deliberative state of the agent.
+
+
+
+
 
 %When building intelligent pervasive computing systems, it may be useful to model computing entities as agents.
 
 %end SISS2010
 
-In an ontology, task models may be used to describe the user's actions, while the \ac{BDI} model may be used to represent the psychological, social and situational aspects of the tasks. Once the task model is defined, the system can adapt to the user, by mapping the user's current activity or task to higher-level goals and intentions. The \ac{BDI} model approach focuses on the anticipatory aspect of ambient intelligence, where the system tries to predict what the user is trying to accomplish.
+%In an ontology, task models may be used to describe the user's actions, while the \ac{BDI} model may be used to represent the psychological, social and situational aspects of the tasks. Once the task model is defined, the system can adapt to the user, by mapping the user's current activity or task to higher-level goals and intentions. The \ac{BDI} model approach focuses on the anticipatory aspect of ambient intelligence, where the system tries to predict what the user is trying to accomplish.
 
-When the goals, plans, desires, and beliefs of different agents are explicitly represented in the ontology, this information allows them to share a common understanding of their ``mental'' states, helping them to cooperate and collaborate. If we are able to represent the human user's mental states in the ontology, it may help software agents to reason about the specific needs of the users in a pervasive environment. 
+When the goals, plans, desires, and beliefs of different agents are explicitly represented in an ontology, this information allows them to share a common understanding of their ``mental'' states, helping them to cooperate and collaborate. If we are able to represent the human user's mental states in the ontology, it may help software agents to reason about the specific needs of the users in a pervasive environment. 
 
-\ac{SOUPA} covers contexts in the office/campus environment, but it has no explicit support for modelling general contexts in heterogeneous environments. 
+MoGATU \ac{BDI}, an ontology developed by the same research group that developed \ac{SOUPA} at the University of Maryland \cite{Yesha2004}, describes an abstract semantic model for representing and computing over a user's or an agent's profile in terms of their prioritised and temporally ordered actions, beliefs, desires, intentions and goals. \ac{SOUPA} uses this model to help independent agents to share a common understanding of their ``mental'' states, so that they can cooperate and collaborate. The agents also help to reason about the intentions, goals, and desires of the human users of a system. 
+
 
 \subsection{Gaia}
 % Nixon and Ye worked on this
 Ranganathan et al \cite{Ranganathan2004} developed an uncertainty model based on a predicate representation of contexts and associated confidence values. They incorporated this model into Gaia, a distributed middleware system for pervasive computing. Contexts are represented as predicates, following the convention that the predicate's name is the type of context being described (such as location, temperature, or time). This gives a simple, uniform representation for different kinds of contexts. Some contexts (such as \texttt{office}) are certain, whereas others (such as \texttt{location} and \texttt{activity}) might be uncertain. Uncertainty is modelled by attaching a confidence value between 0 and 1 to predicates. The context model is represented using \ac{DAML}+\ac{OIL}.
 
-Ontologies are used in Gaia for the following:
+%Ontologies are used in Gaia for the following:
 
-\begin{itemize}
-	\item Semantic discovery
-	\item Matchmaking
-	\item Interoperability between entities
-	\item Interaction between human users and computers
-	\item Context-awareness - physical, environmental, personal, social, application and system contexts are modelled
-\end{itemize}
+%\begin{itemize}
+%	\item Semantic discovery and matchmaking, where entities are associated with their properties
+%	\item Interoperability between entities
+%	\item Interaction between human users and computers
+%	\item Context-awareness - physical, environmental, personal, social, application and system contexts are modelled
+%\end{itemize}
 
 According to Ye et al \cite{Ye2007}, a set of lower independent profile ontologies should be built, each of which would reflect the characteristics of one aspect of a model of a person. These profile ontologies can then be customised and combined to satisfy particular application requirements.
+
+While Gaia's focus was on modelling the uncertainty of context in ubiquitous computing environments, our focus is more on modeling the connections between devices in such an environment, as well as the interaction events that occur when people operate these devices.
 
 
 
@@ -243,12 +262,10 @@ According to Ye et al \cite{Ye2007}, a set of lower independent profile ontologi
 
 Ngo et al. \cite{Ngo2004} developed the \ac{CAMUS} ontology in \ac{OWL} to support context awareness in ubiquitous environments. Their device ontology is based on the \ac{FIPA} device ontology specification\footnote{http://www.fipa.org/specs/fipa00091/SI00091E.html}, with every \texttt{Device} having the properties of \texttt{hasHWProfile}, \texttt{hasOwner}, \texttt{hasService} and \texttt{hasProductInfo}. Devices are further classified into \texttt{AudioDevice}, \texttt{MemoryDevice}, \texttt{DisplayDevice}, or \texttt{NetworkDevice}. For audio, the \texttt{hasParameter} property has the \texttt{Audio\-Parameter} class as range, with subclasses like \texttt{ACDC\-Parameter}, \texttt{In\-ten\-si\-ty} and \texttt{Harmonicity\-Ratio}. %Unfortunately it does not define a notion of completeness, and the ontology is thus not considered generic enough for general use in ubicomp environments.
 
-One of the major goals of context-aware computing is to provide services that are appropriate for a person at a particular place, time, situation etc. In \ac{CAMUS}, context entities and contextual information are described in the ontology \cite{Ngo2004}. For the entities related to agents, there is a top level concept called \texttt{Agent}. It has been further subclassed into \texttt{SoftwareAgent}, \texttt{Person}, \texttt{Organization}, and \texttt{Group}. Each \texttt{Agent} has a property \texttt{hasProfile} associated with it, whose range is \texttt{AgentProfile}. An \texttt{Agent} is also related through the \texttt{isActorOf} relationship to an \texttt{Activity}. %The Device ontology is based the the FIPA device ontology specification, with every \texttt{Device} having the properties of \texttt{hasHWProfile}, \texttt{hasOwner}, \texttt{hasService} and \texttt{hasProductInfo}.
+One of the major goals of context-aware computing is to provide services that are appropriate for a person at a particular place, time, situation etc. In \ac{CAMUS}, context entities and contextual information are described in the ontology as well \cite{Ngo2004}. For the entities related to agents, there is a top level concept called \texttt{Agent}. It has been further subclassed into \texttt{SoftwareAgent}, \texttt{Person}, \texttt{Organization}, and \texttt{Group}. Each \texttt{Agent} has a property \texttt{hasProfile} associated with it, whose range is \texttt{AgentProfile}. An \texttt{Agent} is also related through the \texttt{isActorOf} relationship to an \texttt{Activity}. %The Device ontology is based the the FIPA device ontology specification, with every \texttt{Device} having the properties of \texttt{hasHWProfile}, \texttt{hasOwner}, \texttt{hasService} and \texttt{hasProductInfo}.
 
-% There are some conceptual modelling issues with \ac{CAMUS}, for example having organisations and groups being direct subclasses of the \texttt{Agent} class.\marginpar{For examples of clear, conceptual modelling in ontologies, see Section \ref{ClearConceptualModelling}.}
-
-An issue that is not addressed by \ac{CAMUS} or the other ontologies is how to model user interaction, which is the focus of the next section.
-
+There are some conceptual modelling issues with \ac{CAMUS}, for example having organisations and groups being direct subclasses of the \texttt{Agent} class. An issue that is not addressed by \ac{CAMUS} or the other ontologies is how to model user interaction, which is the focus of the next section. We consider a number of interaction models that can be used to model user interaction in a smart environment.
+%\marginpar{For examples of clear, conceptual modelling in ontologies, see Section \ref{ClearConceptualModelling}.}
 %However, it makes sense to distinguish between software agents and persons, and also to link a profile to each one. %The BDI model may form part of the user/agent's profile.
 
 
@@ -286,7 +303,37 @@ An issue that is not addressed by \ac{CAMUS} or the other ontologies is how to m
 %begin TiiS
 
 A user interface software architecture, also known as a \ac{UIMS}, creates a separation of concerns between the user interface and the implementation of a software application or system. Of these, the \ac{MVC} model is currently the most used, and inspired Ullmer \& Ishii's \cite{Ullmer2000} \ac{MCRpd} interaction model for tangible user interfaces. Other UI software architectures include the Arch model \cite{Bass1992}, Nielsen's virtual protocol model \cite{Nielsen1986} and Foley's linguistic model \cite{Foley1996}.
-	An interaction can be described in several layers. Norman \cite{Norman1998} describes an interaction using seven layers:
+
+\begin{figure}[bth]
+	\centering
+	\digraph[scale=0.65]{sevenStages}{
+		node[shape="plaintext"];
+		{rank=same; Goals}
+        {rank=same; Intention; Evaluation}
+        {rank=same; Sequence; Interpreting}
+        {rank=same; Execution; Perceiving}
+        {rank=same; World}
+        Intention [label="Intention to act"];
+        Sequence [label="Sequence of actions"];
+        Execution [label="Execution of the action sequence"];
+        Evaluation [label="Evaluation of the interpretations"];
+        Interpreting [label="Interpreting the perception"];
+        Perceiving [label="Perceiving the state of the world"];
+        World [label="The World", shape="box"];
+		Goals -> Intention;
+		Intention -> Sequence;
+		Sequence -> Execution;
+		Execution -> World;
+		World -> Perceiving;
+		Perceiving -> Interpreting;
+		Interpreting -> Evaluation;
+		Evaluation -> Goals;
+	}
+	\caption{Norman's seven stages of action}
+	\label{sevenStages}
+\end{figure}
+
+	An interaction can be described in several layers. Norman \cite{Norman1998} describes an interaction using seven layers, as shown in Figure \ref{sevenStages}:
 
 \begin{enumerate}	
 	\item Goal - What we want to happen

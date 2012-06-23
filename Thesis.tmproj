@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Chapters/DesignIteration2.tex</string>
+	<string>Chapters/RelatedWork.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -22,7 +22,7 @@
 			<key>filename</key>
 			<string>ClassicThesis.tex</string>
 			<key>lastUsed</key>
-			<date>2012-06-21T19:41:21Z</date>
+			<date>2012-06-22T12:01:25Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -47,6 +47,20 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
+		<key>Chapters/Appendix.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>1</integer>
+				<key>line</key>
+				<integer>98</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>87</integer>
+		</dict>
 		<key>Chapters/DesignIteration1.tex</key>
 		<dict>
 			<key>caret</key>
@@ -82,14 +96,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>62</integer>
+				<integer>525</integer>
 				<key>line</key>
-				<integer>363</integer>
+				<integer>556</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>152</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>348</integer>
+			<integer>443</integer>
+		</dict>
+		<key>Chapters/DesignIteration3.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>27</integer>
+				<key>line</key>
+				<integer>33</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>74</integer>
+			<key>firstVisibleLine</key>
+			<integer>22</integer>
 		</dict>
 		<key>Chapters/EventModelling.tex</key>
 		<dict>
@@ -105,19 +133,165 @@
 			<key>firstVisibleLine</key>
 			<integer>124</integer>
 		</dict>
-		<key>ClassicThesis.tex</key>
+		<key>Chapters/Introduction.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>497</integer>
+				<key>line</key>
+				<integer>218</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>215</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>491</integer>
+				<key>line</key>
+				<integer>218</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>497</integer>
+				<key>line</key>
+				<integer>218</integer>
+			</dict>
+		</dict>
+		<key>Chapters/Introduction.tex~</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>497</integer>
+				<key>line</key>
+				<integer>219</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>216</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>491</integer>
+				<key>line</key>
+				<integer>219</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>497</integer>
+				<key>line</key>
+				<integer>219</integer>
+			</dict>
+		</dict>
+		<key>Chapters/OntologyEngineering.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
 				<integer>30</integer>
 				<key>line</key>
-				<integer>63</integer>
+				<integer>168</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
-			<integer>99</integer>
+			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>40</integer>
+			<integer>152</integer>
+		</dict>
+		<key>Chapters/RelatedWork.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>19</integer>
+				<key>line</key>
+				<integer>308</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>304</integer>
+		</dict>
+		<key>Chapters/RelatedWork.tex~</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>654</integer>
+			<key>firstVisibleLine</key>
+			<integer>211</integer>
+		</dict>
+		<key>Chapters/SemanticConnectionsTheory.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>21</integer>
+				<key>line</key>
+				<integer>302</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>726</integer>
+			<key>firstVisibleLine</key>
+			<integer>289</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>13</integer>
+				<key>line</key>
+				<integer>302</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>21</integer>
+				<key>line</key>
+				<integer>302</integer>
+			</dict>
+		</dict>
+		<key>ClassicThesis.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>108</integer>
+				<key>line</key>
+				<integer>147</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>138</integer>
+		</dict>
+		<key>FrontBackmatter/Acronyms.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>27</integer>
+				<key>line</key>
+				<integer>13</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 		<key>classicthesis-config.tex</key>
 		<dict>
@@ -153,7 +327,16 @@
 	<key>openDocuments</key>
 	<array>
 		<string>ClassicThesis.tex</string>
+		<string>Chapters/DesignIteration3.tex</string>
+		<string>Chapters/SemanticConnectionsTheory.tex</string>
 		<string>Chapters/DesignIteration2.tex</string>
+		<string>Chapters/RelatedWork.tex</string>
+		<string>Chapters/Introduction.tex</string>
+		<string>Chapters/Introduction.tex~</string>
+		<string>Chapters/RelatedWork.tex~</string>
+		<string>Chapters/Appendix.tex</string>
+		<string>Chapters/OntologyEngineering.tex</string>
+		<string>FrontBackmatter/Acronyms.tex</string>
 		<string>classicthesis-config.tex</string>
 		<string>Chapters/DesignIteration1.tex</string>
 	</array>
@@ -171,6 +354,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{613, 119}, {640, 659}}</string>
+	<string>{{466, 113}, {640, 659}}</string>
 </dict>
 </plist>
