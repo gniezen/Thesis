@@ -66,9 +66,9 @@ The first design decision of this iteration was to introduce the notion of direc
 
 We can infer that a smart object is a sink using\\
 
-\noindent Sink~\ensuremath{\equiv}~SmartObject~\ensuremath{\sqcap}~(functionalitySink~\ensuremath{\exists}~Functionality)\\ 
+\noindent Sink~\ensuremath{\equiv}~SmartObject~\ensuremath{\sqcap}~(functionalitySink~\ensuremath{\exists}~Functionality)\\\marginpar{See Table \ref{syntaxTable} on page \pageref{syntaxTable} for more details on the symbols and syntaxes used in this thesis.} 
 
-A bridge is inferred using\\
+where the symbol \ensuremath{\exists} is used to denote the existential restriction that \texttt{functionalitySink} is some kind of \texttt{Functionality}. A bridge is inferred using\\
 
 \noindent Bridge~\ensuremath{\equiv}Sink~\ensuremath{\sqcap}~Source\\ 
 
@@ -170,20 +170,20 @@ This opens up many possibilities for users, as they may connect other lights, an
 \begin{figure}
 \centering
 \includegraphics[width=300pt]{sleepscenario}
-\caption{The sleep use case scenario, with the Zeo sleep monitor on the left}
+\caption{The sleep use case scenario, with the Zeo sleep monitor on the left, the dimmable light and the Connector object in the middle, and the Squeezebox on the right}
 \label{sleepusecase}
 \end{figure}
 
 The Zeo sleep monitor is shown on the left-hand side of Figure \ref{sleepusecase}. The Zeo headband uses three silver conductive fabric sensors to collect \ac{EEG} signals while a person is sleeping. The signals are amplified and features are extracted using a \ac{FFT}. An \ac{ANN} is then used to estimates the probability of a person being in a certain phase of sleep\cite{Rubin2009}. The sleep stages are Awake, \ac{REM} Sleep, Light Sleep, Deep Sleep or Undefined. 
 
-Sleep data is stored on an SD card on the device and can be uploaded to the Zeo MySleep\footnote{http://mysleep.myzeo.com} website. Zeo created the Data Decoder Card library\footnote{http://developers.myzeo.com/data-decoder-library/} that allows developers to decode the sleep data without uploading the data to the MySleep website. We also built a USB cable that connects to a serial port on the back of the device. With this cable you can access the raw data coming from the headband sensor -- a diagram indicating how the USB cable should be connected to the Zeo is shown in Figure \ref{zeoBack}.
+Sleep data is stored on an SD card on the device and can be uploaded to the Zeo MySleep\footnote{http://mysleep.myzeo.com} website. Zeo created the Data Decoder Card library\footnote{http://developers.myzeo.com/data-decoder-library/} that allows developers to decode the sleep data without uploading the data to the MySleep website. We also built a USB cable that connects to a serial port on the back of the device. With this cable you can access the raw data coming from the headband sensor. %-- a diagram indicating how the USB cable should be connected to the Zeo is shown in Figure \ref{zeoBack}.
 
-\begin{figure}
-\centering
-\includegraphics[width=300pt]{ZeoBack}
-\caption{Connecting a USB cable to the debug port of the Zeo sleep monitor}
-\label{zeoBack}
-\end{figure}
+% \begin{figure}
+% \centering
+% \includegraphics[width=300pt]{ZeoBack}
+% \caption{Connecting a USB cable to the debug port of the Zeo sleep monitor}
+% \label{zeoBack}
+% \end{figure}
 
 When the device is connected via a USB cable, we have real-time access to the generated events. Events that could be interesting to other smart objects in the environment include:
 
@@ -230,7 +230,7 @@ The Zeo Raw Data Library\footnote{http://sourceforge.net/projects/zeorawdata/} i
 \includegraphics[width=450px]{sleepUseCase}
 \caption{An overview of the sleep use case}
 \label{sleep}
-\end{figure}
+\end{figure}\marginpar{In the sleep use case we did not make use of the Zeo and its \ac{KP} implementation. It was viewed as a backup device which could be used to introduce additional complexity to the system if necessary.}
 
 
 %\subsection{Setup} %Method? perhaps a different heading
@@ -270,7 +270,7 @@ We started by implementing a very basic configuration, connecting the phone and 
 \subsection{Feedback and Feedforward}
 \label{section:feedbackAndFeedforward}
 
-The different types of feedback and feedback as described in the Frogger framework was discussed in Section \ref{interactionFrogger}. We use feedforward to display a device's functional possibilities. We can use feedback to confirm user actions, using augmented feedback where direct functional feedback is not available.
+The different types of feedback and feedback as described in the Frogger framework was discussed in Section \ref{interactionFrogger}. We use feedforward to display a device's functional possibilities. We can use feedback to confirm user actions, using augmented feedback where direct functional feedback is not available.\marginpar{In Van der Vlist's thesis \cite{Bram} there is a similar discussion on feedback, that focuses on some of the more user-centred aspects.}
 
 When an alarm is set on the phone, augmented feedback should be given on all devices connected to the phone. For example, consider the setup in Figure \ref{phoneAlarmFeedback}, where the alarm is connected to both the lamp and the Squeezebox radio. 
 
@@ -303,7 +303,7 @@ For exploring a connection between the internet radio and the dimmable lamp, the
 
 Practically, this means that the designer/developer of a smart object should design the response to  a \texttt{PreviewEvent}. Technically, this is implemented by having the Connector object create a temporary connection to the devices to be connected in order to generate a \texttt{PreviewEvent}. This \texttt{tempConnectedTo} property is a sub-property of the \texttt{connectedTo} property (which denotes a regular semantic connection). This means that the smart objects will handle it as if it is a regular connection, and when the Connector object removes the \texttt{tempConnectedTo} relationship, the inferred \texttt{connectedTo} relationship will disappear as well. The type of functionality the preview is for, is added to the preview event as a data value.
 
-The system behaves differently depending on the type of relation between the smart objects. When there is an indirect connection, i.e. going through a semantic transformer, the preview event is sent to the semantic transformer (Figure \ref{functionalPreview}) instead of the sink object directly (Figure \ref{functionalPreview1}. Additionally, a temporary connection is made between the semantic transformer and the sink, ensuring that the sink displays the correct feedforward when the \texttt{PreviewEvent} is received.
+The system behaves differently depending on the type of relation between the smart objects. When there is an indirect connection, i.e. going through a semantic transformer, the preview event is sent to the semantic transformer (Figure \ref{functionalPreview}) instead of the sink object directly (Figure \ref{functionalPreview1}). Additionally, a temporary connection is made between the semantic transformer and the sink, ensuring that the sink displays the correct feedforward when the \texttt{PreviewEvent} is received.
 
 %When the semantic transformer receives the \texttt{PreviewEvent}, it generates yet another event for the preview (as was designed by the developer). %Because of the temporary connection between the source and the sink (going through the Connector), the sink responds to the (preview) event \emph{originating} from the source (Figure \ref{}).
 
@@ -466,5 +466,7 @@ The sleep use case acted as an evaluation of the completeness and applicability 
 \end{itemize}
 
 Additionally, the implemented use case can serve as an example of how the theory described in the next chapter is used in a relevant and contemporary setting.
+
+We consider the length of the verbal descriptions in Section \ref{D3Implementation} above to become unwieldy when describing more complex situations. There is a clear need for some kind of diagram notation to describe these situations. In the next chapter we introduce a theory of semantic connections that was created to help solve this problem. We first describe the concepts that are central to this theory, and then introduce a diagram notation based on \acp{FSM}, that can be used to model and explain the different concepts and situations.
 
 
