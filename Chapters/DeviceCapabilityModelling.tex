@@ -21,7 +21,7 @@ to have difficulty. However, it is only in doing these things\\
 
 In order to share device capabilities with other devices in the environment, we require ways to describe these capabilities. While we have touched lightly on some of the techniques in the thesis so far, this chapter will focus in more detail on the current state-of-the-art, as well as how we extended these techniques to create a new way of modelling device capabilities using ontologies.
 
-Most of the existing work on modelling interaction capabilities focus on \ac{GUI} based techniques. A \emph{universal user interface language} describes user interfaces that are rendered by mapping a description's device-independent interaction elements to a target platform's concrete interface objects \cite{Lee2006}. This allows developers to create the user interface in an abstract language without targeting a specific device. Examples of interface languages include \ac{UIML}, \ac{XIML}, Carnegie Mellon University's  \ac{PUC} and the \ac{INCITS/V2 URC}. These languages allow devices to determine the most suitable presentation based on a predefined set of abstract user interface components.
+Most of the existing work on modelling interaction capabilities focuses on \ac{GUI} based techniques. A \emph{universal user interface language} describes user interfaces that are rendered by mapping a description's device-independent interaction elements to a target platform's concrete interface objects \cite{Lee2006}. This allows developers to create the user interface in an abstract language without targeting a specific device. Examples of interface languages include \ac{UIML}, \ac{XIML}, Carnegie Mellon University's  \ac{PUC} and the \ac{INCITS/V2 URC}. These languages allow devices to determine the most suitable presentation based on a predefined set of abstract user interface components.
 
 \ac{UIML} maps interface elements to target UI objects using a styling section, resulting in one styling section per target device type. However, it does not include a vocabulary to describe more abstract widgets \cite{Zimmermann2007}. \ac{PUC} describes device functions in terms of state variables and commands, with a grouping mechanism used for placement of UI objects. The \ac{INCITS/V2 URC} standards define a generic framework and an XML-based user interface language to let a wide variety of devices act as a remote to control other devices, called targets.
 
@@ -35,7 +35,7 @@ Universal UI languages and UI remoting are orthogonal approaches \cite{Lee2006}.
 
 % Lee2006 also describes uJuni and INCITS / V2 URC
 
-In this thesis we are more interested in tangible interactions in ubiquitous computing environments, instead of the usual \ac{GUI}-based solutions. The first attempt to define a vocabulary to describe \emph{delivery context} that conveys a device's characteristics was the W3C \ac{CC/PP}. Other approaches to describe device characteristics that are not {GUI} specific are described in the next section.
+In this thesis we are more interested in tangible interactions in ubiquitous computing environments, instead of the usual \ac{GUI}-based solutions. Smart environments need not only descriptions of \ac{GUI}-based input/output, but also of the physical input/output capabilities, hardware capabilities, network capabilities and other characteristics of devices. The first attempt to define a vocabulary that conveys these device characteristics was the W3C \ac{CC/PP}. Other approaches to describe device characteristics that are not {GUI} specific are described in the next section.
 
 \section{Related work}
 
@@ -90,7 +90,7 @@ The state variable descriptions are defined in a similar way to how we define ou
 
 The \texttt{sendEvents} attribute is required for all state variable descriptions. If set to \texttt{"yes"}, the service sends events when it changes value. Event notifications are sent in the body of an HTTP message and contain the names and values of the state variables in XML. 
 
-Let us consider these device states in terms of user interaction. There are four key concepts in an interaction - actions, states (internal to the device), indicators, and modes (physically perceivable device states) \cite{Thimbleby2007}. The user performs actions, which change the device state, which in turn control indicators (augmented feedback). Users may not know exactly which state or mode a system is in. If we want to fully capture the capabilities of the device, we need to specify the device states, the transitions between these states, the interaction primitives which can cause these state changes, as well as the default and current states of the device. When this device is then connected to another device, we also need a way to communicate state changes to the other device.
+Let us consider these device states in terms of user interaction. There are four key concepts in an interaction - actions, states (internal to the device), indicators, and modes (physically perceivable device states) \cite{Thimbleby2007}. The user performs actions, which change the device state, which in turn control indicators (augmented feedback). Users may not know exactly which state or mode a system is in. \marginpar{Our approach to modelling devices states and state transitions using \acp{FSM} is described in Section \ref{fsmexample}. } If we want to fully capture the capabilities of the device, we need to specify the device states, the transitions between these states, the interaction primitives which can cause these state changes, as well as the default and current states of the device. When this device is then connected to another device, we also need a way to communicate state changes to the other device.
 
 
 %end TiiS
@@ -111,6 +111,7 @@ Based on this existing work, we now look at how their functionalities should be 
 
 On device startup, the smart object registers its digital and physical identification information (e.g. RFID tag or IP address) and its functionality with the SIB, and then subscribes to new connections and events as shown in Figure \ref{connectorsibSequence}.
 
+\marginpar{The startup sequence contains instances of the blackboard and publish/subscribe patterns described in Section \ref{pubsubblackboard}.}
 \begin{figure}[bth]
 \begin{msc}
 msc {
@@ -140,15 +141,17 @@ msc {
         \label{connectorsibSequence}
 \end{figure}
 
-This sequence is the same for all smart objects that connect to the \ac{SIB}, and should be implemented in every \ac{KP} that uses our approach. We now discuss the first two steps, registering identification and functionality, in more detail.
+This sequence is the same for all smart objects that connect to the \ac{SIB}, and should be implemented in every \ac{KP} that uses our approach. You might notice some parallels between the \ac{SIB} concept and the Microsoft Windows Registry. The Registry is used to store configuration information of software applications on a single device, while the \ac{SIB} is used (among other things) to store device functionality descriptions of a system of devices. However, compared to the Windows Registry, which is a basic hierarchical key-value store, the triple store and reasoning engine used in the \ac{SIB} provide a number of advantages, including subsumption testing, consistency checking and the ability to use restrictions to constrain data instances.\marginpar{Subsumption testing, consistency checking and restrictions are discussed in more detail in Section \ref{owlreasoning}.} This means we can use reasoning to verify the consistency and stability of the data in the \ac{SIB}.
+
+We now discuss the first two steps of the sequence diagram in Figure \ref{connectorsibSequence}, registering identification and functionality, in more detail.
 
 \subsection{Identifying devices}
 
-Today it is common to identify groups of products using barcodes and other numbering systems. Before ubiquitous computing, only expensive things such as precious metals, currency, or large machines were individually identified with any regularity \cite{Kuniavsky}. New tracking technologies like \ac{RFID} tags and smart cards allow us to link a unique identification number to a specific physical product, like a smart phone that identifies a specific person to the phone network. IPv6, an extension to the Internet Protocol standard, allows us to identify approximately $3.4 \times 10^{38} $ objects in the digital domain.
+In order to discover a device's capabilities, it is first necessary to be able to uniquely identify the device. Today it is common to identify groups of products using barcodes and other numbering systems. Before ubiquitous computing, only expensive things such as precious metals, currency, or large machines were individually identified with any regularity \cite{Kuniavsky}. New tracking technologies like \ac{RFID} tags and smart cards allow us to link a unique identification number to a specific physical product, like a smart phone that identifies a specific person to the phone network. IPv6, an extension to the Internet Protocol standard, allows us to identify approximately $3.4 \times 10^{38} $ objects in the digital domain.
 
-The significance of technologies like \ac{RFID} is that they offer a way to endow physical objects with an \emph{information shadow} \cite{Greenfield2006}. An information shadow describes the digital information that is tied to a specific product. \marginpar{Amazon.com for example, use their \ac{ASIN} to uniquely identify every product they sell.} In Bruce Sterling's book about ubiquitous computing and design, Shaping Things \cite{Sterling2005}, he uses the example of a wine bottle to describe these kinds of objects. 
-
-Wine bottles have easily findable identifiers that link to their information shadows, usually consisting of a large amount of user-generated content. In addition to the metadata that is on the label, like the year when it was bottled, or the grapes that were used, information shadows provide information ``about the people and processes that made the bottle and its contents''. He argues that the wine's carefully designed information aspects, like the web page and bar code, permanently change people's relation to wine. The question now becomes: How do create and link these physical and digital identities in ubiquitous computing environments?
+% The significance of technologies like \ac{RFID} is that they offer a way to endow physical objects with an \emph{information shadow} \cite{Greenfield2006}. An information shadow describes the digital information that is tied to a specific product. \marginpar{Amazon.com for example, use their \ac{ASIN} to uniquely identify every product they sell.} In Bruce Sterling's book about ubiquitous computing and design, Shaping Things \cite{Sterling2005}, he uses the example of a wine bottle to describe these kinds of objects. 
+% 
+% Wine bottles have easily findable identifiers that link to their information shadows, usually consisting of a large amount of user-generated content. In addition to the metadata that is on the label, like the year when it was bottled, or the grapes that were used, information shadows provide information ``about the people and processes that made the bottle and its contents''. He argues that the wine's carefully designed information aspects, like the web page and bar code, permanently change people's relation to wine. The question now becomes: How do create and link these physical and digital identities in ubiquitous computing environments?
 
 % Possible TODO "unique naming" papers on Mendeley
 
@@ -194,7 +197,7 @@ We agree that waiting until every object has a unique identifier for the Interne
 	\label{identification}
 \end{figure}
 
-We modelled the identification of smart objects as shown in Figure \ref{identification}. An example of how the Squeezebox \ac{KP} can be lined to both its IP address and \ac{RFID} tag is shown below:
+We modelled the identification of smart objects as shown in Figure \ref{identification}. An example of how the Squeezebox \ac{KP} can be linked to both its IP address and \ac{RFID} tag is shown below:
 
 \begin{minted}{turtle}
 SqueezeboxKP a SmartObject .
@@ -244,9 +247,10 @@ ie:speaker1 ie:functionalitySink ie:Music .
 To infer that two devices can be connected based on functionality as shown in Figure \ref{canConnectTo}, we use an \ac{OWL} 2 property chain:\marginpar{A similar method was used to match media types in Section \ref{SemanticMatching}.}\\
 
 \noindent
-functionalitySource~\ensuremath{\circ}~isFunctionalityofSink~\ensuremath{\sqsubseteq}~canConnectTo\\%\footnote{The concatenation of two relations $R$ and $S$ is expressible by $R \circ S $, while $ R \sqsubseteq S$ indicates that $R$ is a subset of $S$ }\\
+functionalitySource~\ensuremath{\circ}~isFunctionalityOfSink~\ensuremath{\sqsubseteq}~canConnectTo\\%\footnote{The concatenation of two relations $R$ and $S$ is expressible by $R \circ S $, while $ R \sqsubseteq S$ indicates that $R$ is a subset of $S$ }\\
 
-Note that we use the inverse property of \texttt{functionalitySink} to be able to create the property chain.
+\noindent
+where we use \texttt{isFunctionalityOfSink}, the inverse property of \texttt{func\-tion\-al\-i\-ty\-Sink}, to be able to create the property chain.
 
 \begin{figure}[bth]
         \includegraphics[width=\linewidth]{canConnectTo}
@@ -264,42 +268,109 @@ canConnectTo~\ensuremath{\circ}~canConnectTo~\ensuremath{\sqsubseteq}~canIndirec
 
 \subsection{Representing functionalities as predicates}
 \label{predicateFunctionality}
-If we want to model the common functionalities between two smart objects, we can use the n-ary ontology design pattern \cite{Noy2006}.\marginpar{Ontology design patterns are discussed in Chapter \ref{OntologyEngineering}.} Unfortunately, this is not intuitively readable from its ontological representation, as shown in the bottom half of Figure \ref{naryFunctionality}. The representation looks complicated and is difficult to read. On the other hand, we can also directly infer the matched functionalities as predicates, instead of using n-ary representations. The result can be represented using three triples instead of nine triples, and it is also more intuitively understandable, as shown in the top half of Figure \ref{naryFunctionality}.
+If we want to model the common functionalities between two smart objects, we can use the n-ary ontology design pattern \cite{Noy2006}.\marginpar{Ontology design patterns are discussed in Chapter \ref{OntologyEngineering}.} Unfortunately, this is not intuitively readable from its ontological representation, as shown in the top half of Figure \ref{naryFunctionality}. The representation looks complicated and is difficult to read. On the other hand, we can also directly infer the matched functionalities as predicates, instead of using n-ary representations. The result can be represented using three triples instead of nine triples, and it is also more intuitively understandable, as shown in the bottom half of Figure \ref{naryFunctionality}.
 
-\begin{figure}[bth]
-        \includegraphics[width=450px]{naryFunctionality}
+\begin{figure}[bth]\centerline{
+        %\includegraphics[width=450px]{naryFunctionality}
+	\digraph[scale=0.45]{g}{
+		rankdir=LR;
+		compound=true;
+		%fontname="Ubuntu";
+		node [shape = box];
+		lamp1->phone2 [style=invis]; % to ensure cluster0 is first
+		subgraph cluster0 {
+		label = "Matched functionalities as n-ary relations";
+		lamp1 -> FP1 [label="hasFunctionalityPath"];
+		FP1 -> Light [label="hasFunctionality"];
+		FP1 -> wakeup1 [label="hasSource"];
+		lamp1 -> FP2 [label="hasFunctionalityPath"];
+		FP2 -> Alarm [label="hasFunctionality"];
+		FP2 -> wakeup1 [label="hasSource"];
+		wakeup1 -> FP3 [label="hasFunctionalityPath"];
+		FP3 -> Alarm [label="hasFunctionality"];
+		FP3 -> phone1 [label="hasSource"];
+		}
+		subgraph cluster1 {
+		label = "Matched functionalities as predicates";
+		phone2 -> wakeup2 [label="Alarm"];
+		wakeup2 -> lamp2 [label="Light"];
+		phone2 -> lamp2 [label="wakeup2"];
+		}
+	}
+	}	
         \caption{Representing matched functionalities: N-ary relations versus predicates}
         \label{naryFunctionality}
 \end{figure}
 
-Representing an individual as a predicate is not valid in OWL 2 DL and places the ontology into OWL 2 Full. However, since we are using an OWL 2 RL/RDF Rules reasoning mechanism, this is not an issue. We can easily infer this relation using a \ac{SPIN} rule:
+Representing an individual as a predicate is not valid in OWL 2 DL and places the ontology into OWL 2 Full. However, since we are using an OWL 2 RL/RDF Rules reasoning mechanism, this is not an issue. Thus we choose to use predicates instead of n-ary relations, and so we do not stay within OWL 2 DL. We can easily infer this relation using a \ac{SPIN} rule:
 
 \begin{minted}{sparql}
 CONSTRUCT {
     ?this ?functionality ?sink .
 }
 WHERE {
-    ?this ie:functionalitySource ?functionality .
-    ?sink ie:functionalitySink ?functionality .
+    ?this :functionalitySource ?functionality .
+    ?sink :functionalitySink ?functionality .
 }
 \end{minted}
 
-where \texttt{?this \ensuremath{\equiv} SmartObject}. For a semantic transformer, which is indirectly connected to smart objects, we need an additional \ac{SPIN} rule:
+where \texttt{?this \ensuremath{\equiv} SmartObject}. For example, if we have functionalities defined as
+
+\begin{minted}{turtle}
+:phone1 :functionalitySource :Music .
+:speaker1 :functionalitySink :Music .
+\end{minted}
+
+the above \ac{SPIN} rule will infer
+
+\begin{minted}{turtle}
+	:phone1 :Alarm :speaker1 .
+\end{minted}
+
+such that the functionality is represented as a predicate. For a semantic transformer, which is indirectly connected to smart objects, we need an additional \ac{SPIN} rule:
 
 \begin{minted}{sparql}
 CONSTRUCT {
     ?source ?this ?sink .
 }
 WHERE {
-    ?source ie:canIndirectlyConnectTo ?this .
-    ?this ie:canIndirectlyConnectTo ?sink .
+    ?source :canIndirectlyConnectTo ?this .
+    ?this :canIndirectlyConnectTo ?sink .
 }
 \end{minted}
 
-where \texttt{?this \ensuremath{\equiv} SemanticTransformer}. This infers the semantic transformer itself as the relation between the source and the sink, since it transforms the original functionalities.
+where \texttt{?this \ensuremath{\equiv} SemanticTransformer}. This infers the semantic transformer itself as the relation between the source and the sink, since it transforms the original functionalities. For example, using the smart objects in Figure \ref{naryFunctionality}, if we have 
 
-\marginpar{Preview events were first discussed in Section \ref{section:augmentedFunctionalFf}.}
-When two devices can be connected directly, the Connector object creates a temporary connection from itself to the sink, and generates a \texttt{PreviewEvent} with the matching functionality as \texttt{dataValue}. When the sink generates its own \texttt{PreviewEvent}, indicating that its preview is finished, the Connector object removes the temporary connection. However, when there is a semantic transformer between the source and the sink, the Connector object uses the semantic transformer to generate the appropriate \texttt{PreviewEvent}, as shown in Figure \ref{stPreview}.
+\begin{minted}{turtle}
+	:phone2 :functionalitySource :Alarm .
+	:wakeup2 :functionalitySink Alarm .
+	:wakeup2 :functionalitySource :Light .
+	:lamp2 :functionalitySink :Light .
+\end{minted}
+
+and the two property chains from Section \ref{ReasoningCapabilities}, we can infer that
+
+\begin{minted}{turtle}
+	:phone2 :canConnectTo :wakeup2 .
+	:wakeup2 :canConnectTo :lamp2 .
+	:phone2 :canIndirectlyConnectTo lamp2 .
+\end{minted}
+
+Using the \ac{SPIN} rule defined above we can then infer that 
+
+\begin{minted}{turtle}
+	:phone2 :wakeup2 :lamp2 .
+\end{minted}
+
+where the semantic transformer itself becomes the predicate between the two smart objects, signifying the possibility of having wakeup service functionality between the two objects.
+
+
+How can we provide feedback to the user that these possible functionalities exist between the smart objects? This can be done using the Connector object and the feedback capabilities of the devices themselves. Just after the user scans the second device and before the connection is actually made, feedback of the different possibilities for shared functionality can be provided to the user. 
+
+\marginpar{The \texttt{dataValue} property of interaction events is discussed in more detail in Section \ref{InteractionEvents}.} 
+When two devices can be connected directly, the Connector object creates a temporary connection from itself to the sink, and generates a \texttt{PreviewEvent} with the matching functionality as \texttt{dataValue}.The sink creates a preview of the functionality based on the \texttt{PreviewEvent} and its \texttt{dataValue}.  When the sink completes the preview, it generates its own \texttt{PreviewEvent} to indicate this. The Connector object sees the sink's \texttt{PreviewEvent} and removes the temporary connection.\marginpar{Preview events and the \texttt{tempConnectedTo} property were first discussed in Section \ref{section:augmentedFunctionalFf}.} 
+
+However, when there is a semantic transformer between the source and the sink, the Connector object creates a temporary connection to the semantic transformer instead of the sink, in order to generate the appropriate \texttt{PreviewEvent}, as shown in Figure \ref{stPreview}.  This temporary connection is specified using the \texttt{tempConnectedTo} property, a sub-property of the \texttt{connectedTo} property.
 
 \begin{figure}[bth]
 	\digraph[scale=0.6]{stPreview}{
@@ -307,11 +378,14 @@ When two devices can be connected directly, the Connector object creates a tempo
 		{rank=max; Connector}
 		Connector->ST [label= "tempConnectedTo"];
 		ST->Sink [label = "tempConnectedTo"];
-		Source->ST [label = "canConnectTo"];
-		ST->Sink [label = "canConnectTo"];
+		Source->ST [label = "canConnectTo", style="dotted"];
+		ST->Sink [label = "canConnectTo", style="dotted"];
+		Source->Sink [label = "canIndirectlyConnectTo", style="dotted"];
 	}
 	\caption{Temporary connections for \texttt{PreviewEvent} when semantic transformer is used}
 	\label{stPreview}        
 \end{figure}
 
-Now that we have a way to model the capabilities of devices, we can start looking at ways to represent the different kinds of events that are generated on these devices.
+The Connector object uses the inferred \texttt{canIndirectlyConnectTo} and \texttt{canConnectTo} properties to determine where to insert the \texttt{temp\-Connected\-To} properties. After inserting the properties, the Connector object generates a \texttt{PreviewEvent}. Due to the \texttt{tempConnectedTo} relationship between the Connector object and the semantic transformer, the semantic transformer responds to this event and also generates a \texttt{PreviewEvent} with its functionality as \texttt{dataValue}. Due to the \texttt{tempConnectedTo} relationship between the semantic transformer and the sink, the sink responds to the preview event and generates the appropriate preview of its functionality.
+
+Now that we have a way to model the capabilities of devices and provide previews of their functionality, we can start looking at ways to represent the different kinds of events that are generated on these devices in the next chapter.

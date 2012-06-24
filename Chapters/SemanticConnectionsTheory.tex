@@ -347,7 +347,7 @@ Physical identifiable objects are not considered semantic transformers and shoul
 
 
 \section{Finite state machine example}
-
+\label{fsmexample}
 We now use \acp{FSM} to model and explain the different concepts introduced so far. \acp{FSM} allow us to talk about user interaction in a way that describes how users could think about user interaction, but that still makes sense to interaction programmers and designers. Turing machines and other sophisticated models of computing do not describe that what users think about \cite{Thimbleby2007}. The use of \acp{FSM} also encourages simplicity.
 
 As a first example, consider a simple light with an up/down switch as a single device (seen in Figure \ref{FSMsimple} on the left). There are two states (\texttt{On/Off}), an initial state (\texttt{Off}) and two events (\texttt{Switch\-Down\-Event/Switch\-Up\-Event}) that cause transitions between the states. If the switch is labeled, we can use more specific (meaningful) wording, for example \texttt{switch\-Off\-Event} instead of \texttt{switchDownEvent} (as shown in Figure \ref{FSMsimple} on the right). %(already defined as ODP:) We use the notation \texttt{[DeviceClass]} \texttt{[Action]Event} to define the interaction event - this makes them easier to classify into a hierarchical event structure.

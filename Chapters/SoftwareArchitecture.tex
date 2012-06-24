@@ -43,7 +43,7 @@ We focused on a subset of these attributes while working on the software archite
 
 
 \section{Publish/subscribe paradigm and the blackboard architectural pattern}
-
+\label{pubsubblackboard}
 In publish/subscribe systems, subscribers register their interest in a specific event, and are notified when this event occurs after a publisher publishes the event. The strength of the publish/subscribe par\-a\-digm is that entities are decoupled in time, space and synchronisation \cite{Eugster2003}. Space decoupling means that the interacting entities do not need to be aware of each other. Time decoupling means that the entities do not need to participate in the interaction at the same time. Synchronisation decoupling means that subscribers can asynchronously be notified when an event occurs. Removing synchronisation dependencies between entities increases scalability.
 
 There are three variants of publish/subscribe systems:
