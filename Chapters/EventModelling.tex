@@ -16,7 +16,7 @@ Events are notable occurrences that can be associated with people, places and ob
 %- Music ontology (uses Events ontology, also see 15/02/11)
 
 \marginpar{Interaction events were first introduced in Section \ref{OntologyDesign1}.}
-Interaction events are generated when a user interacts with a smart object. Interaction events are high-level input events which report the intention of the user's action directly, rather than just reporting the associated hardware input event that triggered the action. This high level of abstraction enables developers to write applications which will work across different devices and services, without having to write specific code for each possible input device. 
+% Interaction events are generated when a user interacts with a smart object. Interaction events are high-level input events which report the intention of the user's action directly, rather than just reporting the associated hardware input event that triggered the action.  
 
 The W3C Web Events Working Group defined four conceptual layers for interactions, in the context of touch- and pen-tablet interaction \cite{w3cevents}:
 
@@ -24,10 +24,10 @@ The W3C Web Events Working Group defined four conceptual layers for interactions
 \item [Physical] This is the lowest layer, and deals with the physical actions that a user takes when interacting with a device, such as pressing a physical button.
 \item [Gestural] This is layer describes mappings between the lower and upper layers; for example, a ``pinch'' gesture may represent the user placing two fingers on a screen and moving them together at the physical layer. This may map to a ``zoom-in'' event at the representational layer.
 \item [Representational] This layer indicates the means by which the user is performing a task, such as zooming in, panning, navigating to the next page, activating a control, etc.
-\item [Intentional] This layer indicates the intention of the task a user is trying to perform, such as viewing more or less detail (zooming in and out), viewing another part of the larger picture (panning), and so forth.
+\item [Intentional] This layer indicates the intention of the task a user is trying to perform, such as viewing more or less detail (higher-level abstraction of zooming in and out), viewing another part of the larger picture (higher-level abstraction of panning), and so forth.
 \end{description}
 
-Interaction events can be defined at three of the layers, with the exception of the intentional layer. In Table \ref{transformationTable} examples of possible interaction events are shown, together with possible entities associated with these events. Most of these interaction events exist at the representational layer, which are events that have significant meaning.
+Interaction events can be defined at three of the layers, with the exception of the intentional layer. In Table \ref{transformationTable} examples of possible interaction events are shown, together with possible entities associated with these events. Most of these interaction events exist at the representational layer, which are events that have significant meaning. This high level of abstraction enables developers to write applications which will work across different devices and services, without having to write specific code for each possible input device.
 
 \begin{table}
 \centering
@@ -63,7 +63,16 @@ These events all occur at a specific time or during a specific time interval. In
 	\item Using object properties -- classes are used to define temporal intervals, and event instances are linked to instances of these classes using object properties.
 \end{itemize}
 
-The advantage of linking event instances directly with dates is simplicity. There are fewer abstractions to deal with, and it is easier to sort events chronologically and compare them \cite{Shaw2009}. On the other hand, working with temporal intervals provide more flexibility and allows for more detailed temporal reasoning.
+The advantage of linking event instances directly with dates is simplicity. There are fewer abstractions to deal with, and it is easier to sort events chronologically and compare them \cite{Shaw2009}. On the other hand, working with temporal intervals provide more flexibility and allows for more detailed temporal reasoning. 
+
+This chapter is structured as follows:
+
+\begin{itemize}
+	\item Current approaches to modelling events using ontologies
+	\item Our approach to modelling interaction events, based on the concepts of the existing event ontologies
+	\item Categorising interaction events in terms of the layers of interaction described above %, as well as in terms of feedback
+\end{itemize}
+
 
 \section{Related work}
 We now look at various existing event ontologies that we build upon to model interaction events in ubiquitous computing environments. We will also look at how temporal reasoning is performed with ontologies.
@@ -119,7 +128,8 @@ fn:substring(xsd:string(afn:now()),0,10)
 
 \section{Interaction events}
 \label{InteractionEvents}
-We now turn our focus to how interaction events are modelled in the work described in this thesis. An interaction event happens at a specific time, is generated by a smart object and has an optional data value associated with the event.
+
+We now turn our focus to how interaction events are modelled in the work described in this thesis. In order to perform semantic reasoning with events, we need to know when they occur and be able to uniquely identify them. An interaction event happens at a specific time, is generated by a smart object and has an optional data value associated with the event.
 
 \begin{figure}[bth]
         \includegraphics[width=\linewidth]{interactionEvent}
@@ -170,28 +180,29 @@ The \texttt{duration} property is used to define the length of event. For exampl
 \end{minted}
 
 
-We also distinguish between \emph{control} and \emph{content}. Interacting with a device, e.g. pressing a ``Play'' button or moving a volume slider, is considered control and described using interaction events. Content, e.g. a song or a photo stored on the device,  is referred to by where it exists on the device, as well as how it can be rendered using the media capabilities of the device. 
+% We also distinguish between \emph{control} and \emph{content}. Interacting with a device, e.g. pressing a ``Play'' button or moving a volume slider, is considered control and described using interaction events. Content, e.g. a song or a photo stored on the device,  is referred to by where it exists on the device, as well as how it can be rendered using the media capabilities of the device. 
 
-We consider interaction events to be traceable, reversible and identifiable. Each interaction event has an associated timestamp and a unique ID that is generated when the event occurs. 
+We consider interaction events to be identifiable and traceable. Each interaction event has an associated timestamp and a unique ID that is generated when the event occurs. All interaction events that occur are stored in the triple store.
 
 \marginpar{Intentional, incidental and expected interactions were introduced in Section \ref{intentionalSpectrum}.}
 An intentional interaction, like pressing a light switch, is an interaction event if the light switch shares this information with other devices. Incidental or expected interactions, like the light turning on if the presence sensor is triggered, are also interaction events. System events, like a \texttt{TimeSetEvent}, which are invisible to the user are not considered to be interaction events.
 
 \section{Categorising interaction events}
 
-In the iStuff toolkit \cite{Ballagas2003} \emph{hierarchical event} structures were used to abstract low-level events into application-level events. \marginpar{Also see the related work on task models in Section \ref{interactionTasks}.} We also introduce the notion of an event hierarchy, where low-level events are considered to be very \emph{generic}, as they do not report a user's intention directly \cite{Niezen2011}. These low-level events first need to be transformed into intentional events---events that express user intention.
+In the iStuff toolkit \cite{Ballagas2003} \emph{hierarchical event} structures were used to abstract low-level events into application-level events. \marginpar{Also see the related work on task models in Section \ref{interactionTasks}.} We also introduce the notion of an event hierarchy, where the designer of the smart object can specify at which level the event occurs. %where low-level events are considered to be very \emph{generic}, as they do not report a user's intention directly \cite{Niezen2011}. %These low-level events first need to be transformed into intentional events---events that express user intention.
 
 %some of this might need to move to, or be repeated in the section where we describe our interaction model.
 %\marginpar{Nielsen's virtual protocol model and its interaction levels were discussed in Section \ref{nielsenVPM}.}
-We build on the different interaction layers introduced in the related work of Section \ref{InteractionModels} to categorise interaction events. As an example, consider the case where a rocker switch, modelled as an interaction primitive on a mobile device, is used to control the volume of music in a room. One could start modelling the interaction on the physical level with a \texttt{ButtonEvent}, but it would be more meaningful to model it on the lexical level as a \texttt{ButtonUpEvent}. On the syntactic level this event could increment a quantity by one, while an event generated by a volume dial might have a discrete value attached to it. When this is combined with other device information, for example that the device is being used to stream music to the environment, we can infer on the semantic level that it is a \texttt{VolumeUpEvent}. When this is combined with other contextual information, for example that the device is currently connected to a speaker system in the same room, we can even infer on the task level that the music volume in the room should be set to a specific value with a \texttt{MusicVolumeUpEvent}, to which all connected devices can respond. We acknowledge that in most cases it may not be possible to make inferences on the goal level, which in this example could be the user's intent to set the music volume in the room to a level that is loud enough for everyone in the room to dance to.
+
+We build on the different interaction layers introduced in the related work of Section \ref{InteractionModels} to categorise interaction events. As an example, consider the case where a rocker switch, modelled as an interaction primitive on a mobile device, is used to control the volume of music in a room. One could start modelling the interaction on the physical level with a \texttt{ButtonEvent}, but it would be more meaningful to model it on the lexical level as a \texttt{ButtonUpEvent}. On the syntactic level this event could increment a quantity by one, while an event generated by a volume dial might have a discrete value attached to it. When this information is combined with other device information, for example that the device is being used to stream music to the environment, we can use semantic reasoning to infer on the semantic level that it is a \texttt{VolumeUpEvent}. When this is combined with other contextual information, for example that the device is currently connected to a speaker system in the same room, we can even infer on the task level that the music volume in the room should be set to a specific value with a \texttt{MusicVolumeUpEvent}, to which all connected devices can respond. We acknowledge that in most cases it may not be possible to make inferences on the goal level, which in this example could be the user's intent to set the music volume in the room to a level that is loud enough for everyone in the room to dance to.
 
 \begin{figure}[bth]
 	\digraph[scale=0.45]{InteractionModelToOntology}{
 		{rank=same; Semantic [label="Semantic Level", shape=plaintext]; AdjustLevelEvent; MusicVolumeUpEvent }
 		{rank=same; Syntactic [label="Syntactic Level", shape=plaintext]; VolumeUpEvent; SmartObject;}
 		{rank=same; Lexical [label="Lexical Level", shape=plaintext]; ButtonUpEvent}
-		{rank=same; Alphabetic [label="Alphabetic Level", shape=plaintext]; ButtonEvent; }
-		Semantic->Syntactic->Lexical->Alphabetic [style="invis"];
+		{rank=same; Physical [label="Physical Level", shape=plaintext]; ButtonEvent; }
+		Semantic->Syntactic->Lexical->Physical [style="invis"];
 		ButtonEvent->ButtonUpEvent;
 		ButtonUpEvent->VolumeUpEvent
 		VolumeUpEvent -> MusicVolumeUpEvent;
@@ -203,9 +214,7 @@ We build on the different interaction layers introduced in the related work of S
 	\label{InteractionModelToOntology}        
 \end{figure}
 
-Figure \ref{InteractionModelToOntology} shows how the interaction model levels relate to the concepts in the ontology that was developed through the various iterations. A \texttt{ButtonEvent} describes a user interaction on the alphabetical level, but carries very little meaning. For example, was the button switched up or down, or was it pressed? If we know that the button was switched up, we have a lexical token that describes the interaction, but it still needs to be combined with other contextual information to determine the user's intention. On the other hand, if the interaction is described as a \texttt{VolumeEvent}, the user's intention is described on a syntactic level, and it becomes possible to map the event to a set of predefined semantic events, for example an \texttt{AdjustLevelEvent}. Using semantic reasoning, we can also infer that this \texttt{AdjustLevelEvent} was generated by the same smart object.
-
-
+Figure \ref{InteractionModelToOntology} shows how the interaction model levels relate to the concepts in the ontology that was developed through the various iterations. A \texttt{ButtonEvent} describes a user interaction on the physical level, but carries very little meaning. For example, was the button switched up or down, or was it pressed? If we know that the button was switched up, we have a lexical token that describes the interaction, but it still needs to be combined with other contextual information to determine the user's intention. On the other hand, if the interaction is described as a \texttt{VolumeEvent}, the user's intention is described on a syntactic level, and it becomes possible to map the event to a set of predefined semantic events, for example an \texttt{AdjustLevelEvent}. Using semantic reasoning, we can also infer that this \texttt{AdjustLevelEvent} was generated by the same smart object. Semantic reasoning is performed on the \ac{SIB}, so new events generated by different \acp{KP} may be used to recategorise existing events as more information becomes available.
 
 
 \subsection{System events}
@@ -236,7 +245,11 @@ The device used to make the connection, for example the Connector object, create
         \label{arnall}
 \end{figure}
 
-Tungare et al. \cite{Tungare2007} defined a \emph{task disconnect} as ``the break in continuity that occurs due to the extra actions outside the task at hand that are necessary when a user attempts to accomplish a task using more than one device.'' Kuniavsky \cite{Kuniavsky} states that consistency is the key aspect in creating task continuity across devices, and that \emph{interaction vocabularies} have recently emerged as a way of consistently interacting with a range of devices. This ranges from simple vocabularies of light patterns and motion as used by the (now discontinued) Nabaztag Internet-connected rabbit that could compose ``sentences'' with more complex meaning, to a set of visual icons by Timo Arnall \cite{Arnall2006} that represents various kinds of touch-based RFID interactions. Arnall's touch-based vocabulary is shown in Figure \ref{arnall}. Arnall categorises his vocabulary of visual icons into four classes of interactions: 
+Tungare et al. \cite{Tungare2007} defined a \emph{task disconnect} as ``the break in continuity that occurs due to the extra actions outside the task at hand that are necessary when a user attempts to accomplish a task using more than one device.'' Kuniavsky \cite{Kuniavsky} states that consistency is the key aspect in creating task continuity across devices, and that \emph{interaction vocabularies} have recently emerged as a way of consistently interacting with a range of devices. This ranges from simple vocabularies of light patterns and motion as used by the (now discontinued) Nabaztag Internet-connected rabbit that could compose ``sentences'' with more complex meaning, to a set of visual icons by Timo Arnall \cite{Arnall2006} that represents various kinds of touch-based RFID interactions.
+
+These interaction vocabularies try to smooth over task disconnects through consistency. We argue that by having a vocabulary, or ontology, of interaction events could improve consistency in ubiquitous computing environments. This is the intention of the work in this chapter --- to provide an ontology of interaction events that improves consistency for users, as well interoperability between devices.
+
+Arnall's touch-based vocabulary is shown in Figure \ref{arnall}. Arnall categorises his vocabulary of visual icons into four classes of interactions: 
 
 \begin{itemize}
 	\item Circles, of which the ``Aura'' is an example
@@ -248,7 +261,7 @@ Tungare et al. \cite{Tungare2007} defined a \emph{task disconnect} as ``the brea
 
 The ``Aura'' icon communicates both the near-field communication capabilities of the technology, but also indicates that the physical object has capabilities beyond its form. The icons with cards or mobiles could improve consistency for a wide range of users which use these technologies on a daily basis.
 
-These interaction vocabularies try to smooth over task disconnects through consistency. We argue that by having a vocabulary, or ontology, for interaction events could improve consistency in ubiquitous computing environments. This is the intention of the work in this chapter --- to provide an ontology of interaction events that improves consistency for users, as well interoperability between devices.
+Arnall's work is specific to touch-based RFID interactions, and helps to provide users with feedforward of device functionality that might not be immediately apparent otherwise. An ontology of interaction events, on the other hand, provides designers of smart objects with a vocabulary to describe the events that are shared between devices in order to improve interoperability and consistency.
 
 
 
