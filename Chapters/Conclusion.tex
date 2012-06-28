@@ -1,0 +1,96 @@
+\chapter{Conclusion}
+\label{Conclusion}
+
+\begin{flushright}{\slshape    
+The holy grail of context awareness is to divine or understand human intent.} \\ \medskip
+    ---  Anind Dey
+\end{flushright}
+
+In this chapter we will discuss some of the results achieved by the work described in this thesis, and to what extent it validates the hypothesis and answers the research questions set out in Section \ref{ResearchQuestions}. We will also discuss some of the lessons learned during the time spent working on this project.
+
+Research work is no longer a one-man show. Apart from the close collaboration between Van der Vlist \cite{Bram} and myself, we also had to work closely with the other partners in the \ac{SOFIA} project. A large part of such a project is the work on technological integration, where the focus is on the interoperability of devices. This technological integration work was not always discussed in detail in the descriptions of the three design iterations, where the focus was mainly on showing our own contributions. 
+
+\marginpar{Intentional, incidental and expected interactions were introduced in Section \ref{intentionalSpectrum}.}
+One thing we learned from working in the ubiquitous computing domain is that automation should be used to simplify the complexities of technology, not necessarily to automate everything in the real world. It is much easier for a user to create a working mental model of his/her surroundings when explicitly interacting with things in the world. When incidental interactions occur and something happens automatically, there is a greater chance that the user will construct an incorrect mental model, and then expect a result that may be inconsistent with how the system actually works.
+
+\section{Achievements and observations}
+
+At the beginning of the project we set out to create an ontology and software architecture that could enable serendipitous interoperability between devices in a smart environment. An ontology was created to model user interaction and devices in a smart environment consisting of multiple interactions and multiple devices.%answers Q1
+
+The ontology and software architecture described in this thesis enable the creation of ensembles of devices. For example, the alarm functionality of a mobile phone, a wakeup service and a lamp can be combined to create an ensemble of devices with wakeup light functionality. This enables serendipitous interoperability, and we are excited to see what kinds of ensembles people come up with in future.
+
+One side effect of enabling serendipitous interoperability in a smart environment is that there are now multiple ways to achieve the same goal. For example, if the user connects the alarm clock functionality on his/her mobile phone to the clock radio on his/her bedside table, the alarm can be set on either the phone or the clock radio -- whichever way the user prefers. Van der Vlist's \cite{Bram} observations indicate that this means that even though the users' mental models only partly matches the system they are interacting with, they are still able to achieve their goals.
+
+A method to evaluate the usability of ontologies and systems for developers of smart environments was developed, based on the \ac{CD} framework. While the evaluation method does not allow us to assign quantitive measures for usability, it does provide a vocabulary and framework for discussing usability issues with ontologies and smart environments.%answers Q4
+
+We now discuss some of the results of the work in more detail.
+
+\section{Providing affordances and feedback for smart objects}
+
+In a \ac{GUI}, there are six fundamental interaction tasks, as described in Foley's seminal paper \cite{Foley1984}\marginpar{Foley's taxonomy was discussed in Section \ref{interactionTasks}.} In contrast, there are numerous activities that can be performed with or on a physical object, for example squeeze, tap and push. There are also no standard input/output devices, for example movement may be measured with an accelerometer, camera or infrared sensor. A user action, within a given interaction, may be distributed across multiple physical objects, as there is no single point of interaction \cite{Dourish2004}. 
+
+\marginpar{Tangible interfaces were discussed in Section \ref{ullmer}.} Addressing a system with a \ac{GUI} is very clear: the user uses an input device attached to the system. In a smart environment it is not always clear which devices form part of the system. In most systems using tangible interfaces, devices are augmented with \ac{RFID} tags or IR transmitters, where they can be scanned or pointed at to initiate communication. If these tags and sensors are attached unobtrusively to devices, it is difficult for users to distinguish which devices form part of the smart environment, as there are no visual affordances. 
+	
+\marginpar{Feedback and feedforward is discussed in more detail in Section \ref{section:feedbackAndFeedforward}.} Our approach to solving this problem was to make extensive use of feedback and feedforward. For example, we use augmented feedforward to display a device's functional possibilities at the time a connection between two devices is being made. We also use feedback to confirm user actions, using augmented feedback where direct functional feedback is not available.
+
+
+\section{Software architecture}
+
+Even with all the different toolkits and systems to demonstrate the usefulness of ubiquitous computing technology, as described in Section \ref{RelatedProjects}, building these kind of systems is still a complex and time-consuming task due to a lack of appropriate infrastructure or middle\-ware-level support \cite{Gu2004}.
+
+Chapter \ref{SoftwareArchitecture} in this thesis can act as a reference design for future implementations. From the work described in this thesis we have shown that having an architecture based on the blackboard pattern and publish/subscribe paradigm works well. We evaluated the suitability of such a combination to handle ontology-based ubiquitous computing environments, with promising results.%Addresses research question 2 
+
+\marginpar{The \O MQ protocol, mentioned in Section \ref{ssap}, can run with or without a dedicated message broker.}
+However, having a centralised information broker is only one solution. Hybrid approaches using both centralised and decentralised techniques should also be explored.   
+
+
+
+\section{Ontologies}
+
+Most systems use programming language objects to represent knowledge about their environment. Because these representations require an a priori agreement on how they will be implemented in a system, they do not facilitate knowledge sharing in an open and dynamic environment \cite{Chen2004}. Based on our work, we believe strongly that using ontologies to describe and reason about smart environments have a lot of potential.  
+	
+Semantic Web technologies are well suited to ubiquitous computing scenarios. They have been designed to work at Web scale, they provide interoperability between heterogeneous data sources, and they rely on existing Web standards which allow for easy adoption \cite{Sabou2010}.
+
+\section{Low cost, high tech}
+
+One area that we focused on in this project was to see what kind of low-cost products are available that have similar functionality to more expensive equipment. For example, while some 13.56MHz \ac{RFID} readers currently retail for thousands of euros, the Touchatag reader we used retails for around \euro 30. \marginpar{The Touchatag reader was first discussed in Section \ref{InteractionTile}.} 
+
+The Nokia 5800 XpressMusic phone we used in the first design iteration provides a touch screen, WiFi and Bluetooth connectivity and accelerometer for a fraction of the cost of other phones with similar functionality. Of course, there are some tradeoffs that need to be made, for example less processing power or slower responsiveness compared to more expensive models. We see this approach in a similar light to using rapid prototyping techniques, like paper or video prototypes, were tradeoffs are required in order to test out your ideas.
+
+Another example is the Squeezebox radio used in our third design iteration, which currently sells for around \euro 120. Comparable state-of-the-art wireless media systems cost upwards of \euro 300 per device.
+
+In their book on mobile interaction design, Jones and Marsden \cite{Jones2006} describe the effect of ubiquitous computing with mobile devices in developing countries, using cheap and simple technologies. \marginpar{Greenfield mentioned the issue of second class technology during a summer school panel attended by the author.} For example, while Internet penetration in South Africa was only 7.1\% of the population by 2005, mobile penetration was around 50\%. We believe there is a lot of work to be done in this area. However, there is a note of caution from Adam Greenfield, author of the book Everyware \cite{Greenfield2006}, where he is worried about the creation of second class technology, for example where translating financial web applications into an SMS-based system.
+
+
+\section{Future work}
+
+One aspect that we would like to explore in future is to study the possibilities of minimising information overload in more detail. It should be possible to adapt the amount of information in the environment to your mood, for example whether you want to increase your performance, or just want to focus on relaxation and enjoyment.
+
+Another aspect that was considered out of scope for the project was social awareness, for example notifying a close friend performing a similar activity or having a similar goal. We touched on this aspect during the smart home pilot, where music and lighting patterns could be shared between friends in two different locations.\marginpar{The smart home pilot was discussed in Section \ref{D2Requirements}.}
+
+%- Tool to visualize possible interaction paths
+%- Using preferences to prioritize activities (see 11/10/2010)
+
+There is room for improvement when it comes to documentation tools for ontologies. For example, there exist many tools that enable the automatic generation of \ac{API} documentation from source code, like Doxygen\footnote{http://doxygen.org} and Sphinx\footnote{http://sphinx.pocoo.org}. At the time of writing, there is only a limited set of documentation generators available for ontologies, for example OWLDoc\footnote{http://code.google.com/p/co-ode-owl-plugins/wiki/OWLDoc}. An effort by the author to improve syntax highlighting for \ac{SPARQL} and Turtle syntax, called \texttt{n3pygments}, is available as open source\footnote{https://github.com/gniezen/n3pygments} and was developed during this project.\marginpar{\texttt{n3pygments} was used to perform syntax highlighting for the ontology and \ac{SPARQL} fragments in this thesis.}
+
+%- Documentation tool
+%	- OWLDoc does not support Prot\'eg\'e 4.x (it does now)
+%	- SpecGen (used by FOAF, SIOC) works, but has very simple templating engine
+%		\texttt{specgen <name of ontology> <prefix> <template> <output>}
+%	- dowl Ruby script by Leigh Dodd is still experimental
+%- Roll back insert transaction if it causes ontology to become inconsistent and notify KP
+%- Explore opportunities provided by distributed broker middleware 
+
+% Possible TODO Easier to use (compared to UPnP and others, relational databases)
+
+From our experience, and those of the other project partners involved in the \ac{SOFIA} project, the ontology and software architecture described in this thesis has proven to be easier to use and more flexible than existing methods, like  storing device and service descriptions in a relational database. We believe that using this approach we can better support user interaction in smart environments.
+
+	
+
+
+
+%Ontology-oriented approaches have been used to explore the potential capability of context reasoning based on Semantic Web technologies. According to \cite{Gu2004} existing context ontologies lack generality and have not addressed issues such as context classification, context dependency and quality of context, which will be useful in context reasoning. Ubiquitous computing technologies should provide behaviours adapting to the user's changing tasks and environments through different interface modalities and devices. Context informs this process by providing a structured, unified view of the world in which the system operates \cite{Coutaz2005a}.
+
+%Ubiquitous computing is highly sensor-driven, and these sensors provide only evidence of fact rather than facts themselves. A person's location, for example, is not captured by a location sensor: rather, the person's location must be inferred by fusing the evidence from a range of sources. Current ontologies do not capture this distinction between consensus and evidence.
+
+

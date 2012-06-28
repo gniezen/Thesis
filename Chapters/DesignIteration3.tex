@@ -174,7 +174,15 @@ This opens up many possibilities for users, as they may connect other lights, an
 \label{sleepusecase}
 \end{figure}
 
-The Zeo sleep monitor is shown on the left-hand side of Figure \ref{sleepusecase}. The Zeo headband uses three silver conductive fabric sensors to collect \ac{EEG} signals while a person is sleeping. The signals are amplified and features are extracted using a \ac{FFT}. An \ac{ANN} is then used to estimates the probability of a person being in a certain phase of sleep\cite{Rubin2009}. The sleep stages are Awake, \ac{REM} Sleep, Light Sleep, Deep Sleep or Undefined. 
+The Zeo sleep monitor is shown on the left-hand side of Figure \ref{sleepusecase}. The Zeo headband, shown in Figure \ref{headband}, uses three silver conductive fabric sensors to collect \ac{EEG} signals while a person is sleeping. The signals are amplified and features are extracted using a \ac{FFT}. An \ac{ANN} is then used to estimates the probability of a person being in a certain phase of sleep\cite{Rubin2009}. The sleep stages are Awake, \ac{REM} Sleep, Light Sleep, Deep Sleep or Undefined. 
+
+\begin{figure}
+\centering
+\includegraphics[width=300pt]{headband}
+\caption{The Zeo headband}
+\label{headband}
+\end{figure}
+
 
 Sleep data is stored on an SD card on the device and can be uploaded to the Zeo MySleep\footnote{http://mysleep.myzeo.com} website. Zeo created the Data Decoder Card library\footnote{http://developers.myzeo.com/data-decoder-library/} that allows developers to decode the sleep data without uploading the data to the MySleep website. We also built a USB cable that connects to a serial port on the back of the device. With this cable you can access the raw data coming from the headband sensor. %-- a diagram indicating how the USB cable should be connected to the Zeo is shown in Figure \ref{zeoBack}.
 

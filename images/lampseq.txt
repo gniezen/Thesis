@@ -1,0 +1,9 @@
+Presence-KP -> SIB: Update Away
+SIB -> Lamp-KP : Update Away
+Lamp-KP -> Lamps : OFF command
+Presence-KP -> SIB : Update Present
+SIB -> Lamp-KP : Update Present
+Lamp-KP -> Lamps : ON command
+SLT-KP -> SIB : Update Lighting
+SIB -> Lamp-KP : Update Lighting
+Lamp-KP -> Lamps : DIM command

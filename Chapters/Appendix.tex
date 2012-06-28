@@ -112,5 +112,124 @@ owl:imports <http://spinrdf.org/spin>
 
 instead of \texttt{spin:imports}, otherwise the SPIN rules cannot be resolved properly.
 
+
+\section{Setting up the environment}
+
+The last version we tested was ADK-SIB v.2.0.5 (from sg1.esilab.org/sofia) with Eclipse Helios v.3.6.2.
+
+When we tested v.2.0.8, it broke SSAP compatibility with the Smart-M3 implementation (used for Python KPs).
+
+Eclipse Indigo is incompatible with the OSGi implementation of the ADK-SIB, where the \texttt{registerService} function now requires a \texttt{Dictionary} instead of \texttt{Properties}.
+
+\section{Loading local version of an ontology when available}
+
+When using the Jena API to import an ontology on the web, you can specify a local version on your computer to be used instead. This is quite useful when developing your own ontology.
+
+First you need to create a file that maps your locations. \texttt{Mine is called location- 
+mappings.ttl}: 
+
+\begin{minted}{turtle}
+@prefix lm: <http://jena.hpl.hp.com/2004/08/location-mapping#> . 
+
+[] lm:mapping 
+[ lm:name "http://sofia.gotdns.com/ontologies/SemanticConnections.owl" ; 
+lm:altName "file:SemanticConnections.owl"  ] , 
+[ lm:name "http://sofia.gotdns.com/ontologies/SemanticInteraction.owl" ; 
+  lm:altName "file:SemanticInteraction.owl"  ] . 
+\end{minted}
+
+Then you define it in your code before loading the ontology: 
+
+\begin{minted}{java}
+import com.hp.hpl.jena.util.LocationMapper; 
+
+LocationMapper lm= new LocationMapper("location-mapping.ttl"); 
+LocationMapper.setGlobalLocationMapper(lm); 
+FileManager.get().setLocationMapper(lm);
+\end{minted}
+
+If all goes well, it will load the local versions of specified imported ontologies.
+
+\section{Using the SIB}
+
+\subsection{Retrieving the machine's IP address}
+The standard SOFIA version of the ADK-SIB uses the Java \texttt{getLocalHost()} function to get the local IP address of the machine, but this does not always work correctly. \texttt{getLocalHost()} uses the machine's network name to retrieve the IP address. In our case, the network name \texttt{ID00713} was mapped to the VNC IP address, not the public IP address. As \texttt{getLocalHost()} ignores the \texttt{hosts} file on the machine, a version of the ADK-SIB was created that uses the Java \texttt{getByName()} function instead.
+
+\subsection{Packaging the SIB in an OSGi bundle}
+The following steps were followed to create an OSGI bundle of the modified ADK-SIB:
+
+\begin{itemize}
+	\item Get the latest version of the SOFIA ADK-SIB source code, e.g. we used v.2.0.5 in \texttt{eu.sofia.sib.osgi} from \texttt{esilab.org}.
+	\item Add \texttt{log4j.properties} to \texttt{build.properties} to ensure that a log file is generated.
+	\item For SPIN, add the following .jar files and also put them in \texttt{MANIFEST.MF} (we used version 1.2.0):
+	\begin{itemize}
+		\item spin1.2.0
+		\item spinbase-1.2.0
+		\item spin.functions
+		\item arq-2.8.7
+		\item jena-2.8.7
+	\end{itemize}
+	\item Add the above to \texttt{build.properties}, as well as \texttt{Properties}~$\Rightarrow$~\texttt{Java Build Path}
+	\item Remove the \texttt{extends} from the \texttt{ResultSetFormatter} function (this causes a problem with ARQ)
+	\item Also import \texttt{eu.sofia.adk.gateway.tcpip} and modify the Run Configuration to use the latest bundles
+	\item Perform Eclipse Update to get new bundles for SOFIA ADK
+	
+\end{itemize}
+
+
+\section{Useful SPARQL queries}
+To get all datatype instances: %17/10 notebook 2
+\begin{minted}{sparql}
+SELECT DISTINCT ?s ?p ?o
+WHERE {
+	?s ?p ?o .
+	FILTER isLiteral(?o) .
+}
+\end{minted}
+
+
+
+\section{Useful TopBraid Composer shortcuts}
+
+To view all SPIN rules:
+Model~$\Rightarrow$~Display SPIN rules and constraints
+
+
+
+Possible TODO: Notebook 2 24/04 (Serving ontology at different URI)
+Possible TODO: Comparing TikZ to GraphViz
 Possible TODO: Device documentation from ~/code/semanticconnections/docs
 Possible TODO: Smart-M3 SIB installation 06/09/10
+
+
+
+- Tools: 
+	- ssls (See README)
+		.sslslogin and .ssls
+		Reported various bugs that were fixed (see e.g. 31/01/11)
+	End of notebook1:
+	- d-bus
+	- git
+	- svn
+	-
+
+- System setup
+	07/06/11 (Location of source code, also see README for Aly's deliverable)
+
+- ADK-SIB
+	To update deployable .jar (19/01/11)
+	Does not support triple-level queries without at least one wildcard, i.e. cannot be used to test if a certain triple exists in the triple store
+	Updated Jena to 2.6.4 to be compatible with SPIN 1.2.0 (uses Jena ARQ-2.8.7 as SPARQL engine)
+		- Requires \texttt{extends} to be removed from \texttt{ResultSetFormatter} constructor in ADK-SIB, which was still valid with ARQ-2.8.2
+	Packaging ADK-SIB
+		log4j.properties should be added to build.properties
+		Reinstalling bundles
+			stop <bundle>
+			uninstall <bundle>
+			install file://home/gerrit/...
+			ss (to view bundles)
+			start <bundle>
+				
+- Developing with Android
+	04/04/11, 02/05/11
+	Python KPI: getprotobyname in Node.py is unsupported, but not needed

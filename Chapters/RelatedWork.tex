@@ -55,7 +55,7 @@ This line of thinking was a starting point for Newman et al \cite{Newman2002}, w
 \label{InformationFiltering} % this part on information filtering was on Notational Velocity
 The SpeakEasy project focused on what users might be trying to accomplish in a specific situation when connecting entities to one another. Possible examples include connecting devices in order to give a presentation, or in order to send contact information. They created templates of common tasks that contained a partially specified set of connections and entities, which could be fully specified and instantiated by users at run-time. An instantiated template was then added to a list of current tasks. It was noted that templates impose a layer of semantics on top of the raw infrastructure. Templates assisted users by constraining the available component choices to only those that were appropriate for the task at hand.
 
-The SpeakEasy environment consisted of a web application that allows users to browse for components, which can be viewed and organised in different ways, for example grouped by location or owner.\marginpar{The e-Gadgets project in Section \ref{egadgets} also made use of a web application to configure components.} Our work takes a different approach to configuring components, by using tangible interaction techniques instead of \ac{GUI}-based interaction.
+The SpeakEasy environment consisted of a web application that allows users to browse for components, which can be viewed and organised in different ways, for example grouped by location or owner.\marginpar{The e-Gadgets project in Section \ref{egadgets} also made use of a web application to configure components.} The work described in this thesis takes a different approach to configuring components, by using tangible interaction techniques instead of \ac{GUI}-based interaction.
 
 What can be learned from the SpeakEasy project is the importance of describing the interfaces of components, such that they can be combined with other components. These interface descriptions help to enable serendipitous interoperability, and are described in more detail in Chapter \ref{DeviceCapabilityModelling}. 
 
@@ -82,7 +82,8 @@ The iStuff toolkit \cite{Ballagas2003} was developed within Stanford to explore 
 Patch Panel \cite{Ballagas2004} is a mechanism in the iStuff toolkit that tries to solve incremental integration, the problem of integrating new devices and applications that may not have a priori knowledge of each others existence of function. They noted that SpeakEasy allows for direct user intervention via \acp{GUI}, but does not support automated connections free of user intervention, for example data from presence sensors that may be used to turn on the lights. Patch Panel uses an approach called intermediation, with a decoupled communication model (such as publish/subscribe) for inter-component communication. \marginpar{A similar decoupled model was used for the work described in this thesis.} Patch Panel uses a set of mappings between triggers and output events to enable intermediation. These mappings are defined using the Patch Panel Manager \ac{GUI} or \ac{FSM}-based scripting language, and users configure connections using a web-based configuration wizard.
 
 % end TiiS
-While our approach to sharing information between devices is similar to that of EventHeap and Patch Panel, it differs in in the following ways:
+
+Existing toolkits like iStuff do not provide support for the association of high-level semantics to physical objects \cite{Shaer2004}. While our approach to sharing information between devices is similar to that of EventHeap and Patch Panel, it differs in in the following ways:
 
 \begin{itemize}
     \item We use ontologies describe device capabilities and interactions events
@@ -127,7 +128,7 @@ Pierce and Mahaney expect that the primary benefit of annexing input resources w
 In our approach we go beyond \ac{XML}-based descriptions to modelling resources and services, by using ontologies to describe devices, and performing semantic reasoning to discover the different ways these devices can be connected to one another. 
 
 \subsection{AutoHAN (circa 2001)}
-
+\label{autohan}
 AutoHAN is a networking and software architecture to enable user-programmable specification of interaction between appliances in a home environment \cite{Blackwell2001}. It tries to solve the issue of potential complexity between digital devices that interact with each other, especially if these devices are manufactured by different companies (as it is the user who has to specify how they will interact with one another).
 
 %Blackwell considers direct manipulation to be far more important than pictorial metaphors for assisting end-users in learning a novel programming language. 
@@ -196,7 +197,7 @@ They also noted that the possibility to combine the functionality of devices ope
 
 In our approach we use an \ac{OWL} 2 ontology instead of DAML+OIL, and use a reasoning engine to perform semantic matching of devices. As mentioned earlier in this section, we also tried to move beyond the traditional \ac{GUI}-abased approach to configure the connections between devices. 
 
-Apart from these projects and frameworks presented here, we also want to look at the other aspects that are related to our work. The rest of the chapter will introduce ontologies considered to be state-of-the-art  in ubiquitous computing, as well as related interaction models, task models and semantic models.
+Apart from these projects and frameworks presented here, we also want to look at the other aspects that are related to the work described in this thesis. The rest of the chapter will introduce ontologies considered to be state-of-the-art  in ubiquitous computing, as well as related interaction models, task models and semantic models.
 
 \section{Ubicomp ontologies}
 \label{UbicompOntologies}
@@ -351,7 +352,7 @@ In the interaction models described below, these layers are described using diff
 
 
 \subsection{Ullmer \& Ishii's MCRpd model}
-
+\label{ullmer}
 \begin{figure}
 	\centering
 	\centerline{\includegraphics[width=300px]{mcrpd}}
@@ -368,10 +369,9 @@ Ullmer and Ishii \cite{Ullmer2000} extended the traditional \ac{MVC} model for \
 	\item Digital representations (Rep-d) -- represents the computationally mediated components of tangible interfaces without embodied form, for example video and audio, that can be observed in the physical world  
 \end{itemize}
 
-\marginpar{The interaction model introduced in Section \ref{InteractionModel} was inspired by the \ac{MCRpd} model.}
-
 In a tangible interface, the physical representations (Rep-p) are computationally coupled to the underlying digital information (model), as well as perceptually coupled to the computationally mediated digital representations (Rep-d). 
 
+The interaction model introduced in Section \ref{InteractionModel} was inspired by the \ac{MCRpd} model.
 
 	
 	
@@ -390,6 +390,7 @@ In a tangible interface, the physical representations (Rep-p) are computationall
 	
 	Dix et al \cite{Dix2008} noted that Buxton's work emphasised the way in which the lexical level design of the physical interface can simplify syntax in interaction. These ideas have been extended by Ullmer et al \cite{Ullmer2005} into a \emph{digital syntax} that is embodied by the physical design, resulting in a grammar for mapping physical relationships into digital representations.
 	
+	We build on the different interaction layers introduced here, that was later extended by Nielsen \cite{Nielsen1986} as described in Section \ref{nielsenVPM}, to categorise interaction events in Chapter \ref{EventModelling}.
 	
 \subsubsection{Arch/Slinky model}
 	
@@ -404,7 +405,7 @@ In a tangible interface, the physical representations (Rep-p) are computationall
 		\item 	compatibility with other systems
 	\end{itemize}
 	
-	 They define an \emph{application} to be the total system that is developed for its end users, while the \emph{application domain} is the field of interest of, or reason for, the application. They also extended the definition of \ac{UIMS} to a  \ac{UIRS} - the run-time environment of an interactive application.
+	 They define an \emph{application} to be the total system that is developed for its end users, while the \emph{application domain} is the field of interest of, or reason for, the application. They also extended the definition of \ac{UIMS} to a  \ac{UIRS} - the runtime environment of an interactive application.
 	
 	The Arch model creates a bridge between the physical interaction device and the application domain. The following 5 components are defined:
 	
@@ -418,14 +419,9 @@ In a tangible interface, the physical representations (Rep-p) are computationall
 
 The separation of functionality into the different components was done to minimise the effects of changes in technology. The Slinky meta-model is a generalisation of the Arch model, providing a set of Arch models with different weights assigned to each component.
 
+The difference between the Arch/Slinky model and our interaction model is that the Arch/Slinky model relates a single physical interaction device with a software application, while our interaction model relates smart objects with one another through semantic connections.
+
 \subsubsection{Nielsen's virtual protocol model}
-\label{nielsenVPM}
-Nielsen's virtual protocol model for human-computer interaction \cite{Nielsen1986} was inspired by the 7-layer OSI model for computer networks, as shown in Table \ref{VirtualProtocolModel}. The task layer deals with general computer-related concepts that are representations of the real world concepts from level 7, that may have to be realised by a sequence of operations from level 5. Level 5 handles the meaning of the interaction, where there are a finite number of concepts in the system and each have an exact definition. The lexical tokens on level 4 (``DELETE 27'') realises the semantic command ``remove a specific line''. Lexemes are information-carrying units that do not have any meaning by themselves. Screen layout could be considered a two-dimensional syntax that can also be defined in terms of lexical tokens. Direct manipulation \cite{Shneiderman1997} could be seen as using the syntax level to mirror the semantic level.
-
-Nielsen compared his model to Foley's model and Buxton's extended version, as well as an earlier model by Moran called \ac{CLG} that consisted of six levels: task level, semantic level, syntactic level, interaction level and device level \cite{Nielsen1986}. He noticed that all models seem to agree on the visible (defining the form) part of the communication, as well as the invisible part (defining the meaning). Nielsen noted that Foley's model does not include the real-world concepts of his goal level, or the hardware-related detail of his physical level.
-
-According to Nielsen the purpose of his model is to improve the usability of software. He noted that some people will consider it a useful abstraction, while others will prefer other models, similar to how everybody has their own favourite programming language.
-
 
 \begin{table}
     \myfloatalign
@@ -448,12 +444,23 @@ According to Nielsen the purpose of his model is to improve the usability of sof
   \label{VirtualProtocolModel}
 \end{table}
 
+\label{nielsenVPM}
+Nielsen's virtual protocol model for human-computer interaction \cite{Nielsen1986} was inspired by the 7-layer OSI model for computer networks, as shown in Table \ref{VirtualProtocolModel}. The task layer deals with general computer-related concepts that are representations of the real world concepts from level 7, that may have to be realised by a sequence of operations from level 5. Level 5 handles the meaning of the interaction, where there are a finite number of concepts in the system and each have an exact definition. The lexical tokens on level 4 (``DELETE 27'') realises the semantic command ``remove a specific line''. Lexemes are information-carrying units that do not have any meaning by themselves. Screen layout could be considered a two-dimensional syntax that can also be defined in terms of lexical tokens. Direct manipulation \cite{Shneiderman1997} could be seen as using the syntax level to mirror the semantic level.
+
+Nielsen compared his model to Foley's model and Buxton's extended version, as well as an earlier model by Moran called \ac{CLG} that consisted of six levels: task level, semantic level, syntactic level, interaction level and device level \cite{Nielsen1986}. He noticed that all models seem to agree on the visible (defining the form) part of the communication, as well as the invisible part (defining the meaning). Nielsen noted that Foley's model does not include the real-world concepts of his goal level, or the hardware-related detail of his physical level.
+
+We build on the interaction layers of Nielsen to categorise interaction events in Chapter \ref{EventModelling}.
+
+
+
+
+
 
 
 \subsubsection{The ASUR interaction model}
 \label{theasurinteractionmodel}
 
-\ac{ASUR} is a notation-based model to describe user-system interaction in mixed interactive systems \cite{Dubois2008} at design-time. It describes the physical and digital entities that make up a mixed system and uses directed relationships (arrowed lines) to express physical and/or digital information flows and associations between the components.
+\ac{ASUR} is a notation-based model to describe user-system interaction in mixed interactive systems \cite{Dubois2008} at design-time. It describes the physical and digital entities that make up a mixed system. \ac{ASUR} uses directed relationships to express physical and digital information flows, as well as the associations between components.
 
 Both components and relationships may have characteristics. For components, this includes the location where the information is perceived (e.g. top of table) and action/sense required from the user (e.g. sight, touch or physical action). For relationships, characteristics include the dimensionality of the information (e.g. 2D or 3D) and the type of language used (e.g. text or graphics).
 
@@ -478,7 +485,9 @@ An interaction group refers to a set of entities and channels that together have
 
 \end{itemize}
 
-An advantage of the \ac{ASUR} interaction model is that it combines both the physical and digital dimensions of user-system interaction.
+An advantage of the \ac{ASUR} interaction model is that it combines both the physical and digital dimensions of user-system interaction. Later in Chapter \ref{SemanticConnectionsTheory} we will see how our interaction model also combines both these dimensions.
+
+In this section we looked at how interaction models can be used to describe the different elements of an interaction. In the next section we look at how task models can be used to describe the different interaction tasks that can be performed in a smart environment.
 
 % Dubois and Gray \cite{Dubois2008} consider their interaction model similar to that of Coutrix et al \cite{Coutrix2006} (described in section \ref{mixedreality}), in the sense that both combine the physical and digital dimensions of the interaction. 
 % 
@@ -524,8 +533,10 @@ An advantage of the \ac{ASUR} interaction model is that it combines both the phy
 	
 \section{Task models}
 \label{interactionTasks}
+
+\subsection{Foley's taxonomy and its extensions}
 	
-	Foley \cite{Foley1984} describes a taxonomy of input devices that are structured according the graphic subtasks they can perform: position, orientation, select, path, quantify and text entry. He defined these subtasks as six basic interaction tasks (BITs) that correspond to the lexical level. A BIT is the smallest unit of information entered by a user that is meaningful in the context of the application. He noted that there are far too many interaction techniques to give an exhaustive list, and that it is impossible to to anticipate which new techniques may be created. In table \ref{InteractionTasks} we map them to possible logical and physical interaction devices. The six types of logical devices were also defined by Foley in \cite{Foley1996}.
+	Foley \cite{Foley1984} describes a taxonomy of input devices that are structured according the graphic subtasks they can perform: position, orientation, select, path, quantify and text entry. He defined these subtasks as six \acp{BIT} that correspond to the lexical level. A ac{BIT} is the smallest unit of information entered by a user that is meaningful in the context of the application. He noted that there are far too many interaction techniques to give an exhaustive list, and that it is impossible to to anticipate which new techniques may be created. In table \ref{InteractionTasks} we map them to possible logical and physical interaction devices. The six types of logical devices were also defined by Foley in \cite{Foley1996}.
 	
 	
 	\begin{table}
@@ -565,9 +576,9 @@ An advantage of the \ac{ASUR} interaction model is that it combines both the phy
 	
 	Dix et al \cite{Dix2008} noted that Card et al's analysis is not only relevant to GUIs, as they used a running example of a radio with knobs and dials. Their work not only abstracts devices into classes, but also takes into account that rotating a dial is different from moving a slider, i.e. the physical nature of the interaction is also important.
 	
-	
 	 Ballagas et al \cite{Ballagas2006} surveyed interaction techniques that use mobile phones as input devices to ubiquitous computing environments, and used Foley's six interaction tasks as a framework for their analysis. In their work on iStuff \cite{Ballagas2003} they state that the set of interactions tasks are only sufficient for describing graphical user interfaces, not physical user interfaces, or user interfaces in general. The same paper notes that Buxton's taxonomy, and the extension by MacKinlay, Card and Robertson, is too narrow for ubiquitous computing environments, as it does not classify devices with different modalities and only describes input devices. They extended the taxonomy further to describe attributes like direction and modality. The direction attribute is used to indicate whether a device provides input, output or both. The modality attribute describes different visual, auditory haptic and manual modalities for input and output. Additional attributes they identified include directionality/scope (where a device is targeted to one, many, or all the users in a room) and mount time (the effort necessary to use an interaction device).
-	
+
+Based on the work of Foley, Card and others in this section, we defined a concept called the \emph{interaction primitive}, described in more detail in Section \ref{sectionSemanticInteractionOntology} and \ref{InteractionPrimitives}. Interaction primitives can be used as a way to describe the user interaction capabilities of smart objects in ubiquitous computing environments.
 	
 \subsection{Another approach to task modelling: ANSI/CEA-1028}
 \label{cea2018}
@@ -582,10 +593,11 @@ An advantage of the \ac{ASUR} interaction model is that it combines both the phy
 
 \marginpar{Van Welie et al \cite{VanWelie1998} state that task models should be able to represent the psychological, social, environmental and situational aspects of agents and their tasks. This is why we consider runtime task models a good fit for the \ac{BDI} model used for constructing intelligent agents.}
 	
-	
+While task models are well suited to describing the various interaction tasks, we still need a way to describe the semantics of interaction feedback and the different types of interactions that can occur. That is the focus of the next section on semantic models.	
 
 \section{Semantic models}
 %\input{interactionFrogger}
+\subsection{The Frogger framework}
 \label{interactionFrogger}
 The Frogger framework, as was introduced by Wensveen \cite{Wensveen2005}, describes user interaction in terms of the information a user perceives (like feedback and feedforward), and the nature of this information. It distinguishes between inherent, augmented and functional information. These types of information can serve as couplings between user actions and the systems' functions in time, location, direction, modality, dynamics and expression. Although the framework was designed to describe the interaction with electronic devices and their interfaces, many of the concepts in the framework are applicable to interactions with systems of devices as well.
 
@@ -595,6 +607,8 @@ While feedback is information that occurs after or during the interaction, feedf
 \emph{Functional feedforward} communicates the more general purpose of a product. This type of information often relies on association, metaphors and the sign function of products, which are described by theories such as product semantics \cite{Krippendorff2006}. Good practice in creating inherent feedforward is making the functional parts of a product visible, informing users about the functionality of the product \cite{Norman1998}.	
 
 %\footnote{Affordance is a term coined by Gibson in 1979 and introduced to the design community by Norman \cite{Norman1998}. It is the property of an object that appeals to our sensory-motor skills, like a door handle ``affords'' to be grabbed and a chair ``affords'' to be sat on.}
+
+The concepts described in the Frogger framework are used to implement feedback in the work described in this thesis, specifically in Section \ref{section:feedbackAndFeedforward} and Section \ref{feedbackforward}. 
 	
 \subsection{Models of intentionality}
 \label{intentionalSpectrum}
@@ -623,5 +637,7 @@ By allowing users to configure their smart environment themselves, they are in c
 %end TiiS
 
 \section{Outlook}
+
+As Nielsen \cite{Nielsen1986} noted, the purpose of a model is to improve the usability of software. He noted that some people will consider his model a useful abstraction, while others will prefer other models, similar to how everybody has their own favourite programming language.
 
 We build further on many of the concepts and proposals reviewed in this chapter. In particular, we focus on configuring the connections between the devices in Chapters \ref{DesignIteration1} to \ref{DesignIteration3} and Chapter \ref{SemanticConnectionsTheory}, while serendipitous interoperability and sharing information between devices form the cornerstones of Chapter \ref{DeviceCapabilityModelling} and Chapter \ref{EventModelling}. 

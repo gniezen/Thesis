@@ -1,0 +1,16 @@
+msc {
+//hscale = "1.5";
+
+    slt [label="SLT-KP"], p[label="Presence-KP"], sib [label="SIB"], lamp [label="Lamp-KP"], lamps [label="Lamps"];
+
+p->sib [label="Update Away"];
+sib->lamp [label="Update Away"];
+lamp->lamps [label="OFF command"];
+p->sib [label="Update Present"];
+sib->lamp [label="Update Present"];
+lamp->lamps [label="ON command"];
+slt->sib [label="Update Lighting"];
+sib->lamp [label="Update Lighting"];
+lamp->lamps [label="DIM command"];
+}
+
