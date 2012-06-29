@@ -65,7 +65,13 @@ Domain ontologies represent reusable knowledge in a specific domain and are usua
 An application ontology is created for a specific application, so they are not considered to be reusable. However, the tools or processes used to create the ontology may be reusable. 
 
 
+\section{Our approach}
 
+In the following sections we will describe our approach to modelling ontologies, as well as ontology design patterns that we have identified. First we introduce the features of \ac{OWL} that we used. \ac{OWL} can be used to define classes and relationships, as well as restrictions. A restriction is used to define a formal description of a class that restricts class membership \cite{Allemang2011}.\marginpar{An example of an \ac{OWL} restriction is shown in Section \ref{CardinalityRestrictions}.} 
+
+In some cases we need more expressiveness than what is allowed by \ac{OWL}. Rule languages go beyond what can be expressed by \ac{OWL}, or can be easier to understand \cite{Hebeler2009}. We made use of \ac{SWRL} in the first design iteration, and in some of the examples in this chapter. Later, we discovered some limitations of \ac{SWRL}, like not being able to construct new individuals. We also experienced some performance issues when using \ac{SWRL}.\marginpar{\ac{SWRL} performance issues are described in more detail in Section \ref{D2Evaluation}.}
+
+This necessitated the switch to another way of defining rules, called \ac{SPIN}. \ac{SPIN} allows us to specify rules in \ac{SPARQL}. These \ac{SPARQL} rules are contained within the ontology itself. The TopSPIN reasoning engine, implemented in our version of the \ac{SIB}, supports both \ac{OWL} 2 and \ac{SPIN}.
 
 
 
@@ -109,8 +115,7 @@ hierarchy.
 
 \subsection{Consistency checking}
 
-A reasoner performs consistency checking to check whether all axioms and assertions are consistent. Based on the description of a class the reasoner can check whether or not it is possible for the class to have any instances.  A class is deemed to be inconsistent if it cannot possibly have any instances. Also consider for example that a smart object is asserted to belong to a certain class, but the smart object has properties that do not belong to that class.
-
+A reasoner performs consistency checking to check whether all axioms and assertions are consistent. Based on the description of a class the reasoner can check whether or not it is possible for the class to have any instances.  A class is deemed to be inconsistent if it cannot possibly have any instances. %Also consider for example that a smart object is asserted to belong to a certain class, but the smart object has properties that do not belong to that class. 
 
 \subsection{Necessary versus necessary and sufficient}
 
@@ -119,10 +124,10 @@ A \emph{necessary} condition will allow a class to be inferred as a subclass (\t
 
 \subsection{Inverse properties}
 
-If you define a new inverse property of an existing property with a specified domain and range, the inverse domain and range will be inferred for new individuals with this property. \marginpar{Note that in Prot\'eg\'e this inverse domain and range might not show up for the property itself, but that it will be inferred for new individuals.} As an example:\\
+If one defines a new inverse property of an existing property with a specified domain and range, the inverse domain and range will be inferred for new individuals with this property. \marginpar{Note that in Prot\'eg\'e this inverse domain and range might not show up for the property itself, but that it will be inferred for new individuals.} As an example:\\
 
 \noindent
-SmartObject~\ensuremath{\equiv}~isSmartObject~\ensuremath{\exists}~Self\\
+SmartObject~\ensuremath{\equiv}~isSmartObject~\ensuremath{\exists}~\texttt{Self}\\
 
 
 Any individual that is related to itself via the \texttt{isSmartObject} property will be identified as an instance of \texttt{SmartObject}, and any individual asserted as an instance of SmartObject will be related to itself via that property \cite{Hoekstra2010}.
@@ -168,13 +173,13 @@ A new feature introduced in \ac{OWL} 2 is property chains, which allows for the 
 \subsection{Using cardinality restrictions}
 \label{CardinalityRestrictions}
 
-When modelling cardinality in OWL 2, you might expect to be able to infer that an individual is a member of a class based on a cardinality restriction, for example
+When modelling cardinality in \ac{OWL} 2, one might expect to be able to infer that an individual is a member of a class based on a cardinality restriction, for example
 
 \begin{minted}{turtle}
-TwoButtonDevice SubClassOf Device hasButton exactly 2 Button
+TwoButtonDevice rdfs:SubClassOf Device hasButton exactly 2 Button
 \end{minted}
 
-Unfortunately, due to the \ac{OWA}, you cannot know whether an individual might have additional properties of that type. The only way to identify an individual is using minimum cardinality. However, this approach can be problematic if the concept is underspecified \cite{Hoekstra2008}.
+Unfortunately, due to the \ac{OWA}, it cannot be known whether an individual might have additional properties of that type. The only way to identify an individual is using minimum cardinality. However, this approach can be problematic if the concept is underspecified \cite{Hoekstra2008}.
 
 % Using cardinality restrictions and maximum cardinality restrictions are not commonly used, mainly due to the \ac{OWA}. What exactly you can infer is not always clear. However, using the minimum cardinality restriction is often quite useful, for example TODO
 
@@ -542,9 +547,11 @@ hasRole~\ensuremath{\circ}~isStudent~\ensuremath{\sqsubseteq}~student
 In his PhD thesis on ontology design patterns, Hoekstra \cite{Hoekstra2009} uses this pattern extensively to model actions, beliefs, intentions and social constructs. For example,\\
 
 \noindent
-Intention~\ensuremath{\sqsubseteq}~isIntention~\texttt{some}~\texttt{self}\\
-\ensuremath{\sqsubseteq}~PropositionalAttitude\\
-holds~\ensuremath{\circ}~isIntention~\ensuremath{\circ}~towards~\ensuremath{\sqsubseteq}~intends
+\begin{align*}
+\text{Intention}~\ensuremath{&\equiv}~\text{isIntention}~\texttt{some}~\texttt{self}\\
+\ensuremath{&\sqsubseteq}~\text{PropositionalAttitude}\\
+\text{holds}~\ensuremath{\circ}~\text{isIntention}~\ensuremath{\circ}~\text{towards}~\ensuremath{&\sqsubseteq}~\text{intends}
+\end{align*}
 
 \subsubsection{Related}
 
@@ -591,17 +598,24 @@ hasFunctionality~\ensuremath{\circ}~isFunctionalityOf
 When we have two individuals with the same object, but different predicates (see Figure \ref{canConnectTo2}), and we want to infer a new property, this is intuitively represented in \ac{SWRL}: \\
 
 \noindent
-\texttt{hasFunctionality(?s1,?s2), hasFunctionality(?s1, ?s2) $\Rightarrow$ canConnectTo(?x1,?x2)}\\
+\texttt{hasFunctionality(?s1,?f), hasFunctionality(?s2, ?f) $\Rightarrow$ canConnectTo(?s1,?s2)}\\
 
 However, this cannot be represented in the same fashion using a property chain, as\\ 
 
 \noindent
 hasFunctionality~\ensuremath{\circ}~hasFunctionality~\ensuremath{\sqsubseteq}~canConnectTo\\
 
-is not equivalent. This is however, easily solved by introducing a symmetric property \texttt{isFunctionalityOf}, and the property chain becomes\\
+is not equivalent. This is however, easily solved by introducing an inverse property \texttt{isFunctionalityOf}, and the property chain becomes\\
 
 \noindent
-hasFunctionality~\ensuremath{\circ}~isFunctionalityOf~\ensuremath{\sqsubseteq}~canConnectTo
+hasFunctionality~\ensuremath{\circ}~isFunctionalityOf~\ensuremath{\sqsubseteq}~canConnectTo\\
+
+Modelling the above using the relation partition algebra of Feijs \cite{Feijs1999}, where\\
+
+\noindent
+hasFunctionality~\ensuremath{\circ}~$\text{hasFunctionality}^{-1}$~\ensuremath{\sqsubseteq}~canConnectTo\\
+
+shows it is identical, apart from the inverse relation, which is denoted by  $R^{-1} = \{ (x,y) | (y,x) \in R \}$.
 
 \subsubsection{Example(s)}
 
@@ -814,6 +828,7 @@ While this is feasible, it is complicated and we would like to use a simpler sol
 \subsubsection{Solution}
 
 At first glance, it seems like this might be expressed using property chains and local reflexivity, as described in the ontology design pattern in Section \ref{LocalReflexivity}. However, this is a special case which cannot be expressed in \ac{OWL}. It can, however, easily be expressed as a \ac{SPIN} rule as follows:
+%This can easily be expressed as a \ac{SPIN} rule as follows:
 
 \begin{minted}{sparql}
 CONSTRUCT {
@@ -861,12 +876,12 @@ Using this pattern, we infer the following \texttt{connectedTo} relationships:
 
 \subsubsection{Discussion}
 
-Basically, what we are trying to model could be called a ``property intersection'', where\\
-
-\noindent
-\texttt{x P1 y}~$\sqcap$~\texttt{x P2 y}~$\vdash$~\texttt{x P3 y}\\
+% Basically, what we are trying to model could be called a ``property intersection'', where\\
+% 
+% \noindent
+% \texttt{x P1 y}~$\sqcap$~\texttt{x P2 y}~$\Rightarrow$~\texttt{x P3 y}\\
 %see Q2336 Preventing other individuals in a class from inferring the same property
-
+In some cases, \ac{SPIN} rules can be easier to compose and interpret than ontology restrictions and property chains. In this case, it cannot even be expressed in \ac{OWL}, as \ac{OWL} has no support for modelling property intersections.
 
 \subsubsection{Related} 
 
