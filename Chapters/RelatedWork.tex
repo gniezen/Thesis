@@ -8,11 +8,7 @@ activities that enrich the users' experiences. } \\ \medskip
 	    --- Ben Shneiderman
 	\end{flushright}
 
-In this chapter we describe related work. The work can be related in several ways, depending on which aspect of the work is considered. Therefore the chapter is subdivided into five sections, each devoted to one aspect. These are related projects and frameworks (Section \ref{RelatedProjects}), ubicomp ontologies (Section \ref{UbicompOntologies}), interaction models (Section \ref{InteractionModels}), task models (Sections \ref{interactionTasks}) and semantic models (Section \ref{interactionFrogger}).
-
-
-
-
+In this chapter we describe related work. The work can be related in several ways, depending on which aspect of the work is considered. Therefore the chapter is subdivided into five sections, each devoted to one aspect. These are related projects and frameworks (Section \ref{RelatedProjects}), ubicomp ontologies (Section \ref{UbicompOntologies}), user interface software architectures (Section \ref{uisa}), modelling input devices (Sections \ref{interactionTasks}) and semantic models (Section \ref{interactionFrogger}).
 
 
 \section{Related projects and frameworks}
@@ -53,7 +49,16 @@ This line of thinking was a starting point for Newman et al \cite{Newman2002}, w
 % End TiiS
 
 \label{InformationFiltering} % this part on information filtering was on Notational Velocity
-The SpeakEasy project focused on what users might be trying to accomplish in a specific situation when connecting entities to one another. Possible examples include connecting devices in order to give a presentation, or in order to send contact information. They created templates of common tasks that contained a partially specified set of connections and entities, which could be fully specified and instantiated by users at run-time. An instantiated template was then added to a list of current tasks. It was noted that templates impose a layer of semantics on top of the raw infrastructure. Templates assisted users by constraining the available component choices to only those that were appropriate for the task at hand.
+The SpeakEasy project focused on what users might be trying to accomplish in a specific situation when connecting entities to one another. Possible examples include connecting devices in order to give a presentation, or in order to send contact information. They created templates of common tasks that contained a partially specified set of connections and entities, which could be fully specified and instantiated by users at run-time. An instantiated template was then added to a list of current tasks. It was noted that templates impose a layer of semantics on top of the raw infrastructure. Templates assisted users by constraining the available component choices to only those that were appropriate for the task at hand. For example, a template could be specified as
+
+\begin{itemize}
+	\item Task name: Give a presentation
+	\item Connection: File -> Projector
+	\item File name: Choose..
+	\item Projector: Choose..
+\end{itemize}
+
+where the user can then specify the name of the file, for example a Powerpoint presentation, and the projector in the room from a list of possibilities.
 
 The SpeakEasy environment consisted of a web application that allows users to browse for components, which can be viewed and organised in different ways, for example grouped by location or owner.\marginpar{The e-Gadgets project in Section \ref{egadgets} also made use of a web application to configure components.} The work described in this thesis takes a different approach to configuring components, by using tangible interaction techniques instead of \ac{GUI}-based interaction.
 
@@ -69,17 +74,20 @@ During the development of their system, they identified the following design gui
 \begin{itemize}
 	\item Heterogeneity - Devices must be able to interoperate in spite of heterogeneity in software. Interfaces must be customised to work smoothly on different-sized displays with different input/output modalities.
 	\item Dynamism - A software framework must handle applications and devices joining and leaving, while minimising the impact on other entities in the space.
-	\item Robustness - Users will treat the devices in interactive workspaces as appliances that should not fail in inexplainable ways. Devices must provide for quick recovery.
+	\item Robustness - Users will treat the devices in interactive workspaces as appliances that should not fail in inexplicable ways. Devices must provide for quick recovery.
 	\item Interaction techniques - A long, large wall needs an interaction technique suited to its size and location (such as DynaWall's throwing and shuffling technique).\marginpar{We explored similar interaction techniques during the development of the Spotlight Navigation device, see Section \ref{SpotlightNavigation} and \cite{Rapp2010}.}
 \end{itemize}
 
-Devices in EventHeap use a tuple space protocol to communicate with one another, where particular tuples have meaning to certain parties \cite{Edwards2001}. This semantic agreement between parties is implemented by the developer, for example a tuple representing a request to scan an image.
+A tuple space is a repository of tuples, where a tuple is an ordered list of elements. Devices in EventHeap use a tuple space protocol to communicate with one another, where particular tuples have meaning to certain parties \cite{Edwards2001}. This semantic agreement between parties is implemented by the developer, for example a tuple representing a request to scan an image.
 
 The iStuff toolkit \cite{Ballagas2003} was developed within Stanford to explore post-\ac{GUI} interaction techniques, and makes use of the EventHeap system. The iStuff toolkit allows users to map wireless input devices like buttons, sliders, wands, speakers and microphones to different applications running on devices like the DynaWall.
 
 % from TiiS paper
 
-Patch Panel \cite{Ballagas2004} is a mechanism in the iStuff toolkit that tries to solve incremental integration, the problem of integrating new devices and applications that may not have a priori knowledge of each others existence of function. They noted that SpeakEasy allows for direct user intervention via \acp{GUI}, but does not support automated connections free of user intervention, for example data from presence sensors that may be used to turn on the lights. Patch Panel uses an approach called intermediation, with a decoupled communication model (such as publish/subscribe) for inter-component communication. \marginpar{A similar decoupled model was used for the work described in this thesis.} Patch Panel uses a set of mappings between triggers and output events to enable intermediation. These mappings are defined using the Patch Panel Manager \ac{GUI} or \ac{FSM}-based scripting language, and users configure connections using a web-based configuration wizard.
+Patch Panel \cite{Ballagas2004} is a mechanism in the iStuff toolkit that tries to solve incremental integration, the problem of integrating new devices and applications that may not have a priori knowledge of each others existence of function. 
+Patch Panel uses an approach called intermediation, with a decoupled communication model (such as publish/subscribe) for inter-component communication. \marginpar{A similar decoupled model was used for the work described in this thesis.} Patch Panel uses a set of mappings between triggers and output events to enable intermediation. These mappings are defined using the Patch Panel Manager \ac{GUI} or \ac{FSM}-based scripting language, and users configure connections using a web-based configuration wizard.
+
+%They noted that SpeakEasy allows for direct user intervention via \acp{GUI}, but does not support automated connections free of user intervention, for example data from presence sensors that may be used to turn on the lights. 
 
 % end TiiS
 
@@ -99,29 +107,29 @@ A client-server architecture was used to create the infrastructure, with \ac{XML
 
 XWeb uses a subscribe mechanism to allow multiple clients to share their information, where the devices themselves are not aware of each other but can still be integrated into the same task. The problem that is addressed is that the different devices can be connected without requiring a lot of configuration effort from the user.
 
-Pierce and Mahaney \cite{Pierce2003} extended the XWeb approach to opportunistic assemblies with \emph{opportunistic annexing}, which is is the process of temporarily attaching one or more resources, like a speaker or a keyboard, to a device in order to enhance its capabilities. Opportunistic annexing differs from the other approaches in this section in that it extends the existing capabilities of devices, instead of assembling heterogeneous devices into a larger, aggregate device. A higher-level description of user's actions, instead of raw input events, reduces the communication load and the amount of raw input events that need to be understood by the device itself. 
+Pierce and Mahaney \cite{Pierce2003} extended the XWeb approach to opportunistic assemblies with \emph{opportunistic annexing}, which is is the process of temporarily attaching one or more resources, like a speaker or a keyboard, to a device in order to enhance its capabilities. Opportunistic annexing differs from the other approaches in this section in that it extends the existing capabilities of devices, instead of assembling heterogeneous devices into a larger, aggregate device. %A higher-level description of user's actions, instead of raw input events, reduces the communication load and the amount of raw input events that need to be understood by the device itself. 
 
 
-\begin{table}
-    \myfloatalign
-  \begin{tabularx}{\textwidth}{Xll} 
-	\toprule
-    \tableheadline{Name} & \tableheadline{Scale} & \tableheadline{Examples} \\ 
-    \midrule
-	Covert & 1 cm & Watch, RFID badge, Bluetooth headset \\ %, iPod Shuffle
-	Mobile	& 10 cm	& Laptop, camera, mobile phone \\ % e-book reader, 
-	Personal & 1 m & ATM, desktop computer, automobile \\ %Microsoft Kinect, 
-	Environmental &	10 m &	Television, Public display, Nintendo Wii \\
-	Architectural & 100 m & Media facade, Arena scoreboard\\ %, Interactive art installation \\
-	Urban & 1 km & Temporary giant ubicomp experiences \\
-	
-    \bottomrule
-  \end{tabularx}
-  \caption{Kuniavsky's Scales of Ubicomp Device Design}
-  \label{MultiScale}
-\end{table}
+% \begin{table}
+%     \myfloatalign
+%   \begin{tabularx}{\textwidth}{Xll} 
+% 	\toprule
+%     \tableheadline{Name} & \tableheadline{Scale} & \tableheadline{Examples} \\ 
+%     \midrule
+% 	Covert & 1 cm & Watch, RFID badge, Bluetooth headset \\ %, iPod Shuffle
+% 	Mobile	& 10 cm	& Laptop, camera, mobile phone \\ % e-book reader, 
+% 	Personal & 1 m & ATM, desktop computer, automobile \\ %Microsoft Kinect, 
+% 	Environmental &	10 m &	Television, Public display, Nintendo Wii \\
+% 	Architectural & 100 m & Media facade, Arena scoreboard\\ %, Interactive art installation \\
+% 	Urban & 1 km & Temporary giant ubicomp experiences \\
+% 	
+%     \bottomrule
+%   \end{tabularx}
+%   \caption{Kuniavsky's Scales of Ubicomp Device Design}
+%   \label{MultiScale}
+% \end{table}
 
-Opportunistic annexing allows interaction at one scale to be controlled by a device at a different scale. Kuniavsky \cite{Kuniavsky} defined the scales of ubicomp device design shown in Table \ref{MultiScale}. The name of each scale is meant to convey the size of devices at that scale, similar to Greenfield's \cite{Greenfield2006} description of \emph{everyware}, acting ``... at the scale of the body, [...] the room, [...] the building, [...] the street, and of public space in general''.
+%Opportunistic annexing allows interaction at one scale to be controlled by a device at a different scale. Kuniavsky \cite{Kuniavsky} defined the scales of ubicomp device design shown in Table \ref{MultiScale}. The name of each scale is meant to convey the size of devices at that scale, similar to Greenfield's \cite{Greenfield2006} description of \emph{everyware}, acting ``... at the scale of the body, [...] the room, [...] the building, [...] the street, and of public space in general''.
 
 Pierce and Mahaney expect that the primary benefit of annexing input resources will be faster input rates. This means that the actual annexing action should be faster than the time required to perform the action. For example, if a user will save 5 seconds by typing a note on a keyboard rather than on a mobile device, annexing the keyboard to the mobile device should take less than 5 seconds.
 
@@ -185,7 +193,7 @@ The \ac{GAS} defines a set of concepts and rules in an ontology, a middleware, a
 
 Plug descriptions are defined in \ac{XML}, using a DAML+OIL ontology, and linked to a unique device identifier. DAML+OIL, a combination of the \ac{DAML} and \ac{OIL} markup languages, has been superseded by \ac{OWL}. 
 
-Synapses and plugs are viewed and modified using an \ac{GUI} editor. A concept evaluation was performed with the editor to test the comprehensibility of the concepts and the willingness to use such a technology. The Cognitive Dimensions framework was used to perform the evaluation. This framework was also used for evaluations of the work described in this thesis, and is discussed in more detail in Section \ref{CognitiveDimensions}. Results from the evaluations include the following:
+Synapses and plugs are viewed and modified using an \ac{GUI} editor. A concept evaluation, using a usability testing approach was performed with the editor to test the comprehensibility of the concepts and the willingness to use such a technology. The \ac{CD} framework was used to perform a heuristic evaluation. This framework was also used for evaluations of the work described in this thesis, and is discussed in more detail in Section \ref{CognitiveDimensions}. Results from the evaluations include the following:
 
 \begin{itemize}
 	\item Users will use their experience gained through a trial-and-error process to bridge the gap between their intentions and the feedback gathered through their actions.
@@ -193,9 +201,9 @@ Synapses and plugs are viewed and modified using an \ac{GUI} editor. A concept e
 	\item A state change in one device could create a non-visible state change on another device.
 \end{itemize}
 
-They also noted that the possibility to combine the functionality of devices opens up possibilities for emergent behaviour, where the emergence results from how the devices are actually used. 
+They also noted that the possibility to combine the functionality of devices opens up possibilities for emergent behaviour, where the emergence results from how the devices are actually used. The evaluation revealed that this can be confusing, as the user has to guess what interfaces the system allows.
 
-In our approach we use an \ac{OWL} 2 ontology instead of DAML+OIL, and use a reasoning engine to perform semantic matching of devices. As mentioned earlier in this section, we also tried to move beyond the traditional \ac{GUI}-abased approach to configure the connections between devices. 
+In our approach we use an \ac{OWL} 2 ontology instead of DAML+OIL, and use a reasoning engine to perform semantic matching of device capabilities. As mentioned earlier in this section, we tried to move beyond the traditional \ac{GUI}-based approach to configure the connections between devices. We also used different kinds of feedback to make emergent behaviour possibilities clearer.
 
 Apart from these projects and frameworks presented here, we also want to look at the other aspects that are related to the work described in this thesis. The rest of the chapter will introduce ontologies considered to be state-of-the-art  in ubiquitous computing, as well as related interaction models, task models and semantic models.
 
@@ -210,7 +218,7 @@ In this section we will look at the various ubicomp ontologies that have been de
 
 Chen et al. \cite{Chen2004} created \ac{SOUPA}, a context ontology based on \ac{OWL}, to support ubiquitous agents in their \ac{CoBrA}. The ontology supports describing devices on a very basic level (e.g. typical object properties are \texttt{bluetoothMAC} or \texttt{modelNumber}), but it has no explicit support for modelling more general device capabilities.
 
-In the \ac{SOUPA} ontology, both computational entities and human users may be modelled as agents. An agent ontology is used to describe actors in a system, where actors include both human and software agents or computing entities. In \ac{SOUPA} a computing entity is characterised by a set of mentalistic notions in the \ac{BDI} model, such as knowledge, belief, intention and obligation. The properties of a person agent includes basic profile information, like name, gender, and age, as well as contact information, which includes e-mail, phone number, mailing address etc. \ac{SOUPA} references several domain ontologies to achieve this, for example \ac{FOAF}\footnote{http://http://www.foaf-project.org/}, one of the most well-known ontologies, used to describe people, their activities and relations to people and objects. \ac{SOUPA} uses \ac{FOAF} to express and reason about a person's contact profile and social connections with other people.
+In \ac{SOUPA}, an agent ontology is used to describe the actors in a system, where actors include both human and software agents or computing entities. A computing entity is characterised by a set of mentalistic notions in the \ac{BDI} model, such as knowledge, belief, intention and obligation. The properties of a person agent includes basic profile information, like name, gender, and age, as well as contact information, which includes e-mail, phone number, mailing address etc. \ac{SOUPA} references several domain ontologies to achieve this, for example \ac{FOAF}\footnote{http://http://www.foaf-project.org/}, one of the most well-known ontologies, used to describe people, their activities and relations to people and objects. \ac{SOUPA} uses \ac{FOAF} to express and reason about a person's contact profile and social connections with other people.
 
 \ac{SOUPA} covers contexts in the office/campus environment, but it has no explicit support for modelling general contexts in heterogeneous environments. We now look at the \ac{BDI} model, and the MoGATU \ac{BDI} ontology used in \ac{SOUPA}, in more detail.
 \marginpar{In personal communication with the author of the MoGATU ontology, he mentioned that MoGATU is not an acronym, but the name of his PhD project.}
@@ -271,8 +279,8 @@ There are some conceptual modelling issues with \ac{CAMUS}, for example having o
 
 
 
-\section{Interaction Models}
-\label{InteractionModels}
+\section{User interface software architectures}
+\label{uisa}
 
 
 %start africon
@@ -303,52 +311,50 @@ There are some conceptual modelling issues with \ac{CAMUS}, for example having o
 
 %begin TiiS
 
-A user interface software architecture, also known as a \ac{UIMS}, creates a separation of concerns between the user interface and the implementation of a software application or system. Of these, the \ac{MVC} model is currently the most used, and inspired Ullmer \& Ishii's \cite{Ullmer2000} \ac{MCRpd} interaction model for tangible user interfaces. Other UI software architectures include the Arch model \cite{Bass1992}, Nielsen's virtual protocol model \cite{Nielsen1986} and Foley's linguistic model \cite{Foley1996}.
+A user interface software architecture, also known as a \ac{UIMS}, creates a separation of concerns between the user interface and the implementation of a software application or system. Of these, the \ac{MVC} model is currently the most used, and inspired Ullmer \& Ishii's \cite{Ullmer2000} \ac{MCRpd} interaction model for tangible user interfaces. Other UI software architectures include the Arch/Slinky model \cite{Bass1992} and the \ac{ASUR} interaction model.%, Nielsen's virtual protocol model \cite{Nielsen1986} and Foley's linguistic model \cite{Foley1996}.
 
-\begin{figure}[bth]
-	\centering
-	\digraph[scale=0.65]{sevenStages}{
-		node[shape="plaintext"];
-		{rank=same; Goals}
-        {rank=same; Intention; Evaluation}
-        {rank=same; Sequence; Interpreting}
-        {rank=same; Execution; Perceiving}
-        {rank=same; World}
-        Intention [label="Intention to act"];
-        Sequence [label="Sequence of actions"];
-        Execution [label="Execution of the action sequence"];
-        Evaluation [label="Evaluation of the interpretations"];
-        Interpreting [label="Interpreting the perception"];
-        Perceiving [label="Perceiving the state of the world"];
-        World [label="The World", shape="box"];
-		Goals -> Intention;
-		Intention -> Sequence;
-		Sequence -> Execution;
-		Execution -> World;
-		World -> Perceiving;
-		Perceiving -> Interpreting;
-		Interpreting -> Evaluation;
-		Evaluation -> Goals;
-	}
-	\caption{Norman's seven stages of action}
-	\label{sevenStages}
-\end{figure}
-
-	An interaction can be described in several layers. Norman \cite{Norman1998} describes an interaction using seven layers, as shown in Figure \ref{sevenStages}:
-
-\begin{enumerate}	
-	\item Goal - What we want to happen
-	\item Intention to act - An intention to act as to achieve the goal
-	\item Sequence of action - The actual sequence of actions that we plan to do
-	\item Execution of action sequence - The physical execution of the action sequence
-	\item Perceiving the state of the world - What happened as a result of your actions
-	\item Interpreting the perception - Interpreting the perception according to our expectations
-	\item Evaluation of interpretations - Comparing what happened with what we wanted and expected to happen
-\end{enumerate}
+% \begin{figure}[bth]
+% 	\centering
+% 	\digraph[scale=0.65]{sevenStages}{
+% 		node[shape="plaintext"];
+% 		{rank=same; Goals}
+%         {rank=same; Intention; Evaluation}
+%         {rank=same; Sequence; Interpreting}
+%         {rank=same; Execution; Perceiving}
+%         {rank=same; World}
+%         Intention [label="Intention to act"];
+%         Sequence [label="Sequence of actions"];
+%         Execution [label="Execution of the action sequence"];
+%         Evaluation [label="Evaluation of the interpretations"];
+%         Interpreting [label="Interpreting the perception"];
+%         Perceiving [label="Perceiving the state of the world"];
+%         World [label="The World", shape="box"];
+% 		Goals -> Intention;
+% 		Intention -> Sequence;
+% 		Sequence -> Execution;
+% 		Execution -> World;
+% 		World -> Perceiving;
+% 		Perceiving -> Interpreting;
+% 		Interpreting -> Evaluation;
+% 		Evaluation -> Goals;
+% 	}
+% 	\caption{Norman's seven stages of action}
+% 	\label{sevenStages}
+% \end{figure}
+% 
+% 	An interaction can be described in several layers. Norman \cite{Norman1998} describes an interaction using seven layers, as shown in Figure \ref{sevenStages}:
+% 
+% \begin{enumerate}	
+% 	\item Goal - What we want to happen
+% 	\item Intention to act - An intention to act as to achieve the goal
+% 	\item Sequence of action - The actual sequence of actions that we plan to do
+% 	\item Execution of action sequence - The physical execution of the action sequence
+% 	\item Perceiving the state of the world - What happened as a result of your actions
+% 	\item Interpreting the perception - Interpreting the perception according to our expectations
+% 	\item Evaluation of interpretations - Comparing what happened with what we wanted and expected to happen
+% \end{enumerate}
 	
-%	 A user with a specific goal and intention formulates a task and subtasks. These actions are then carried out (with feedback) on the physical level, after which the result is evaluated. An action is usually initiated in order to achieve some higher order goal or intention, which has to be prepared and verbalised and finally presented and articulated through physical actions and utterances \cite{Bongers2007}. 
-
-In the interaction models described below, these layers are described using different levels. 
+%In the interaction models described below, these layers are described using different levels. 
 
 
 \subsection{Ullmer \& Ishii's MCRpd model}
@@ -375,22 +381,22 @@ The interaction model introduced in Section \ref{InteractionModel} was inspired 
 
 	
 	
-\subsection{Foley's linguistic model}
-
-	Foley's model defines the following levels \cite{DeRuiter1988}:
+% \subsection{Foley's linguistic model}
+% 
+% 	Foley's model defines the following levels \cite{DeRuiter1988}:
+% 	
+% 	\begin{itemize}
+% 		\item Conceptual level - definition of main concepts and the possible commands (equivalent to user model \cite{Buxton1983})
+% 		\item Semantic level - defines the meaning of the commands
+% 		\item Syntactic level - describes the form of the command and parameters (syntax)
+% 		\item Lexical level - defines lowest input symbols and their structure
+% 	\end{itemize}
+% 	
+% 	Buxton \cite{Buxton1983} extended Foley's model to include a pragmatic level that defines the issues of gesture type (e.g. pointing with a tablet versus a mouse), device location and spatial placement. While a keystroke will be defined at lexical level, the homing time and pointing time will be defined at pragmatic level. Buxton had the foresight to comment on the difficulty of multi-device environments where the different levels are managed by different entities. He noted that it has a strong effect on the semantics of the interactions that could be supported: If the computing environment is managed by one entity, the semantics and functional capabilities by another, and the user interface by yet another, there is an inherent danger that the decisions of the one will adversely affect the other. 
+% 	
+% 	Dix et al \cite{Dix2008} noted that Buxton's work emphasised the way in which the lexical level design of the physical interface can simplify syntax in interaction. These ideas have been extended by Ullmer et al \cite{Ullmer2005} into a \emph{digital syntax} that is embodied by the physical design, resulting in a grammar for mapping physical relationships into digital representations.
 	
-	\begin{itemize}
-		\item Conceptual level - definition of main concepts and the possible commands (equivalent to user model \cite{Buxton1983})
-		\item Semantic level - defines the meaning of the commands
-		\item Syntactic level - describes the form of the command and parameters (syntax)
-		\item Lexical level - defines lowest input symbols and their structure
-	\end{itemize}
-	
-	Buxton \cite{Buxton1983} extended Foley's model to include a pragmatic level that defines the issues of gesture type (e.g. pointing with a tablet versus a mouse), device location and spatial placement. While a keystroke will be defined at lexical level, the homing time and pointing time will be defined at pragmatic level. Buxton had the foresight to comment on the difficulty of multi-device environments where the different levels are managed by different entities. He noted that it has a strong effect on the semantics of the interactions that could be supported: If the computing environment is managed by one entity, the semantics and functional capabilities by another, and the user interface by yet another, there is an inherent danger that the decisions of the one will adversely affect the other. 
-	
-	Dix et al \cite{Dix2008} noted that Buxton's work emphasised the way in which the lexical level design of the physical interface can simplify syntax in interaction. These ideas have been extended by Ullmer et al \cite{Ullmer2005} into a \emph{digital syntax} that is embodied by the physical design, resulting in a grammar for mapping physical relationships into digital representations.
-	
-	We build on the different interaction layers introduced here, that was later extended by Nielsen \cite{Nielsen1986} as described in Section \ref{nielsenVPM}, to categorise interaction events in Chapter \ref{EventModelling}.
+	% We build on the different interaction layers introduced here, that was later extended by Nielsen \cite{Nielsen1986} as described in Section \ref{nielsenVPM}, to categorise interaction events in Chapter \ref{EventModelling}.
 	
 \subsubsection{Arch/Slinky model}
 	
@@ -419,37 +425,37 @@ The interaction model introduced in Section \ref{InteractionModel} was inspired 
 
 The separation of functionality into the different components was done to minimise the effects of changes in technology. The Slinky meta-model is a generalisation of the Arch model, providing a set of Arch models with different weights assigned to each component.
 
-The difference between the Arch/Slinky model and our interaction model is that the Arch/Slinky model relates a single physical interaction device with a software application, while our interaction model relates smart objects with one another through semantic connections.
-
-\subsubsection{Nielsen's virtual protocol model}
-
-\begin{table}
-    \myfloatalign
-  \begin{tabularx}{\textwidth}{Xll} 
-	\toprule
-    \tableheadline{Level} & \tableheadline{Layer} & \tableheadline{Example} \\ 
-    \midrule
-
-	7 & Goal & Want to delete the last section of a document\\
-	6 & Task & Delete the last six lines of the edited text\\
-	5 & Semantic & Remove a line with a given line number\\
-	4 & Syntax & DELETE 27 \\
-	3 & Lexical & DELETE, DEL or other lexical token \\
-	2 & Alphabetic & Letter ``D'' or other lexeme \\
-	1 & Physical & User presses D-key on keyboard \\
-	
-    \bottomrule
-  \end{tabularx}
-  \caption{Nielsen's virtual protocol model}
-  \label{VirtualProtocolModel}
-\end{table}
-
-\label{nielsenVPM}
-Nielsen's virtual protocol model for human-computer interaction \cite{Nielsen1986} was inspired by the 7-layer OSI model for computer networks, as shown in Table \ref{VirtualProtocolModel}. The task layer deals with general computer-related concepts that are representations of the real world concepts from level 7, that may have to be realised by a sequence of operations from level 5. Level 5 handles the meaning of the interaction, where there are a finite number of concepts in the system and each have an exact definition. The lexical tokens on level 4 (``DELETE 27'') realises the semantic command ``remove a specific line''. Lexemes are information-carrying units that do not have any meaning by themselves. Screen layout could be considered a two-dimensional syntax that can also be defined in terms of lexical tokens. Direct manipulation \cite{Shneiderman1997} could be seen as using the syntax level to mirror the semantic level.
-
-Nielsen compared his model to Foley's model and Buxton's extended version, as well as an earlier model by Moran called \ac{CLG} that consisted of six levels: task level, semantic level, syntactic level, interaction level and device level \cite{Nielsen1986}. He noticed that all models seem to agree on the visible (defining the form) part of the communication, as well as the invisible part (defining the meaning). Nielsen noted that Foley's model does not include the real-world concepts of his goal level, or the hardware-related detail of his physical level.
-
-We build on the interaction layers of Nielsen to categorise interaction events in Chapter \ref{EventModelling}.
+The difference between the Arch/Slinky model and our interaction model is that the  Arch/Slinky model relates a single physical interaction device with a software application, while our interaction model relates smart objects with one another through semantic connections.
+% 
+% \subsubsection{Nielsen's virtual protocol model}
+% 
+% \begin{table}
+%     \myfloatalign
+%   \begin{tabularx}{\textwidth}{Xll} 
+% 	\toprule
+%     \tableheadline{Level} & \tableheadline{Layer} & \tableheadline{Example} \\ 
+%     \midrule
+% 
+% 	7 & Goal & Want to delete the last section of a document\\
+% 	6 & Task & Delete the last six lines of the edited text\\
+% 	5 & Semantic & Remove a line with a given line number\\
+% 	4 & Syntax & DELETE 27 \\
+% 	3 & Lexical & DELETE, DEL or other lexical token \\
+% 	2 & Alphabetic & Letter ``D'' or other lexeme \\
+% 	1 & Physical & User presses D-key on keyboard \\
+% 	
+%     \bottomrule
+%   \end{tabularx}
+%   \caption{Nielsen's virtual protocol model}
+%   \label{VirtualProtocolModel}
+% \end{table}
+% 
+% \label{nielsenVPM}
+% Nielsen's virtual protocol model for human-computer interaction \cite{Nielsen1986} was inspired by the 7-layer OSI model for computer networks, as shown in Table \ref{VirtualProtocolModel}. The task layer deals with general computer-related concepts that are representations of the real world concepts from level 7, that may have to be realised by a sequence of operations from level 5. Level 5 handles the meaning of the interaction, where there are a finite number of concepts in the system and each have an exact definition. The lexical tokens on level 4 (``DELETE 27'') realises the semantic command ``remove a specific line''. Lexemes are information-carrying units that do not have any meaning by themselves. Screen layout could be considered a two-dimensional syntax that can also be defined in terms of lexical tokens. Direct manipulation \cite{Shneiderman1997} could be seen as using the syntax level to mirror the semantic level.
+% 
+% Nielsen compared his model to Foley's model and Buxton's extended version, as well as an earlier model by Moran called \ac{CLG} that consisted of six levels: task level, semantic level, syntactic level, interaction level and device level \cite{Nielsen1986}. He noticed that all models seem to agree on the visible (defining the form) part of the communication, as well as the invisible part (defining the meaning). Nielsen noted that Foley's model does not include the real-world concepts of his goal level, or the hardware-related detail of his physical level.
+% 
+% We build on the interaction layers of Nielsen to categorise interaction events in Chapter \ref{EventModelling}.
 
 
 
@@ -531,12 +537,12 @@ In this section we looked at how interaction models can be used to describe the 
 % An interaction language $l_i^i$ translates the digital properties of a mixed tool into elementary task to be performed (e.g. collect select puzzle piece). Using the linking modalities, different modalities may be generated to describe the mixed tool.
 
 	
-\section{Task models}
+\section{Modelling input devices} 
 \label{interactionTasks}
 
 \subsection{Foley's taxonomy and its extensions}
 	
-	Foley \cite{Foley1984} describes a taxonomy of input devices that are structured according the graphic subtasks they can perform: position, orientation, select, path, quantify and text entry. He defined these subtasks as six \acp{BIT} that correspond to the lexical level. A ac{BIT} is the smallest unit of information entered by a user that is meaningful in the context of the application. He noted that there are far too many interaction techniques to give an exhaustive list, and that it is impossible to to anticipate which new techniques may be created. In table \ref{InteractionTasks} we map them to possible logical and physical interaction devices. The six types of logical devices were also defined by Foley in \cite{Foley1996}.
+	Foley \cite{Foley1984} describes a taxonomy of input devices that are structured according the graphic subtasks they can perform: position, orientation, select, path, quantify and text entry. He defined these subtasks as six \acp{BIT}. A \ac{BIT} is the smallest unit of information entered by a user that is meaningful in the context of the application. He noted that there are far too many interaction techniques to give an exhaustive list, and that it is impossible to to anticipate which new techniques may be created. In Table \ref{InteractionTasks} we map them to possible logical and physical interaction devices. The six types of logical devices were also defined by Foley in \cite{Foley1996}.
 	
 	
 	\begin{table}
@@ -580,20 +586,21 @@ In this section we looked at how interaction models can be used to describe the 
 
 Based on the work of Foley, Card and others in this section, we defined a concept called the \emph{interaction primitive}, described in more detail in Section \ref{sectionSemanticInteractionOntology} and \ref{InteractionPrimitives}. Interaction primitives can be used as a way to describe the user interaction capabilities of smart objects in ubiquitous computing environments.
 	
-\subsection{Another approach to task modelling: ANSI/CEA-1028}
-\label{cea2018}
+% \subsection{Another approach to task modelling: ANSI/CEA-1028}
+% \label{cea2018}
+% 
+% 	A task model is often defined as a description of an interactive task to be performed by the user of an application through the application's user interface. Individual elements in a task model represent specific actions that the user may undertake. Information on subtask ordering as well as conditions on task execution is also included in the model~\cite{Limbourg2004}. In traditional user interface design, task models are used only at design time and then discarded \cite{Rich2009}. A task-based user interface uses a task model at runtime to guide the user.
+% 
+% 	A task is commonly defined as an activity performed to reach a certain goal. A goal of a task is considered to be a specific state that is reached after the successful execution of a task. Tasks vary widely in their time extent. Some occur over minutes or hours (like listening to a song or watching a TV show), while others are effectively instantaneous, like switching on the TV.
+% 
+% 	ANSI/CEA-1028 \cite{Rich2009} uses a single uniform task representation, compared to other representations where high-level tasks (goals) are separated from low-level tasks (actions). It does so at all levels of abstraction, providing more flexibility when adjusting the level of granularity. %We consider this a worthwhile option to explore as this allows for the simplification of the model.
+% 
+% 	In \cite{VanWelie1998} it is suggested that task models should be based on an ontology that describes the relevant concepts and the relationships between them, independently of any used graphical representations. This also allows for different visualisations of the same task model. Task decomposition is the most common ingredient of task models. This creates a task tree or hierarchy that can easily be modelled by an ontology. The most important purpose of a task is that it changes something, otherwise it has no reason for existing.
+% 
+% \marginpar{Van Welie et al \cite{VanWelie1998} state that task models should be able to represent the psychological, social, environmental and situational aspects of agents and their tasks. This is why we consider runtime task models a good fit for the \ac{BDI} model used for constructing intelligent agents.}
+% 	
 
-	A task model is often defined as a description of an interactive task to be performed by the user of an application through the application's user interface. Individual elements in a task model represent specific actions that the user may undertake. Information on subtask ordering as well as conditions on task execution is also included in the model~\cite{Limbourg2004}. In traditional user interface design, task models are used only at design time and then discarded \cite{Rich2009}. A task-based user interface uses a task model at runtime to guide the user.
-
-	A task is commonly defined as an activity performed to reach a certain goal. A goal of a task is considered to be a specific state that is reached after the successful execution of a task. Tasks vary widely in their time extent. Some occur over minutes or hours (like listening to a song or watching a TV show), while others are effectively instantaneous, like switching on the TV.
-
-	ANSI/CEA-1028 \cite{Rich2009} uses a single uniform task representation, compared to other representations where high-level tasks (goals) are separated from low-level tasks (actions). It does so at all levels of abstraction, providing more flexibility when adjusting the level of granularity. %We consider this a worthwhile option to explore as this allows for the simplification of the model.
-
-	In \cite{VanWelie1998} it is suggested that task models should be based on an ontology that describes the relevant concepts and the relationships between them, independently of any used graphical representations. This also allows for different visualisations of the same task model. Task decomposition is the most common ingredient of task models. This creates a task tree or hierarchy that can easily be modelled by an ontology. The most important purpose of a task is that it changes something, otherwise it has no reason for existing.
-
-\marginpar{Van Welie et al \cite{VanWelie1998} state that task models should be able to represent the psychological, social, environmental and situational aspects of agents and their tasks. This is why we consider runtime task models a good fit for the \ac{BDI} model used for constructing intelligent agents.}
-	
-While task models are well suited to describing the various interaction tasks, we still need a way to describe the semantics of interaction feedback and the different types of interactions that can occur. That is the focus of the next section on semantic models.	
+While we these techniques are well suited to modelling input devices, we still need a way to describe the semantics of interaction feedback and the different types of interactions that can occur. That is the focus of the next section on semantic models.	
 
 \section{Semantic models}
 %\input{interactionFrogger}
@@ -603,8 +610,8 @@ The Frogger framework, as was introduced by Wensveen \cite{Wensveen2005}, descri
 
 When a user performs an action and the device responds with information that is directly related to the function of that product (lighting switching on when a light switch is operated), we speak of \emph{functional feedback}. When a device has more than one functionality, functional feedback should be viewed with respect to the users' intentions and goals when performing the action. If there is no direct link between a user's action and the direct function of the product, or when there is a delay, \emph{augmented feedback} (also known as indicators \cite{Thimbleby2007}) can be considered to confirm a user's action. This feedback is usually presented in the form of lights, sounds or labels. \emph{Inherent feedback} is directly coupled (inherently) to the action itself, like the feeling of displacement, or the sound of a button that is pressed.
 
-While feedback is information that occurs after or during the interaction, feedforward is the information provided to the user before any action has taken place. \emph{Inherent feedforward} communicates what kind of action is possible, and how one is able to carry out this action. Inherent feedforward is in many ways similar to the concept of affordances\marginpar{Affordances were discussed in Section \ref{Affordances}. }, revealing the action possibilities of the product or its controls \cite{Wensveen2005}. When an additional source of information communicates what kind of action is possible it is considered \emph{augmented feedforward}.  
-\emph{Functional feedforward} communicates the more general purpose of a product. This type of information often relies on association, metaphors and the sign function of products, which are described by theories such as product semantics \cite{Krippendorff2006}. Good practice in creating inherent feedforward is making the functional parts of a product visible, informing users about the functionality of the product \cite{Norman1998}.	
+While feedback is information that occurs after or during the interaction, feedforward is the information provided to the user before any action has taken place. \emph{Inherent feedforward} communicates what kind of action is possible, and how one is able to carry out this action. Inherent feedforward is the same as the concept of affordances\marginpar{Affordances were discussed in Section \ref{Affordances}. }, revealing the action possibilities of the product or its controls \cite{Wensveen2005}. When an additional source of information communicates what kind of action is possible it is considered \emph{augmented feedforward}.  
+\emph{Functional feedforward} communicates the more general purpose of a product. %This type of information often relies on association, metaphors and the sign function of products, which are described by theories such as product semantics \cite{Krippendorff2006}. Good practice in creating inherent feedforward is making the functional parts of a product visible, informing users about the functionality of the product \cite{Norman1998}.	
 
 %\footnote{Affordance is a term coined by Gibson in 1979 and introduced to the design community by Norman \cite{Norman1998}. It is the property of an object that appeals to our sensory-motor skills, like a door handle ``affords'' to be grabbed and a chair ``affords'' to be sat on.}
 
@@ -613,7 +620,7 @@ The concepts described in the Frogger framework are used to implement feedback i
 \subsection{Models of intentionality}
 \label{intentionalSpectrum}
 	
-	At the semantic level, we are interested in the meaning of the action. A gesture may mean nothing, until it encounters for instance a light switch \cite{Bongers2007}. In traditional software applications, a user is expected to have a clear intention of what he/she wants to achieve, with purposeful and direct actions. In ubiquitous computing scenarios, the interactions are less explicit. Input is implicit, sensor-based and ``calm'', and output is ambient and non-intrusive. With \emph{incidental interactions} \cite{Dix2004}, a user performs an action for some purpose (say opening a door to enter a room), the system senses this and incidentally uses it for some purpose of which the user is unaware (e.g. adjust the room temperature), affecting the user's future interaction with the system.
+	At the semantic level, we are interested in the meaning of the action. A gesture may mean nothing, until it encounters for instance a light switch \cite{Bongers2007}. In traditional software applications, a user is expected to have a clear intention of what he/she wants to achieve, with purposeful and direct actions. In ubiquitous computing scenarios, the interactions are less explicit. Input can be implicit, sensor-based and ``calm'', and output is ambient and non-intrusive. With \emph{incidental interactions} \cite{Dix2004}, a user performs an action for some purpose (say opening a door to enter a room), the system senses this and incidentally uses it for some purpose of which the user is unaware (e.g. adjust the room temperature), affecting the user's future interaction with the system.
 	
 \begin{figure}
 	\centering
@@ -624,15 +631,20 @@ The concepts described in the Frogger framework are used to implement feedback i
 
 	The \emph{continuum of intentionality} in Figure \ref{continuum} has normal, intentional interactions at the one end of the spectrum (e.g. pressing a light switch), expected interactions in the middle (e.g. walking into a room expecting the lights to go on), and incidental interactions at the other end. As users become more aware of the interactions happening around them, they move through the continuum toward more purposeful interaction. For example, with \emph{comprehension} an incidental interaction (lights turning on when you enter the car) turns into an expected interaction. With \emph{co-option}, an expected interaction turns into an intended interaction (e.g. deliberately opening and closing the car door to turn on the light).
 
-	Incidental interactions do not fit existing interaction models based on the conventional intentional cycle, like Norman's Action Cycle Diagram \cite{Norman1998}. The purpose of the user's activity is distinct to the intended outcomes of the system. Feedback may be unobtrusive (and not noticed), or delayed (like the temperature slowly changing). There are two tasks that are occurring:
+	Incidental interactions do not fit existing interaction models based on the conventional intentional cycle, like Norman's Action Cycle Diagram \cite{Norman1998}. The purpose of the user's activity is distinct to the intended outcomes of the system. Feedback may be unobtrusive (and not noticed), or delayed (like the temperature slowly changing). There are two tasks that are occurring: Te user's purposeful activity, and the task that the incidental interaction is attempting to support/achieve.
 
-	\begin{itemize}
-	\item The user's purposeful activity
-	\item The task that the incidental interaction is attempting to support/achieve
-	\end{itemize}
+We try to improve this comprehension by actively involving users in configuring the relationships between the smart objects in their environment. Bellotti et al. \cite{Bellotti2002} posed five questions to the designers of ubiquitous computing technologies:
 
-We try to improve this comprehension by actively involving users in configuring the relationships between the smart objects in their environment. When users are able to explore and manipulate the relationships between the smart objects, it becomes easier for them to begin to comprehend how things work (or can potentially work together). They can project their experiences with a part of a smart environment to see what may potentially work for other parts of the environment as well. %we can close this loop in the discussion with results from the user experiment.
-By allowing users to configure their smart environment themselves, they are in control of deciding how the environment responds to their actions.
+\begin{itemize}
+	\item Address: How do I address one (or more) of many possible devices?
+	\item Attention: How do I know the system is ready and attending to my actions?
+	\item Action: How do I effect a meaningful action, control its extent an dpossibly specify a target or targets for my action?
+	\item Alignment: How do I know the system is doing, or has done, the right thing?
+	\item Accident: How do I avoid mistakes?
+\end{itemize}
+
+When users are able to explore and manipulate the relationships between the smart objects, it becomes easier for them to begin to comprehend how things work, or can potentially work together. They can project their experiences with a part of a smart environment to see what may potentially work for other parts of the environment as well. 
+By allowing users to configure their smart environment themselves, they are in control of deciding how the environment responds to their actions. By making use of the feedback mechanisms introduced in Section \ref{interactionFrogger} we can indicate that the system is ready and attending to a user's actions. These mechanisms can also be used to make the actions of the system more visible and help the user avoid mistakes.
 
 %end TiiS
 
