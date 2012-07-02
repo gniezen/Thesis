@@ -81,13 +81,13 @@ This blackboard approach is complemented by a publish/subscribe component, that 
 
 In the \ac{SOFIA} software architecture, \acp{KP} communicate with the \ac{SIB} through \ac{SSAP} messages \cite{Honkola2010} over TCP/IP. \ac{SSAP} consists of a number of operations to insert, update and subscribe to information in the \ac{SIB}. These operations are encoded using \ac{XML}.
 
-For operations initiated by a \ac{KP}, the \ac{KP} sends a request message and the \ac{SIB} responds with a corresponding confirmation message. For \ac{SIB} initiated operations, the \ac{SIB} sends an indication message and the \ac{KP} does not respond. Every session must start with a join operation, and a leave operation ends a session.
+For operations initiated by a \ac{KP}, the \ac{KP} sends a request message and the \ac{SIB} responds with a corresponding confirmation message. For \ac{SIB} initiated operations, the \ac{SIB} sends an indication message. The \ac{KP} does not respond to \ac{SIB} initiated operations, as indication messages contain non-essential information. Every session must start with a join operation, and a leave operation ends a session.
 
 To insert information into the triple store, an insert operation is used by the \ac{KP}, where the triples are encoded in RDF/XML.  A \ac{SIB} confirmation message indicate whether the operation was successful or not. Similarly, a remove operation is used to remove information from the triple store. An update operation removes information from the triple store and inserts new information as an atomic operation.
 
-To query the triple store, a template consisting of a list of triples is used, where each triple may have a wildcard as its subject, predicate or object. The result of the query is a list of all triples that match the template.
+To query the triple store, a template consisting of a list of triples is used, where each triple may have a wildcard as its subject, predicate or object. The result of the query is a list of all triples that match the template. All triples in the triple store that match any of the triples in the list are returned.
 
-A subscribe operation creates a persistent query that is stored in the \ac{SIB} and is re-evaluated automatically after each change to the contents of the triple store. An unsubscribe operation will terminate a persistent query.
+A subscribe operation creates a persistent query that is stored in the \ac{SIB} and is re-evaluated automatically after each change to the contents of the triple store. An unsubscribe operation will terminate a persistent query. The publish/subscribe mechanism used is closest in scope to the content-based variant described in the previous section.
 
 \ac{SSAP} is supported by both the \ac{SIB} implementations used in our work, such that software developed for the one implementation is also interoperable with the other implementation. We now focus in more detail on these two implementations: Smart-M3 and ADK-SIB.\marginpar{The Smart-M3 implementation was used during the first design iteration, while the ADK-SIB implementation was used during the second and third design iteration.}
 
