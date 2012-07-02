@@ -111,7 +111,15 @@ Preuveneers and Berbers \cite{Preuveneers2008} evaluated the Pellet ontology rea
 Being able to use a reasoner to automatically compute the class hierarchy is one of the major benefits of building an ontology using \ac{OWL}. When constructing large ontologies the use of a reasoner to compute subclass-superclass relationships between classes becomes almost vital. Without a reasoner it is very difficult to keep large ontologies in a maintainable and logically correct state. 
 
 With ontologies it is possible to have classes with many superclasses, also called multiple inheritance. Usually it is easier to construct the class hierarchy as a simple tree, and leave computing and maintaining multiple inheritance to the reasoner. Classes in the asserted hierarchy therefore have no more than one superclass. This helps to keep the ontology in a maintainable and modular state and minimises human errors that are inherent in maintaining a multiple inheritance 
-hierarchy.
+hierarchy. For example, in our ontology we have 
+
+\begin{minted}{turtle}
+	AlarmSetEvent rdfs:subClassOf SetEvent .
+	TimeSetEvent rdfs:subClassOf SystemEvent .
+\end{minted}
+
+where \texttt{TimeSetEvent} is asserted to belong to one superclass \texttt{TimeSetEvent}, but could also be inferred by the reasoner to belong to \texttt{SetEvent} if that is preferred.
+
 
 \subsection{Consistency checking}
 
@@ -610,12 +618,12 @@ is not equivalent. This is however, easily solved by introducing an inverse prop
 \noindent
 hasFunctionality~\ensuremath{\circ}~isFunctionalityOf~\ensuremath{\sqsubseteq}~canConnectTo\\
 
-Modelling the above using the relation partition algebra of Feijs \cite{Feijs1999}, where\\
-
+Modelling the above using the \ac{RPA} of Feijs \cite{Feijs1999}, where\\
+\label{RPA}
 \noindent
-hasFunctionality~\ensuremath{\circ}~$\text{hasFunctionality}^{-1}$~\ensuremath{\sqsubseteq}~canConnectTo\\
+hasFunctionality~\ensuremath{\circ}~$\text{hasFunctionality}^{-1}$~\ensuremath{\subseteq}~canConnectTo\\
 
-shows it is identical, apart from the inverse relation, which is denoted by  $R^{-1} = \{ (x,y) | (y,x) \in R \}$.
+shows the property chain can also be represented using \ac{RPA}, apart from the inverse relation, which is denoted by  $R^{-1} = \{ (x,y) | (y,x) \in R \}$.
 
 \subsubsection{Example(s)}
 
@@ -881,7 +889,11 @@ Using this pattern, we infer the following \texttt{connectedTo} relationships:
 % \noindent
 % \texttt{x P1 y}~$\sqcap$~\texttt{x P2 y}~$\Rightarrow$~\texttt{x P3 y}\\
 %see Q2336 Preventing other individuals in a class from inferring the same property
-In some cases, \ac{SPIN} rules can be easier to compose and interpret than ontology restrictions and property chains. In this case, it cannot even be expressed in \ac{OWL}, as \ac{OWL} has no support for modelling property intersections.
+\marginpar{\ac{RPA} was first mentioned in Section \ref{RPA}.}In some cases, \ac{SPIN} rules can be easier to compose and interpret than ontology restrictions and property chains. In this case, it cannot even be expressed in \ac{OWL}, as \ac{OWL} has no support for modelling property intersections. In \ac{RPA}, on the other hand, relations are first class citizens, and Figure \ref{semanticTransformerControl} can be composed using:\\
+
+\noindent
+connectedTo~\ensuremath{\subseteq}~canConnectTo~\ensuremath{\cap}~connectedTo~\ensuremath{\circ}~$\text{canConnectTo}^{-1}$\\
+
 
 \subsubsection{Related} 
 
