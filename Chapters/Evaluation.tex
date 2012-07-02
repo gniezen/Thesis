@@ -16,7 +16,7 @@ In this chapter, two evaluations are described. First we will look at an evaluat
 %SeNAmI start
 \subsection{Introduction}
 
-To evaluate the software architecture described in Chapter \ref{SoftwareArchitecture}, we compared it against a previous evaluation of the two M3-based smart space implementations, Smart-M3 and \ac{RIBS}, described in Section \ref{m3}. These implementations were evaluated by Etel\"aper\"a et al \cite{Etelapera2011}. They performed both a qualitative evaluation and quantitative measurements. The performance measurements were made on a Intel Atom 1.6GHz laptop connected via a 100Mbps Ethernet router to a Intel Pentium M 1.7GHz laptop. The qualitative evaluation focused on documentation, installation process and portability as well as run-time usability. According to \cite{Etelapera2011} \ac{RIBS} is up to 237 times faster than Smart-M3 in certain instances, but that its memory model limits the number of use cases it can be applied to. \ac{RIBS} uses static memory allocation with no disk storage and a bitcube triple store, which means that the maximum number of triples have to be known a priori.
+To evaluate the software architecture described in Chapter \ref{SoftwareArchitecture}, we compared it against a previous evaluation of the two M3-based smart space implementations, Smart-M3 and \ac{RIBS}, described in Section \ref{m3}. These implementations were evaluated by Etel\"aper\"a et al \cite{Etelapera2011}. They performed both a qualitative evaluation and quantitative measurements. The performance measurements were made on a Intel Atom 1.6GHz laptop connected via a 100Mbps Ethernet router to a Intel Pentium M 1.7GHz laptop. The qualitative evaluation focused on documentation, installation process and portability as well as run-time usability. According to \cite{Etelapera2011} \ac{RIBS} is up to 237 times faster than Smart-M3 in certain instances, but it is reported that its memory model limits the number of use cases it can be applied to. \ac{RIBS} uses static memory allocation with no disk storage and a bitcube triple store, which means that the maximum number of triples has to be known a priori.
 
 Query time measurements for Smart-M3 indicated a query time of 4.4ms for one triple and 8.6ms for 10 triples. For \ac{RIBS} a query time of 0.65ms was measured for one triple. \ac{RIBS} did not support querying 10 triples at the time the evaluation was performed. Subscription time measurements indicated a subscription indication time of 140ms for Smart-M3, while \ac{RIBS} measured 0.75ms.
 
@@ -57,7 +57,7 @@ Luukkala et al. \cite{Luukkala2010} used Smart-M3 with \ac{ASP} techniques to ha
 \marginpar{The smart home pilot scenario was first described in Section \ref{D2Requirements}.}
 In the smart home pilot, media content is shared among several devices in a smart home setting. Music is shared between a mobile device, a stereo speaker set and a lighting device that renders the mood of the music with coloured lighting. The music experience, consisting of both light and music information, is also shared remotely between friends living in separate homes through the lighting device. Other lighting sources, like the smart functional lighting and the smart wall wash lights are sensitive to user presence and the use of other lighting sources in the environment.
 
-The performance measurements were made in an environment that approximates a real-world home environment for these kinds of devices. Two wireless routers were placed in two different locations, bridged with an ethernet network cable. One router was configured to act as a DHCP server, while the other acted as a network bridge. The Connector \ac{KP}, Music Player \ac{KP} and \ac{SIB} were connected to the router in location A, while the \ac{SLT} KP was connected to the router in location B. All components were connected to the network via the 802.11g wireless protocol. The system specifications of each component used in the performance evaluation is shown in Table \ref{specs}.\marginpar{An overview of the smart home pilot is shown in Figure \ref{pilotSetup} on page \pageref{pilotSetup}, while a diagram showing the technical details is shown in Figure \ref{SmartHomePilotDiagram} on page \pageref{SmartHomePilotDiagram}.}
+The performance measurements were made in an environment that approximates a real-world home environment for these kinds of devices. Two wireless routers were placed in two different locations, bridged with an ethernet network cable. One router was configured to act as a DHCP server, while the other acted as a network bridge. The Connector \ac{KP}, Music Player \ac{KP} and \ac{SIB} were connected to the router in location A, while the \ac{SLT} KP was connected to the router in location B. All components were connected to the network via the 802.11g wireless protocol. The system specifications of each component used in the performance evaluation are shown in Table \ref{specs}.\marginpar{An overview of the smart home pilot is shown in Figure \ref{pilotSetup} on page \pageref{pilotSetup}, while a diagram showing the technical details is shown in Figure \ref{SmartHomePilotDiagram} on page \pageref{SmartHomePilotDiagram}.}
 
 
 \begin{table}\footnotesize
@@ -80,7 +80,7 @@ The performance measurements were made in an environment that approximates a rea
 \end{table}
 % OMAP 3430
 
-Figure \ref{soundLight} and Figure \ref{connectorseq} show the sequence diagrams of the measurements made for the \ac{SLT} \ac{KP} and the Connector \ac{KP} respectively. During the pilot, 86 measurements were made by the \ac{SLT} \ac{KP} -- each time an event was received. 961 measurements were made by the Connector \ac{KP} -- each time a user scans a tag.
+Figure \ref{soundLight} and Figure \ref{connectorseq} show the sequence diagrams of the measurements made for the \ac{SLT} \ac{KP} and the Connector \ac{KP} respectively. During the pilot, 86 measurements were made by the \ac{SLT} \ac{KP} -- each time an event was received. 961 measurements were made by the Connector \ac{KP} -- each time a user scans a tag. Note that the query name in \ref{connectorseq} could differ between subsequent queries, as the user could be scanning a different tag every tames.
 
 \begin{figure}
 \centering
@@ -225,7 +225,7 @@ During the smart home pilot, all \ac{SSAP} messages received by the \ac{SIB} wer
 
 After every reasoning cycle both the asserted and inferred models were written to disk, generating a total of 8306 models during the pilot. Reasoning was performed once, after all ontologies were loaded, and then for every add, remove and update operation. This resulted in a total of 5158 measurements of model size and reasoning time during the pilot. No reasoning was performed during queries.
 
-During the pilot, 70655 total queries were performed by devices connected to the SIB. The time to perform each query was recorded on the SIB, and is shown in Figure \ref{querytime}. The histogram with bin size 25 is plotted on a logarithmic scale. Around 70000 queries take 2ms or less to complete, accounting for more than 99\% of the queries. Of all the queries, only 3 queries took 30ms or longer to complete, with all queries completing in less than 60ms. Keep in mind that these measurements were performed on the SIB, hence it does not take network latency into account.
+During the pilot, 70655 total queries were performed by devices connected to the \ac{SIB}. The time to perform each query was recorded on the \ac{SIB}, and is shown in Figure \ref{querytime}. The histogram with bin size 25 is plotted on a logarithmic scale. Around 70000 queries take 2ms or less to complete, accounting for more than 99\% of the queries. Of all the queries, only 3 queries took 30ms or longer to complete, with all queries completing in less than 60ms. Keep in mind that these measurements were performed on the \ac{SIB}, hence the measurements do not take network latency into account.
 
 \begin{figure}
 \centerline{
@@ -236,13 +236,13 @@ During the pilot, 70655 total queries were performed by devices connected to the
 
 Figure \ref{kdeplot} shows the histograms, Gaussian \acp{KDE} and \acp{CDF} of the Connector \ac{KP} and \ac{SLT} \ac{KP} \emph{query time measurements}. A bin size of 20 and a bandwidth of 0.5 was used to plot the figures. It shows that the typical query time for the Connector \ac{KP} is very short, with a few outliers that took a very long time to complete (35.2s). For the \ac{SLT} \ac{KP}, the case is similar, but there are no extreme outliers, with the longest query taking only 587ms to complete. Note that the \ac{KDE} provides similar information to the histogram, but handles outliers more gracefully by not using binning, and also results in a smoother graph.
 
-The \ac{CDF} of the Connector \ac{KP} indicates that queries taking more than 2 seconds to complete are very rare, but the ones that do take an unusually long time to complete. We believe that it could be related to problems in the wireless network, or related to the Python implementation of the \ac{KPI}, as the problem did not present itself when using other \ac{KPI} implementations.
+The \ac{CDF} of the Connector \ac{KP} indicates that queries taking more than two seconds to complete are very rare. The queries that do take longer than two seconds, take an unusually long time to complete. We believe that it could be related to problems in the wireless network, or related to the Python implementation of the \ac{KPI}, as the problem did not present itself when using other \ac{KPI} implementations.
 
 For the \ac{SLT} \ac{KP}, most queries completed within 100ms, with very few queries taking longer than 500ms to complete.
 
 \begin{figure}
 \centerline{
-\includegraphics[width=400px]{kdeplot}}
+\includegraphics[width=400px]{kdeplot2}}
 \caption{Histograms, kernel density estimates and cumulative distribution functions of Connector KP and Sound/Light Transformer KP measurements}
 \label{kdeplot}
 \end{figure}
@@ -327,9 +327,9 @@ During the pilot, most problems could be attributed to problems with the wireles
 
 %During one stakeholder visit, the comment was made that what we term semantic transformers, could also be termed transcoders, as they transcode data from one source type to another. With a large number of stakeholder visits the similarities of the SOFIA system to Universal Plug \& Play (UPnP) were discussed. It was pointed out that uPnP only covers one domain, and that it does not allow for the same type of device and capability descriptions on the semantic level.
 
-If we compare our query time measurements to the ones performed on Smart-M3 (4.4ms) and \ac{RIBS} (0.65ms), we can see that the \acp{KP} were substantially slower: The Connector \ac{KP} at 44ms, the Music Player \ac{KP} at 74ms and the Sound/Light \ac{KP} at 60ms. This can be attributed to additional network latency in the field study that approximated a real-world environment. Query measurements that were performed on the ADK-SIB directly (0.445ms) shows that it performs even better than \ac{RIBS}, but this is not directly comparable as it does not include network latency time. If network latency is taken into account, measured at 0.43ms per packet round-trip by \cite{Etelapera2011}, \ac{RIBS} is still faster.
+If we compare our query time measurements to the ones performed on Smart-M3 (4.4ms) and \ac{RIBS} (0.65ms), we can see that the \acp{KP} were substantially slower: The Connector \ac{KP} at 44ms, the Music Player \ac{KP} at 74ms and the Sound/Light \ac{KP} at 60ms. This can be attributed to additional network latency in the field study that approximated a real-world environment. Query measurements that were performed on the ADK-SIB directly (0.445ms) shows that it performs even better than \ac{RIBS}, but this is not directly comparable as the measurements do not include network latency time. If network latency is taken into account, measured at 0.43ms per packet round-trip by \cite{Etelapera2011}, \ac{RIBS} is still faster.
 
-The subscription indication measurements of our setup are also significantly slower. While the Smart-M3 measurement was only 140ms, the Music Player \ac{KP} measures around 860ms. This is mostly due to the additional time required for reasoning, which on average takes about 275ms. Other contributing factors include the number of devices used, the number of triples and the network environment.
+The subscription indication measurements of our setup are also significantly slower. While the Smart-M3 measurement was only 140ms, the Music Player \ac{KP} measures around 860ms. This is mostly due to the additional time required for reasoning, which on average takes about 275ms. Reasoning improves the flexibility and capabilities of the \ac{SIB} to such an extent that it is worth the hit in performance. Other contributing factors include the number of devices used, the number of triples and the network environment. While the Smart-M3 and \ac{RIBS} measurements were made in a lab environment, our ADK-SIB measurements were made in conditions that approximate a real-world environment, including having a larger number devices active at the same time.
 
 In the 1960s there already existed some controversy over the maximum allowable response times in human-computer interfaces \cite{Miller1968}. It was shown that different human actions will have different acceptable response times. While the delay between pressing a key and visual feedback should be no more than 0.1-0.3 seconds, the response to a inquiry request may take up to 2 seconds. The performance measurements are still well within this two-second limit, indicating that from a user's point of view, when performing routine tasks, the system is responsive enough. The user study and interviews performed during the pilot seem to confirm this, as no participant indicated any issues with regards to the responsiveness of the system.
 
@@ -363,10 +363,10 @@ In the book Beautiful Data \cite{Segaran2009}, the notion of beauty is described
 Hepp \cite{Hepp2007}, creator of the GoodRelations ontology, describes a number of characteristics that can be used to evaluate an ontology:
 
 \begin{itemize}
-	\item Expressiveness: An ontology of higher expressiveness would be richly axiomatised in higher order logic, while a simple vocabulary would be of low expressiveness.
-	\item Size of community: As ontologies are considered community contracts, \marginpar{For more on community contracts, see Section \ref{CommunityContract}.} an ontology targeted towards a large community should be easy to understand, well documented and of a reasonable size.
-	\item Number of conceptual elements: A larger ontology is more difficult to visualise and review. A reasoner could also take a long time to converge when the ontology is very large.
-	\item Degree of subjectivity: This is very much related to the domain of the ontology, where something like religion would be more subjectively judged than engineering.
+	\item High expressiveness: An ontology of higher expressiveness would be richly axiomatised in higher order logic, while a simple vocabulary would be of low expressiveness.
+	\item Large size of community: As ontologies are considered community contracts, \marginpar{For more on community contracts, see Section \ref{CommunityContract}.} an ontology targeted towards a large community should be easy to understand, well documented and of a reasonable size.
+	\item Small number of conceptual elements: A larger ontology is more difficult to visualise and review. A reasoner could also take a long time to converge when the ontology is very large.
+	\item Low degree of subjectivity: This is very much related to the domain of the ontology, where something like religion would be more subjectively judged than engineering.
 	\item Average size of specification per element: The number of axioms or attributes used to describe each concept influences the ontological commitment\label{OntologicalCommitment} that must be made before adopting the ontology. %\marginpar{Ontological commitment relates to \emph{premature commitment}, which is described in more detail in Section TODO on the Cognitive Dimensions framework.}
 \end{itemize}
 
@@ -390,7 +390,7 @@ For our evaluation, we focused on a subset of cognitive dimensions that are rela
   \item[Levels of abstraction] 	\label{cdDef}
 	An abstraction is a grouping of elements that is treated as one entity, either for convenience or to change the conceptual structure \cite{Green1996}. \emph{What are the minimum and maximum levels of abstractions?}
     \item[Closeness of mapping] \emph{How clearly did the available components map onto the problem domain?}
-	\item[Consistency] \emph{When some of the ontology has been learnt, how much of the rest can be inferred by the developer? Where there were concepts in the ontology that mean similar things, is the similarity clear from the way they appear?}
+	\item[Consistency] \emph{When some part of the ontology has been learnt, how much of the rest can be inferred by the developer? Where there were concepts in the ontology that mean similar things, is the similarity clear from the way they appear?}
 	\item[Viscosity] To solve problems of viscosity, usually more abstractions (see earlier definition) are introduced in order to handle a number of components as one group, for example in object-oriented programming \cite{Green1996}. An example of viscosity is where it is necessary to make a global change by hand because the environment used does not have a global update tool. \emph{How much effort was required to make a change to the environment?}
 	\item[Role expressiveness]
 		The dimension of role expressiveness is intended to describe how easy it is determine what a certain part is for. \emph{Are there parts of the ontology that are particularly difficult to interpret?}
@@ -410,7 +410,8 @@ For our evaluation, we focused on a subset of cognitive dimensions that are rela
 
 The original \ac{CD} questionnaire \cite{Blackwell2007} was adapted for use with ubiquitous computing ontologies. Non-relevant questions were eliminated and some wording and questions were adjusted to the subject matter, without changing the fundamental meaning of the questions themselves. 
 
-Developers of the \ac{SOFIA} smart home pilot completed the questionnaire, as well as students and developers affiliated to the University of Bologna.
+\marginpar{As mentioned in Section \ref{InteractionPrimitives}, our academic partners in Bologna published a journal paper \cite{Bartolini2011} based on an independent implementation of our work.}
+Developers of the \ac{SOFIA} smart home pilot completed the questionnaire, as well as students and developers affiliated to the University of Bologna. The \ac{SOFIA} developers used the ontology and software architecture for a couple of weeks in order to construct the smart home pilot. The students in Bologna took part in a course based on technology developed within the \ac{SOFIA} project, where they also made use of the ontology and software architecture. 
 
 \begin{figure}[bth] 
         \subfloat[Background of correspondents]
@@ -506,7 +507,7 @@ Embedded system developers found changes to be more difficult to implement, as i
 	How easy is it to answer the question: 'What is this bit for?' Which parts are difficult to interpret?
 \end{quote}
 
-Most responses indicated that ontology was easy to understand. More clarifying comments inside ontology could be useful - this can be implemented using the \texttt{rdfs:comment} field. Some developers indicated that application ontologies (ontologies that are device-specific) were still hard to interpret. 
+Most responses indicated that the ontology was easy to understand. More clarifying comments inside the ontology could be useful - this can be implemented using the \texttt{rdfs:comment} field. Some developers indicated that application ontologies (ontologies that are device-specific) were still hard to interpret. 
 
 Some concepts might be instinctively interpreted differently, but the defined meaning became clear when viewed in context with the rest of the ontology. The ontology provides the structure that is necessary to make sense of the concepts.
 
@@ -530,7 +531,7 @@ There is still effort required to make the system adaptive. This issue is also m
 	Did you often find yourself making small slips that irritate you or make you feel stupid? What are some examples?
 \end{quote}
 
-Some developers found it quite easy to mistype strings literals, indicating that it would be better to define entities to represent strings that occur more than once. Mistyping URIs was another common error, as well as mixing up namespaces. Developers not familiar with ontologies also mixed up or misunderstood the differences between URIs and literals.
+Some developers found it quite easy to mistype string literals, indicating that it would be better to define entities to represent strings that occur more than once. Mistyping URIs was another common error, as well as mixing up namespaces. Developers not familiar with ontologies also mixed up or misunderstood the differences between URIs and literals.
 
 \subsubsection{Hidden dependencies}
 
@@ -547,12 +548,12 @@ One developer indicated that the publish/subscribe approach followed by the syst
 
 Some developers noted that it was difficult to determine when something did not work. This was especially noticeable in the case of subscriptions, were it becomes really difficult to understand why a certain subscription-based notification was not received.
 
-One developer suggested that an ontology viewer could be used to make dependencies more visible, and that Prot\'eg\'e ontology editor is too complex for most users.\marginpar{The Prot\'eg\'e ontology editor was first mentioned in Section \ref{D2Discussion}.}
+One developer suggested that an ontology viewer could be used to make dependencies more visible, and that the Prot\'eg\'e ontology editor is too complex for most users.\marginpar{The Prot\'eg\'e ontology editor was first mentioned in Section \ref{D2Discussion}.}
 
 
 \subsection{Non-CD related questions}
 
-Some questions in the questionnaire was not directly related to the cognitive dimensions, but were meant to elicit more general responses to the usability of the ontologies and system.\\
+Some questions in the questionnaire were not directly related to the cognitive dimensions, but were meant to elicit more general responses to the usability of the ontologies and system.\\
 
 \begin{cdquestion}
 	What obstacles made it difficult to use the system?
