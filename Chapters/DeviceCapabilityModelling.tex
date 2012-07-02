@@ -330,7 +330,7 @@ where \texttt{?this \ensuremath{\equiv} SmartObject}. For example, if we have a 
 the above \ac{SPIN} rule will infer
 
 \begin{minted}{turtle}
-	:phone1 :Alarm :speaker1 .
+	:phone1 :Music :speaker1 .
 \end{minted}
 
 such that the functionality itself is represented as a predicate. For a semantic transformer, which is indirectly connected to smart objects, we need an additional \ac{SPIN} rule:
@@ -371,7 +371,7 @@ If we then apply the \ac{SPIN} rule defined above we can infer that
 where the semantic transformer itself becomes the predicate between the two smart objects, signifying the possibility of having wakeup service functionality between the two objects.
 
 
-How can we provide feedback to the user that these possible functionalities exist between smart objects? This can be done using the feedback capability of the Connector object and the feedback capabilities of the devices themselves. Just after the user scans the second device, and before the connection is actually made, feedback of the different possibilities for shared functionality can be provided to the user. 
+How can we provide feedback or feedforward to the user that these possible functionalities exist between smart objects? This can be done using the feedback capability of the Connector object and the feedback capabilities of the devices themselves. Just after the user scans the second device, and before the connection is actually made, feedback of the different possibilities for shared functionality can be provided to the user. 
 
 \marginpar{The \texttt{dataValue} property of interaction events is discussed in more detail in Section \ref{InteractionEvents}.} 
 When two devices can be connected directly, the Connector object creates a temporary connection from itself to the sink. This temporary connection is specified using the \texttt{tempConnectedTo} property, a sub-property of the \texttt{connectedTo} property. The Connector object generates a \texttt{PreviewEvent} with the matching functionality as \texttt{dataValue}. This triggers the sink to create a preview of the functionality described by the \texttt{PreviewEvent} and its \texttt{dataValue}.  When the sink completes the preview, it generates its own \texttt{PreviewEvent} to indicate that it has finished. The Connector object sees the sink's \texttt{PreviewEvent} and removes the temporary connection.\marginpar{Preview events and the \texttt{tempConnectedTo} property were first discussed in Section \ref{section:augmentedFunctionalFf}.} 
