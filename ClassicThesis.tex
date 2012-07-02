@@ -40,7 +40,7 @@
 % **************************************************************************************************************
 \documentclass[ twoside,openright,titlepage,numbers=noenddot,headinclude,%1headlines,% letterpaper a4paper
                 footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
-                BCOR=5mm,paper=a4,fontsize=11pt,%11pt,a4paper,%
+                BCOR=5mm,paper=a4,fontsize=12pt,%11pt,a4paper,%
                 ngerman,american,%
                 ]{scrreprt}
 
@@ -67,6 +67,9 @@
 \newtheorem{example}{Example}
 \newtheorem{question}{Research question}
 \newtheorem{cdquestion}{Question}
+ 
+% \usepackage{multibib}
+% \newcites{mypub}{List of publications}
 
 
 
@@ -79,7 +82,7 @@
 %\includeonly{Chapters/SemanticConnectionsTheory}
 %\includeonly{Chapters/DeviceCapabilityModelling}
 %\includeonly{Chapters/EventModelling}
-\includeonly{Chapters/OntologyEngineering}
+%\includeonly{Chapters/OntologyEngineering}
 %\includeonly{Chapters/SoftwareArchitecture}
 %\includeonly{Chapters/Evaluation}
 %\includeonly{Chapters/Conclusion}
@@ -105,14 +108,15 @@
 %********************************************************************
 % Frontmatter
 %*******************************************************
-\include{FrontBackmatter/DirtyTitlepage}
+%\include{FrontBackmatter/DirtyTitlepage}
 \include{FrontBackmatter/Titlepage}
 \include{FrontBackmatter/Titleback}
-\include{FrontBackmatter/Dedication}
-%\cleardoublepage\include{FrontBackmatter/Foreword}
-\include{FrontBackmatter/Abstract}
-\include{FrontBackmatter/Publication}
+\include{FrontBackmatter/tueTitle}
 \include{FrontBackmatter/Acknowledgments}
+%\include{FrontBackmatter/Dedication}
+%\cleardoublepage\include{FrontBackmatter/Foreword}
+
+
 \pagestyle{scrheadings}
 \include{FrontBackmatter/Contents}
 %********************************************************************
@@ -166,8 +170,12 @@ da. Le usate medical addresses pro, europa origine sanctificate nos se.}
 % Other Stuff in the Back
 %*******************************************************
 \include{FrontBackmatter/Bibliography}
-\include{FrontBackmatter/Colophon}
-\include{FrontBackmatter/Declaration}
+%\include{FrontBackmatter/Colophon}
+%\include{FrontBackmatter/Declaration}
+\include{FrontBackmatter/Publication}
+\include{FrontBackmatter/Abstract}
+\include{FrontBackmatter/Summary}
+\include{FrontBackmatter/ShortCV}
 % ********************************************************************
 % Game Over: Restore, Restart, or Quit?
 %*******************************************************
