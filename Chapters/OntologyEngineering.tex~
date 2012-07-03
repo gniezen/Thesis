@@ -267,7 +267,7 @@ it will violate the \ac{QCR} if \texttt{playing} and \texttt{stopped} are distin
 
 \subsection{Built-in SPARQL Functions}
 
-\marginpar{Built-in functions with \texttt{fn:} (XPath/Xquery) or \texttt{afn:} (ARQ Functions) prefix are also available as part of ARQ, the Jena query engine. The \texttt{spif:} prefix denotes the SPIN Standard Functions Library.}
+\marginpar{Built-in functions with \texttt{fn:} (XPath/Xquery) or \texttt{afn:} (ARQ Functions) prefix are also available as part of Jena ARQ, where ARQ is the Jena query engine. The \texttt{spif:} prefix denotes the SPIN Standard Functions Library.}
 \ac{SPIN} has a number of built-in functions\footnote{The reference documentation for the built-in functions can be accessed in TopBraid Composer from \texttt{Help} $\rightarrow$ \texttt{Help Contents} $\rightarrow$ \texttt{TopBraid Composer} $\rightarrow$ \texttt{Reference} $\rightarrow$ \texttt{SPARQL Functions Reference}} that provides additional functionality not available in \ac{OWL} 2. These built-in functions can be very helpful when creating your own \ac{SPIN} rules, functions or magic properties. They can be used to retrieve substrings (\texttt{fn:substring}), perform modulo arithmetic (\texttt{spif:mod}), or generate random numbers (\texttt{spif:random}).
 	
 An example of where they are used in our ontology is the \texttt{afn:now()} function in the \texttt{currentDateTime} magic property:
@@ -277,8 +277,7 @@ SELECT ?datetime
 WHERE {
 	BIND(afn:now() AS ?datetime) .
 }
-\end{minted}
-\marginpar{Magic properties are described in Section \ref{magicproperties}.}
+\end{minted}\marginpar{Magic properties are described in Section \ref{magicproperties}.}
 
 Some built-in functions, like \texttt{spif:buildUniqueIRI} (used to create new URIs), are only available as part of the extended TopBraid SPIN API\footnote{Available under a commercial license from TopQuadrant}, and cannot be used with the free open-source edition\footnote{http://topbraid.org/spin/api/}. That said, it is possible to build your own \texttt{buildURI} function using \texttt{fn:concat} as we did in the second design iteration:
 
