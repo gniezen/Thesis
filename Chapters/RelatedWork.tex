@@ -1,10 +1,11 @@
 \chapter{Related Work}
 
 \begin{flushright}{\slshape
-The old computing was about what computers could do; the new computing \\
-is about what users can do. Successful technologies are those that are\\
-in harmony with users' needs. They must support relationships and \\
-activities that enrich the users' experiences. } \\ \medskip
+The old computing was about what computers could do; the new \\
+computing is about what users can do. Successful technologies\\
+are those that are in harmony with users' needs. They must \\
+support relationships and activities that enrich the users' \\
+experiences. } \\ \medskip
 	    --- Ben Shneiderman
 	\end{flushright}
 
@@ -102,7 +103,7 @@ Existing toolkits like iStuff do not provide support for the association of high
 \subsection{The XWeb architecture (circa 2001-2003)}
 The goal of the XWeb architecture is to allow for \emph{opportunistic assemblies} of interactive resources in order to accomplish a particular task. Olsen et al \cite{Olsen2001} recognised that both an interactive model for acquiring and using the interaction resources, as well as an underlying infrastructure is needed. In their model, each interaction resource resolves user intent independently, instead of merging inputs from a variety of modalities.
 
-A client-server architecture was used to create the infrastructure, with \ac{XML} objects used to model resources and services. Tasks were defined using a two-part \ac{URL} in the form \texttt{dataReference::viewReference}, where the \emph{view} is an abstract definition of a particular interaction. These views are defined as a tree of \emph{interactors}, where the data and the view of the current task as well as the path of the interactor is used to characterise the current state of the device.
+A client-server architecture was used to create the infrastructure, with \ac{XML} objects used to model resources and services. Tasks were defined using a two-part \ac{URL} in the form \texttt{dataReference\-::viewReference}, where the \emph{view} is an abstract definition of a particular interaction. These views are defined as a tree of \emph{interactors}, where the data and the view of the current task as well as the path of the interactor is used to characterise the current state of the device.
 
 XWeb uses a subscribe mechanism to allow multiple clients to share their information, where the devices themselves are not aware of each other but can still be integrated into the same task. The problem that is addressed is that the different devices can be connected without requiring a lot of configuration effort from the user.
 
@@ -269,7 +270,7 @@ While Gaia's focus was on modelling the uncertainty of context in ubiquitous com
 
 \subsection{CAMUS}
 
-Ngo et al. \cite{Ngo2004} developed the \ac{CAMUS} ontology in \ac{OWL} to support context awareness in ubiquitous environments. Their device ontology is based on the \ac{FIPA} device ontology specification\footnote{http://www.fipa.org/specs/fipa00091/SI00091E.html}, with every \texttt{Device} having the properties of \texttt{hasHWProfile}, \texttt{hasOwner}, \texttt{hasService} and \texttt{hasProductInfo}. Devices are further classified into \texttt{AudioDevice}, \texttt{MemoryDevice}, \texttt{DisplayDevice}, or \texttt{NetworkDevice}. For audio, the \texttt{hasParameter} property has the \texttt{Audio\-Parameter} class as range, with subclasses like \texttt{ACDC\-Parameter}, \texttt{In\-ten\-si\-ty} and \texttt{Harmonicity\-Ratio}. %Unfortunately it does not define a notion of completeness, and the ontology is thus not considered generic enough for general use in ubicomp environments.
+Ngo et al. \cite{Ngo2004} developed the \ac{CAMUS} ontology in \ac{OWL} to support context awareness in ubiquitous environments. Their device ontology is based on the \ac{FIPA} device ontology specification\footnote{http://www.fipa.org/specs/fipa00091/SI00091E.html}, with every \texttt{Device} having the properties of \texttt{hasHWProfile}, \texttt{hasOwner}, \texttt{has\-Service} and \texttt{hasProductInfo}. Devices are further classified into \texttt{AudioDevice}, \texttt{MemoryDevice}, \texttt{DisplayDevice}, or \texttt{NetworkDevice}. For audio, the \texttt{hasParameter} property has the \texttt{Audio\-Parameter} class as range, with subclasses like \texttt{ACDC\-Parameter}, \texttt{In\-ten\-si\-ty} and \texttt{Harmonicity\-Ratio}. %Unfortunately it does not define a notion of completeness, and the ontology is thus not considered generic enough for general use in ubicomp environments.
 
 One of the major goals of context-aware computing is to provide services that are appropriate for a person at a particular place, time, situation etc. In \ac{CAMUS}, context entities and contextual information are described in the ontology as well \cite{Ngo2004}. For the entities related to agents, there is a top level concept called \texttt{Agent}. It has been further subclassed into \texttt{SoftwareAgent}, \texttt{Person}, \texttt{Organization}, and \texttt{Group}. Each \texttt{Agent} has a property \texttt{hasProfile} associated with it, whose range is \texttt{AgentProfile}. An \texttt{Agent} is also related through the \texttt{isActorOf} relationship to an \texttt{Activity}. %The Device ontology is based the the FIPA device ontology specification, with every \texttt{Device} having the properties of \texttt{hasHWProfile}, \texttt{hasOwner}, \texttt{hasService} and \texttt{hasProductInfo}.
 
