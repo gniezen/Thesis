@@ -20,9 +20,16 @@ The use case scenario in this iteration revolves around a person's evening routi
 \item 	The sleep domain allows us to reuse some of our existing work on media sharing and lighting, extending it into a new domain.
 \end{itemize}
 
-In the fitness and sleep domains there are a plethora of devices that are well-known to the \ac{IoT} community but that are not interoperable, such as the Withings WiFi body scale\footnote{http://www.withings.com/en/bodyscale}, Fitbit activity tracker\footnote{http://www.fitbit.com/}, Nike FuelBand fitness monitor\footnote{http://www.nike.com/fuelband/} and the Zeo sleep monitor\footnote{http://www.myzeo.com}.
+In the fitness and sleep domains there are a plethora of devices that are well-known to the \ac{IoT} community but that are not interoperable, such as:
 
-We would like to be able to not only visualise the data coming from these devices, but also to change the behaviour of other devices that are connected to these devices. For example, we could use the data coming from a sleep monitor to to change the behaviour of a light in the room, or the alarm on a mobile phone. We distinguish between a number of subdomains within the area of well-being, as shown in Figure \ref{Wellbeing}.
+\begin{itemize}
+	\item the Withings WiFi body scale\footnote{http://www.withings.com/en/bodyscale}, that transfers body weight wirelessly to a computer or mobile device,
+  	\item the Fitbit\footnote{http://www.fitbit.com/} and Nike FuelBand\footnote{http://www.nike.com/fuelband/} fitness monitors, that track activities using a built-in accelerometer, and
+	\item the Zeo sleep monitor\footnote{http://www.myzeo.com}, that records sleep cycles using a head-mounted sensor.
+\end{itemize}
+ 
+
+Existing software applications targeted at these devices visualise the data coming from these devices. Our goal is to enable serendipitous interoperability, and we are interested in seeing what will happen when the data and capabilities are shared between these devices. For example, we could use the data coming from a sleep monitor to to change the behaviour of a light in the room, or the alarm on a mobile phone. We distinguish between a number of subdomains within the area of well-being, as shown in Figure \ref{Wellbeing}.
 
 \begin{figure}[bth]
 \begin{center}
@@ -42,19 +49,19 @@ We would like to be able to not only visualise the data coming from these device
 \end{center}
 \end{figure}
 
-The use case in Iteration III consists of several devices. It includes:
+Several devices were used in Iteration III, including:
 
 \begin{itemize}
 	\item an Android smart phone -- Samsung Nexus S;
 	\item an internet radio -- Logitech Squeezebox Radio;
 	\item the lamp from Section \ref{Lamp};
-	\item a sleep monitor -- Zeo Sleep Manager; and 
+%	\item a sleep monitor -- Zeo Sleep Manager; and 
 	\item an Android tablet -- Samsung Galaxy Tab 10.1 WiFi.
 \end{itemize}
 
-We purposefully did not define a narrative for this use case, to refrain from only implementing the functionality described in the narrative. Instead, we looked at the meaningful ensembles we could create with the devices, attempting to allow for \emph{emergent functionalities} to surface by sharing device capabilities and interaction events.
+We purposefully did not define a narrative for this design iteration, to refrain from only implementing the functionality described in the narrative. Instead, we looked at the meaningful ensembles we could create with the devices, attempting to allow for \emph{emergent functionalities} to surface by sharing device capabilities and interaction events.
 
-The use case was implemented in the master bedroom of the Context Lab of TU/e, a lab with a setting that resembles a real home. Implementing the use case in-context allowed us to see its behaviour and implications in a realistic setting, giving insights that are regarded more valuable than obtained when building a setup on for example one's office desk. 
+The design iteration was implemented in the master bedroom of the Context Lab of TU/e, a lab with a setting that resembles a real home. Implementing the setup in an environment that allowed us to see its behaviour and implications in a realistic setting, gave insights that are regarded more valuable than obtained when building a setup on for example one's office desk. 
 
 
 \section{Ontology design}
@@ -81,7 +88,7 @@ Other areas where the ontology was improved include the modelling of device capa
 %It is reasonable to assume that modern networked devices will synchronize their clocks to a time server to display the actual time. Unfortunately, this is not the case. In our test setup, the internet radio synchronizes its clock with the local or remote server that it is connected to. The Android phone synchronizes its clock when it is connected to the GSM network 
 
 
-\section{Device design}
+\section{Device modifications}
 
 In this iteration, we reused both the ambient lighting system from Section \ref{Lamp}, as well as the Connector object from Section \ref{Connector}. For the Squeezebox radio and Android devices new \ac{KP} software was developed.
 
@@ -149,6 +156,7 @@ protected void handleBroadcastIntent(Intent broadcastIntent) {
 	
 Note that this intent is not supported by all Android devices, as different devices may have different default alarm applications. It did, however, work on both the Google Nexus S phones and Samsung Galaxy tablets that we tested. To determine when an alarm was changed, we made use of the \mint{java}|android.intent.action.ALARM_CHANGED| broadcast intents. It is also possible to read the next alarm that will triggered from the system settings, using \mint{java}|System.Settings.NEXT_ALARM_FORMATTED| To determine if a song is being played using the Android Music app, we used the \mint{java}|com.android.music.playstatechanged| broadcast intent.
 
+\marginpar{The Lighted Greenroom pattern was introduced by Komatineni et al. \cite{Komatineni2011} to simplify interacting with the Android wake lock.}
 We used a Lighted Greenroom \cite{Komatineni2011} pattern to launch a long-running service from a broadcast receiver, without the operating system throwing an \ac{ANR} message. \ac{ANR} specifies a 10-second response limit for a broadcast receiver, after which it is deemed unresponsive. By launching a separate service that handles generation of events based on broadcast intents, we have a workaround to this problem. This allows us to listen for broadcast intents from applications like the music player and the alarm clock.
 %(e.g. \texttt{com.android.music.playstatechanged}) and the alarm clock (\texttt{android.intent.action.ALARM\_CHANGED})
 
@@ -162,69 +170,70 @@ To create a wakeup service, an \texttt{AlarmSetEvent} would have to trigger an \
 
 This wakeup service has similar functionalities as a Wakeup Light (e.g. as sold by Philips\footnote{http://www.philips.co.uk/c/wake-up-light/38751/cat/}) which means it starts increasing its light level over a 30 minute time-period, reaching full intensity (as calibrated) at the set alarm time. The semantic connection between the phone's alarm and the dimmable light is an example of how such a connection can have emerging functionality, which does not exist without the connection and the wakeup service.  
 
-This opens up many possibilities for users, as they may connect other lights, and potentially even other devices such as a networked thermostat, to either the alarm or the dimmable lamp, creating their own wakeup experience. Whether such emerging functionalities are possible obviously depends on the way the smart objects are implemented. For example in our implementation, the dimmable lamp is described as a sink, which means it is only capable of accepting input. If it was described as a source as well, sharing for instance its on/off state or its current light value, it could act as a bridge and allow for more interesting configurations. Users may also connect the sleep monitor as an alarm source, helping them to wake up at the right time in their sleep cycle.
-
-
-\subsection{Zeo}
+This opens up many possibilities for users, as they may connect other lights, and potentially even other devices such as a networked thermostat, to either the alarm or the dimmable lamp, creating their own wakeup experience. Whether such emerging functionalities are possible obviously depends on the way the smart objects are implemented. For example in our implementation, the dimmable lamp is described as a sink, which means it is only capable of accepting input. If it was described as a source as well, sharing for instance its on/off state or its current light value, it could act as a bridge and allow for more interesting configurations. %Users may also connect the sleep monitor as an alarm source, helping them to wake up at the right time in their sleep cycle.
 
 \begin{figure}
 \centering
 \includegraphics[width=300pt]{sleepscenario}
-\caption{The sleep use case scenario, with the Zeo sleep monitor on the left, the dimmable light and the Connector object in the middle, and the Squeezebox on the right}
+\caption{The sleep use case scenario, with the dimmable light and the Connector object in the middle, and the Squeezebox on the right}
 \label{sleepusecase}
 \end{figure}
 
-The Zeo sleep monitor is shown on the left-hand side of Figure \ref{sleepusecase}. The Zeo headband, shown in Figure \ref{headband}, uses three silver conductive fabric sensors to collect \ac{EEG} signals while a person is sleeping. The signals are amplified and features are extracted using a \ac{FFT}. An \ac{ANN} is then used to estimates the probability of a person being in a certain phase of sleep\cite{Rubin2009}. The sleep stages are Awake, \ac{REM} Sleep, Light Sleep, Deep Sleep or Undefined. 
+% \subsection{Zeo}
+% 
 
-\begin{figure}
-\centering
-\includegraphics[width=300pt]{headband}
-\caption{The Zeo headband}
-\label{headband}
-\end{figure}
-
-
-Sleep data is stored on an SD card on the device and can be uploaded to the Zeo MySleep\footnote{http://mysleep.myzeo.com} website. Zeo created the Data Decoder Card library\footnote{http://developers.myzeo.com/data-decoder-library/} that allows developers to decode the sleep data without uploading the data to the MySleep website. We also built a USB cable that connects to a serial port on the back of the device. With this cable you can access the raw data coming from the headband sensor. %-- a diagram indicating how the USB cable should be connected to the Zeo is shown in Figure \ref{zeoBack}.
-
+% 
+% The Zeo sleep monitor is shown on the left-hand side of Figure \ref{sleepusecase}. The Zeo headband, shown in Figure \ref{headband}, uses three silver conductive fabric sensors to collect \ac{EEG} signals while a person is sleeping. The signals are amplified and features are extracted using a \ac{FFT}. An \ac{ANN} is then used to estimate the probability of a person being in a certain phase of sleep\cite{Rubin2009}. The sleep stages are Awake, \ac{REM} Sleep, Light Sleep, Deep Sleep or Undefined. 
+% 
 % \begin{figure}
 % \centering
-% \includegraphics[width=300pt]{ZeoBack}
-% \caption{Connecting a USB cable to the debug port of the Zeo sleep monitor}
-% \label{zeoBack}
+% \includegraphics[width=300pt]{headband}
+% \caption{The Zeo headband}
+% \label{headband}
 % \end{figure}
-
-When the device is connected via a USB cable, we have real-time access to the generated events. Events that could be interesting to other smart objects in the environment include:
-
-\begin{itemize}
-	\item \texttt{NightStart} - time when first ``Awake'' hypnogram occurs
-	\item \texttt{SleepOnset}
-	\item \texttt{HeadbandDocked} and \texttt{HeadbandUndocked}
-	\item \texttt{AlarmOff}, \texttt{AlarmSnooze} and \texttt{AlarmPlay}
-	\item \texttt{NightEnd}
-	%\item \texttt{NewHeadband}
-\end{itemize}
-
-The Zeo Raw Data Library\footnote{http://sourceforge.net/projects/zeorawdata/} is a Python library to read raw data from the Zeo serial port, using the following commands:
-
-\begin{minted}{python}
-	from ZeoRawData.BaseLink import BaseLink
-	from ZeoRawData.Parser import Parser
-
-	# Initialize
-	link = BaseLink('/dev/ttyUSB0')
-	parser = Parser()
-
-	# Add callback functions
-	link.addCallback(parser.update)
-	parser.addEventCallback(eventCallback)
-	parser.addSliceCallback(sliceCallback)
-
-	# Start link
-	link.start()
-\end{minted}
-
-%Although it was not implemented, the Zeo Sleep Manager shares its data like sleep states and alarm events, which can be used in our sleep use case.
-
+% 
+% 
+% Sleep data is stored on an SD card on the device and can be uploaded to the Zeo MySleep\footnote{http://mysleep.myzeo.com} website. Zeo created the Data Decoder Card library\footnote{http://developers.myzeo.com/data-decoder-library/} that allows developers to decode the sleep data without uploading the data to the MySleep website. We also built a USB cable that connects to a serial port on the back of the device. With this cable you can access the raw data coming from the headband sensor. %-- a diagram indicating how the USB cable should be connected to the Zeo is shown in Figure \ref{zeoBack}.
+% 
+% % \begin{figure}
+% % \centering
+% % \includegraphics[width=300pt]{ZeoBack}
+% % \caption{Connecting a USB cable to the debug port of the Zeo sleep monitor}
+% % \label{zeoBack}
+% % \end{figure}
+% 
+% When the device is connected via a USB cable, we have real-time access to the generated events. Events that could be interesting to other smart objects in the environment include:
+% 
+% \begin{itemize}
+% 	\item \texttt{NightStart} - time when first ``Awake'' hypnogram occurs
+% 	\item \texttt{SleepOnset}
+% 	\item \texttt{HeadbandDocked} and \texttt{HeadbandUndocked}
+% 	\item \texttt{AlarmOff}, \texttt{AlarmSnooze} and \texttt{AlarmPlay}
+% 	\item \texttt{NightEnd}
+% 	%\item \texttt{NewHeadband}
+% \end{itemize}
+% 
+% The Zeo Raw Data Library\footnote{http://sourceforge.net/projects/zeorawdata/} is a Python library to read raw data from the Zeo serial port, using the following commands:
+% 
+% \begin{minted}{python}
+% 	from ZeoRawData.BaseLink import BaseLink
+% 	from ZeoRawData.Parser import Parser
+% 
+% 	# Initialize
+% 	link = BaseLink('/dev/ttyUSB0')
+% 	parser = Parser()
+% 
+% 	# Add callback functions
+% 	link.addCallback(parser.update)
+% 	parser.addEventCallback(eventCallback)
+% 	parser.addSliceCallback(sliceCallback)
+% 
+% 	# Start link
+% 	link.start()
+% \end{minted}
+% 
+% %Although it was not implemented, the Zeo Sleep Manager shares its data like sleep states and alarm events, which can be used in our sleep use case.
+% 
 
 
 
@@ -238,7 +247,7 @@ The Zeo Raw Data Library\footnote{http://sourceforge.net/projects/zeorawdata/} i
 \includegraphics[width=450px]{sleepUseCase}
 \caption{An overview of the sleep use case}
 \label{sleep}
-\end{figure}\marginpar{In the sleep use case we did not make use of the Zeo and its \ac{KP} implementation. It was viewed as a backup device which could be used to introduce additional complexity to the system if necessary.}
+\end{figure}%\marginpar{In the sleep use case we did not make use of the Zeo and its \ac{KP} implementation. It was viewed as a backup device which could be used to introduce additional complexity to the system if necessary.}
 
 
 %\subsection{Setup} %Method? perhaps a different heading
@@ -278,7 +287,7 @@ We started by implementing a very basic configuration, connecting the phone and 
 \subsection{Feedback and Feedforward}
 \label{section:feedbackAndFeedforward}
 
-The different types of feedback and feedback as described in the Frogger framework was discussed in Section \ref{interactionFrogger}. We use feedforward to display a device's functional possibilities. We can use feedback to confirm user actions, using augmented feedback where direct functional feedback is not available.\marginpar{In Van der Vlist's thesis \cite{Bram} there is a similar discussion on feedback, that focuses on some of the more user-centred aspects.}
+In Section \ref{interactionFrogger}, where the Frogger framework of Wensveen \cite{Wensveen2005}} was introduced, we also introduced the terminology of augmented and functional feedback/feedforward. We use feedforward to display a device's functional possibilities. We can use feedback to confirm user actions, using augmented feedback where direct functional feedback is not available.\marginpar{In Van der Vlist's thesis \cite{Bram} there is a similar discussion on feedback, that focuses on some of the more user-centred aspects.}
 
 When an alarm is set on the phone, augmented feedback should be given on all devices connected to the phone. For example, consider the setup in Figure \ref{phoneAlarmFeedback}, where the alarm is connected to both the lamp and the Squeezebox radio. 
 
@@ -291,7 +300,7 @@ When an alarm is set on the phone, augmented feedback should be given on all dev
 
 Immediate feedback only makes sense when the event and its feedback coincide in time and modality (e.g. audio, visual). When the generated event is a \texttt{SetEvent}, the event itself will occur sometime in the future, so we generate the functional feedforward as augmented feedback instead. For example, for an \texttt{AlarmSetEvent} we generate a $1s$ alert sound on the Squeezebox radio as augmented feedback, providing functional feedforward of what will happen when the alarm is triggered. We also provide visual augmented feedback by displaying a popup message on the display for a few seconds. On the lamp feedback is given in the form of a short light pulse to confirm that it has been notified as well.
 
-Feedback and feedforward need to be carefully designed when smart objects are interconnected. However, as the smart objects themselves are unaware of each other and, at development time, their designers did not know to what other devices users may connect the smart objects to, the total user experience cannot easily be designed. \marginpar{Many solutions for interconnecting devices often employ the \emph{vendor lock-in} strategy, which enables manufacturers to have full control over their ecosystem of products and the resulting user experience.} In this section we will describe how feedback and feedforward were used to enhance the user experience and enable devices that are in-fact unaware of one another, appear to show awareness of each other to their users. 
+Feedback and feedforward need to be carefully designed when smart objects are interconnected. However, as the smart objects themselves are unaware of each other and, at development time, their designers cannot anticipate what other devices users may connect the smart objects to, the total user experience cannot easily be designed. \marginpar{Many solutions for interconnecting devices often employ the \emph{vendor lock-in} strategy, which enables manufacturers to have full control over their ecosystem of products and the resulting user experience.} In this section we will describe how feedback and feedforward were used to enhance the user experience and enable devices that are in-fact unaware of one another, appear to show awareness of each other to their users. 
 
 \subsubsection{Augmented and functional feedforward}
 \label{section:augmentedFunctionalFf}
@@ -343,7 +352,7 @@ When music is playing on the phone and a connection is made between the phone an
 \subsubsection{Augmented feedback} 
 If there is no immediate link between action and function  (e.g. functional result is delayed, information is given about an internal state change), augmented feedback can be used to provide this information. We use an \texttt{IndicatorEvent} to provide augmented feedback when smart object is connected and there is no immediate functional feedback, e.g. a sink ``beeping'' when the alarm is set on the source.  The type of feedback required depends on the functionality of the connection. It is important for the feedback to coincide in time and modality with the event generated, as to maintain the causal link that is perceived by the user.
 
-When a connections exists and an action performed on the source that has no immediate functional feedback, augmented feedback is provided to serve as an \emph{indicator}. This feedback is  provided by the smart objects that are connected, in the modality that is supported by their interaction capabilities. Designers should aim for maintaining the modality of the augmented information across the smart objects. Additionally, ensuring that the feedback occurring at distributed objects coincide in time may strengthen the perceived causality of the link. Indicator events may also be used to indicate existing connections, e.g. when a user wishes to see what smart objects are currently connected to a source.  
+When a connections exists and an action performed on the source that has no immediate functional feedback, augmented feedback is provided to serve as an indicator. This feedback is  provided by the smart objects that are connected, in the modality that is supported by their interaction capabilities. Designers should aim for maintaining the modality of the augmented information across the smart objects. Additionally, ensuring that the feedback occurring at distributed objects coincide in time may strengthen the perceived causality of the link. Indicator events may also be used to indicate existing connections, e.g. when a user wishes to see what smart objects are currently connected to a source.  
 
 \begin{example}
 When the phone is connected to the internet radio and the internet radio is connected to the dimmable lamp, both the internet radio and the lamp gives augmented feedback when an alarm is set. The internet radio displays the alarm-set screen, confirming the alarm time and the dimmable lamp slowly flashes, to indicate that they are both connected and that the action on the source is confirmed.
@@ -389,46 +398,46 @@ When the phone is connected to the internet radio and the internet radio is conn
 \section{Discussion \& Conclusion}
 
 
-\subsection{Mismatches between device states}
-
-Interaction events (Chapter \ref{EventModelling}) cause device state changes. When smart objects are interconnected, mismatches in device states may occur, as not all interaction events cause the same state transitions in all smart objects. The design decision to describe the interactions in terms of events as opposed to states was based on the idea that states can be logically inferred from events. Exchanging the events still leaves some autonomy to the smart object (or its developer) to decide what to do with the event. However, only sharing events is not always enough to create consistent behaviour. 
-
-It is the responsibility of the source to communicate all state changes in the form of events, in order for the sink to keep in sync. Even then, it is still possible for two smart objects to be in different states while connected. Consider the case where the mobile phone is connected to the internet radio, sharing both alarm and music functionality. The user opens the music player on the mobile phone and presses Play, which causes the music to play back on the internet radio. As shown in Figure \ref{fsmPlayAlarm}, an \texttt{AlarmAlertEvent} generated by the mobile phone will cause the internet radio to go into an \texttt{Alarm} state. When the alarm is dismissed on the mobile phone, the internet radio will go into a \texttt{Pause} state, as this is the default behaviour when the alarm is dismissed on the internet radio itself. The mobile phone, however, is now in the \texttt{Play} state. To prevent this state mismatch, the mobile phone should not only send the \texttt{AlarmDismissEvent} that was generated through the user interaction, but also a \texttt{PlayEvent} to indicate that it is now playing music again.
-
-
-\begin{figure}[bth]
-%\begin{dot2tex}[dot,options=-tmath --autosize --cache]
-%digraph G {
-	\digraph[scale=0.5]{MyGraph}{
-	%rankdir=LR;
-	font="Ubuntu";
-	compound=true;	
-	subgraph cluster0 {
-	label="Mobile Phone";
-	alarm1 [label=Alarm];
-	play1 [label=Play];
-	pause1 [label=Pause];
-	pause1 -> play1 [label=Play];
-	play1 -> alarm1 [label=Alarm];
-	alarm1 -> play1 [label=Dismiss];
-	play1 -> pause1 [label=Pause];
-	}
-	subgraph cluster1 {
-	label="Internet Radio";
-	alarm2 [label=Alarm];
-	play2 [label=Play];
-	pause2 [label=Pause];
-	pause2 -> play2 [label=Play];
-	play2 -> alarm2 [label=Alarm];
-	alarm2 -> pause2 [label=Dismiss];
-	play2 -> pause2 [label=Pause];
-	}
-	play1 -> pause2 [ltail=cluster0, label=AlarmDismissEvent];
-	}
-%\end{dot2tex}
-    \caption{State mismatch between phone and internet radio}
-   \label{fsmPlayAlarm}
-\end{figure}
+% \subsection{Mismatches between device states}
+% 
+% Interaction events (Chapter \ref{EventModelling}) cause device state changes. When smart objects are interconnected, mismatches in device states may occur, as not all interaction events cause the same state transitions in all smart objects. The design decision to describe the interactions in terms of events as opposed to states was based on the idea that states can be logically inferred from events. Exchanging the events still leaves some autonomy to the smart object (or its developer) to decide what to do with the event. However, only sharing events is not always enough to create consistent behaviour. 
+% 
+% It is the responsibility of the source to communicate all state changes in the form of events, in order for the sink to keep in sync. Even then, it is still possible for two smart objects to be in different states while connected. Consider the case where the mobile phone is connected to the internet radio, sharing both alarm and music functionality. The user opens the music player on the mobile phone and presses Play, which causes the music to play back on the internet radio. As shown in Figure \ref{fsmPlayAlarm}, an \texttt{AlarmAlertEvent} generated by the mobile phone will cause the internet radio to go into an \texttt{Alarm} state. When the alarm is dismissed on the mobile phone, the internet radio will go into a \texttt{Pause} state, as this is the default behaviour when the alarm is dismissed on the internet radio itself. The mobile phone, however, is now in the \texttt{Play} state. To prevent this state mismatch, the mobile phone should not only send the \texttt{AlarmDismissEvent} that was generated through the user interaction, but also a \texttt{PlayEvent} to indicate that it is now playing music again.
+% 
+% 
+% \begin{figure}[bth]
+% %\begin{dot2tex}[dot,options=-tmath --autosize --cache]
+% %digraph G {
+% 	\digraph[scale=0.5]{MyGraph}{
+% 	%rankdir=LR;
+% 	font="Ubuntu";
+% 	compound=true;	
+% 	subgraph cluster0 {
+% 	label="Mobile Phone";
+% 	alarm1 [label=Alarm];
+% 	play1 [label=Play];
+% 	pause1 [label=Pause];
+% 	pause1 -> play1 [label=Play];
+% 	play1 -> alarm1 [label=Alarm];
+% 	alarm1 -> play1 [label=Dismiss];
+% 	play1 -> pause1 [label=Pause];
+% 	}
+% 	subgraph cluster1 {
+% 	label="Internet Radio";
+% 	alarm2 [label=Alarm];
+% 	play2 [label=Play];
+% 	pause2 [label=Pause];
+% 	pause2 -> play2 [label=Play];
+% 	play2 -> alarm2 [label=Alarm];
+% 	alarm2 -> pause2 [label=Dismiss];
+% 	play2 -> pause2 [label=Pause];
+% 	}
+% 	play1 -> pause2 [ltail=cluster0, label=AlarmDismissEvent];
+% 	}
+% %\end{dot2tex}
+%     \caption{State mismatch between phone and internet radio}
+%    \label{fsmPlayAlarm}
+% \end{figure}
 
 
 
@@ -446,25 +455,25 @@ It is the responsibility of the source to communicate all state changes in the f
 % \end{figure}
 
 
-
-\subsection{Setting time on devices}
-
-For devices to interoperate with one another in a meaningful way, it is imperative that they have the same concept of time and that their clocks are synchronised. For something that should be very trivial, setting the time on devices is surprisingly difficult. Consider the devices we used in our last scenario:
-
-\begin{itemize}
-	\item The Zeo sleep manager does not allow for the time to be set remotely - it can only be set manually on the device itself.
-	\item The Squeezebox radio retrieves the time from the server that it is connected to - you therefore need to be able to set the time on the computer running the server.
-	\item On Android devices there are documented methods to set the time, e.g. \texttt{setCurrentMillis()}, but due to security restrictions non-system applications are not allowed to access these methods.
-\end{itemize}
-
-Our workaround was to set the time on the Android phone, which will send the time value with a \texttt{TimeSetEvent}\marginpar{\texttt{TimeSetEvent} is a type of system event. For more information on system events, see Section \ref{SystemEvents}.} to the \texttt{SIB}. When a new \texttt{TimeSetEvent} is received, the Squeezebox KP updates the system time of the Squeezebox Server, requiring super user permissions. The Squeezebox is then restarted to synchronise the local time with that of the server.
+% (removed - Panos)
+% \subsection{Setting time on devices}
+% 
+% For devices to interoperate with one another in a meaningful way, it is imperative that they have the same concept of time and that their clocks are synchronised. For something that should be very trivial, setting the time on devices is surprisingly difficult. Consider the devices we used in our last scenario:
+% 
+% \begin{itemize}
+% 	\item The Zeo sleep manager does not allow for the time to be set remotely - it can only be set manually on the device itself.
+% 	\item The Squeezebox radio retrieves the time from the server that it is connected to - you therefore need to be able to set the time on the computer running the server.
+% 	\item On Android devices there are documented methods to set the time, e.g. \texttt{setCurrentMillis()}, but due to security restrictions non-system applications are not allowed to access these methods.
+% \end{itemize}
+% 
+% Our workaround was to set the time on the Android phone, which will send the time value with a \texttt{TimeSetEvent}\marginpar{\texttt{TimeSetEvent} is a type of system event. For more information on system events, see Section \ref{SystemEvents}.} to the \texttt{SIB}. When a new \texttt{TimeSetEvent} is received, the Squeezebox KP updates the system time of the Squeezebox Server, requiring super user permissions. The Squeezebox is then restarted to synchronise the local time with that of the server.
 
 
 %==Causes for increased reasoning time
 %One example of where the reasoning time required increased to a number of seconds, was when we made use of the \texttt{owl:sameAs} property.
 
 
-\subsection{Conclusion}
+%\subsection{Conclusion}
 
 The sleep use case acted as an evaluation of the completeness and applicability of the concepts and techniques described thus far. These approaches were distilled into a theory of semantic connections, which forms the basis of the next chapter. The implemented use case evaluated: 
 \begin{itemize}
