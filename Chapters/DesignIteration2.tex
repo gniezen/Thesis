@@ -10,7 +10,19 @@ with which they interact.} \\ \medskip
 
 \marginpar{Parts of this chapter appear in \cite{Niezen2011}, \cite{Vlist2011} and \cite{VanderVlist2012a}.}
 
-The second iteration was driven by a collaboration with various partners in the \ac{SOFIA} project, which included Philips, NXP, Conante and the TU/e \ac{SAN} research group . This collaboration culminated in a joint demonstrator that was exhibited and evaluated at the Experience Lab at the High Tech Campus in Eindhoven --- the Smart Home pilot.
+The second iteration was driven by a collaboration with various partners in the \ac{SOFIA} project, which included Philips, NXP, Conante and the TU/e \ac{SAN} research group. This collaboration culminated in a joint demonstrator that was exhibited and evaluated at the Experience Lab at the High Tech Campus in Eindhoven --- the Smart Home pilot.
+
+The goals of the Smart Home pilot were as follows:
+
+\begin{itemize}
+	\item Conduct a pilot study with users in a setting that resembles a real home
+	\item Demonstrate the system to stakeholders and other interested parties
+	\item Serve as a feasibility study
+	\item Test how stable the implementation would be when it would be running for a full week
+	\item Serve as an experimental setup for user experiments
+\end{itemize}
+
+More general goals of this design iteration were to improve our approach to solve interoperability problems between devices using semantic technologies, and to test our approach to technology integration with an increased number of devices.
 
 \section{Requirements}
 \label{D2Requirements}
@@ -31,6 +43,7 @@ There are some obvious similarities with the previous scenario in Chapter \ref{D
 	\item Spotlight Navigation - An augmented reality approach to exploring semantic connections, based on technology developed by Conante
 \end{itemize}
 
+This increase in the heterogeneity of devices helps us to see if the ontology-based approach can be applied to a larger range of devices, and the increase in system complexity is used to test the capabilities of the software framework.
 We first focus on the design of the ontologies that were created to support these kind of scenarios, followed by the design of the devices that were created specifically for the pilot.
 
 
@@ -146,8 +159,9 @@ The concept of a semantic transformers is considered an important part of the th
 The Semantic Interaction ontology we have developed is shown in Figure \ref{semanticInteractionOntology}.  A device, defined as a \texttt{SmartObject}, is uniquely identified by some kind of \texttt{Identification}, for example a IP address and port number, \ac{RFID} tag or barcode. \marginpar{Identification is discussed in Section \ref{Identification}.} Different ID types can be defined as required. Devices can then launch events, for example a media player can generate a \texttt{PlayEvent} when music starts playing.
 
 
-A smart object is described in terms of its \emph{interaction primitives}. \marginpar{The concept of interaction primitives is discussed in more detail in Section \ref{InteractionPrimitives}.}
+A smart object is described in terms of its \emph{interaction primitives}. This new concept, as well as the other new concepts introduced in this section, refine the ontology that was introduced in the first design iteration:
 
+\marginpar{The concept of interaction primitives is discussed in more detail in Section \ref{InteractionPrimitives}.}
 \begin{description}
 	\item [Interaction primitive]An \emph{interaction primitive} is defined to be the smallest addressable element that has a meaningful relation to the interaction itself. 
 \end{description}
@@ -162,31 +176,32 @@ SmartPhone hasInteractionPrimitive PhoneRockerSwitch .
 
 We now need to define the properties of the interaction primitive. We start by describing the range measure, or the range of values that the interaction primitive can produce (e.g. the rocker switch can produce \texttt{Up}, \texttt{Down} or \texttt{Neutral} values).
 
-The range of values that an interaction primitive can take on is specified using a \texttt{RangeMeasure}. The list of range measures is shown in Table \ref{rangeMeasures}. These range measures are similar to the measure of the domain set used by MacKinlay et al \cite{MacKinlay1990}.\marginpar{MacKinlay's work was discussed in Section \ref{interactionTasks}.} Using the range measures, we can then infer which transformations may be used to map the input values to other interaction primitives or events. The ontology could be extended to also describe the different manipulation operators of the interaction primitive, e.g. rotation on the z-axis or movement along the y-axis.
+The range of values that an interaction primitive can take on is specified using a \texttt{RangeMeasure}.  These range measures are similar to the measure of the domain set used by MacKinlay et al \cite{MacKinlay1990}.\marginpar{MacKinlay's work was discussed in Section \ref{interactionTasks}.} Using the range measures, we can then infer which transformations may be used to map the input values to other interaction primitives or events. The ontology could be extended to also describe the different manipulation operators of the interaction primitive, e.g. rotation on the z-axis or movement along the y-axis. Note that the model of MacKinlay et al. has only been applied to \acp{GUI}. Similar models for ubiquitous computing have so far not given comprehensive taxonomies of input devices. Our approach of using interaction primitives to describe input devices is an attempt at providing such a taxonomy.
 
-\begin{table}
-    \myfloatalign
-  \begin{tabularx}{\textwidth}{Xl} 
-	\toprule
-    \tableheadline{Range measure} & \tableheadline{Possible values} \\ 
-    \midrule
+%The list of range measures is shown in Table \ref{rangeMeasures}.
+% \begin{table}
+%     \myfloatalign
+%   \begin{tabularx}{\textwidth}{Xl} 
+% 	\toprule
+%     \tableheadline{Range measure} & \tableheadline{Possible values} \\ 
+%     \midrule
+% 
+% 	Binary & True/False, 0 or 1 \\
+% 	SingleDigit & up to 9 discrete values \\
+% 	DoubleDigit & up to 99 discrete values \\
+% 	TripleDigit & up to 999 discrete values \\
+% 	LargeDigit & more than 1000 discrete values\\
+% 	
+%     \bottomrule
+%   \end{tabularx}
+%   \caption{Range measures for interaction primitives}\label{rangeMeasures}
+% \end{table}
 
-	Binary & True/False, 0 or 1 \\
-	SingleDigit & up to 9 discrete values \\
-	DoubleDigit & up to 99 discrete values \\
-	TripleDigit & up to 999 discrete values \\
-	LargeDigit & more than 1000 discrete values\\
-	
-    \bottomrule
-  \end{tabularx}
-  \caption{Range measures for interaction primitives}\label{rangeMeasures}
-\end{table}
-
-In our example we specify the \texttt{RangeMeasure} of our interaction primitive as follows:
-
-\begin{minted}{turtle}
-PhoneRockerSwitch hasRangeMeasure SingleDigit
-\end{minted}
+% In our example we specify the \texttt{RangeMeasure} of our interaction primitive as follows:
+% 
+% \begin{minted}{turtle}
+% PhoneRockerSwitch hasRangeMeasure SingleDigit
+% \end{minted}
 
 
 The actual data value of the interaction primitive is described using the \texttt{dataValue} property. Data values may be strings, boolean values or other datatypes, e.g.:
@@ -265,7 +280,7 @@ The Connector contains the following main components:
 \item 3.3v LiPo battery (850 mAh)
 \end{itemize}
 
-Since only one tag is read at a time, we do not have the same issue identified in the previous iteration, and as such 125KHz tags could be used. The Connector prototype is made out of four separate pieces which are 3D printed. The lower part and the top part of the Connector can be moved inward and outward serving as a two-way spring-loaded switch. The prototype packages all the necessary components into one integrated device which is wirelessly connected to a computer using a Bluetooth connection. 
+In the previous iteration we had an issue with multiple tags within range of the reader at the same time, necessitating the use of 13.56MHz tags. Since only one tag is now read at a time we do not have this issue anymore, and as such 125KHz tags could be used. The Connector prototype is made out of four separate pieces which are 3D printed. The lower part and the top part of the Connector can be moved inward and outward serving as a two-way spring-loaded switch. The prototype packages all the necessary components into one integrated device which is wirelessly connected to a computer using a Bluetooth connection. 
 
 
 \subsection{Spotlight Navigation}\label{SpotlightNavigation}
@@ -333,16 +348,6 @@ In the scenario there exists a permanent semantic connection between the two lig
 
 \section{Implementation}
 \label{D2Implementation}
-
-The goals of the Smart Home pilot were as follows:
-
-\begin{itemize}
-	\item Conduct a pilot study with users in a setting that resembles a real home
-	\item Demonstrate the system to stakeholders and other interested parties
-	\item Serve as a feasibility study
-	\item Test how stable the implementation would be when it would be running for a full week
-	\item Serve as a experimental setup for user experiments
-\end{itemize}
 
 %In this section we describe implementation details of how the concepts of the theory are modelled
 
@@ -506,9 +511,9 @@ These smart objects were all simple two-state devices, where the device state wa
 
 \section{Evaluation}
 \label{D2Evaluation}
-A number of issues were identified during the evaluation of the Smart Home pilot. In the Smart Home pilot there were two locations connected via a permanent semantic connection between the lighting devices. What if Sofia were to play a song in her room --- will the same song play back at the home of Mark and Dries? If this is the case, we clearly need to introduce a notion of directionality in the semantic connections. This issue is addressed in Design Iteration III in the next chapter.
+A number of issues were identified during a user study of the Smart Home pilot, described in more detail in \cite{VanderVlist2012a}. In the Smart Home pilot there were two locations connected via a permanent semantic connection between the lighting devices. What if Sofia were to play a song in her room --- will the same song play back at the home of Mark and Dries? If this is the case, we clearly need to introduce a notion of directionality in the semantic connections. This issue is addressed in Design Iteration III in the next chapter.
 
-The Pellet reasoning engine with \ac{SWRL} rules proved to be a performance bottleneck in the system. For example, Pellet took about 3 seconds to infer 107 statements.\marginpar{In one instance, a \ac{SWRL} rule took up to 28 seconds to execute.} TopBraid Composer's TopSPIN reasoning engine supports \ac{SPIN} rules and \ac{OWL} 2, so it was tested as a possible alternative. The TopSPIN engine with OWL 2 RL/RDF Rules took less than a second to infer 10 491 triples. By using a hashmap to store our inferred triples, we were able to improve performance even further. Some of the inferred triples were redundant inferences -- by using a hashmap we were able to reduce the number of inferred triples on startup from 10 491 to 5 122, eliminating redundant triples.
+Early performance tests indicated that the Pellet reasoning engine with \ac{SWRL} rules proved to be a performance bottleneck in the system. For example, Pellet took about 3 seconds to infer 107 statements.\marginpar{In one instance, a \ac{SWRL} rule took up to 28 seconds to execute.} TopBraid Composer's TopSPIN reasoning engine supports \ac{SPIN} rules and \ac{OWL} 2, so it was tested as a possible alternative. The TopSPIN engine with OWL 2 RL/RDF Rules took less than a second to infer 10 491 triples. By using a hashmap to store our inferred triples, we were able to improve performance even further. Some of the inferred triples were redundant inferences -- by using a hashmap we were able to reduce the number of inferred triples on startup from 10 491 to 5 122, eliminating redundant triples.
 
 A more formal performance evaluation as well as a user evaluation of the ontology, both of which were performed on the work done in this iteration, is discussed in Chapter \ref{Evaluation}.
 
@@ -552,7 +557,7 @@ The ontology supports the description of interaction data generated by interacti
 
 Another advantage of the ontology described in this section is that opens up the way to context-based interaction device reconfiguration. For example, if a Context Monitor application recognises a situation where the \texttt{PhoneRockerSwitch} should no longer control the volume, but adjust the level of lighting instead, the triple could be modified accordingly. Just such a simple change would implement a behaviour that adapts to the situation.
 
-Context-dependent functionality changes of a control may not necessarily be a desirable feature and there is a long standing discussion on whether or not to allow for such behaviour in user interface research. It should however be noted that we only consider context-dependent meaning change with generic interaction primitives, that in itself do not have a specific, function related meaning (and might already being used for different functions, like the rocker switch in the example). Additionally, the re-mapping is only considered for those interaction elements with compatible transformational properties, e.g. the rocker switch may only be mapped to other \texttt{AdjustLevel} transformations, and not to \texttt{Start/Stop}. The specified range measures are used to control the re-mapping between a interaction primitive and an interaction event, in a similar way that the input and output domains of \cite{MacKinlay1990} are used to control the expressiveness between an input device and its application parameter. 
+Context-dependent functionality changes of a control may not necessarily be a desirable feature. It should however be noted that we only consider context-dependent meaning change with generic interaction primitives, that in itself do not have a specific, function related meaning (and might already being used for different functions, like the rocker switch in the example). Additionally, the re-mapping is only considered for those interaction elements with compatible transformational properties, e.g. the rocker switch may only be mapped to other \texttt{AdjustLevel} transformations, and not to \texttt{Start/Stop}. The specified range measures are used to control the re-mapping between a interaction primitive and an interaction event, in a similar way that the input and output domains of \cite{MacKinlay1990} are used to control the expressiveness between an input device and its application parameter. 
 
 The question then becomes how to inform the user of the remapping in a user-friendly way. In the next chapter we consider the different types of feedback that can be used. Besides automatic context-dependent functionality changes of controls, we especially consider user-initiated re-mapping of controls. By enabling users to make associations, or semantic connections \cite{VanderVlist2010} between devices or interaction elements and devices, users can express their intentions in terms of mapping controls between devices \cite{Niezen2010}. 
 
