@@ -203,17 +203,17 @@ When modelling interaction primitives, only that which is meaningful to be share
 %From the high-level action that is required, e.g. ControlVolumeUp, first determine which interaction primitives are required by mapping to basic functionality (for example requires a GenericBoundedSlider or GenericBoundedKnob with range 0-100), then determine the required mapping function (e.g. mapping TODO get correct mapping function, where v is the sensed value with some constant C), and  then look at what devices in the area can provide this control, show possibilities, then allow for creating a connection between the device/control and the user action.
  
 %Possible things that need to be inferred:
-What can be inferred based on these descriptions of interaction primitives?  We could, for example, infer input devices types based on their properties:
-
-\begin{itemize}
-	\item If an interaction primitive measures position in one dimension, we can infer that it is a type of \texttt{Slider}.
-	\item If a phone has a \texttt{Slider} and a speaker has \texttt{Volume} functionality we can infer that these devices can be connected, where the one device is used to control the volume of the other device.
-	\item By describing a computer mouse in terms of its manipulation operators and possible states (measuring movement on x,y-axis and states {Up,Down}), we can infer it to be a \texttt{Slider}, \texttt{2DTablet} or a \texttt{Button}.
-\end{itemize}
+% What can be inferred based on these descriptions of interaction primitives?  We could, for example, infer input devices types based on their properties:
+% 
+% \begin{itemize}
+% 	\item If an interaction primitive measures position in one dimension, we can infer that it is a type of \texttt{Slider}.
+% 	\item If a phone has a \texttt{Slider} and a speaker has \texttt{Volume} functionality we can infer that these devices can be connected, where the one device is used to control the volume of the other device.
+% 	\item By describing a computer mouse in terms of its manipulation operators and possible states (measuring movement on x,y-axis and states {Up,Down}), we can infer it to be a \texttt{Slider}, \texttt{2DTablet} or a \texttt{Button}.
+% \end{itemize}
 
 %end Some Reasoning Required
 
-One of our academic partners in the \ac{SOFIA} project, the University of Bologna, created an independent implementation of our interaction primitives, which was published in the Springer Journal of Personal and Ubiquitous Computing \cite{Bartolini2011}.
+One of our academic partners in the \ac{SOFIA} project, the University of Bologna, created an independent implementation of our interaction primitives \cite{Bartolini2011}. % , which was published in the Springer Journal of Personal and Ubiquitous Computing
 
 
 
@@ -346,9 +346,10 @@ Physical identifiable objects are not considered semantic transformers and shoul
 
 
 
-\section{Finite state machine example}
+\section{Finite state machine examples}
 \label{fsmexample}
-We now use \acp{FSM} to model and explain the different concepts introduced so far. \acp{FSM} allow us to talk about user interaction in a way that describes how users could think about user interaction, but that still makes sense to interaction programmers and designers. Turing machines and other sophisticated models of computing do not describe that what users think about \cite{Thimbleby2007}. The use of \acp{FSM} also encourages simplicity.
+We now use \acp{FSM} to model and explain the different concepts introduced so far. \acp{FSM} allow us to talk about user interaction in a way that describes how users could think about user interaction, but that still makes sense to interaction programmers and designers \cite{Thimbleby2007}. The use of \acp{FSM} also encourages simplicity. 
+% Turing machines and other sophisticated models of computing do not describe that what users think about.
 
 As a first example, consider a simple light with an up/down switch as a single device (seen in Figure \ref{FSMsimple} on the left). There are two states (\texttt{On/Off}), an initial state (\texttt{Off}) and two events (\texttt{Switch\-Down\-Event/Switch\-Up\-Event}) that cause transitions between the states. If the switch is labeled, we can use more specific (meaningful) wording, for example \texttt{switch\-Off\-Event} instead of \texttt{switchDownEvent} (as shown in Figure \ref{FSMsimple} on the right). %(already defined as ODP:) We use the notation \texttt{[DeviceClass]} \texttt{[Action]Event} to define the interaction event - this makes them easier to classify into a hierarchical event structure.
 
@@ -406,7 +407,7 @@ In Figure \ref{FSMtransitivity} we use the SmartLight abstraction to denote the 
 \label{FSMpersistence}
 \end{figure}
 
-We use locked/unlocked icons next to semantic connections to indicate persistence (see Figure \ref{FSMpersistence}). The locked icons between A, B and D indicate persistent connections between those objects, and a persistent transitive connection is then inferred between A and D. This means that if smart object D moves to another location, all three the connections (including the A$\rightarrow$D connection) continue to exist. The connection between B and C is temporary, which means that the inferred transitive connection between A and C is also temporary. If smart object C moves to another location, both the B$\rightarrow$C and A$\rightarrow$C connections will be removed.
+We use locked/unlocked icons next to semantic connections to indicate persistence (see Figure \ref{FSMpersistence}). The locked icons between A, B and D indicate persistent connections between those objects, and a persistent transitive connection is then inferred between A and D. This means that if smart object D moves to another location, all three connections (including the A$\rightarrow$D connection) continue to exist. The connection between B and C is temporary, which means that the inferred transitive connection between A and C is also temporary. If smart object C moves to another location, both the B$\rightarrow$C and A$\rightarrow$C connections will be removed.
 
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{FSMplaces}}
@@ -449,7 +450,7 @@ Although many functionalities of digital devices can be regarded as displaying m
 Inherent feedback becomes feedback that is mediated through an interaction device used to make or break the connection, as one can not manipulate a wireless connection directly. This inherent feedback may however be closely related to the action of making or breaking a physical connection, like a snap or click when the connection is made or broken. Augmented feedback to indicate a connection possibility or an existing connection may be in the form of lights, or in the form of projected or displayed lines. Functional feedback is information about the actual function of the connection, like music playback from a speaker that was just connected to a media player. This type of feedback always reaches the user through the devices being connected. 
 
 \subsection{Feedforward}
-Inherent feedforward, conceptually similar to the notion of affordances  \cite{Norman1998}, provides information about the action possibilities with the devices or the individual controls of an interface. Inherent feedforward is always physical and locally on the device. However, when devices or objects are part of a larger system, feedforward also emerges where interaction possibilities between objects exist (e.g. a key that fits a lock, a connector of one device or cable that fits another). The same holds for augmented feedforward, where lights, icons, symbols and labels provide additional information about the action possibilities. These may concern the action possibilities locally at the device, as well as action possibilities that concern the interaction with other devices in the environment. 
+Inherent feedforward, conceptually similar to the notion of affordances  \cite{Norman1998}, provides information about the action possibilities with the devices or the individual controls of an interface. Inherent feedforward is always physical and local on the device. However, when devices or objects are part of a larger system, feedforward also emerges where interaction possibilities between objects exist (e.g. a key that fits a lock, a connector of one device or cable that fits another). The same holds for augmented feedforward, where lights, icons, symbols and labels provide additional information about the action possibilities. These may concern the action possibilities locally at the device, as well as action possibilities that concern the interaction with other devices in the environment. 
 
 While inherent and augmented information are primarily concerned with ``the how'', functional feedforward communicates ``the what'', the general function of the device or the function of a control. This type of information often relies on association, metaphors and the sign function of products, and are described in theories such as product semantics and product language. With multifunctional devices, and even more with smart objects, this becomes increasingly difficult. Introducing the concept of semantic connections tries to address these problems, therefore the functional feedforward is the main challenge when designing semantic connections. Functional feedforward gives information about the function of the semantic connection before the interaction takes place. Properly designing functional feedforward is therefore the crucial part of understanding semantic connections, smart services and smart environments.\marginpar{An example of where functional feedforward was used in the third design iteration is described in Section \ref{section:feedbackAndFeedforward}.}
 
