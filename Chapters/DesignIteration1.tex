@@ -18,6 +18,8 @@ An iterative development process was followed for the work described in this the
 
 \section{Requirements}
 
+The goal of the first design iteration was to see if using a tangible interface to establish connections between devices is a viable alternative to the usual \ac{GUI}-based solutions. Additionally, different approaches to modelling user interaction, device capabilities and connections were explored.
+
 Scenarios are commonly used in software engineering and interaction design to help discover and analyse requirements. The following scenario was presented at the start of the project to guide the design process:
 
 \emph{Mark is a 12-year-old boy and he is at home receiving his friend Dries from school. Dries arrives with a portable music player loaded with his favourite songs. He wants to play some recent collections for Mark. Mark's home is equipped with a sophisticated surround sound system, and they have recently installed an ambient lighting system that is connected to the sound system and renders the mood of the music by dynamic colour lighting in the room. They decide to use both to enjoy the music. Dries starts streaming his music to the environment.}
@@ -26,7 +28,7 @@ Scenarios are commonly used in software engineering and interaction design to he
 
 \emph{The object(s) shows the connection possibilities with a high level of semantic abstraction, hiding the complexity of wired or wireless networks. By interacting with the object(s), semantic connections can be built, redirected, cut or bypassed.}
 
-The first takeaway from this scenario is that the focus is on the connections between the devices, instead of on the devices themselves. This brings us to the first design decision: \emph{Semantic connections} are introduced as a means for users to indicate their intentions concerning the information exchange between smart objects in a smart environment. 
+The first takeaway from this scenario is that the focus is on the connections between the devices, instead of on the devices themselves. This brings us to the first design decision: \emph{Semantic connections} are introduced as a means to indicate users' intentions concerning the information exchange between smart objects in a smart environment. 
 
 
 \begin{description}
@@ -94,7 +96,7 @@ A number of different approaches to visualising and controlling semantic connect
 % \label{ontology1}
 % \end{figure}
 
-A first attempt at modelling the various entities in an ontology is shown in Figure \ref{ontology1}. A bottoms-up approach to modelling was used, where we attempted to model each entity using the least number of statements. These entities were later aligned with foundational ontologies -- the approach that was followed is discussed further in Chapter \ref{OntologyEngineering}. Each entity is modelled as an \texttt{owl:Class}, where all classes are subclassed from the root class, \texttt{owl:Thing}.\marginpar{The \texttt{owl:} prefix is used to denote the \ac{OWL} 2 Namespace Document located at \texttt{http://www.w3.org/2002/07/owl}.} Each edge in the graph above is a \texttt{rdf:type} relationship, and the direction of the arrow indicates the direction of the subclass relationship.
+A first attempt at modelling the various entities in an ontology is shown in Figure \ref{ontology1}. A bottom-up approach to modelling was used, where we attempted to model each entity using the least number of statements. These entities were later aligned with foundational ontologies -- the approach that was followed is discussed further in Chapter \ref{OntologyEngineering}. Each entity is modelled as an \texttt{owl:Class}, where all classes are subclassed from the root class, \texttt{owl:Thing}\footnote{The \texttt{owl:} prefix is used to denote the \ac{OWL} 2 Namespace Document located at \texttt{http://www.w3.org/2002/07/owl}.}. Each edge in the graph above is an \texttt{rdf:type} relationship, and the direction of the arrow indicates the direction of the subclass relationship.
 
 During the initial development stages, we realised that the most promising way of describing low-level interactions seemed to be to describe them in terms of \emph{interaction events}, that are defined as follows:\marginpar{Interaction events are discussed in more detail in Chapter \ref{EventModelling}.}
 
@@ -210,7 +212,8 @@ ORDER BY DESC(?time)
 
 %Instances in the triple store could be considered to form part of the \ac{BDI} beliefs of an agent, from the \texttt{connectedTo} relationships between the smart objects, to interaction events that occurred in the past. If we describe a sequence of actions (plan) in the ontology to achieve a certain intention, we may then use the interaction events to trigger the plan, update beliefs or modify goals. Goals may be defined in the ontology as desires, where we can add the necessary property restrictions to ensure that active desires are consistent. If sequences of actions are sufficiently defined in the ontology, we may even be able to use a reasoner to infer subsumption hierarchies of plans based on the user's current actions, which in turn would allow us to determine the user's intentions.
 
-How do we model the semantic connections between devices? Since semantic modelling is property-oriented instead of object-oriented, we started by focusing on the possible predicates that can be used to describe connections. We need a way to model whether a connection is possible --- this can be done with a \texttt{canConnectTo} property. We also need to know if a device is currently connected to another device --- \texttt{connectedTo}. Then we need a way to model the capabilities that each device provides. In this first iteration, we defined two properties called \texttt{consumes} and \texttt{provides}. They are used as follows:
+\marginpar{Semantic data focuses on the relationships between entities, making semantic models property-oriented. Entities are members of a class based on their properties/predicates.}
+How do we model the semantic connections between devices? Since semantic modelling is property-oriented instead of object-oriented\cite{Segaran2009a}, we started by focusing on the possible predicates that can be used to describe connections. We need a way to model whether a connection is possible --- this can be done with a \texttt{canConnectTo} property. We also need to know if a device is currently connected to another device --- \texttt{connectedTo}. Then we need a way to model the capabilities that each device provides. In this first iteration, we defined two properties called \texttt{consumes} and \texttt{provides}. They are used as follows:
 
 \begin{minted}{turtle}
 	NokiaN900 provides AudioCapability .
@@ -270,7 +273,7 @@ The interaction tile visualises the various connections by allowing a user to ex
 	\item Magnetic switches
 \end{itemize}
 
-The Arduino communicates with a PC via a serial interface over USB, while the \ac{RFID} reader uses \ac{PC/SC} drivers over USB.\marginpar{The \ac{RFID} reader component has been tested under Windows, Linux and Mac OS X.} The accelerometer is used to measure when the user is shaking the tile, while the vibration motor and speaker provide haptic and auditory feedback. The magnetic switches are used to determine which side of the tile a cube has been placed. The final laser-cut version of the interaction tile prototype is shown in Figure \ref{tile2}.
+The Arduino communicates with a PC via a serial interface over USB, while the \ac{RFID} reader uses \ac{PC/SC} drivers over USB.\marginpar{The \ac{RFID} reader component has been tested under Windows, Linux and Mac OS X.} The accelerometer is used to measure when the user is shaking the tile, while the vibration motor and speaker provide haptic and auditory feedback. The magnetic switches are used to determine which side of the tile a cube has been placed. The final laser-cut version of the interaction tile prototype is shown in \mbox{Figure \ref{tile2}}.
 
 \begin{figure}[bth]
 \centering
@@ -370,19 +373,19 @@ println("Subscription notification!");
 Vector<Vector<String>> triples = xmlTools.getNewResultEventTriple(xml);
 
 if(triples!=null){
-	for(int i=0; i<triples.size() ; i++ ){ 
-		Vector<String> t=triples.get(i);
-		subject=xmlTools.triple_getSubject(t);
-		predicate=xmlTools.triple_getPredicate(t);
-		object=xmlTools.triple_getObject(t);
+  for(int i=0; i<triples.size() ; i++ ){ 
+	Vector<String> t=triples.get(i);
+	subject=xmlTools.triple_getSubject(t);
+	predicate=xmlTools.triple_getPredicate(t);
+	object=xmlTools.triple_getObject(t);
 
-		//when we have a new connectedTo relationship to the LightKP
-		if(predicate.contains("connectedTo") && object.contains(deviceID)){
+	//when we have a new connectedTo relationship to the LightKP
+	if(predicate.contains("connectedTo") && object.contains(deviceID)){
 
-			//subscribe to source events
-			subscribeToSourceEvents(subject);
-		}
-   ...	
+		//subscribe to source events
+		subscribeToSourceEvents(subject);
+  }
+  ...	
 \end{minted}
 
 When the Light \ac{KP} is connected to another device \ac{KP} using a \texttt{connectedTo} relationship, we subscribe to the interaction events generated by that device using the \texttt{subscribeToSourceEvents()} function. This code fragment is shown below as an example of how subscriptions are created using the Java \ac{KP} interface:
