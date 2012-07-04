@@ -10,14 +10,28 @@
 \let\cleardoublepage\relax
 
 \chapter*{Summary}
-Short summary of the contents in English\dots TODO
+The thesis describes the design and development of an ontology and software framework to support user interaction in ubiquitous computing scenarios. The key goal of ubiquitous computing is ``serendipitous interoperability'', where devices that were not necessarily designed to work together should be able to discover each other's functionality and be able to make use of it. Future ubiquitous computing scenarios involve hundreds of devices. Therefore, anticipating all the different types of devices and usage scenarios a priori is an unmanageable task.
+
+An iterative approach was followed during the design process, with three design iterations documented in the thesis. The work was done in close cooperation with designers and other project partners, in order to elicit requirements and maintain a more holistic view of the various application areas.
+ 
+The thesis describes an interaction model that shows the various concepts that are involved in user interaction in a smart space, including how these concepts work together. Based in the interaction model, a theory of semantic connections is introduced that focuses on the meaning of the connections between the different entities in a smart environment.
+
+Ontologies are formal representations of concepts in a domain of interest and the relationships between these concepts. They are used to enable the exchange of information without requiring up-front standardisation. The ontology described in the thesis helps developers to focus on modelling the interaction capabilities of smart objects and inferring the possible connections between these objects, making it easier to build smart objects and enable device interoperability on a semantic level.
+
+Rather than just describing the low-level hardware input event that triggered an action, interaction events in the ontology are modelled as high-level input actions which report the intent of the user's action directly. This allows developers to write software that respond to these high-level events, without having to support every kind of device that could have generated that event. The event hierarchy can be inferred using semantic reasoning.
+
+The software architecture implements the publish/subscribe messaging paradigm, enabling smart objects to subscribe to changes in data, represented in triple form, and be notified every time these triples are updated, added or removed. Semantic reasoning is performed on an information broker, simplifying the implementation on the smart objects.
+
+A pilot deployment, composed of heterogeneous smart objects designed and manufactured by a range of companies and institutions, was used to validate the design. A performance evaluation was performed, where the results indicated acceptable response times for a networked user interface. A usability analysis of the ontology and system implementation was performed using a developer questionnaire based on an existing usability framework. Various ontology design patterns were identified during the course of the design, and are documented in the thesis.
+
+The resulting design artefact is an ontology for user interaction with devices in a smart environment, where devices are able to share interaction events and make use of each other's functionality.
 
 
 \vfill
 
 \pdfbookmark[1]{Samenvatting}{Samenvatting}
 \chapter*{Samenvatting}
-Kort samenvatting in Nederlands\dots
+Kort samenvatting in Nederlands\dots TODO.
 
 
 \endgroup			
