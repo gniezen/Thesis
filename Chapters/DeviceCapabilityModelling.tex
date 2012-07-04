@@ -69,7 +69,7 @@ Other user interaction capabilities are defined in a Boolean fashion of yes/no, 
 \subsection{Universal Plug and Play (UPnP)}
 \label{UPnP}
 
-\ac{UPnP} with its device control protocols is one of the more successful solutions\footnote{http://upnp.org/sdcps-and-certification/standards/sdcps/} to describing device capabilities. However, it has no task decomposition hierarchy and only allows for the definition of one level of tasks \cite{Niezen2010}.
+\ac{UPnP} with its device control protocols is one of the more successful solutions\footnote{http://upnp.org/sdcps-and-certification/standards/sdcps/} to describing device capabilities. However, it only allows for the definition of one level of tasks \cite{Niezen2010}.
 
 \ac{UPnP} was developed to support addressing, discovery, eventing and presentation between devices in a home network, and the current version (1.1) was released as the ISO/IEC 29341 standard in 2008. It consists of a number of standardised \acp{DCP} - data models that describe certain types of devices. The \acp{DCP} that have been adopted by industry include audio/video, networking and printers. \acp{DCP} for low power and home automation have not yet been adopted.
 
@@ -106,14 +106,14 @@ Let us consider these device states in terms of user interaction. There are four
 \label{spice}
 The \ac{SPICE} Mobile Ontology\footnote{http://ontology.ist-spice.org/} allows for the definition of device capabilities in a sub-ontology called \ac{DCS} \cite{Villalonga2009}. A distinction is made between device capabilities, modality capabilities and network capabilities. While the ontology provides for a detailed description of the different modality capabilities, e.g. being able to describe force feedback as a \texttt{Tactile\-Output\-Modality\-Capability}, there are no subclass assertions made for other device capabilities. Most physical characteristics of the devices are described via their modality capabilities, e.g. a \texttt{screenHeight} data property extends the \texttt{VisualModalityCapability} with an integer value, and the \texttt{audio\-Channels} data property is also related to an integer value with \texttt{Acoustic\-Modality\-Capability}. The input format of audio content is described via the \texttt{AcousticInputModalityCapability} through an \texttt{inputFormat} data property to a string value.
 
-It is not clear whether the modality capabilities should be used to describe the actual content that may be exchanged or the user interaction capabilities. As an example, if a device has an \texttt{Acoustic\-Output\-Modality\-Capability}, it is not clear whether the device can provide user interaction feedback (e.g. in the form of computer-generated speech or an audible click), or that the device has a speaker.
+%It is not clear whether the modality capabilities should be used to describe the actual content that may be exchanged or the user interaction capabilities. As an example, if a device has an \texttt{Acoustic\-Output\-Modality\-Capability}, it is not clear whether the device can provide user interaction feedback (e.g. in the form of computer-generated speech or an audible click), or that the device has a speaker.
 
 
 
 
 \section{Registering devices on startup}
 
-Based on this existing work, we now look at how their functionalities should be registered, as well as how devices can be identified in the digital and physical domain.
+Based on this existing work, we now look at our approach to registering device functionalities, as well as how we identify devices in the digital and physical domain.
 
 On device startup, the smart object registers its digital and physical identification information (e.g. RFID tag or IP address) and its functionality with the SIB, and then subscribes to new connections and events as shown in Figure \ref{connectorsibSequence}.
 
