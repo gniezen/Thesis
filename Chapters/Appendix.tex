@@ -1,10 +1,10 @@
 \chapter{Appendix}
 
-In the Appendix various tips \& tricks are listed for working with the applications and tools described in the thesis.
+In Appendix A various tips \& tricks are listed for working with the applications and tools described in the thesis.
 
 \section{Working with Smart-M3}
 
-The following was performed in \texttt{smart-m3\_v0.9.2-beta} after compiling and installing everything according to the Smart-M3 Setup Guide.
+The following was performed in \texttt{smart-m3\_v0.9.2-beta} after compiling and installing everything according to the Smart-M3 Setup Guide.\\
 
 Run:
 \begin{itemize}
@@ -29,7 +29,8 @@ When running \texttt{basic\_test.py}, you have to enter the following parameters
 
 \begin{verbatim}
 test 127.0.0.1 10010
-('test', (<class smart_m3.Node.TCPConnector at 0x1fae230>, ('127.0.0.1', 10010)))
+('test', (<class smart_m3.Node.TCPConnector at 
+			0x1fae230>, ('127.0.0.1', 10010)))
 --- Member of SS: ['test']
 RDF Subscribe initial result: []
 WQL values subscribe initial result: []
@@ -58,24 +59,7 @@ Querying: which persons live in Espoo
 QUERY: persons living in Espoo: [(u'x1', False), (u'x2', False)]
 Querying: all triples
 
-QUERY: Got triple(s):  ((u'name', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
-QUERY: Got triple(s):  ((u'knows', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
-QUERY: Got triple(s):  ((u'x1', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'person'), False)
-QUERY: Got triple(s):  ((u'person', u'http://www.w3.org/2000/01/rdf-schema#subClassOf', u'thing'), False)
-QUERY: Got triple(s):  ((u'x2', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'person'), False)
-QUERY: Got triple(s):  ((u'x1', u'lives', u'Espoo'), True)
-QUERY: Got triple(s):  ((u'x1', u'knows', u'x2'), False)
-QUERY: Got triple(s):  ((u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
-QUERY: Got triple(s):  ((u'x1', u'drinks', u'wine'), True)
-QUERY: Got triple(s):  ((u'x1', u'name', u'Timo'), True)
-QUERY: Got triple(s):  ((u'lives', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
-QUERY: Got triple(s):  ((u'person', u'http://www.w3.org/2000/01/rdf-schema#subClassOf', u'http://www.w3.org/2000/01/rdf-schema#Resource'), False)
-QUERY: Got triple(s):  ((u'person', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/2000/01/rdf-schema#Class'), False)
-QUERY: Got triple(s):  ((u'http://www.w3.org/2000/01/rdf-schema#subClassOf', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
-QUERY: Got triple(s):  ((u'thing', u'http://www.w3.org/2000/01/rdf-schema#subClassOf', u'http://www.w3.org/2000/01/rdf-schema#Resource'), False)
-QUERY: Got triple(s):  ((u'x2', u'name', u'Risto'), True)
-QUERY: Got triple(s):  ((u'x2', u'lives', u'Espoo'), True)
-QUERY: Got triple(s):  ((u'drinks', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', u'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'), False)
+...
 
 Subscription:
 Removed: ((u'x2', u'lives', u'Espoo'), True)
@@ -87,13 +71,13 @@ Left smart space
 While \texttt{basic\_test.py} is running, \texttt{sib-tcp} remains silent, but \texttt{sibd} produces the following results:
 
 \begin{verbatim}
-	SUBSCRIBE: subscription SIB Tester-35053592-2211-4670-a3df-7550633e2962_2 finished
-	UNSUBSCRIBE: Sent unsub cnf for sub id SIB Tester-35053592-2211-4670-a3df-7550633e2962_2
-	SUBSCRIBE: subscription SIB Tester-35053592-2211-4670-a3df-7550633e2962_3 finished
-	UNSUBSCRIBE: Sent unsub cnf for sub id SIB Tester-35053592-2211-4670-a3df-7550633e2962_3
+	SUBSCRIBE: subscription SIB Tester-35053592 finished
+	UNSUBSCRIBE: Sent unsub cnf for sub id SIB Tester-35053592
+	SUBSCRIBE: subscription SIB Tester-35053592 finished
+	UNSUBSCRIBE: Sent unsub cnf for sub id SIB Tester-35053592
 \end{verbatim}
 
-Using \texttt{sofia\_release\_1305} from the SOFIA website is also possible by running \verb|python SIB.py X| where X is the name of the smart space. You may then connect to the smart space using the the \texttt{basic\_test.py} program supplied.
+Using \texttt{sofia\_release\_1305} from the SOFIA website is also possible by running \verb|python SIB.py X|, where X is the name of the smart space. You may then connect to the smart space using the the \texttt{basic\_test.py} program supplied.
 \texttt{explorer.py} is a Qt-based viewer that may be used to view the triples in the triple store.
 
 
@@ -111,7 +95,7 @@ to import them instead of \texttt{owl:imports}. This also prevents unusual synta
 owl:imports <http://spinrdf.org/spin>
 \end{minted}
 
-instead of \texttt{spin:imports}, otherwise the SPIN rules cannot be resolved properly.
+instead of \texttt{spin:imports}, otherwise the SPIN rules cannot be resolved properly.\\
 
 To view all SPIN rules,use\\
 
@@ -131,16 +115,17 @@ Eclipse Indigo is incompatible with the OSGi implementation of the ADK-SIB, wher
 
 When using the Jena API to import an ontology on the web, you can specify a local version on your computer to be used instead. This is quite useful when developing your own ontology.
 
-First you need to create a file that maps your locations. \texttt{Mine is called location- 
-mappings.ttl}: 
+First you need to create a file that maps your locations. Mine is called \texttt{location-mappings.ttl}: 
 
 \begin{minted}{turtle}
 @prefix lm: <http://jena.hpl.hp.com/2004/08/location-mapping#> . 
 
 [] lm:mapping 
-[ lm:name "http://sofia.gotdns.com/ontologies/SemanticConnections.owl" ; 
+[ lm:name 
+"http://sofia.gotdns.com/ontologies/SemanticConnections.owl" ; 
 lm:altName "file:SemanticConnections.owl"  ] , 
-[ lm:name "http://sofia.gotdns.com/ontologies/SemanticInteraction.owl" ; 
+[ lm:name 
+"http://sofia.gotdns.com/ontologies/SemanticInteraction.owl" ; 
   lm:altName "file:SemanticInteraction.owl"  ] . 
 \end{minted}
 
@@ -159,7 +144,7 @@ If all goes well, it will load the local versions of specified imported ontologi
 \section{Using the SIB}
 
 \subsection{Retrieving the machine's IP address}
-The standard SOFIA version of the ADK-SIB uses the Java \texttt{getLocalHost()} function to get the local IP address of the machine, but this does not always work correctly. \texttt{getLocalHost()} uses the machine's network name to retrieve the IP address. In our case, the network name \texttt{ID00713} was mapped to the VNC IP address, not the public IP address. As \texttt{getLocalHost()} ignores the \texttt{hosts} file on the machine, a version of the ADK-SIB was created that uses the Java \texttt{getByName()} function instead.
+The standard SOFIA version of the ADK-SIB uses the Java \texttt{get\-LocalHost()} function to get the local IP address of the machine, but this does not always work correctly. \texttt{getLocalHost()} uses the machine's network name to retrieve the IP address. In our case, the network name \texttt{ID00713} was mapped to the VNC IP address, not the public IP address. As \texttt{getLocalHost()} ignores the \texttt{hosts} file on the machine, a version of the ADK-SIB was created that uses the Java \texttt{getByName()} function instead.
 
 \subsection{Packaging the SIB in an OSGi bundle}
 The following steps were followed to create an OSGI bundle of the modified ADK-SIB:
@@ -184,12 +169,13 @@ The following steps were followed to create an OSGI bundle of the modified ADK-S
 
 
 \section{Useful SPARQL queries}
+
 To get all datatype instances: %17/10 notebook 2
 \begin{minted}{sparql}
 SELECT DISTINCT ?s ?p ?o
 WHERE {
 	?s ?p ?o .
-	FILTER isLiteral(?o) .
+	FILTER (isLiteral(?o)) .
 }
 \end{minted}
 
