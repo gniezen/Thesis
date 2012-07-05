@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Chapters/DeviceCapabilityModelling.tex</string>
+	<string>Chapters/Evaluation.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -22,13 +22,13 @@
 			<key>filename</key>
 			<string>ClassicThesis.tex</string>
 			<key>lastUsed</key>
-			<date>2012-07-04T16:08:34Z</date>
+			<date>2012-07-05T16:23:31Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>classicthesis-config.tex</string>
 			<key>lastUsed</key>
-			<date>2012-07-03T07:53:16Z</date>
+			<date>2012-07-05T08:50:31Z</date>
 		</dict>
 		<dict>
 			<key>expanded</key>
@@ -47,83 +47,39 @@
 	<integer>205</integer>
 	<key>metaData</key>
 	<dict>
-		<key>Chapters/Conclusion.tex</key>
+		<key>Chapters/Evaluation.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>459</integer>
+				<integer>248</integer>
 				<key>line</key>
-				<integer>87</integer>
+				<integer>59</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>76</integer>
-		</dict>
-		<key>Chapters/DeviceCapabilityModelling.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>118</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>108</integer>
-		</dict>
-		<key>Chapters/EventModelling.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>8</integer>
-				<key>line</key>
-				<integer>102</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>99</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>4</integer>
-				<key>line</key>
-				<integer>102</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>8</integer>
-				<key>line</key>
-				<integer>102</integer>
-			</dict>
+			<integer>57</integer>
 		</dict>
 		<key>ClassicThesis.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>line</key>
-				<integer>82</integer>
+				<integer>85</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>60</integer>
+			<integer>65</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>ClassicThesis.tex</string>
-		<string>Chapters/DeviceCapabilityModelling.tex</string>
+		<string>Chapters/Evaluation.tex</string>
 	</array>
 	<key>shellVariables</key>
 	<array>
@@ -139,6 +95,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{368, 100}, {640, 659}}</string>
+	<string>{{615, 119}, {640, 659}}</string>
 </dict>
 </plist>

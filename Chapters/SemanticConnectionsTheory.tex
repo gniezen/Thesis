@@ -25,9 +25,9 @@ A user interaction model for semantic connections is shown in Figure \ref{model}
 \label{model}
 \end{figure}
 
+\marginpar{The terminology of inherent, augmented and functional feedforward and feedback is adopted from \cite{Wensveen2004} and was previously introduced in Section \ref{interactionFrogger}.} 
 We first distinguish between the physical and digital domains of the user interaction. A user does not observe directly what is happening in the digital domain, but experiences the effect it has in the physical world by interacting with various smart objects. Semantic connections exist between these objects. By interacting with the objects, users create a mental model of the system that they are interacting with, which only partly includes the digital domain. The digital part manifests itself in the physical world as data, media and services. 
 
-\marginpar{The terminology of inherent, augmented and functional feedforward and feedback is adopted from \cite{Wensveen2004} and was previously introduced in Section \ref{interactionFrogger}.} 
 When a user interacts with a smart object, he/she senses feedback and feedforward, directly from and inherent to the controls of the device (inherent feedback), digital information augmented onto the physical world (augmented feedback) and perceives the functional effect of the interactions (functional feedback). The user actions in the physical world are transformed into interaction events and device state changes. This interaction data in terms of user intentions is stored in the smart space. The notion of a smart space means that data are stored either by an information broker or the smart objects themselves, and can be accessed by the other smart objects in the smart space. We use the term smart environment as a broader term to refer to both the digital and physical spaces, which include both the smart space and the smart objects.
 
 \marginpar{Note that in Figure \ref{model} the arrow on the left shows the feedback (or output) of the smart object, and on the right it shows the input (the interaction event). This to avoid repetition, as they may and in most cases will, occur on both sides.}% possibly together with user preferences, defaults and context information.
@@ -97,9 +97,9 @@ Smart objects are the devices that are connected to the smart space, enabling th
 	\item[Smart Object]A smart object is a device with both computational and network communication capabilities that can be uniquely identified in both physical and digital space.
 \end{description}
 
-According to our definition, an \ac{NFC} enabled smart phone is a smart object. A WiFi-connected lamp is also a smart object, given that it can be physically identified, for example by proximity based on signal strength or \ac{RFID}. \marginpar{Note that our definition does not define where the \ac{KP} is situated. For simple smart objects, such as a smart light bulb, the actual \ac{KP} that is communicating to the information broker may be a virtual entity running on any device in the network.}
+According to our definition, an \ac{NFC} enabled smart phone is a smart object. A WiFi-connected lamp is also a smart object, given that it can be physically identified, for example by proximity based on signal strength or \ac{RFID}. 
 
-In terms of our definition, a light switch with an \ac{RFID} tag is not a smart object. A software agent running on a \ac{GUI} (e.g. Microsoft Office's Clippy\footnote{http://en.wikipedia.org/wiki/Office\_Assistant}), is not considered a smart object, even though it is visually perceivable. Despite its apparent physical existence, i.e. physically and digitally identifiable, it is mediated by a computer. In such cases the computer is considered the smart object and not the agent running on it, as the agent is not primarily a physical entity. In the following subsections we describe the concepts specific to the smart objects themselves.
+\marginpar{Note that our definition does not define where the \ac{KP} is situated. For simple smart objects, such as a smart light bulb, the actual \ac{KP} that is communicating to the information broker may be a virtual entity running on any device in the network.} In terms of our definition, a light switch with an \ac{RFID} tag is not a smart object. A software agent running on a \ac{GUI} (e.g. Microsoft Office's Clippy\footnote{http://en.wikipedia.org/wiki/Office\_Assistant}), is not considered a smart object, even though it is visually perceivable. Despite its apparent physical existence, i.e. physically and digitally identifiable, it is mediated by a computer. In such cases the computer is considered the smart object and not the agent running on it, as the agent is not primarily a physical entity. In the following subsections we describe the concepts specific to the smart objects themselves.
 
 \subsection{Identification}
 \label{Identification}
@@ -125,7 +125,7 @@ Interaction primitives and interaction events together form an \emph{interaction
 \texttt{VolumeSliderLeft} $\rightarrow$ \texttt{SlideLeftEvent} $\rightarrow$ \texttt{VolumeDownEvent}
 \end{quote}
 
-where the \texttt{VolumeSliderLeft} is an interaction primitive mapped to the \texttt{SlideLeftEvent} interaction event. Based on the available context information, this can in turn be mapped to a more specific \texttt{Volume\-Down\-Event}.
+where the \texttt{VolumeSliderLeft} is an interaction primitive map\-ped to the \texttt{SlideLeftEvent} interaction event. Based on the available context information, this can in turn be mapped to a more specific \texttt{Volume\-Down\-Event}.
 
 
 % --- The following could be included for more information on interaction primitives (but remember, TODO parts of this chapter africon)
@@ -351,7 +351,7 @@ Physical identifiable objects are not considered semantic transformers and shoul
 We now use \acp{FSM} to model and explain the different concepts introduced so far. \acp{FSM} allow us to talk about user interaction in a way that describes how users could think about user interaction, but that still makes sense to interaction programmers and designers \cite{Thimbleby2007}. The use of \acp{FSM} also encourages simplicity. 
 % Turing machines and other sophisticated models of computing do not describe that what users think about.
 
-As a first example, consider a simple light with an up/down switch as a single device (seen in Figure \ref{FSMsimple} on the left). There are two states (\texttt{On/Off}), an initial state (\texttt{Off}) and two events (\texttt{Switch\-Down\-Event/Switch\-Up\-Event}) that cause transitions between the states. If the switch is labeled, we can use more specific (meaningful) wording, for example \texttt{switch\-Off\-Event} instead of \texttt{switchDownEvent} (as shown in Figure \ref{FSMsimple} on the right). %(already defined as ODP:) We use the notation \texttt{[DeviceClass]} \texttt{[Action]Event} to define the interaction event - this makes them easier to classify into a hierarchical event structure.
+As a first example, consider a simple light with an up/down switch as a single device (seen in Figure \ref{FSMsimple} on the left). There are two states (\texttt{On/Off}), an initial state (\texttt{Off}) and two events (\texttt{Switch\-Down\-Event/Switch\-Up\-Event}) that cause transitions be\-tween the states. If the switch is labeled, we can use more specific (meaningful) wording, for example \texttt{switch\-Off\-Event} instead of \texttt{switchDownEvent} (as shown in Figure \ref{FSMsimple} on the right). %(already defined as ODP:) We use the notation \texttt{[DeviceClass]} \texttt{[Action]Event} to define the interaction event - this makes them easier to classify into a hierarchical event structure.
 
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{FSMsimple}}

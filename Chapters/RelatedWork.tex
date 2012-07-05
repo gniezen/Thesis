@@ -68,7 +68,7 @@ What can be learned from the SpeakEasy project is the importance of describing t
 
 \subsection{EventHeap (circa 2000-2005)}
 
-Stanford University's shared event system, called the EventHeap, provides a base set of capabilities that link devices in a room \cite{Winograd2005}. It allows users to move data and applications between areas, for example redirecting a pointer from one device to another. One of these devices, the DynaWall, is a wall-size touch-sensitive interactive display. Gesture-based interaction facilitates moving information objects from the wall from one side to another, by throwing and shuffling visual objects with different accelerations and sounds.
+Stanford University's shared event system, called the EventHeap, provides a base set of capabilities that link devices in a room \cite{Winograd2005}. It allows users to move data and applications between areas, for example redirecting a pointer from one device to another. \marginpar{We explored similar interaction techniques during the development of the Spotlight Navigation device, see Section \ref{SpotlightNavigation} and \cite{Rapp2010}.}One of these devices, the DynaWall, is a wall-size touch-sensitive interactive display. Gesture-based interaction facilitates moving information objects from the wall from one side to another, by throwing and shuffling visual objects with different accelerations and sounds.
 
 During the development of their system, they identified the following design guidelines:
 
@@ -76,7 +76,7 @@ During the development of their system, they identified the following design gui
 	\item Heterogeneity - Devices must be able to interoperate in spite of heterogeneity in software. Interfaces must be customised to work smoothly on different-sized displays with different input/output modalities.
 	\item Dynamism - A software framework must handle applications and devices joining and leaving, while minimising the impact on other entities in the space.
 	\item Robustness - Users will treat the devices in interactive workspaces as appliances that should not fail in inexplicable ways. Devices must provide for quick recovery.
-	\item Interaction techniques - A long, large wall needs an interaction technique suited to its size and location (such as DynaWall's throwing and shuffling technique).\marginpar{We explored similar interaction techniques during the development of the Spotlight Navigation device, see Section \ref{SpotlightNavigation} and \cite{Rapp2010}.}
+	\item Interaction techniques - A long, large wall needs an interaction technique suited to its size and location (such as DynaWall's throwing and shuffling technique).
 \end{itemize}
 
 A tuple space is a repository of tuples, where a tuple is an ordered list of elements. Devices in EventHeap use a \emph{tuple space protocol} to communicate with one another, where particular tuples have meaning to certain parties \cite{Edwards2001}. This semantic agreement between parties is implemented by the developer, for example a tuple representing a request to scan an image.
@@ -137,10 +137,11 @@ In our approach we go beyond \ac{XML}-based descriptions to modelling resources 
 
 \subsection{AutoHAN (circa 2001)}
 \label{autohan}
-\marginpar{The representations of AutoHAN's abstractions are notational systems, validated by the Cognitive Dimensions framework discussed in more detail in Section \ref{CognitiveDimensions}.}
+
 AutoHAN is a networking and software architecture to enable user-programmable specification of interaction between appliances in a home environment \cite{Blackwell2001}. It tries to solve the issue of potential complexity between digital devices that interact with each other, especially if these devices are manufactured by different companies (as it is the user who has to specify how they will interact with one another).
 
 %Blackwell considers direct manipulation to be far more important than pictorial metaphors for assisting end-users in learning a novel programming language. 
+\marginpar{The representations of AutoHAN's abstractions are notational systems, validated by the Cognitive Dimensions framework discussed in more detail in Section \ref{CognitiveDimensions}.}
 Blackwell distinguishes between two different abstractions that users have to consider  \cite{Blackwell2001}:
 \begin{itemize}
 	\item \emph{Abstraction over time}, where an appliance has to do something in the future, for example recording a TV programme
@@ -148,9 +149,9 @@ Blackwell distinguishes between two different abstractions that users have to co
 \end{itemize}
 
 
-\marginpar{The cubes of the AutoHAN project can be viewed as a forerunner to the cubes used with our Interaction Tile (described in Section \ref{InteractionTile}), except that the AutoHAN cubes represent tasks, whereas the Interaction Tile cubes represent devices.}
 Within the AutoHAN project the \emph{Media Cubes} language was created --- a tangible representation of an abstract situation. Each cube has a button for input, and a LED and piezo-electric transducer for feedback. Cubes communicate with the AutoHAN network via infrared ports, and use induction coils on four faces of the cube to detect proximity to other cubes. By holding one face of a cube against an appliance, the cube can be \emph{associated} with some function of that appliance. Each individual cube is regarded by the user as a direct manipulation interface to some appliance function, where many different devices may implement this function. This is in contrast to a remote control, that is dedicated to a single appliance but provides access to many different functions. 
 
+\marginpar{The cubes of the AutoHAN project can be viewed as a forerunner to the cubes used with our Interaction Tile (described in Section \ref{InteractionTile}), except that the AutoHAN cubes represent tasks, whereas the Interaction Tile cubes represent devices.}
 Each cube has a unique identifier, and each face of the cube can also be identified. This means that a combination of cubes and neighbouring faces can be used as a type of programming language. Cubes may also be associated with virtual devices: software components running somewhere on the network. The user regards these virtual devices to be the same as physical appliances that are placed in the broom cupboard, like a network router or home server.
 
 AutoHAN devices communicate using \ac{UPnP} \ac{GENA}. \ac{UPnP} control points and services use \ac{GENA} to implement eventing. \ac{GENA} is a publish/subscribe system that uses HTTP as transport mechanism. Conceptually, \ac{UPnP} control points are subscribers, while \ac{UPnP} services are publishers \cite{Jeronimo2009}. \ac{GENA} defines three new HTTP methods to manage event subscriptions and deliver messages:

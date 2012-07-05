@@ -57,7 +57,7 @@ Luukkala et al. \cite{Luukkala2010} used Smart-M3 with \ac{ASP} techniques to ha
 \marginpar{The smart home pilot scenario was first described in Section \ref{D2Requirements}.}
 In the smart home pilot, media content is shared among several devices in a smart home setting. Music is shared between a mobile device, a stereo speaker set and a lighting device that renders the mood of the music with coloured lighting. The music experience, consisting of both light and music information, is also shared remotely between friends living in separate homes through the lighting device. Other lighting sources, like the smart functional lighting and the smart wall wash lights are sensitive to user presence and the use of other lighting sources in the environment.
 
-The performance measurements were made in an environment that approximates a real-world home environment for these kinds of devices. Two wireless routers were placed in two different locations, bridged with an ethernet network cable. One router was configured to act as a DHCP server, while the other acted as a network bridge. The Connector \ac{KP}, Music Player \ac{KP} and \ac{SIB} were connected to the router in location A, while the \ac{SLT} KP was connected to the router in location B. All components were connected to the network via the 802.11g wireless protocol. The system specifications of each component used in the performance evaluation are shown in Table \ref{specs}.\marginpar{An overview of the smart home pilot is shown in Figure \ref{pilotSetup} on page \pageref{pilotSetup}, while a diagram showing the technical details is shown in Figure \ref{SmartHomePilotDiagram} on page \pageref{SmartHomePilotDiagram}.}
+\marginpar{An overview of the smart home pilot is shown in Figure \ref{pilotSetup} on page \pageref{pilotSetup}, while a diagram showing the technical details is shown in Figure \ref{SmartHomePilotDiagram} on page \pageref{SmartHomePilotDiagram}.} The performance measurements were made in an environment that approximates a real-world home environment for these kinds of devices. Two wireless routers were placed in two different locations, bridged with an ethernet network cable. One router was configured to act as a DHCP server, while the other acted as a network bridge. The Connector \ac{KP}, Music Player \ac{KP} and \ac{SIB} were connected to the router in location A, while the \ac{SLT} KP was connected to the router in location B. All components were connected to the network via the 802.11g wireless protocol. The system specifications of each component used in the performance evaluation are shown in Table \ref{specs}.
 
 
 \begin{table}\footnotesize
@@ -413,6 +413,8 @@ The original \ac{CD} questionnaire \cite{Blackwell2007} was adapted for use with
 \marginpar{As mentioned in Section \ref{InteractionPrimitives}, our academic partners in Bologna published a journal paper \cite{Bartolini2011} based on an independent implementation of our work.}
 Developers of the \ac{SOFIA} smart home pilot completed the questionnaire, as well as students and developers affiliated to the University of Bologna, for a total of 17 correspondents. The \ac{SOFIA} developers used the ontology and software architecture for a couple of weeks in order to construct the smart home pilot. The students in Bologna took part in a course based on technology developed within the \ac{SOFIA} project, where they also made use of the ontology and software architecture. 
 
+Three additional questions not directly related to the cognitive dimensions, but meant to elicit more general responses about the usability of the ontologies and the system, were included in the questionnaire.
+
 \begin{figure}[bth] 
         \subfloat[Background of correspondents]
         {\includegraphics[width=.45\linewidth]{background}} \quad
@@ -448,7 +450,7 @@ Developers of the \ac{SOFIA} smart home pilot completed the questionnaire, as we
 
 
 \subsubsection{Levels of abstraction}
-
+\label{LevelsOfAbstraction}
 \begin{quote}
 	\emph{Were you able to define your own concepts and terms using the system and ontology? Did you make use of different levels of abstraction?} An abstraction is a grouping of elements to be treated as one entity. In the ontology, these are defined as superclasses and subclasses, e.g. \texttt{PlayEvent} is a subclass of \texttt{MediaPlayerEvent}. Please indicate to what extent you made use of different levels of abstraction. If you did not use it, please indicate why.
 \end{quote}
@@ -480,7 +482,7 @@ It was also stated that more detailed descriptions of device capabilities, for e
 
 Most developers thought that similar entities in the ontology were subclassed correctly. It was indicated that \texttt{owl:sameAs} may be useful to indicate that different terms with the same meaning are in fact the same thing.
 
-Developers not well acquainted with ontologies found it difficult to understand the difference between declaring entities using \texttt{rdfs:sub\-Class\-Of} and declaring them as individuals or instances, as well as how to model an entity that contains another entity.
+Afterwards we realised that developers not well acquainted with ontologies found it difficult to understand the difference between declaring entities using \texttt{rdfs:sub\-Class\-Of} and declaring them as individuals or instances, as well as how to model an entity that contains another entity.
 
 Similar entities were not always instantiated in the same way, for example no state information was available for some smart objects.
 Where multiple domain ontologies with similar concepts were used, these concepts were not aligned - most developers expected some upper (or core) ontology to align and unify main concepts.
@@ -497,7 +499,7 @@ Although different domains used different terms to define ontological concepts, 
 
 Using ontologies made it easier to allow for definition changes at run-time. Depending on the inferencing method used, changes to the ontology could require some existing inferences to be removed. 
 
-Embedded system developers found changes to be more difficult to implement, as it still required rebuilding images and downloading them to embedded boards for each modification. Some found it difficult to view changes made to the environment, due to a lack of tools to explore the contents of the \ac{SIB}.
+One developer working with an embedded system found changes to be more difficult to implement, as it still required rebuilding images and downloading them to embedded boards for each modification. Some found it difficult to view changes made to the environment, due to a lack of tools to explore the contents of the \ac{SIB}.
 
 
 \subsubsection{Role expressiveness}
@@ -627,7 +629,7 @@ Responses included:
 
 % Every notation highlights some kinds of information at the expense of obscuring other kinds \cite{Green1996}. For example, rule-based languages highlight conditions under which certain actions are taken, while it hides the sequential ordering of these actions. There must also be a cognitive fit between the mental representation and external representation. For example, if your mental representation is in control flow form, a data flow language will be difficult to use. 
 
-Ontologies allow developers to create additional levels of abstraction when the existing abstractions are not sufficient. The bigger issue seems to be unfamiliarity with ontologies, with some developers going so far as to embed all logic in the code itself in order to avoid using ontologies.
+Ontologies allow developers to create additional levels of abstraction when the existing abstractions are not sufficient. The bigger issue seems to be unfamiliarity with ontologies, with some developers going so far as to embed all logic in the code itself in order to avoid using ontologies, as mentioned in Section \ref{LevelsOfAbstraction}.
 
 For the ontologies we defined, there seems to be clear mapping between objects in the domain and the ontological entities that they are mapped to. Adding additional components where necessary did not present any problems. One area that needs more attention is the extending the level of detail for device capability descriptions. Keep in mind, however, that too many low-level primitives create a cognitive barrier to programming \cite{Green1996}. It is not easy to deal with entities in the program domain that do not have corresponding entities in the problem domain. For example, having many ways to describe a presence sensor, when only one or two of these are relevant to the problem domain, makes it more difficult for the developer to comprehend.
 

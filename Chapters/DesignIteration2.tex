@@ -137,6 +137,7 @@ The concept of a semantic transformers is considered an important part of the th
 
 
 \begin{figure}[bth]
+	\centerline{
 	\digraph[scale=0.45]{ontologyInstance2}{
 		rankdir=LR;
 		%node[shape="box"];
@@ -150,7 +151,7 @@ The concept of a semantic transformers is considered an important part of the th
 		SmartObject -> Identification [label="hasIdentification"];
 		Identification -> string [label="idValue"];
 		Identification -> IDType [label="ofIDType"];
-	}
+	}}
 	\caption{Semantic Interaction Ontology}
 	\label{semanticInteractionOntology}
 \end{figure}
@@ -161,11 +162,12 @@ The Semantic Interaction ontology we have developed is shown in Figure \ref{sema
 
 A smart object is described in terms of its \emph{interaction primitives}. This new concept, as well as the other new concepts introduced in this section, refine the ontology that was introduced in the first design iteration:
 
-\marginpar{The concept of interaction primitives is discussed in more detail in Section \ref{InteractionPrimitives}.}
+
 \begin{description}
 	\item [Interaction primitive]An \emph{interaction primitive} is defined to be the smallest addressable element that has a meaningful relation to the interaction itself. 
 \end{description}
 
+\marginpar{The concept of interaction primitives is discussed in more detail in Section \ref{InteractionPrimitives}.}
 As an example of how the ontology may be used, we start off by defining a smart object and its interaction primitives. Recall that it is only necessary to describe interaction primitives of a device if we use that device's interaction primitive to control another device through the smart space. We can, for example, describe the volume control rocker switch on a smart phone as an interaction primitive:
 
 \begin{minted}{turtle}
@@ -225,7 +227,8 @@ By specifying the transformation using the proper \ac{OWL} 2 semantics, the reas
 PhoneRockerSwitch canBeTransformedTo VolumeEvent .
 \end{minted}
 
-where the \texttt{"up"} data value may then be mapped to \texttt{VolumeUpEvent} and the \texttt{"down"} may be mapped to \texttt{VolumeDownEvent}, which are both sub-classed from \texttt{VolumeEvent}. This prevents situations where arbitrary mappings causes some of the semantics of the interaction to disappear.
+\noindent
+where the \texttt{"up"} data value may then be mapped to \texttt{Volume\-Up\-Event} and the \texttt{"down"} may be mapped to \texttt{VolumeDownEvent}, which are both sub-classed from \texttt{VolumeEvent}. This prevents situations where arbitrary mappings causes some of the semantics of the interaction to disappear.
 
 
 \section{Device Design}
@@ -466,13 +469,13 @@ This allows us to match media types between smart objects. We can then infer a \
 convertsMediaType~\ensuremath{\circ}~convertsMediaType~\ensuremath{\sqsubseteq}~mediaPath
 \end{quote}
 
-\noindent To then determine the media source itself we use \ac{SWRL}\footnote{http://www.w3.org/Submission/SWRL/}, as the expressivity of \ac{OWL} does not allow for inferring the media source if there are more than one \texttt{convertsMediaType} relationship linked to the lighting device:\marginpar{This \ac{SWRL} implementation was later replaced using another Semantic Web technology called SPIN, detailed in Chapter \ref{OntologyEngineering}.}\\
+\noindent To then determine the media source itself we use \ac{SWRL}\footnote{http://www.w3.org/Submission/SWRL/}, as the expressivity of \ac{OWL} does not allow for inferring the media source if there are more than one \texttt{convertsMediaType} relationship linked to the lighting device:\\
 
 
 \texttt{\scriptsize
-convertsMediaType(?x1,?x2)~\ensuremath{\wedge}~convertsMediaType(?x2,?x3)~\ensuremath{\Rightarrow}~mediaSource(?x3, ?x2)}
+convertsMediaType(?x1,?x2)~\ensuremath{\wedge}~convertsMediaType(?x2,?x3)~\ensuremath{\Rightarrow}~mediaSource(?x3, ?x2)}\\
 
-The media source is the semantic transformer, \texttt{?x2}, while the media path is between the two smart objects, \texttt{?x1} and \texttt{?x3}. The \texttt{mediaSource} relationship is thus inferred from the smart object to the semantic transformer. We can also infer whether a device is a semantic transformer or not using:
+The media source is the semantic transformer, \texttt{?x2}, while the media path is between the two smart objects, \texttt{?x1} and \texttt{?x3}. The \texttt{mediaSource} relationship is thus inferred from the smart object to the semantic transformer. We can also infer whether a device is a semantic transformer or not using:\marginpar{This \ac{SWRL} implementation was later replaced using another Semantic Web technology called SPIN, detailed in Chapter \ref{OntologyEngineering}.}
 
 
 \begin{minted}{turtle}
@@ -531,9 +534,9 @@ A more formal performance evaluation as well as a user evaluation of the ontolog
 \label{D2Discussion}
 %\subsection{Implementation issues}
 
-Modelling constraints in the ontology is done using \emph{restrictions}.  When modelling concepts in an \ac{OWL} ontology, restrictions are defined either as part of \texttt{rdfs:subClassOf} or as part of \texttt{owl:equivalentClass}. There is a subtle difference, and it has to do with \emph{necessary and sufficient conditions}.
+Modelling constraints in the ontology is done using \emph{restrictions}.  When modelling concepts in an \ac{OWL} ontology, restrictions are defined either as part of \texttt{rdfs:subClassOf} or as part of \texttt{owl:e\-quiv\-a\-lent\-Class}. There is a subtle difference, and it has to do with \emph{necessary and sufficient conditions}.
 
-When we have necessary and sufficient conditions (also known as \emph{if and only if} and denoted as $ \equiv $, $ \leftrightarrow $ or $ \Leftrightarrow $), the \texttt{owl:equivalentClass} restriction (denoted as $ \equiv $) is used. When we only have necessary conditions, the \texttt{rdfs:subClassOf} restriction (denoted as $ \sqsubseteq $) is used. \emph{Necessary and sufficient} means that the restriction is sufficiently constrained that only individuals belonging to that class will be classified as such.\footnote{In the Prot\'eg\'e ontology editor these are also called \emph{defined classes}.} An example is shown in Section \ref{SemanticMatching}. \marginpar{An \ac{OWL} reasoner follows a bottom-up approach, where new information is inferred from asserted facts, compared to a theorem prover that starts from its goal.}
+When we have necessary and sufficient conditions (also known as \emph{if and only if} and denoted as $ \equiv $, $ \leftrightarrow $ or $ \Leftrightarrow $), the \texttt{owl:e\-quiv\-a\-lent\-Class} restriction (denoted as $ \equiv $) is used. When we only have necessary conditions, the \texttt{rdfs:subClassOf} restriction (denoted as $ \sqsubseteq $) is used. \emph{Necessary and sufficient} means that the restriction is sufficiently constrained that only individuals belonging to that class will be classified as such.\footnote{In the Prot\'eg\'e ontology editor these are also called \emph{defined classes}.} An example is shown in Section \ref{SemanticMatching}. \marginpar{An \ac{OWL} reasoner follows a bottom-up approach, where new information is inferred from asserted facts, compared to a theorem prover that starts from its goal.}
 
 
 

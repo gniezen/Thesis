@@ -156,6 +156,7 @@ An example with individuals, also called instances, that make use of the ontolog
 An instantiated \texttt{NFCExitEvent}, called \texttt{event-1cecdba5}, is also shown. When an event is generated a \ac{UUID} is assigned to it, to enable the event to be uniquely identified in the smart space. It is also associated with a smart object using the \texttt{generatedBy} property. The \texttt{hasPosition} relationship provides additional metadata required by the interaction tile, which is described in the next section.  
 
 \begin{figure}[bth]
+	\centerline{
 	\digraph[scale=0.45]{ontologyInstance}{
 		rankdir=LR;
 		node[shape="box"];
@@ -176,7 +177,7 @@ An instantiated \texttt{NFCExitEvent}, called \texttt{event-1cecdba5}, is also s
 		AmbientLighting -> NokiaN900 [label="connectedTo"];
 		AmbientLighting -> rfid2 [label="hasRFIDTag"];
 		AmbientLighting -> SO [style="dotted"];
-	}
+	}}
 	\caption{Individuals that were instantiated based on the ontology}
 	\label{ontologyInstance}
 \end{figure}
@@ -252,7 +253,7 @@ To explore the different possibilities of visualising and manipulating connectio
 \label{tile1}
 \end{figure}
 
-The interaction tile, shown in Figure \ref{tile1}, was inspired by Kalanithi and Merrill's ``Siftables'' cubes \cite{Merrill2007}. It was designed to explore and manipulate connections through direct manipulation -- by making simple spatial arrangements. Each device in the smart environment is represented by a cube containing an \ac{RFID} tag and a small magnet, with an icon on the top of the cube to signify the device being represented. When a cube is placed next to one of the four sides of the tile, an LED on the tile lights up to indicate that it has been recognised. When a second cube is placed next to the tile, the following LED visualisations are used:
+The interaction tile, shown in Figure \ref{tile1}, was inspired by Kala\-nithi and Merrill's ``Siftables'' cubes \cite{Merrill2007}. It was designed to explore and manipulate connections through direct manipulation -- by making simple spatial arrangements. Each device in the smart environment is represented by a cube containing an \ac{RFID} tag and a small magnet, with an icon on the top of the cube to signify the device being represented. When a cube is placed next to one of the four sides of the tile, an LED on the tile lights up to indicate that it has been recognised. When a second cube is placed next to the tile, the following LED visualisations are used:
 
 \begin{itemize}
 	\item Pulsating green light - a connection is possible
@@ -370,7 +371,8 @@ String predicate = null;
 
 println("Subscription notification!");
 //Get triples that were added or updated in the SIB
-Vector<Vector<String>> triples = xmlTools.getNewResultEventTriple(xml);
+Vector<Vector<String>> triples = 
+		xmlTools.getNewResultEventTriple(xml);
 
 if(triples!=null){
   for(int i=0; i<triples.size() ; i++ ){ 
@@ -379,8 +381,10 @@ if(triples!=null){
 	predicate=xmlTools.triple_getPredicate(t);
 	object=xmlTools.triple_getObject(t);
 
-	//when we have a new connectedTo relationship to the LightKP
-	if(predicate.contains("connectedTo") && object.contains(deviceID)){
+	// when we have a new connectedTo 
+	// relationship to the LightKP
+	if(predicate.contains("connectedTo") && 
+			object.contains(deviceID)){
 
 		//subscribe to source events
 		subscribeToSourceEvents(subject);

@@ -25,7 +25,7 @@ Most of the existing work on modelling interaction capabilities focuses on \ac{G
 
 \section{GUI-based techniques}
 
-A \emph{universal user interface language} describes user interfaces that are rendered by mapping a description's device-independent interaction elements to a target platform's concrete interface objects \cite{Lee2006}. This allows developers to create the user interface in an abstract language without targeting a specific device. Examples of interface languages include \ac{UIML}, \ac{XIML}, Carnegie Mellon University's  \ac{PUC} and the \ac{INCITS/V2 URC}. These languages allow devices to determine the most suitable presentation based on a predefined set of abstract user interface components.
+A \emph{universal user interface language} describes user interfaces that are rendered by mapping a description's device-independent interaction elements to a target platform's concrete interface objects \cite{Lee2006}. This allows developers to create the user interface in an abstract language without targeting a specific device. Examples of interface languages include \ac{UIML}, \ac{XIML}, \ac{PUC} and \ac{INCITS/V2 URC}. These languages allow devices to determine the most suitable presentation based on a predefined set of abstract user interface components.
 
 \ac{UIML} maps interface elements to target UI objects using a styling section, resulting in one styling section per target device type. However, it does not include a vocabulary to describe more abstract widgets \cite{Zimmermann2007}. \ac{PUC} describes device functions in terms of state variables and commands, with a grouping mechanism used for placement of UI objects. The \ac{INCITS/V2 URC} standards define a generic framework and an XML-based user interface language to let a wide variety of devices act as a remote to control other devices, called targets.
 
@@ -104,7 +104,7 @@ Let us consider these device states in terms of user interaction. There are four
 
 \subsection{SPICE DCS}
 \label{spice}
-The \ac{SPICE} Mobile Ontology\footnote{http://ontology.ist-spice.org/} allows for the definition of device capabilities in a sub-ontology called \ac{DCS} \cite{Villalonga2009}. A distinction is made between device capabilities, modality capabilities and network capabilities. While the ontology provides for a detailed description of the different modality capabilities, e.g. being able to describe force feedback as a \texttt{Tactile\-Output\-Modality\-Capability}, there are no subclass assertions made for other device capabilities. Most physical characteristics of the devices are described via their modality capabilities, e.g. a \texttt{screenHeight} data property extends the \texttt{VisualModalityCapability} with an integer value, and the \texttt{audio\-Channels} data property is also related to an integer value with \texttt{Acoustic\-Modality\-Capability}. The input format of audio content is described via the \texttt{AcousticInputModalityCapability} through an \texttt{inputFormat} data property to a string value.
+The \ac{SPICE} Mobile Ontology\footnote{http://ontology.ist-spice.org/} allows for the definition of device capabilities in a sub-ontology called \ac{DCS} \cite{Villalonga2009}. A distinction is made between device capabilities, modality capabilities and network capabilities. While the ontology provides for a detailed description of the different modality capabilities, e.g. being able to describe force feedback as a \texttt{Tactile\-Output\-Modality\-Capability}, there are no subclass assertions made for other device capabilities. Most physical characteristics of the devices are described via their modality capabilities, e.g. a \texttt{screenHeight} data property extends the \texttt{VisualModalityCapability} with an integer value, and the \texttt{audio\-Channels} data property is also related to an integer value with \texttt{Acoustic\-Modality\-Capability}. The input format of audio content is described via the \texttt{Acoustic\-Input\-Modality\-Capability} through an \texttt{inputFormat} data property to a string value.
 
 %It is not clear whether the modality capabilities should be used to describe the actual content that may be exchanged or the user interaction capabilities. As an example, if a device has an \texttt{Acoustic\-Output\-Modality\-Capability}, it is not clear whether the device can provide user interaction feedback (e.g. in the form of computer-generated speech or an audible click), or that the device has a speaker.
 
@@ -117,7 +117,7 @@ Based on this existing work, we now look at our approach to registering device f
 
 On device startup, the smart object registers its digital and physical identification information (e.g. RFID tag or IP address) and its functionality with the SIB, and then subscribes to new connections and events as shown in Figure \ref{connectorsibSequence}.
 
-\marginpar{The startup sequence contains instances of the blackboard and publish/subscribe patterns described in Section \ref{pubsubblackboard}.}
+
 \begin{figure}[bth]
 \begin{msc}
 msc {
@@ -147,7 +147,7 @@ msc {
         \label{connectorsibSequence}
 \end{figure}
 
-This sequence is the same for all smart objects that connect to the \ac{SIB}, and should be implemented in every \ac{KP} that uses our approach. You might notice some parallels between the concept of a \ac{SIB} and the Microsoft Windows Registry. The Registry is used to store configuration information of software applications on a single device, while the \ac{SIB} is used (among other things) to store device functionality descriptions of a system of devices. However, compared to the Windows Registry, which is a basic hierarchical key-value store, the triple store and reasoning engine used in the \ac{SIB} provide a number of advantages, including subsumption testing, consistency checking and the ability to use restrictions to constrain data instances.\marginpar{Subsumption testing, consistency checking and restrictions are discussed in more detail in Section \ref{owlreasoning}.} This means we can use reasoning to verify the consistency and stability of the data in the \ac{SIB}.
+\marginpar{The startup sequence contains instances of the blackboard and publish/subscribe patterns described in Section \ref{pubsubblackboard}.} This sequence is the same for all smart objects that connect to the \ac{SIB}, and should be implemented in every \ac{KP} that uses our approach. You might notice some parallels between the concept of a \ac{SIB} and the Microsoft Windows Registry. The Registry is used to store configuration information of software applications on a single device, while the \ac{SIB} is used (among other things) to store device functionality descriptions of a system of devices. However, compared to the Windows Registry, which is a basic hierarchical key-value store, the triple store and reasoning engine used in the \ac{SIB} provide a number of advantages, including subsumption testing, consistency checking and the ability to use restrictions to constrain data instances.\marginpar{Subsumption testing, consistency checking and restrictions are discussed in more detail in Section \ref{owlreasoning}.} This means we can use reasoning to verify the consistency and stability of the data in the \ac{SIB}.
 
 We now discuss the first two steps of the sequence diagram in Figure \ref{connectorsibSequence}, registering identification and functionality, in more detail.
 
@@ -250,11 +250,11 @@ ie:speaker1 a ie:SmartObject .
 ie:speaker1 ie:functionalitySink ie:Music . 
 \end{minted}
 
-To infer that two devices can be connected based on functionality as shown in Figure \ref{canConnectTo}, we use an \ac{OWL} 2 property chain:\marginpar{A similar method was used to match media types in Section \ref{SemanticMatching}.}\\
+To infer that two devices can be connected based on functionality as shown in Figure \ref{canConnectTo}, we use an \ac{OWL} 2 property chain:\\
 
 \noindent
 functionalitySource~\ensuremath{\circ}~isFunctionalityOfSink~\ensuremath{\sqsubseteq}~canConnectTo\\%\footnote{The concatenation of two relations $R$ and $S$ is expressible by $R \circ S $, while $ R \sqsubseteq S$ indicates that $R$ is a subset of $S$ }\\
-
+\marginpar{A similar method was used to match media types in Section \ref{SemanticMatching}.}
 \noindent
 where we use \texttt{isFunctionalityOfSink}, the inverse property of \texttt{func\-tion\-al\-i\-ty\-Sink}, to be able to create the property chain.
 
@@ -374,7 +374,7 @@ where the semantic transformer itself becomes the predicate between the two smar
 How can we provide feedback or feedforward to the user that these possible functionalities exist between smart objects? This can be done using the feedback capability of the Connector object and the feedback capabilities of the devices themselves. Just after the user scans the second device, and before the connection is actually made, feedback of the different possibilities for shared functionality can be provided to the user. 
 
 \marginpar{The \texttt{dataValue} property of interaction events is discussed in more detail in Section \ref{InteractionEvents}.} 
-When two devices can be connected directly, the Connector object creates a temporary connection from itself to the sink. This temporary connection is specified using the \texttt{tempConnectedTo} property, a sub-property of the \texttt{connectedTo} property. The Connector object generates a \texttt{PreviewEvent} with the matching functionality as \texttt{dataValue}. This triggers the sink to create a preview of the functionality described by the \texttt{PreviewEvent} and its \texttt{dataValue}.  When the sink completes the preview, it generates its own \texttt{PreviewEvent} to indicate that it has finished. The Connector object sees the sink's \texttt{PreviewEvent} and removes the temporary connection.\marginpar{Preview events and the \texttt{tempConnectedTo} property were first discussed in Section \ref{section:augmentedFunctionalFf}.} 
+When two devices can be connected directly, the Connector object creates a temporary connection from itself to the sink. This temporary connection is specified using the \texttt{temp\-Connected\-To} property, a sub-property of the \texttt{connectedTo} property. The Connector object generates a \texttt{PreviewEvent} with the matching functionality as \texttt{dataValue}.\marginpar{Preview events and the \texttt{tempConnectedTo} property were first discussed in Section \ref{section:augmentedFunctionalFf}.}  This triggers the sink to create a preview of the functionality described by the \texttt{Preview\-Event} and its \texttt{dataValue}.  When the sink completes the preview, it generates its own \texttt{PreviewEvent} to indicate that it has finished. The Connector object sees the sink's \texttt{PreviewEvent} and removes the temporary connection.
 
 \begin{figure}[bth]
 	\digraph[scale=0.6]{stPreview}{
@@ -392,6 +392,6 @@ When two devices can be connected directly, the Connector object creates a tempo
 
 However, when there is a semantic transformer between the source and the sink, the Connector object creates a temporary connection to the semantic transformer instead of the sink, in order to generate the appropriate \texttt{PreviewEvent}, as shown in Figure \ref{stPreview}. Keep in mind that the semantic transformer is a virtual object, and therefore only the preview functionality generated by the sink will be perceivable by the user.
 
-The Connector object uses the inferred \texttt{canIndirectlyConnectTo} and \texttt{canConnectTo} properties to determine where to insert the \texttt{temp\-Connected\-To} properties. After inserting the \texttt{tempConnectedTo} properties, the Connector object generates a \texttt{PreviewEvent}. Due to the \texttt{tempConnectedTo} relationship between the Connector object and the semantic transformer, the semantic transformer responds to this event and also generates a \texttt{PreviewEvent} with its own functionality as \texttt{data\-Value}. Due to the \texttt{tempConnectedTo} relationship between the semantic transformer and the sink, the sink responds to the preview event of the semantic transformer and generates the appropriate preview of its functionality.
+The Connector object uses the inferred \texttt{can\-Indirectly\-Connect\-To} and \texttt{canConnectTo} properties to determine where to insert the \texttt{temp\-Connected\-To} properties. After inserting the \texttt{temp\-Connected\-To} properties, the Connector object generates a \texttt{PreviewEvent}. Due to the \texttt{tempConnectedTo} relationship between the Connector object and the semantic transformer, the semantic transformer responds to this event and also generates a \texttt{PreviewEvent} with its own functionality as \texttt{data\-Value}. Due to the \texttt{tempConnectedTo} relationship between the semantic transformer and the sink, the sink responds to the preview event of the semantic transformer and generates the appropriate preview of its functionality.
 
 Now that we have a way to model the capabilities of devices and provide previews of their functionality, we can start looking at ways to represent the different kinds of events that are generated on these devices in the next chapter.

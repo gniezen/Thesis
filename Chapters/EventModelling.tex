@@ -29,24 +29,26 @@ The W3C Web Events Working Group defined four conceptual layers for interactions
 
 Interaction events can be defined at three of the layers, with the exception of the intentional layer. In Table \ref{transformationTable} examples of possible interaction events are shown, together with possible entities associated with these events. Most of these interaction events exist at the representational layer, which are events that have significant meaning. This high level of abstraction enables developers to write applications which will work across different devices and services, without having to write specific code for each possible input device.
 
+
 \begin{table}
-\centering
-\begin{tabular}{|l|l|}
-\hline
-Interaction Event & Entity this event can be performed on\\
-\hline
-AdjustLevelEvent & Volume, Lighting \\
-switchOnEvent & Lighting, any SmartObject \\
-NavigateEvent & Playlist, Menu, SequentialData \\
-UndoEvent & Any other interaction event \\
-StopEvent & Application, Media \\
-%DragAndDrop & Media \\
-%Query & Media, other events \\
-\hline
-\end{tabular}
-\caption{Examples of interaction events in a smart environment}
+    \myfloatalign
+  \begin{tabularx}{\textwidth}{ll} 
+	\toprule
+    \tableheadline{Interaction Event} & \tableheadline{Can be performed on } \\ 
+    \midrule
+
+	AdjustLevelEvent & Volume, Lighting \\
+	switchOnEvent & Lighting, any SmartObject \\
+	NavigateEvent & Playlist, Menu, SequentialData \\
+	UndoEvent & Any other interaction event \\
+	StopEvent & Application, Media \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Examples of interaction events in a smart environment}
 \label{transformationTable}
 \end{table}
+
+
 
 
 
@@ -86,7 +88,7 @@ Events can be related to a \texttt{Place} with the \texttt{hasLocation} property
 
 The Event-Model-F ontology extends the \ac{DUL} ontology to describe events in more detail. To describe the participation of an object in an event, the Event-Model-F ontology uses the \ac{DnS} ontology design pattern \cite{Shaw2009}.\marginpar{The \ac{DnS} pattern is described in more detail in Chapter \ref{OntologyEngineering}.} 
 
-An object is defined as a \texttt{Participant}, where \texttt{LocationParameter} is used to describe the general spatial region of the object \cite{Scherp2011}. \texttt{Time\-Parameter} describes the general temporal region when the event happened by parametrizing a \ac{DUL} \texttt{TimeInterval}. A composite event \texttt{Composite} is composed out of a number of \texttt{Com\-po\-nent}s.
+An object is defined as a \texttt{Participant}, where \texttt{Lo\-ca\-tion\-Pa\-ra\-meter} is used to describe the general spatial region of the object \cite{Scherp2011}. \texttt{Time\-Parameter} describes the general temporal region when the event happened by parametrizing a \ac{DUL} \texttt{TimeInterval}. A composite event \texttt{Composite} is composed out of a number of \texttt{Com\-po\-nent}s.
 
 \subsection{Linked Open Descriptions of Events (LODE)}
 
@@ -168,11 +170,11 @@ The \texttt{duration} property is used to define the length of event. For exampl
 
 \begin{minted}{turtle}
 :event-43495d51-29e3-11b2-807e-ac78eefc1f83 
-	rdf:type :IncreaseLevelEvent ;
-	:generatedBy ie:wakeup1 ;
-	:inXSDDateTime "2012-01-17T11:23:06.887+01:00"^^xsd:dateTime ;
-	:dataValue 255 ;
-	:duration "PT3S"^^xsd:duration .
+  rdf:type :IncreaseLevelEvent ;
+  :generatedBy ie:wakeup1 ;
+  :inXSDDateTime "2012-01-17T11:23:06.887+01:00"^^xsd:dateTime ;
+  :dataValue 255 ;
+  :duration "PT3S"^^xsd:duration .
 \end{minted}
 
 

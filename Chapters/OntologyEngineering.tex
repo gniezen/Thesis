@@ -18,7 +18,7 @@ The word ontology is used in the literature to mean different things:
 	\item a vocabulary, or collection of named concepts agreed on by a group, defined in natural language
 \end{itemize}
 
-What these different usages of the word have in common is that an ontology is a \emph{community contract}\label{CommunityContract} about the representation of a domain \cite{Hepp2007}. It also has to be maintained during its lifespan, and is created through clear conceptual modelling\marginpar{An example of clear conceptual modelling using roles is shown in Section \ref{Roles}} based on philosophical notions. 
+\marginpar{An example of clear conceptual modelling using roles is shown in Section \ref{Roles}.} What these different usages of the word have in common is that an ontology is a \emph{community contract}\label{CommunityContract} about the representation of a domain \cite{Hepp2007}. It also has to be maintained during its lifespan, and is created through clear conceptual modelling based on philosophical notions. 
 
 An \ac{OWL} file can be used to represent an ontology or the individuals (instances) it describes, or both the ontology and its instances can be contained within the same file. For example, the concept \texttt{Man} could be defined as part of the ontology, and the individual \texttt{Gerrit} would be an instance of \texttt{Man}. The different types of restrictions that can be defined in \ac{OWL} are shown in Table \ref{syntaxTable}, together with the various syntaxes that can be used to represent these restrictions.
 
@@ -70,9 +70,10 @@ Core ontologies are used to model knowledge about a specific field. A core ontol
 
 % Lynda Hardman worked on this ontology
 The \ac{COMM} ontology is used represent multimedia objects such as images, video and audio, and is also based on \ac{DUL}. An audio recording could be modelled as \texttt{AudioData}, while a text description could be modelled as \texttt{TextData}. However, \texttt{AudioData} (a subconcept of \ac{DUL} \texttt{InformationObject}) represents the information that is contained in the audio recording, not the digital audio stream itself \cite{Scherp2011}. The location of the audio file is represented with a concept that denotes the \ac{URI}. 
+\marginpar{Ontologies are particularly well-suited to domains such as biomedical research, where there is an abundance of available data with non-hierarchical relationships.}
 
 \subsection{Domain ontologies}
-Domain ontologies represent reusable knowledge in a specific domain and are usually handcrafted. The Gene ontology, for example, describes gene products in terms of their biological processes, cellular components, and molecular functions in a species-independent manner \cite{Jepsen2009}. \marginpar{Ontologies are particularly well-suited to domains such as biomedical research, where there is an abundance of available data with non-hierarchical relationships.}
+Domain ontologies represent reusable knowledge in a specific domain and are usually handcrafted. The Gene ontology, for example, describes gene products in terms of their biological processes, cellular components, and molecular functions in a species-independent manner \cite{Jepsen2009}. 
 
 \subsection{Application ontologies} 
 An application ontology is created for a specific application, so they are not considered to be reusable. However, the tools or processes used to create the ontology may be reusable. The Cell Cycle ontology\footnote{http://www.CellCycleOntology.org}, for example, is specific to modelling the cell cycle process, a rather specialised domain.
@@ -289,8 +290,8 @@ Some built-in functions, like \texttt{spif:buildUniqueIRI} (used to create new U
 
 {\footnotesize
 \begin{verbatim}
-BIND (IRI(fn:concat("example.com#mediaPath_", afn:localname(?this), "_to_",
-afn:localname(?x3))) AS ?mp) .	
+BIND (IRI(fn:concat("example.com#mediaPath_", afn:localname(?this), 
+"_to_", afn:localname(?x3))) AS ?mp) .	
 \end{verbatim}
 }
 
@@ -637,7 +638,7 @@ hasFunctionality~\ensuremath{\circ}~isFunctionalityOf
 
 When we have two individuals with the same object, but different predicates (see Figure \ref{canConnectTo2}), and we want to infer a new property, this is intuitively represented in \ac{SWRL}: \\
 
-\noindent\footnotesize{
+\noindent{\footnotesize
 \texttt{hasFunctionality(?s1,?f), hasFunctionality(?s2, ?f) $\Rightarrow$ canConnectTo(?s1,?s2)}}\\
 
 However, this cannot be represented in the same fashion using a property chain, as\\ 
