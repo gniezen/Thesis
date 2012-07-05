@@ -55,7 +55,7 @@ Several devices were used in Iteration III, including:
 	\item an Android smart phone -- Samsung Nexus S;
 	\item an internet radio -- Logitech Squeezebox Radio;
 	\item the lamp from Section \ref{Lamp};
-%	\item a sleep monitor -- Zeo Sleep Manager; and 
+	\item a sleep monitor -- Zeo Sleep Manager; and 
 	\item an Android tablet -- Samsung Galaxy Tab 10.1 WiFi.
 \end{itemize}
 
@@ -175,44 +175,42 @@ This opens up many possibilities for users, as they may connect other lights, an
 \begin{figure}
 \centering
 \includegraphics[width=300pt]{sleepscenario}
-\caption{The sleep use case scenario, with the dimmable light and the Connector object in the middle, and the Squeezebox on the right}
+\caption{The sleep use case scenario, with the Zeo sleep monitor on the left, the dimmable light and the Connector object in the middle, and the Squeezebox on the right}
 \label{sleepusecase}
 \end{figure}
 
-% \subsection{Zeo}
-% 
+\subsection{Zeo}
 
-% 
-% The Zeo sleep monitor is shown on the left-hand side of Figure \ref{sleepusecase}. The Zeo headband, shown in Figure \ref{headband}, uses three silver conductive fabric sensors to collect \ac{EEG} signals while a person is sleeping. The signals are amplified and features are extracted using a \ac{FFT}. An \ac{ANN} is then used to estimate the probability of a person being in a certain phase of sleep\cite{Rubin2009}. The sleep stages are Awake, \ac{REM} Sleep, Light Sleep, Deep Sleep or Undefined. 
-% 
+The Zeo sleep monitor is shown on the left-hand side of Figure \ref{sleepusecase}. The Zeo headband, shown in Figure \ref{headband}, uses three silver conductive fabric sensors to collect \ac{EEG} signals while a person is sleeping. The signals are amplified and features are extracted using a \ac{FFT}. An \ac{ANN} is then used to estimate the probability of a person being in a certain phase of sleep\cite{Rubin2009}. The sleep stages are Awake, \ac{REM} Sleep, Light Sleep, Deep Sleep or Undefined. 
+
+\begin{figure}
+\centering
+\includegraphics[width=300pt]{headband}
+\caption{The Zeo headband}
+\label{headband}
+\end{figure}
+
+
+Sleep data is stored on an SD card on the device and can be uploaded to the Zeo MySleep\footnote{http://mysleep.myzeo.com} website. Zeo created the Data Decoder Card library\footnote{http://developers.myzeo.com/data-decoder-library/} that allows developers to decode the sleep data without uploading the data to the MySleep website. We also built a USB cable that connects to a serial port on the back of the device. With this cable you can access the raw data coming from the headband sensor. %-- a diagram indicating how the USB cable should be connected to the Zeo is shown in Figure \ref{zeoBack}.
+
 % \begin{figure}
 % \centering
-% \includegraphics[width=300pt]{headband}
-% \caption{The Zeo headband}
-% \label{headband}
+% \includegraphics[width=300pt]{ZeoBack}
+% \caption{Connecting a USB cable to the debug port of the Zeo sleep monitor}
+% \label{zeoBack}
 % \end{figure}
-% 
-% 
-% Sleep data is stored on an SD card on the device and can be uploaded to the Zeo MySleep\footnote{http://mysleep.myzeo.com} website. Zeo created the Data Decoder Card library\footnote{http://developers.myzeo.com/data-decoder-library/} that allows developers to decode the sleep data without uploading the data to the MySleep website. We also built a USB cable that connects to a serial port on the back of the device. With this cable you can access the raw data coming from the headband sensor. %-- a diagram indicating how the USB cable should be connected to the Zeo is shown in Figure \ref{zeoBack}.
-% 
-% % \begin{figure}
-% % \centering
-% % \includegraphics[width=300pt]{ZeoBack}
-% % \caption{Connecting a USB cable to the debug port of the Zeo sleep monitor}
-% % \label{zeoBack}
-% % \end{figure}
-% 
-% When the device is connected via a USB cable, we have real-time access to the generated events. Events that could be interesting to other smart objects in the environment include:
-% 
-% \begin{itemize}
-% 	\item \texttt{NightStart} - time when first ``Awake'' hypnogram occurs
-% 	\item \texttt{SleepOnset}
-% 	\item \texttt{HeadbandDocked} and \texttt{HeadbandUndocked}
-% 	\item \texttt{AlarmOff}, \texttt{AlarmSnooze} and \texttt{AlarmPlay}
-% 	\item \texttt{NightEnd}
-% 	%\item \texttt{NewHeadband}
-% \end{itemize}
-% 
+
+When the device is connected via a USB cable, we have real-time access to the generated events. Events that could be interesting to other smart objects in the environment include:
+
+\begin{itemize}
+	\item \texttt{NightStart} - time when first ``Awake'' hypnogram occurs
+	\item \texttt{SleepOnset}
+	\item \texttt{HeadbandDocked} and \texttt{HeadbandUndocked}
+	\item \texttt{AlarmOff}, \texttt{AlarmSnooze} and \texttt{AlarmPlay}
+	\item \texttt{NightEnd}
+	%\item \texttt{NewHeadband}
+\end{itemize}
+
 % The Zeo Raw Data Library\footnote{http://sourceforge.net/projects/zeorawdata/} is a Python library to read raw data from the Zeo serial port, using the following commands:
 % 
 % \begin{minted}{python}
@@ -232,8 +230,8 @@ This opens up many possibilities for users, as they may connect other lights, an
 % 	link.start()
 % \end{minted}
 % 
-% %Although it was not implemented, the Zeo Sleep Manager shares its data like sleep states and alarm events, which can be used in our sleep use case.
-% 
+A \ac{KP} was developed for the Zeo sleep monitor. Although it was not used as part of the final scenario, the Zeo shares its data like sleep states and alarm events in the smart space, which can be used by other devices.
+ 
 
 
 
@@ -247,7 +245,7 @@ This opens up many possibilities for users, as they may connect other lights, an
 \includegraphics[width=450px]{sleepUseCase}
 \caption{An overview of the sleep use case}
 \label{sleep}
-\end{figure}%\marginpar{In the sleep use case we did not make use of the Zeo and its \ac{KP} implementation. It was viewed as a backup device which could be used to introduce additional complexity to the system if necessary.}
+\end{figure}\marginpar{In the sleep use case we did not make use of the Zeo and its \ac{KP} implementation. It was viewed as a backup device which could be used to introduce additional complexity to the system if necessary.}
 
 
 %\subsection{Setup} %Method? perhaps a different heading
