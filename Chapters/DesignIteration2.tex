@@ -207,13 +207,13 @@ The range of values that an interaction primitive can take on is specified using
 The actual data value of the interaction primitive is described using the \texttt{dataValue} property. Data values may be strings, boolean values or other datatypes, e.g.:
 
 \begin{minted}{turtle}
-PhoneRockerSwitch dataValue "neutral"^^xsd:string
+PhoneRockerSwitch dataValue "neutral"^^xsd:string .
 \end{minted}
 
 When \texttt{PhoneRockerSwitch} is pressed, the data value is updated with:
 
 \begin{minted}{turtle}
-PhoneRockerSwitch dataValue "up"^^xsd:string
+PhoneRockerSwitch dataValue "up"^^xsd:string .
 \end{minted}
 
 This enables other devices to make use of the user input on the \texttt{PhoneRockerSwitch}, irrespective of the interaction events generated. In fact, using \texttt{Transformation}, it becomes possible to map the physical, generic button presses from interaction primitives like \texttt{Phone\-Rocker\-Switch} to specific high-level events like \texttt{VolumeUpEvent} or
@@ -222,7 +222,7 @@ This enables other devices to make use of the user input on the \texttt{PhoneRoc
 By specifying the transformation using the proper \ac{OWL} 2 semantics, the reasoner should be able to infer which user inputs can be mapped to which specific high-level events. This shows up as a \texttt{canBeTransformedTo} property between an interaction primitive and an event. In our example, this means that the following relationship will be inferred:
 
 \begin{minted}{turtle}
-PhoneRockerSwitch canBeTransformedTo VolumeEvent
+PhoneRockerSwitch canBeTransformedTo VolumeEvent .
 \end{minted}
 
 where the \texttt{"up"} data value may then be mapped to \texttt{VolumeUpEvent} and the \texttt{"down"} may be mapped to \texttt{VolumeDownEvent}, which are both sub-classed from \texttt{VolumeEvent}. This prevents situations where arbitrary mappings causes some of the semantics of the interaction to disappear.
@@ -440,11 +440,11 @@ hasIdentification~\ensuremath{\circ}~ofIDType~\ensuremath{\sqsubseteq}~hasIDType
 Class: TCPIPObject
 
     EquivalentTo:
-        hasIDType value IPAddress
-        communicatesbyTCPIP value true 
+        hasIDType value IPAddress 
+        communicatesbyTCPIP value true
 
     SubClassOf:
-        SmartObject
+        SmartObject 
 \end{minted}
 
 In order to determine the media source for the lighting device, we first need to  perform semantic matching of the media type descriptions. We first define \texttt{isAccepted\-MediaTypeOf} as the inverse property of \texttt{acceptsMediaType}, and then define the following property chain:

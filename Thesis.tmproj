@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>FrontBackmatter/Publication.tex</string>
+	<string>Chapters/DeviceCapabilityModelling.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -22,7 +22,7 @@
 			<key>filename</key>
 			<string>ClassicThesis.tex</string>
 			<key>lastUsed</key>
-			<date>2012-07-03T14:32:59Z</date>
+			<date>2012-07-04T16:08:34Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -61,6 +61,20 @@
 			<key>firstVisibleLine</key>
 			<integer>76</integer>
 		</dict>
+		<key>Chapters/DeviceCapabilityModelling.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>118</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>108</integer>
+		</dict>
 		<key>Chapters/EventModelling.tex</key>
 		<dict>
 			<key>caret</key>
@@ -91,69 +105,25 @@
 				<integer>102</integer>
 			</dict>
 		</dict>
-		<key>Chapters/Introduction.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>130</integer>
-				<key>line</key>
-				<integer>18</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>6</integer>
-		</dict>
 		<key>ClassicThesis.tex</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>84</integer>
+				<integer>82</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>64</integer>
-		</dict>
-		<key>FrontBackmatter/Publication.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>257</integer>
-				<key>line</key>
-				<integer>33</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>244</integer>
-			<key>firstVisibleLine</key>
-			<integer>25</integer>
-		</dict>
-		<key>FrontBackmatter/Summary.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>36</integer>
-				<key>line</key>
-				<integer>33</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>60</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>ClassicThesis.tex</string>
-		<string>FrontBackmatter/Publication.tex</string>
-		<string>Chapters/Introduction.tex</string>
-		<string>FrontBackmatter/Summary.tex</string>
+		<string>Chapters/DeviceCapabilityModelling.tex</string>
 	</array>
 	<key>shellVariables</key>
 	<array>
@@ -169,6 +139,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{634, 119}, {640, 659}}</string>
+	<string>{{368, 100}, {640, 659}}</string>
 </dict>
 </plist>

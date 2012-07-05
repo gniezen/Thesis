@@ -208,7 +208,10 @@ A new feature introduced in \ac{OWL} 2 is property chains, which allows for the 
 When modelling cardinality in \ac{OWL} 2, one might expect to be able to infer that an individual is a member of a class based on a cardinality restriction, for example
 
 \begin{minted}{turtle}
-TwoButtonDevice rdfs:SubClassOf Device hasButton exactly 2 Button
+Class: TwoButtonDevice 
+
+	SubClassOf:
+		Device hasButton exactly 2 Button
 \end{minted}
 
 Unfortunately, due to the \ac{OWA}, it cannot be known whether an individual might have additional properties of that type. The only way to identify an individual is using minimum cardinality. However, this approach can be problematic if the concept is underspecified \cite{Hoekstra2008}.
@@ -252,7 +255,7 @@ it will violate the \ac{QCR} if \texttt{playing} and \texttt{stopped} are distin
 
 \subsection{Integrity constraints}
 
-\ac{SPIN} allows us to specify integrity constraints, e.g. that \mint{turtle}|:event1 :generatedBy :device1| should exist. Domain and range are not integrity constraints, but allow us to infer for example the class type of new individuals, e.g. if \mint{turtle}|:generatedBy rdfs:range :SmartObject| then asserting \mint{turtle}|:event1 :generatedBy :device1| would infer \mint{turtle}|:device1 rdf:type :SmartObject|
+\ac{SPIN} allows us to specify integrity constraints, e.g. that \mint{turtle}|:event1 :generatedBy :device1 .| should exist. Domain and range are not integrity constraints, but allow us to infer for example the class type of new individuals, e.g. if \mint{turtle}|:generatedBy rdfs:range :SmartObject .| then asserting \mint{turtle}|:event1 :generatedBy :device1 .| would infer \mint{turtle}|:device1 rdf:type :SmartObject .|
 
 %\ac{SPIN} constructor allows for the automatic creation of new properties when a new instance is created
 
@@ -390,7 +393,7 @@ Roles can be modelled as classes, individuals or properties.
 
 \subsubsection{Example(s)}
 
-Roles can be modelled as classes: \mint{turtle}|Object rdf:type Role| or as individuals: 
+Roles can be modelled as classes: \mint{turtle}|Object rdf:type Role .| or as individuals: 
 \begin{minted}{turtle}
 Jim rdf:type Person .
 SongWriter rdf:type Role .
@@ -398,7 +401,7 @@ Jim hasRole SongWriter .
 \end{minted}
 
 \noindent
-or even as properties: \mint{turtle}|Table legs Books| where books are being used in the role of table legs.
+or even as properties: \mint{turtle}|Table legs Books .| where books are being used in the role of table legs.
 
 \subsubsection{Discussion}
 
@@ -679,7 +682,7 @@ where \texttt{isFunctionalityofSink} is the inverse property of \texttt{function
 
 \subsubsection{Discussion}
 
-There are two caveats when using property chains to perform semantic matching. First, \ac{OWL} 2 property chains cannot be built with datatype properties, only object properties, i.e. use \mint{turtle}|:device1 :hasFunctionality :Audio| instead of \mint{turtle}|:device1 :hasFunctionality "audio"| This means we cannot infer \mint{turtle}|:device1 :hasRFIDTag "ABCD123F"| and we have to use a rule language like \ac{SWRL} or \ac{SPIN}.\marginpar{\ac{SWRL} was used for semantic matching in the second design iteration in Section \ref{SemanticMatching}. \ac{SPIN} was used in the third design iteration, with the implementation described in more detail in Chapter \ref{DeviceCapabilityModelling}.}
+There are two caveats when using property chains to perform semantic matching. First, \ac{OWL} 2 property chains cannot be built with datatype properties, only object properties, i.e. use \mint{turtle}|:device1 :hasFunctionality :Audio .| instead of \mint{turtle}|:device1 :hasFunctionality "audio" .| This means we cannot infer \mint{turtle}|:device1 :hasRFIDTag "ABCD123F" .| and we have to use a rule language like \ac{SWRL} or \ac{SPIN}.\marginpar{\ac{SWRL} was used for semantic matching in the second design iteration in Section \ref{SemanticMatching}. \ac{SPIN} was used in the third design iteration, with the implementation described in more detail in Chapter \ref{DeviceCapabilityModelling}.}
 
 The second caveat is that property chains cannot be used for cardinality restrictions. We have only tested this with the Pellet reasoner, and it is possible that other reasoners could allow for this to happen.
 
@@ -698,7 +701,7 @@ The second caveat is that property chains cannot be used for cardinality restric
 
 \subsubsection{Context}
 
-Ontology languages like \ac{OWL} are used to classify existing individuals, not create new ones. In some cases we want to insert a new individual when a literal value changes or is inserted. When using only \ac{OWL} and DL-safe rules (e.g. \ac{SWRL}), no new individuals may be inserted, and the work-around is that individuals are pre-populated in the triple store. For example, if \texttt{OnEvent} and \texttt{OffEvent} are pre-populated, you can model that \mint{turtle}|:event1 :dataValue 1| should infer \mint{turtle}|:event1 :mappedTo :OnEvent|\marginpar{\ac{SWRL} built-in atoms in rule heads \cite{Hebeler2009} present another solution to this problem, but these built-in atoms cannot be handled by reasoners like Pellet, which only supports DL-safe rules.}
+Ontology languages like \ac{OWL} are used to classify existing individuals, not create new ones. In some cases we want to insert a new individual when a literal value changes or is inserted. When using only \ac{OWL} and DL-safe rules (e.g. \ac{SWRL}), no new individuals may be inserted, and the work-around is that individuals are pre-populated in the triple store. For example, if \texttt{OnEvent} and \texttt{OffEvent} are pre-populated, you can model that \mint{turtle}|:event1 :dataValue 1 .| should infer \mint{turtle}|:event1 :mappedTo :OnEvent .|\marginpar{\ac{SWRL} built-in atoms in rule heads \cite{Hebeler2009} present another solution to this problem, but these built-in atoms cannot be handled by reasoners like Pellet, which only supports DL-safe rules.}
 
 \subsubsection{Solution}
 
@@ -776,7 +779,7 @@ None.
 \emph{Can we infer subclass relationships based on existing properties using OWL?}
 
 \subsubsection{Context}
-Suppose we wanted to use an object property called \texttt{mappedTo} to create a mapping between interaction events, for example \mint{turtle}|SwitchUpEvent mappedTo SwitchOnEvent| This prompts the question: Is it possible to create an \ac{OWL} restriction that says\\
+Suppose we wanted to use an object property called \texttt{mappedTo} to create a mapping between interaction events, for example \mint{turtle}|SwitchUpEvent mappedTo SwitchOnEvent .| This prompts the question: Is it possible to create an \ac{OWL} restriction that says\\
 
 \noindent
 If Class A is related via Property B to Class C, then Class A is a subclass of Class C.\\ 
@@ -794,18 +797,18 @@ WHERE{
 
 \subsubsection{Solution}
 
-Evidently, this could be implemented as a \ac{SPIN} rule, but we would prefer an \ac{OWL}-only solution. It turns out that while it is not possible in \ac{OWL} 2 DL, it is possible in \ac{OWL} 2 RL/RDF Rules: \mint{turtle}|:B rdfs:subPropertyOf rdfs:subClassOf|
+Evidently, this could be implemented as a \ac{SPIN} rule, but we would prefer an \ac{OWL}-only solution. It turns out that while it is not possible in \ac{OWL} 2 DL, it is possible in \ac{OWL} 2 RL/RDF Rules: \mint{turtle}|:B rdfs:subPropertyOf rdfs:subClassOf .|
 
 \subsubsection{Example(s)}
 
 To solve our original problem in the Context, we would define 
 
 \begin{minted}{turtle}
-mappedTo rdfs:subPropertyOf rdfs:subClassOf
-SwitchUpEvent mappedTo SwitchOnEvent
+mappedTo rdfs:subPropertyOf rdfs:subClassOf .
+SwitchUpEvent mappedTo SwitchOnEvent .
 \end{minted}
 
-which would then infer \mint{turtle}|SwitchUpEvent rdfs:subClassOf SwitchOnEvent|
+which would then infer \mint{turtle}|SwitchUpEvent rdfs:subClassOf SwitchOnEvent .|
 
 \subsubsection{Discussion}
 
