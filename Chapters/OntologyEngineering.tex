@@ -7,6 +7,8 @@ but when there is nothing left to take away.} \\ \medskip
     ---  Antoine de Saint Exup\'ery
 \end{flushright}
 
+This chapter deals with the ontology- and reasoning-related aspects of the work in more detail. First, an overview of the different types of ontologies is provided, followed by a description of how semantic reasoning is performed with ontology languages. Our implementation, with reasoning performed using \ac{OWL} and \ac{SPIN}, is described. A set of 10 ontology design patterns that were identified during the three design iterations forms the second part of this chapter.
+
 An ontology is a representation of knowledge (facts, things, etc.) in terms of concepts within a specific domain, as well as the relationships between them. Ontologies make it easier to publish and share knowledge. They are both machine-readable and human-understandable. The power of ontologies lies in their ability to create relationships among classes of objects, and to assign properties to those relationships that allows us to make inferences about them \cite{Jepsen2009}.
 
 The word ontology is used in the literature to mean different things:
@@ -349,14 +351,14 @@ the current date/time is returned as an object. This allows us to write \ac{KP} 
 
 \section{Ontology design patterns}\label{DesignPatterns}
 
-In software engineering, design patterns are generalised solutions to problems that commonly occur in a specific software context. An example of such a pattern is the observer pattern, in which a software object maintains a list of observers which are notified of state changes. The observer pattern is one of the original patterns described in the seminal book on design patterns by the \ac{GoF} \cite{Gamma1994}.  The blackboard pattern, used in our software architecture, is a generalised version of the observer pattern that allows multiple readers and writers. 
+In software engineering, design patterns are generalised solutions to problems that commonly occur in a specific software context. An example of such a pattern is the observer pattern, in which a software object maintains a list of observers which are notified of state changes. The observer pattern is one of the original patterns described in the seminal book on design patterns by Gamma et al. \cite{Gamma1994}.  The blackboard pattern, used in our software architecture, is a generalised version of the observer pattern that allows multiple readers and writers. 
 \marginpar{The blackboard pattern was first mentioned in Section \ref{blackboard}.}
 
 A similar approach to design patterns has been applied to ontologies \cite{Gangemi2008, Hoekstra2009, Dodds2011}. Dodds and Davis \cite{Dodds2011} used the following pattern template to document an ontology design pattern in their book ``Linked Data Patterns'':
 
 \begin{itemize}
 	\item Question - A question indicating the problem the pattern is designed to solve
-	\item Context - Description of of the goal and context of the pattern
+	\item Context - Description of the goal and context of the pattern
 	\item Solution - Description of the pattern
 	\item Example(s) - Real-world implementations that make use of this pattern
 	\item Discussion - Analysis of the pattern and where it can be used
@@ -420,6 +422,7 @@ A commonly occurring issue when modelling ontologies is to whether model the con
 \subsection{Descriptions and Situations (DnS) pattern}
 
 \begin{figure}[bth]
+	\centerline{
 	\digraph[scale=0.45]{DnSExample}{
 		Endurant [label="dolce:Endurant"];
 		APO [label="dolce:AgentivePhysicalObject"];
@@ -438,7 +441,7 @@ A commonly occurring issue when modelling ontologies is to whether model the con
 		MessageRole -> CommRole;
 		Context -> CommRole;
 		ChannelRole -> CommRole;
-	}
+	}}
 	\caption{Example of modelling communication theory using \ac{DnS} and \ac{DOLCE}}
 	\label{DnSExample}        
 \end{figure}
@@ -447,9 +450,9 @@ A commonly occurring issue when modelling ontologies is to whether model the con
 
 \subsubsection{Context}
 
-While modelling physical objects using an ontology is relatively straightforward, it becomes non-trivial when modelling \emph{non-physical objects} \cite{Gangemi2003} such as plans, schedules, social constructs, etc. Existing theoretical frameworks like \ac{BDI} theory and situation calculus are not at the level of concepts or relations, which we need to be able to model non-physical objects as a set of statements. The \ac{DnS} pattern grew out of the work done on the \ac{DOLCE}\marginpar{During a summer school attended by the author, Aldo Gangemi (co-creator of DOLCE) mentioned that he considers DOLCE to be a collection of ontology design patterns.} ontology to solve this problem.
+While modelling physical objects using an ontology is relatively straightforward, it becomes non-trivial when modelling \emph{non-physical objects} \cite{Gangemi2003} such as plans, schedules, social constructs, etc. Existing theoretical frameworks like \ac{BDI} theory \cite{Bratman1987} are not at the level of concepts or relations, which we need to be able to model non-physical objects as a set of statements. The \ac{DnS} pattern grew out of the work done on the \ac{DOLCE}\marginpar{During a summer school attended by the author, Aldo Gangemi (co-creator of DOLCE) mentioned that he considers DOLCE to be a collection of ontology design patterns.} ontology to solve this problem.
 
-
+%and situation calculus
 
 \subsubsection{Solution}
 
@@ -496,10 +499,10 @@ We can use n-ary relations \cite{Noy2006} to model relationships between more th
 :phone1 :generatesEvent :event-43495d51-29e3-11b2-807e-ac78eefc1f83. 
 	
 :event-43495d51-29e3-11b2-807e-ac78eefc1f83 
-	rdf:type :IncreaseLevelEvent ;
-	:inXSDDateTime "2012-01-17T11:23:06.887+01:00"^^xsd:dateTime ;
-	:dataValue 255 ;
-	:duration "PT3S"^^xsd:duration .
+  rdf:type :IncreaseLevelEvent ;
+  :inXSDDateTime "2012-01-17T11:23:06.887+01:00"^^xsd:dateTime ;
+  :dataValue 255 ;
+  :duration "PT3S"^^xsd:duration .
 \end{minted}
 
 
@@ -621,7 +624,7 @@ hasFunctionality~\ensuremath{\circ}~isFunctionalityOf
 \subsubsection{Solution}
 
 \begin{figure}[bth]
-	\digraph[scale=0.45]{canConnectTo}{
+	\digraph[scale=0.55]{canConnectTo}{
 		{rank=same; S1 [label="Smart Object 1"]; S2 [label="Smart Object 2"];}
 		%{rank=max; Connector}
 		S1 -> Functionality [label="hasFunctionality"];
@@ -634,8 +637,8 @@ hasFunctionality~\ensuremath{\circ}~isFunctionalityOf
 
 When we have two individuals with the same object, but different predicates (see Figure \ref{canConnectTo2}), and we want to infer a new property, this is intuitively represented in \ac{SWRL}: \\
 
-\noindent
-\texttt{hasFunctionality(?s1,?f), hasFunctionality(?s2, ?f) $\Rightarrow$ canConnectTo(?s1,?s2)}\\
+\noindent\footnotesize{
+\texttt{hasFunctionality(?s1,?f), hasFunctionality(?s2, ?f) $\Rightarrow$ canConnectTo(?s1,?s2)}}\\
 
 However, this cannot be represented in the same fashion using a property chain, as\\ 
 
@@ -673,7 +676,7 @@ Using the property chain\\
 \noindent
 functionalitySource~\ensuremath{\circ}~isFunctionalityofSink~\ensuremath{\sqsubseteq}~canConnectTo\\
 
-where \texttt{isFunctionalityofSink} is the inverse property of \texttt{functionalitySink}, we can infer that
+where \texttt{isFunctionalityofSink} is the inverse property of \texttt{functionality\-Sink}, we can infer that
 
 \begin{minted}{turtle}               
 :phone1 :canConnectTo :speaker1 .
@@ -701,7 +704,8 @@ The second caveat is that property chains cannot be used for cardinality restric
 
 \subsubsection{Context}
 
-Ontology languages like \ac{OWL} are used to classify existing individuals, not create new ones. In some cases we want to insert a new individual when a literal value changes or is inserted. When using only \ac{OWL} and DL-safe rules (e.g. \ac{SWRL}), no new individuals may be inserted, and the work-around is that individuals are pre-populated in the triple store. For example, if \texttt{OnEvent} and \texttt{OffEvent} are pre-populated, you can model that \mint{turtle}|:event1 :dataValue 1 .| should infer \mint{turtle}|:event1 :mappedTo :OnEvent .|\marginpar{\ac{SWRL} built-in atoms in rule heads \cite{Hebeler2009} present another solution to this problem, but these built-in atoms cannot be handled by reasoners like Pellet, which only supports DL-safe rules.}
+\marginpar{\ac{SWRL} built-in atoms in rule heads \cite{Hebeler2009} present another solution to this problem, but these built-in atoms cannot be handled by reasoners like Pellet, which only supports DL-safe rules.}
+Ontology languages like \ac{OWL} are used to classify existing individuals, not create new ones. In some cases we want to insert a new individual when a literal value changes or is inserted. When using only \ac{OWL} and DL-safe rules (e.g. \ac{SWRL}), no new individuals may be inserted, and the work-around is that individuals are pre-populated in the triple store. For example, if \texttt{OnEvent} and \texttt{OffEvent} are pre-populated, you can model that \mint{turtle}|:event1 :dataValue 1 .| should infer \mint{turtle}|:event1 :mappedTo :OnEvent .|
 
 \subsubsection{Solution}
 
@@ -726,8 +730,8 @@ WHERE {
     ?this sc:convertsMediaType ?x2 .
     ?x2 sc:convertsMediaType ?x3 .
     ?this sc:connectedTo ?x3 .
-    BIND (IRI(fn:concat("example.com/ontology#mediaPath_", afn:localname(?this),
-     "_to_",afn:localname(?x3))) AS ?mp) .
+    BIND (IRI(fn:concat("example.com/ontology#mediaPath_", 
+     afn:localname(?this), "_to_",afn:localname(?x3))) AS ?mp) .
 }
 \end{minted}
 
@@ -934,7 +938,7 @@ connectedTo~\ensuremath{\subseteq}~canConnectTo~\ensuremath{\cap}~connectedTo~\e
 
 \section{Discussion}
 
-When applying inference to the physical world, the level of ambiguity and uncertainty is quite high. A system might infer that you are in a room because your RFID badge is in a room. What if you forgot your badge in the office? The challenge is to figure figure out what functions in the smart home are possible with limited inference, which are possible only through inference, and which require an oracle \cite{Edwards2001}. Systems that rely on inference will be wrong some of the time, and users will need to have models to figure out how the system arrives at its conclusions, along with ways to override the system's behaviour.
+When applying inference to the physical world, the level of ambiguity and uncertainty is quite high. A system might infer that you are in a room because your RFID badge is in a room. What if you forgot your badge in the office? The challenge is to figure out what functions in the smart home are possible with limited inference, which are possible only through inference, and which require an oracle \cite{Edwards2001}. Systems that rely on inference will be wrong some of the time, and users will need to have models to figure out how the system arrives at its conclusions, along with ways to override the system's behaviour.
 
 Sabou \cite{Sabou2010} argues that smart objects will require more sophisticated reasoning mechanisms than what is currently used in the area of sensor networks, which primarily relies on subsumption matching. They expect that smart spaces will rely on rule engines rather than DL reasoners, and that the ambiguities and uncertainties in smart environments will require fuzzy or probabilistic methods.
 
