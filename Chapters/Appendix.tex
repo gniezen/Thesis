@@ -1,5 +1,6 @@
 \chapter{Appendix}
 
+In the Appendix various tips \& tricks are listed for working with the applications and tools described in the thesis.
 
 \section{Working with Smart-M3}
 
@@ -112,6 +113,11 @@ owl:imports <http://spinrdf.org/spin>
 
 instead of \texttt{spin:imports}, otherwise the SPIN rules cannot be resolved properly.
 
+To view all SPIN rules,use\\
+
+Model~$\Rightarrow$~Display SPIN rules and constraints
+
+
 
 \section{Setting up the environment}
 
@@ -189,47 +195,43 @@ WHERE {
 
 
 
-\section{Useful TopBraid Composer shortcuts}
-
-To view all SPIN rules:
-Model~$\Rightarrow$~Display SPIN rules and constraints
 
 
 
-Possible TODO: Notebook 2 24/04 (Serving ontology at different URI)
-Possible TODO: Comparing TikZ to GraphViz
-Possible TODO: Device documentation from ~/code/semanticconnections/docs
-Possible TODO: Smart-M3 SIB installation 06/09/10
+% Possible TODO: Notebook 2 24/04 (Serving ontology at different URI)
+% Possible TODO: Comparing TikZ to GraphViz
+% Possible TODO: Device documentation from ~/code/semanticconnections/docs
+% Possible TODO: Smart-M3 SIB installation 06/09/10
 
 
 
-- Tools: 
-	- ssls (See README)
-		.sslslogin and .ssls
-		Reported various bugs that were fixed (see e.g. 31/01/11)
-	End of notebook1:
-	- d-bus
-	- git
-	- svn
-	-
-
-- System setup
-	07/06/11 (Location of source code, also see README for Aly's deliverable)
-
-- ADK-SIB
-	To update deployable .jar (19/01/11)
-	Does not support triple-level queries without at least one wildcard, i.e. cannot be used to test if a certain triple exists in the triple store
-	Updated Jena to 2.6.4 to be compatible with SPIN 1.2.0 (uses Jena ARQ-2.8.7 as SPARQL engine)
-		- Requires \texttt{extends} to be removed from \texttt{ResultSetFormatter} constructor in ADK-SIB, which was still valid with ARQ-2.8.2
-	Packaging ADK-SIB
-		log4j.properties should be added to build.properties
-		Reinstalling bundles
-			stop <bundle>
-			uninstall <bundle>
-			install file://home/gerrit/...
-			ss (to view bundles)
-			start <bundle>
-				
-- Developing with Android
-	04/04/11, 02/05/11
-	Python KPI: getprotobyname in Node.py is unsupported, but not needed
+% - Tools: 
+% 	- ssls (See README)
+% 		.sslslogin and .ssls
+% 		Reported various bugs that were fixed (see e.g. 31/01/11)
+% 	End of notebook1:
+% 	- d-bus
+% 	- git
+% 	- svn
+% 	-
+% 
+% - System setup
+% 	07/06/11 (Location of source code, also see README for Aly's deliverable)
+% 
+% - ADK-SIB
+% 	To update deployable .jar (19/01/11)
+% 	Does not support triple-level queries without at least one wildcard, i.e. cannot be used to test if a certain triple exists in the triple store
+% 	Updated Jena to 2.6.4 to be compatible with SPIN 1.2.0 (uses Jena ARQ-2.8.7 as SPARQL engine)
+% 		- Requires \texttt{extends} to be removed from \texttt{ResultSetFormatter} constructor in ADK-SIB, which was still valid with ARQ-2.8.2
+% 	Packaging ADK-SIB
+% 		log4j.properties should be added to build.properties
+% 		Reinstalling bundles
+% 			stop <bundle>
+% 			uninstall <bundle>
+% 			install file://home/gerrit/...
+% 			ss (to view bundles)
+% 			start <bundle>
+% 				
+% - Developing with Android
+% 	04/04/11, 02/05/11
+% 	Python KPI: getprotobyname in Node.py is unsupported, but not needed

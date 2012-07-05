@@ -62,6 +62,7 @@
 \usepackage{textcomp} % prevents font warnings like OMS/pplj/m/n on textbullet
 
 \usepackage[absolute]{textpos}
+\usepackage{wrapfig}
 
 \usepackage{amsthm}
 \newtheorem{example}{Example}
@@ -112,7 +113,11 @@
 \include{FrontBackmatter/Titlepage}
 \include{FrontBackmatter/Titleback}
 \include{FrontBackmatter/tueTitle}
-\include{FrontBackmatter/Acknowledgments}
+
+% TODO: final version
+%\include{FrontBackmatter/Acknowledgments}
+
+
 %\include{FrontBackmatter/Dedication}
 %\cleardoublepage\include{FrontBackmatter/Foreword}
 
@@ -126,24 +131,14 @@
 %\setcounter{page}{90}
 % use \cleardoublepage here to avoid problems with pdfbookmark
 \cleardoublepage
-\ctparttext{You can put some informational part preamble text here. 
-Illo principalmente su nos. Non message \emph{occidental} angloromanic
-da. Debitas effortio simplificate sia se, auxiliar summarios da que,
-se avantiate publicationes via. Pan in terra summarios, capital
-interlingua se que. Al via multo esser specimen, campo responder que
-da. Le usate medical addresses pro, europa origine sanctificate nos se.}
+\ctparttext{In the first part of this thesis, the problem that was addressed is introduced. Related work is also described, showing the different aspects of the work that were considered.}
 \part{Framing the problem and current state-of-the-art}
 \include{Chapters/Introduction}
 \include{Chapters/RelatedWork}
 
 
 \cleardoublepage
-\ctparttext{You can put some informational part preamble text here. 
-Illo principalmente su nos. Non message \emph{occidental} angloromanic
-da. Debitas effortio simplificate sia se, auxiliar summarios da que,
-se avantiate publicationes via. Pan in terra summarios, capital
-interlingua se que. Al via multo esser specimen, campo responder que
-da. Le usate medical addresses pro, europa origine sanctificate nos se.}
+\ctparttext{An iterative development process was followed for the work described in this thesis. In this part of the thesis, we describe the three design iterations. Extracting from the lessons learned during the three design iterations, a theory of semantic connections is introduced.}
 \part{Design iterations and constructing a theory}
 \include{Chapters/DesignIteration1}
 \include{Chapters/DesignIteration2}
@@ -151,7 +146,7 @@ da. Le usate medical addresses pro, europa origine sanctificate nos se.}
 \include{Chapters/SemanticConnectionsTheory}
 
 \cleardoublepage
-\ctparttext{In this part of the thesis, the more general concepts and techniques that can be applied to ubiquitous computing are described. These concepts and techniques were extracted from work done during the three design iterations.}
+\ctparttext{In this part of the thesis, the more general concepts and techniques that can be applied to ubiquitous computing are described, followed by the final iteration of the software architecture. These concepts and techniques were extracted from work done during the three design iterations. A performance evaluation and usability study are described, followed by a discussion and conclusion of the work.}
 \part{Generalised models, software architecture and evaluation}
 \include{Chapters/DeviceCapabilityModelling}
 \include{Chapters/EventModelling}
