@@ -78,7 +78,7 @@ The Timeline\footnote{http://motools.sf.net/timeline/timeline.html} ontology, us
 
 \subsection{DUL}
 
-The \ac{DUL} upper ontology is a lightweight version of the \ac{DOLCE} ontology. \ac{DUL} defines the class \texttt{Event} next to the disjoint upper classes \texttt{Object}, \texttt{Abstract} and \texttt{Quality} \cite{Scherp2011}. \ac{DUL} allows for both the approaches to modelling time with \ac{OWL}, either with the \texttt{hasEventDate} datatype property, or with a \texttt{TimeInterval} class and the \texttt{isObservableAt} object property.
+The \ac{DUL} upper ontology is a light\-weight version of the \ac{DOLCE} ontology. \ac{DUL} defines the class \texttt{Event} next to the disjoint upper classes \texttt{Object}, \texttt{Abstract} and \texttt{Quality} \cite{Scherp2011}. \ac{DUL} allows for both the approaches to modelling time with \ac{OWL}, either with the \texttt{hasEventDate} datatype property, or with a \texttt{TimeInterval} class and the \texttt{isObservableAt} object property.
 
 Events can be related to a \texttt{Place} with the \texttt{hasLocation} property. Alternatively, events can be related to a \texttt{SpaceRegion} with the \texttt{hasRegion} property, where \texttt{Space\-Region} resolves to a geospatial coordinate system. \ac{DUL} uses a \texttt{hasParticipant} property to relate an event to an object, and uses the \texttt{hasPart} property to link events to sub-events.
 
@@ -86,7 +86,7 @@ Events can be related to a \texttt{Place} with the \texttt{hasLocation} property
 
 The Event-Model-F ontology extends the \ac{DUL} ontology to describe events in more detail. To describe the participation of an object in an event, the Event-Model-F ontology uses the \ac{DnS} ontology design pattern \cite{Shaw2009}.\marginpar{The \ac{DnS} pattern is described in more detail in Chapter \ref{OntologyEngineering}.} 
 
-An object is defined as a \texttt{Participant}, where \texttt{LocationParameter} is used to describe the general spatial region of the object \cite{Scherp2011}. \texttt{Time\-Parameter} describes the general temporal region when the event happened by parametrizing a \ac{DUL} \texttt{TimeInterval}. A composite event \texttt{Composite} is composed out of a number of \texttt{Component}s.
+An object is defined as a \texttt{Participant}, where \texttt{LocationParameter} is used to describe the general spatial region of the object \cite{Scherp2011}. \texttt{Time\-Parameter} describes the general temporal region when the event happened by parametrizing a \ac{DUL} \texttt{TimeInterval}. A composite event \texttt{Composite} is composed out of a number of \texttt{Com\-po\-nent}s.
 
 \subsection{Linked Open Descriptions of Events (LODE)}
 
@@ -100,7 +100,7 @@ It uses time intervals to link events to ranges of time, where its \texttt{atTim
 
 Temporal reasoning is used when working with time intervals, for example when using Allen's Interval Algebra to define temporal relations between events. There are 13 base relations in this algebra, for example to define that event X happens before event Y, or that event X occurs during event Y. Allen's Interval Algebra is used by a number of ontologies, including the \ac{DOLCE} \cite{Scherp2011} upper ontology. \marginpar{The \ac{DOLCE} upper ontology is discussed in more detail in Chapter \ref{OntologyEngineering}.}
 
-\ac{SWRL} Basic Temporal Built-ins support \texttt{xsd:date} and \texttt{xsd:dateTime} with Allen's Interval Algebra. The Advanced Temporal Built-ins uses the \texttt{temporal} ontology \cite{OConnor2010} to provide additional functionality, for example having different granularity levels.
+\ac{SWRL} Basic Temporal Built-ins support \texttt{xsd:date} and \texttt{xsd:\-date\-Time} with Allen's Interval Algebra. The Advanced Temporal Built-ins uses the \texttt{temporal} ontology \cite{OConnor2010} to provide additional functionality, for example having different granularity levels.
 
 
 The \ac{DC} Terms ontology has a \texttt{temporal} property to describe temporal coverage of a resource with a range \texttt{periodOfTime}.
@@ -119,6 +119,8 @@ Using \ac{SPIN}, can also cast a \texttt{xsd:dateTime} value to a string using t
 fn:substring(xsd:string(afn:now()),0,10)
 \end{verbatim}
 
+We build on these event models to create our own interaction event model. In the next section, a mapping between the entities in the various ontologies show how our work relates to the existing work.
+
 
 \section{Interaction events}
 \label{InteractionEvents}
@@ -134,10 +136,10 @@ We now turn our focus to how interaction events are modelled in the work describ
 An example of an event generated when an alarm is set is
 \begin{minted}{turtle}
 :event-43495d51-29e3-11b2-807e-ac78eefc1f82 
-	rdf:type :AlarmSetEvent ;
-	:generatedBy :phone1 ;
-	:inXSDDateTime "2012-01-17T11:22:06.887+01:00"^^xsd:dateTime ;
-	:dataValue "2012-01-17T12:00:00+01:00"^^xsd:dateTime .
+  rdf:type :AlarmSetEvent ;
+  :generatedBy :phone1 ;
+  :inXSDDateTime "2012-01-17T11:22:06.887+01:00"^^xsd:dateTime ;
+  :dataValue "2012-01-17T12:00:00+01:00"^^xsd:dateTime .
 \end{minted}
 
 A mapping between our interaction event model and the other event ontologies is shown in Table \ref{eventMappings}. Note that we do not model people or places in the current version of the ontology, as we consider these entities to be optional when describing interaction events.
