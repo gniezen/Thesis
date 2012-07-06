@@ -835,7 +835,7 @@ In the sleep use-case, a semantic transformer was implemented in order to genera
 \begin{itemize}
 \item 	Between smart objects and semantic transformers only \texttt{indirectly\-ConnectedTo} connections can exist, as the semantic transformers are virtual entities that cannot be directly connected to smart objects using the Connector object.
 \item 	When a \texttt{canIndirectlyConnectTo} relationship is inferred between smart object A and the semantic transformer B, and between B and smart object C, a \texttt{canConnectTo} relation between A and C should be inferred (transitive).
-\item 	When a connection is made between two smart objects that can be connected through a semantic transformer, the semantic transformer is connected to the smart objects with \texttt{indirectly\-ConnectedTo} relationships, and a \texttt{connectedTo} relationship between the smart objects is then automatically inferred.
+\item 	When a connection is made between two smart objects that can be connected through a semantic transformer, the semantic transformer is connected to the smart objects with \texttt{indirectly\-ConnectedTo} relationships, and a \texttt{con\-nect\-ed\-To} relationship between the smart objects is then automatically inferred.
 \item 	A semantic transformer thus acts as a bridge.
 \item 	A semantic transformer is \emph{not} a smart object. 
 \end{itemize}

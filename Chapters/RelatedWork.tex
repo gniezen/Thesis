@@ -167,7 +167,7 @@ AutoHAN entities make subscription requests to receive certain types of events. 
 Two alternative programming paradigms were considered for the Media Cubes language - an \emph{ontological paradigm} and a \emph{linguistic paradigm}. In the ontological paradigm, tokens represent ``natural categories'' in the user's mental model. Concepts were identified which have a close correspondence between primitive remote control operations, appliance functions, capabilities and user skills, representing a primitive ontology of home automation. These abstract types were incorporated into four types of  cubes:
 
 \begin{itemize}
-	\item An \emph{Event} cube (``on''/``off'', ``go''/``stop'') represents a change of state, such as a sensor activation (e.g. a doorbell) or automated function (e.g. alarm clock). ``Go'' and ``on'' is functionally identical, but labeled separately to help users reason about equivalence between events and processes.
+	\item An \emph{Event} cube (``on''/``off'', ``go''/``stop'') to represent a change of state, such as a sensor activation (e.g. a doorbell) or automated function (e.g. alarm clock). ``Go'' and ``on'' is functionally identical, but labeled separately to help users reason about equivalence between events and processes.
 	\item A \emph{Channel} cube can be used to associate a media channel/stream with a media source, and direct the stream to a media sink.
 	\item An \emph{Index} cube selects content from a channel and can be associated with particular index values, to select content that matches that value. 
 	\item An \emph{Aggregate} cube allows the user to refer to abstract collections rather than individual instances.
@@ -175,7 +175,7 @@ Two alternative programming paradigms were considered for the Media Cubes langua
 
 In the linguistic paradigm, cubes represent words in a language, for example a single face of a cube may be labelled \emph{Clone}. When this face is placed against another cube face and activated, the second face takes on the identity and function of the first. A \emph{List} cube has three active faces: Add Item, Remove Item and Contents.
 
-In our approach we try to improve on the ontological paradigm used in the AutoHAN project, by expanding on how the events and channels/connections are modelled. In addition to the publish/subscribe approach used in AutoHAN, we make use of a blackboard architectural pattern to share information between devices. 
+In our approach we try to improve on the ontological par\-a\-digm used in the AutoHAN project, by expanding on how the events and channels/connections are modelled. In addition to the publish/subscribe approach used in AutoHAN, we make use of a blackboard architectural pattern to share information between devices. 
 
 
 \subsection{e-Gadgets (circa 2004)}
@@ -205,7 +205,7 @@ Synapses and plugs are viewed and modified using an \ac{GUI} editor. A concept e
 
 They also noted that the possibility to combine the functionality of devices opens up possibilities for emergent behaviour, where the emergence results from how the devices are actually used. The evaluation revealed that this can be confusing, as the user has to guess what interfaces the system allows or does not allow.
 
-In our approach we use an \ac{OWL} 2 ontology instead of \ac{DAML}+\ac{OIL}, and use a reasoning engine to perform semantic matching of device capabilities. As already mentioned earlier in this section, we tried to move beyond the traditional \ac{GUI}-based approach to configure the connections between devices. We also used different kinds of feedback and feedforward to make emergent behaviour possibilities clearer for the user.
+In our approach we use an \ac{OWL} 2 ontology instead of \ac{DAML}+\-\ac{OIL}, and use a reasoning engine to perform semantic matching of device capabilities. As already mentioned earlier in this section, we tried to move beyond the traditional \ac{GUI}-based approach to configure the connections between devices. We also used different kinds of feedback and feedforward to make emergent behaviour possibilities clearer for the user.
 
 Apart from the projects and frameworks presented here, we also want to look at the other aspects that are related to the work described in this thesis. The rest of the chapter will introduce ontologies considered to be state-of-the-art in ubiquitous computing, as well as related user interface software architectures, input device modelling methods and semantic models.
 
@@ -417,7 +417,7 @@ In a tangible interface, the physical representations (Rep-p) are computationall
 	
 	\begin{itemize}
 		\item Interaction Toolkit Component - implements the physical interaction with the user (also called physical level)
-		\item Presentation Component - provides a set of implementation-independent objects, e.g. a ``selector'' object can be implemented by both radio buttons or a drop-down menu in a GUI (also called lexical level)
+		\item Presentation Component - provides a set of im\-ple\-men\-ta\-tion-independent objects, e.g. a ``selector'' object can be implemented by both radio buttons or a drop-down menu in a GUI (also called lexical level)
 		\item Dialogue Component - does task-level sequencing and maps between domain-specific and UI-specific formalisms (also called dialogue level)
 		\item Domain Adaptor Component - triggers domain-initiated tasks, organises domain data, detects and reports semantic errors (also called functional core adapter)
 		\item Domain-specific Component - controls, manipulates and retrieves domain data
