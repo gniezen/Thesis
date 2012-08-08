@@ -1,186 +1,716 @@
 \chapter{Appendix}
 
-In Appendix A various tips \& tricks are listed for working with the applications and tools described in the thesis.
+%thimbleby
+In this appendix the final version of the ontology is given in Turtle format. It is also available to download from:\\
 
-\section{Working with Smart-M3}
+\verb+https://github.com/gniezen/ontologies/+
 
-The following was performed in \texttt{smart-m3\_v0.9.2-beta} after compiling and installing everything according to the Smart-M3 Setup Guide.\\
-
-Run:
-\begin{itemize}
-	\item \texttt{sibd} (SIB daemon)
-	\item \texttt{sib-tcp} (TCP connector to SIB daemon)
-\end{itemize}
-
-If both are installed correctly, you should be able to run them from the command-line without any problems, and they will not produce any output directly after starting up.
-
-The following Python scripts are available in \texttt{m3\_sofia\_1305.zip} on the SOFIA project website, WP5 M3 Implementation\footnote{http://www.sofia-project.eu/node/226}.
-
-When running \texttt{basic\_test.py}, you have to enter the following parameters:
-
+\footnotesize
 \begin{verbatim}
-	Manual Discovery. Enter details:
-	SmartSpace name       >test  (or any other name for the smart space)
-	SmartSpace IP Address >127.0.0.1                          	
-	SmartSpace Port       >10010
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix : <http://semantic.gerritniezen.com/ontologies/UserInteractionEvents.owl#> .
+@prefix afn: <http://jena.hpl.hp.com/ARQ/function#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix spl: <http://spinrdf.org/spl#> .
+
+<http://semantic.gerritniezen.com/ontologies/UserInteractionEvents.owl>
+    spin:imports <http://topbraid.org/spin/owlrl-all> ;
+    a owl:Ontology ;
+    owl:imports <http://spinrdf.org/spin> ;
+    owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
+
+:AdjustLevel
+    a :Functionality .
+:AdjustLevelEvent
+    a owl:Class ;
+    rdfs:subClassOf :InteractionEvent .
+:Alarm
+    a :Functionality .
+:AlarmAlertEvent
+    a owl:Class ;
+    rdfs:subClassOf :AlarmEvent .
+:AlarmEndEvent
+    a owl:Class ;
+    rdfs:subClassOf :AlarmEvent .
+:AlarmEvent
+    a owl:Class ;
+    rdfs:subClassOf :InteractionEvent .
+:AlarmRemoveEvent
+    a owl:Class ;
+    rdfs:subClassOf :AlarmEvent .
+:AlarmSetEvent
+    a owl:Class ;
+    rdfs:subClassOf :AlarmEvent, :SetEvent ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (:SetEvent
+            [
+                a owl:Restriction ;
+                owl:allValuesFrom xsd:dateTime ;
+                owl:onProperty :dataValue
+            ]
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty :dataValue
+            ]
+        )
+    ] .
+:Audio
+    a :MediaType .
+:Binary
+    a :RangeMeasure ;
+    rdfs:comment "True/False, 0 or 1"^^xsd:string .
+:Bridge
+    a owl:Class ;
+    rdfs:subClassOf :SmartObject ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (:SmartObject
+            :Sink
+            :Source
+        )
+    ] .
+:CueEvent
+    a owl:Class ;
+    rdfs:subClassOf :MediaPlayerEvent ;
+    owl:disjointWith :PlayEvent, :StopEvent .
+:Double
+    a :RangeMeasure ;
+    rdfs:comment "Capable of representing values from 0-99 (double digits)" .
+:Event
+    a owl:Class ;
+    rdfs:subClassOf owl:Thing .
+:FeedbackEvent
+    a owl:Class ;
+    rdfs:subClassOf :PreviewEvent .
+:Functionality
+    a owl:Class ;
+    rdfs:subClassOf owl:Thing .
+:IDType
+    a owl:Class ;
+    rdfs:subClassOf owl:Thing .
+:IPAddress
+    a :IDType .
+:Identification
+    a owl:Class ;
+    rdfs:subClassOf owl:Thing .
+:IncreaseLevelEvent
+    a owl:Class ;
+    rdfs:subClassOf :AdjustLevelEvent ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (:AdjustLevelEvent
+            [
+                a owl:Restriction ;
+                owl:onProperty :duration ;
+                owl:someValuesFrom xsd:integer
+            ]
+        )
+    ] .
+:IndicatorEvent
+    a owl:Class ;
+    rdfs:subClassOf :PreviewEvent .
+:InteractionEvent
+    a owl:Class ;
+    rdfs:subClassOf :Event .
+:InteractionPrimitive
+    a owl:Class ;
+    rdfs:comment "Smallest addressable interaction element 
+that has a meaningful relation to the interaction itself"^^xsd:string ;
+    rdfs:subClassOf owl:Thing .
+:MediaPath
+    a owl:Class ;
+    rdfs:subClassOf owl:Thing .
+:MediaPlayerEvent
+    a owl:Class ;
+    rdfs:subClassOf :InteractionEvent .
+:MediaType
+    a owl:Class ;
+    rdfs:subClassOf owl:Thing .
+:Music
+    a :Functionality .
+:PlayEvent
+    a owl:Class ;
+    rdfs:subClassOf :MediaPlayerEvent ;
+    owl:disjointWith :CueEvent, :StopEvent .
+:PreviewEvent
+    a owl:Class ;
+    rdfs:subClassOf :InteractionEvent .
+:RFID_Mifare
+    a :IDType .
+:RGBValues
+    a :MediaType .
+:RangeMeasure
+    a owl:Class ;
+    rdfs:subClassOf owl:Thing .
+:Real
+    a :RangeMeasure ;
+    rdfs:comment "Capable of representing more than 1000 discrete values (infinite)" .
+:SemanticTransformer
+    spin:rule [
+        sp:templates ([
+                sp:object spin:_this ;
+                sp:predicate :connectedTo ;
+                sp:subject _:A2
+            ]
+            [
+                sp:object _:A3 ;
+                sp:predicate :connectedTo ;
+                sp:subject spin:_this
+            ]
+        ) ;
+        sp:where ([
+                sp:object spin:_this ;
+                sp:predicate :canConnectTo ;
+                sp:subject _:A2
+            ]
+            [
+                sp:object _:A3 ;
+                sp:predicate :canConnectTo ;
+                sp:subject spin:_this
+            ]
+            [
+                sp:object _:A3 ;
+                sp:predicate :connectedTo ;
+                sp:subject _:A2
+            ]
+        ) ;
+        a sp:Construct
+    ], [
+        sp:templates ([
+                sp:object _:A1 ;
+                sp:predicate spin:_this ;
+                sp:subject _:A0
+            ]
+        ) ;
+        sp:where ([
+                sp:object _:A1 ;
+                sp:predicate :canConnectTo ;
+                sp:subject _:A0
+            ]
+        ) ;
+        a sp:Construct
+    ] ;
+    a owl:Class ;
+    rdfs:subClassOf owl:Thing ;
+    owl:disjointWith :SmartObject ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (:SemanticTransformer
+            [
+                a owl:Restriction ;
+                owl:cardinality "1"^^xsd:nonNegativeInteger ;
+                owl:onProperty :functionalitySource
+            ]
+        )
+    ], [
+        a owl:Class ;
+        owl:intersectionOf ([
+                a owl:Restriction ;
+                owl:onProperty :canAcceptMediaTypeFrom ;
+                owl:someValuesFrom :SmartObject
+            ]
+            [
+                a owl:Restriction ;
+                owl:onProperty :convertsMediaType ;
+                owl:someValuesFrom :SmartObject
+            ]
+        )
+    ] .
+:SetEvent
+    a owl:Class ;
+    rdfs:subClassOf :InteractionEvent .
+:Single
+    a :RangeMeasure ;
+    rdfs:comment "Capable of representing values from 0-9 (single digits)" .
+:Sink
+    a owl:Class ;
+    rdfs:subClassOf :SmartObject ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (:SmartObject
+            [
+                a owl:Restriction ;
+                owl:onProperty :functionalitySink ;
+                owl:someValuesFrom :Functionality
+            ]
+        )
+    ] .
+:SmartObject
+    spin:rule [
+        sp:templates ([
+                sp:object _:A5 ;
+                sp:predicate _:A4 ;
+                sp:subject spin:_this
+            ]
+        ) ;
+        sp:where ([
+                sp:object _:A4 ;
+                sp:predicate :functionalitySource ;
+                sp:subject spin:_this
+            ]
+            [
+                sp:object _:A4 ;
+                sp:predicate :functionalitySink ;
+                sp:subject _:A5
+            ]
+        ) ;
+        a sp:Construct
+    ], [
+        sp:templates ([
+                sp:object _:A6 ;
+                sp:predicate :hasLastEvent ;
+                sp:subject spin:_this
+            ]
+        ) ;
+        sp:where ([
+                sp:expression [
+                    sp:arg1 spin:_this ;
+                    a :getMaxDateRsc
+                ] ;
+                sp:variable _:A6 ;
+                a sp:Bind
+            ]
+        ) ;
+        a sp:Construct
+    ], [
+        sp:templates ([
+                sp:object _:A8 ;
+                sp:predicate :hasRFIDTag ;
+                sp:subject spin:_this
+            ]
+        ) ;
+        sp:where ([
+                sp:object :RFID_Mifare ;
+                sp:predicate :ofIDType ;
+                sp:subject _:A7
+            ]
+            [
+                sp:object _:A7 ;
+                sp:predicate :hasIdentification ;
+                sp:subject spin:_this
+            ]
+            [
+                sp:object _:A8 ;
+                sp:predicate :idValue ;
+                sp:subject _:A7
+            ]
+        ) ;
+        a sp:Construct
+    ] ;
+    a owl:Class ;
+    rdfs:subClassOf owl:Thing .
+:Source
+    a owl:Class ;
+    rdfs:subClassOf :SmartObject ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (:SmartObject
+            [
+                a owl:Restriction ;
+                owl:onProperty :functionalitySource ;
+                owl:someValuesFrom :Functionality
+            ]
+        )
+    ] .
+:StopEvent
+    a owl:Class ;
+    rdfs:subClassOf :MediaPlayerEvent ;
+    owl:disjointWith :CueEvent, :PlayEvent .
+:SystemEvent
+    a owl:Class ;
+    rdfs:subClassOf :Event .
+:TCPIPObject
+    a owl:Class ;
+    rdfs:subClassOf :SmartObject ;
+    owl:equivalentClass [
+        a owl:Restriction ;
+        owl:hasValue :IPAddress ;
+        owl:onProperty :hasIDType
+    ], [
+        a owl:Restriction ;
+        owl:hasValue true ;
+        owl:onProperty :communicatesByTCPIP
+    ] .
+:TimeSetEvent
+    a owl:Class ;
+    rdfs:subClassOf :SystemEvent .
+:Triple
+    a :RangeMeasure ;
+    rdfs:comment "Capable of representing values from 0-999 (triple digits)" .
+:acceptsMediaType
+    a owl:ObjectProperty .
+:canAcceptMediaTypeFrom
+    a owl:ObjectProperty ;
+    owl:inverseOf :convertsMediaType .
+:canConnectTo
+    a owl:IrreflexiveProperty, owl:ObjectProperty ;
+    owl:propertyChainAxiom (:functionalitySource
+        :functionalitySink
+    ) .
+:canIndirectlyConnectTo
+    a owl:ObjectProperty ;
+    rdfs:subPropertyOf :canConnectTo ;
+    owl:propertyChainAxiom (:canConnectTo
+        :canConnectTo
+    ) .
+:communicatesByTCPIP
+    a owl:DatatypeProperty ;
+    rdfs:domain :SmartObject ;
+    rdfs:range xsd:boolean .
+:connectedFrom
+    a owl:ObjectProperty ;
+    owl:inverseOf :connectedTo .
+:connectedTo
+    a owl:IrreflexiveProperty, owl:ObjectProperty ;
+    rdfs:domain :Source ;
+    rdfs:range :Sink .
+:convertsMediaType
+    a owl:IrreflexiveProperty, owl:ObjectProperty ;
+    owl:propertyChainAxiom (:transmitsMediaType
+        :isAcceptedMediaTypeOf
+    ) .
+:cueAt
+    a owl:DatatypeProperty ;
+    rdfs:comment "Cue at time (in milliseconds)"^^xsd:string ;
+    rdfs:domain :CueEvent ;
+    rdfs:range xsd:integer .
+:currentDateTime
+    spin:body [
+        sp:resultVariables (_:A9
+        ) ;
+        sp:where ([
+                sp:expression [
+                    a afn:now
+                ] ;
+                sp:variable _:A9 ;
+                a sp:Bind
+            ]
+        ) ;
+        a sp:Select
+    ] ;
+    a spin:MagicProperty ;
+    rdfs:subClassOf spin:MagicProperties .
+:dataValue
+    a owl:DatatypeProperty ;
+    rdfs:range xsd:anySimpleType .
+:duration
+    a owl:DatatypeProperty .
+:functionalitySink
+    a owl:ObjectProperty .
+:functionalitySource
+    a owl:ObjectProperty .
+:generatedBy
+    a owl:ObjectProperty ;
+    rdfs:range :SmartObject .
+:getMaxDateRsc
+    spin:body [
+        sp:limit "1"^^xsd:long ;
+        sp:orderBy ([
+                sp:expression _:A11 ;
+                a sp:Desc
+            ]
+        ) ;
+        sp:resultVariables (_:A10
+        ) ;
+        sp:where ([
+                sp:object spin:_arg1 ;
+                sp:predicate :generatedBy ;
+                sp:subject _:A10
+            ]
+            [
+                sp:object _:A11 ;
+                sp:predicate :inXSDDateTime ;
+                sp:subject _:A10
+            ]
+        ) ;
+        a sp:Select
+    ] ;
+    spin:constraint [
+        spl:predicate sp:arg1 ;
+        a spl:Argument ;
+        rdfs:comment "Smart object that generated the interaction event"^^xsd:string
+    ] ;
+    a spin:Function ;
+    rdfs:subClassOf spin:Functions .
+:hasIDType
+    a owl:ObjectProperty ;
+    owl:propertyChainAxiom (:hasIdentification
+        :ofIDType
+    ) .
+:hasIdentification
+    a owl:ObjectProperty ;
+    rdfs:range :Identification .
+:hasInteractionPrimitive
+    a owl:ObjectProperty .
+:hasLastEvent
+    a owl:ObjectProperty .
+:hasMediaPath
+    a owl:ObjectProperty .
+:hasRFIDTag
+    a owl:DatatypeProperty .
+:hasRangeMeasure
+    a owl:ObjectProperty ;
+    rdfs:domain :InteractionPrimitive ;
+    rdfs:range :RangeMeasure .
+:idValue
+    a owl:DatatypeProperty ;
+    rdfs:domain :Identification .
+:identificationOf
+    a owl:ObjectProperty ;
+    owl:inverseOf :hasIdentification .
+:inXSDDateTime
+    a owl:DatatypeProperty ;
+    rdfs:domain :Event ;
+    rdfs:range xsd:dateTime .
+:indirectlyConnectedTo
+    a owl:ObjectProperty ;
+    rdfs:subPropertyOf :connectedTo .
+:isAcceptedMediaTypeOf
+    a owl:ObjectProperty ;
+    owl:inverseOf :acceptsMediaType .
+:isFunctionalityOfSink
+    a owl:ObjectProperty ;
+    owl:inverseOf :functionalitySink .
+:isFunctionalityOfSource
+    a owl:ObjectProperty ;
+    owl:inverseOf :functionalitySource .
+:isInteractionPrimitiveOf
+    a owl:ObjectProperty ;
+    owl:inverseOf :hasInteractionPrimitive .
+:launchesEvent
+    a owl:ObjectProperty ;
+    owl:inverseOf :generatedBy .
+:mediaOriginator
+    a owl:ObjectProperty .
+:mediaPathOf
+    a owl:ObjectProperty ;
+    owl:inverseOf :hasMediaPath .
+:mediaSourceSO
+    a owl:ObjectProperty .
+:ofIDType
+    a owl:ObjectProperty ;
+    rdfs:domain :Identification ;
+    rdfs:range :IDType .
+:tempConnectedTo
+    a owl:ObjectProperty .
+:transmitsMediaType
+    a owl:ObjectProperty .
+_:A0
+    sp:varName "source"^^xsd:string .
+_:A1
+    sp:varName "sink"^^xsd:string .
+_:A10
+    sp:varName "lastEvent"^^xsd:string .
+_:A11
+    sp:varName "last"^^xsd:string .
+_:A2
+    sp:varName "source"^^xsd:string .
+_:A3
+    sp:varName "sink"^^xsd:string .
+_:A4
+    sp:varName "functionality"^^xsd:string .
+_:A5
+    sp:varName "sink"^^xsd:string .
+_:A6
+    sp:varName "lastEvent"^^xsd:string .
+_:A7
+    sp:varName "id"^^xsd:string .
+_:A8
+    sp:varName "tag"^^xsd:string .
+_:A9
+    sp:varName "datetime"^^xsd:string .
 \end{verbatim}
+\normalsize
 
-\texttt{basic\_test.py} then produces the following results:
+% Replace below with ontology listing
+%
+% In Appendix A various tips \& tricks are listed for working with the applications and tools described in the thesis.
+% 
+% \section{Working with Smart-M3}
+% 
+% The following was performed in \texttt{smart-m3\_v0.9.2-beta} after compiling and installing everything according to the Smart-M3 Setup Guide.\\
+% 
+% Run:
+% \begin{itemize}
+% 	\item \texttt{sibd} (SIB daemon)
+% 	\item \texttt{sib-tcp} (TCP connector to SIB daemon)
+% \end{itemize}
+% 
+% If both are installed correctly, you should be able to run them from the command-line without any problems, and they will not produce any output directly after starting up.
+% 
+% The following Python scripts are available in \texttt{m3\_sofia\_1305.zip} on the SOFIA project website, WP5 M3 Implementation\footnote{http://www.sofia-project.eu/node/226}.
+% 
+% When running \texttt{basic\_test.py}, you have to enter the following parameters:
+% 
+% \begin{verbatim}
+% 	Manual Discovery. Enter details:
+% 	SmartSpace name       >test  (or any other name for the smart space)
+% 	SmartSpace IP Address >127.0.0.1                          	
+% 	SmartSpace Port       >10010
+% \end{verbatim}
+% 
+% \texttt{basic\_test.py} then produces the following results:
+% 
+% \begin{verbatim}
+% test 127.0.0.1 10010
+% ('test', (<class smart_m3.Node.TCPConnector at 
+% 			0x1fae230>, ('127.0.0.1', 10010)))
+% --- Member of SS: ['test']
+% RDF Subscribe initial result: []
+% WQL values subscribe initial result: []
+% Subscription:
+% Added: ((u'x1', u'lives', u'Espoo'), True)
+% Added: ((u'x2', u'lives', u'Espoo'), True)
+% Subscription:
+% Added: x1 drinks (u'beer', True)
+% Querying what is being drunk
+% Subscription:
+% Added: x1 drinks (u'wine', True)
+% Removed: x1 drinks (u'beer', True)
+% QUERY: Got triple(s):  ((u'x1', u'drinks', u'wine'), True)
+% Querying: type of x1
+% 
+% Querying: is person a subtype of thing
+% QUERY: person is a subtype of thing is:  True
+% 
+% Querying: x1 and x2 related via 'knows' property
+% QUERY: x1 knows x2 is True
+% 
+% Querying: is x1 a person
+% QUERY: 'x1 is a person' is  True
+% 
+% Querying: which persons live in Espoo
+% QUERY: persons living in Espoo: [(u'x1', False), (u'x2', False)]
+% Querying: all triples
+% 
+% ...
+% 
+% Subscription:
+% Removed: ((u'x2', u'lives', u'Espoo'), True)
+% Unsubscribing RDF subscription
+% Unsubscribing WQL subscription
+% Left smart space
+% \end{verbatim}
+% 
+% While \texttt{basic\_test.py} is running, \texttt{sib-tcp} remains silent, but \texttt{sibd} produces the following results:
+% 
+% \begin{verbatim}
+% 	SUBSCRIBE: subscription SIB Tester-35053592 finished
+% 	UNSUBSCRIBE: Sent unsub cnf for sub id SIB Tester-35053592
+% 	SUBSCRIBE: subscription SIB Tester-35053592 finished
+% 	UNSUBSCRIBE: Sent unsub cnf for sub id SIB Tester-35053592
+% \end{verbatim}
+% 
+% Using \texttt{sofia\_release\_1305} from the SOFIA website is also possible by running \verb|python SIB.py X|, where X is the name of the smart space. You may then connect to the smart space using the the \texttt{basic\_test.py} program supplied.
+% \texttt{explorer.py} is a Qt-based viewer that may be used to view the triples in the triple store.
+% 
+% 
+% \section{Working with TopBraid Composer}
+% 
+% To prevent the OWL 2 RL classes from showing up in the Classes view your ontology when using TopBraid Composer, use 
+% 
+% \begin{minted}{turtle}
+% spin:imports <http://topbraid.org/spin/owlrl-all>
+% \end{minted}
+% 
+% to import them instead of \texttt{owl:imports}. This also prevents unusual syntax errors when performing constraint checking. However, it is important to still import the SPIN library using 
+% 
+% \begin{minted}{turtle}
+% owl:imports <http://spinrdf.org/spin>
+% \end{minted}
+% 
+% instead of \texttt{spin:imports}, otherwise the SPIN rules cannot be resolved properly.\\
+% 
+% To view all SPIN rules,use\\
+% 
+% Model~$\Rightarrow$~Display SPIN rules and constraints
+% 
+% 
+% 
+% \section{Setting up the environment}
+% 
+% The last version we tested was ADK-SIB v.2.0.5 (from sg1.esilab.org/sofia) with Eclipse Helios v.3.6.2.
+% 
+% When we tested v.2.0.8, it broke SSAP compatibility with the Smart-M3 implementation (used for Python KPs).
+% 
+% Eclipse Indigo is incompatible with the OSGi implementation of the ADK-SIB, where the \texttt{registerService} function now requires a \texttt{Dictionary} instead of \texttt{Properties}.
+% 
+% \section{Loading local version of an ontology when available}
+% 
+% When using the Jena API to import an ontology on the web, you can specify a local version on your computer to be used instead. This is quite useful when developing your own ontology.
+% 
+% First you need to create a file that maps your locations. Mine is called \texttt{location-mappings.ttl}: 
+% 
+% \begin{minted}{turtle}
+% @prefix lm: <http://jena.hpl.hp.com/2004/08/location-mapping#> . 
+% 
+% [] lm:mapping 
+% [ lm:name 
+% "http://sofia.gotdns.com/ontologies/SemanticConnections.owl" ; 
+% lm:altName "file:SemanticConnections.owl"  ] , 
+% [ lm:name 
+% "http://sofia.gotdns.com/ontologies/SemanticInteraction.owl" ; 
+%   lm:altName "file:SemanticInteraction.owl"  ] . 
+% \end{minted}
+% 
+% Then you define it in your code before loading the ontology: 
+% 
+% \begin{minted}{java}
+% import com.hp.hpl.jena.util.LocationMapper; 
+% 
+% LocationMapper lm= new LocationMapper("location-mapping.ttl"); 
+% LocationMapper.setGlobalLocationMapper(lm); 
+% FileManager.get().setLocationMapper(lm);
+% \end{minted}
+% 
+% If all goes well, it will load the local versions of specified imported ontologies.
+% 
+% \section{Using the SIB}
+% 
+% \subsection{Retrieving the machine's IP address}
+% The standard SOFIA version of the ADK-SIB uses the Java \texttt{get\-LocalHost()} function to get the local IP address of the machine, but this does not always work correctly. \texttt{getLocalHost()} uses the machine's network name to retrieve the IP address. In our case, the network name \texttt{ID00713} was mapped to the VNC IP address, not the public IP address. As \texttt{getLocalHost()} ignores the \texttt{hosts} file on the machine, a version of the ADK-SIB was created that uses the Java \texttt{getByName()} function instead.
+% 
+% \subsection{Packaging the SIB in an OSGi bundle}
+% The following steps were followed to create an OSGI bundle of the modified ADK-SIB:
+% 
+% \begin{itemize}
+% 	\item Get the latest version of the SOFIA ADK-SIB source code, e.g. we used v.2.0.5 in \texttt{eu.sofia.sib.osgi} from \texttt{esilab.org}.
+% 	\item Add \texttt{log4j.properties} to \texttt{build.properties} to ensure that a log file is generated.
+% 	\item For SPIN, add the following .jar files and also put them in \texttt{MANIFEST.MF} (we used version 1.2.0):
+% 	\begin{itemize}
+% 		\item spin1.2.0
+% 		\item spinbase-1.2.0
+% 		\item spin.functions
+% 		\item arq-2.8.7
+% 		\item jena-2.8.7
+% 	\end{itemize}
+% 	\item Add the above to \texttt{build.properties}, as well as \texttt{Properties}~$\Rightarrow$~\texttt{Java Build Path}
+% 	\item Remove the \texttt{extends} from the \texttt{ResultSetFormatter} function (this causes a problem with ARQ)
+% 	\item Also import \texttt{eu.sofia.adk.gateway.tcpip} and modify the Run Configuration to use the latest bundles
+% 	\item Perform Eclipse Update to get new bundles for SOFIA ADK
+% 	
+% \end{itemize}
+% 
+% 
+% \section{Useful SPARQL queries}
+% 
+% To get all datatype instances: %17/10 notebook 2
+% \begin{minted}{sparql}
+% SELECT DISTINCT ?s ?p ?o
+% WHERE {
+% 	?s ?p ?o .
+% 	FILTER (isLiteral(?o)) .
+% }
+% \end{minted}
 
-\begin{verbatim}
-test 127.0.0.1 10010
-('test', (<class smart_m3.Node.TCPConnector at 
-			0x1fae230>, ('127.0.0.1', 10010)))
---- Member of SS: ['test']
-RDF Subscribe initial result: []
-WQL values subscribe initial result: []
-Subscription:
-Added: ((u'x1', u'lives', u'Espoo'), True)
-Added: ((u'x2', u'lives', u'Espoo'), True)
-Subscription:
-Added: x1 drinks (u'beer', True)
-Querying what is being drunk
-Subscription:
-Added: x1 drinks (u'wine', True)
-Removed: x1 drinks (u'beer', True)
-QUERY: Got triple(s):  ((u'x1', u'drinks', u'wine'), True)
-Querying: type of x1
 
-Querying: is person a subtype of thing
-QUERY: person is a subtype of thing is:  True
-
-Querying: x1 and x2 related via 'knows' property
-QUERY: x1 knows x2 is True
-
-Querying: is x1 a person
-QUERY: 'x1 is a person' is  True
-
-Querying: which persons live in Espoo
-QUERY: persons living in Espoo: [(u'x1', False), (u'x2', False)]
-Querying: all triples
-
-...
-
-Subscription:
-Removed: ((u'x2', u'lives', u'Espoo'), True)
-Unsubscribing RDF subscription
-Unsubscribing WQL subscription
-Left smart space
-\end{verbatim}
-
-While \texttt{basic\_test.py} is running, \texttt{sib-tcp} remains silent, but \texttt{sibd} produces the following results:
-
-\begin{verbatim}
-	SUBSCRIBE: subscription SIB Tester-35053592 finished
-	UNSUBSCRIBE: Sent unsub cnf for sub id SIB Tester-35053592
-	SUBSCRIBE: subscription SIB Tester-35053592 finished
-	UNSUBSCRIBE: Sent unsub cnf for sub id SIB Tester-35053592
-\end{verbatim}
-
-Using \texttt{sofia\_release\_1305} from the SOFIA website is also possible by running \verb|python SIB.py X|, where X is the name of the smart space. You may then connect to the smart space using the the \texttt{basic\_test.py} program supplied.
-\texttt{explorer.py} is a Qt-based viewer that may be used to view the triples in the triple store.
-
-
-\section{Working with TopBraid Composer}
-
-To prevent the OWL 2 RL classes from showing up in the Classes view your ontology when using TopBraid Composer, use 
-
-\begin{minted}{turtle}
-spin:imports <http://topbraid.org/spin/owlrl-all>
-\end{minted}
-
-to import them instead of \texttt{owl:imports}. This also prevents unusual syntax errors when performing constraint checking. However, it is important to still import the SPIN library using 
-
-\begin{minted}{turtle}
-owl:imports <http://spinrdf.org/spin>
-\end{minted}
-
-instead of \texttt{spin:imports}, otherwise the SPIN rules cannot be resolved properly.\\
-
-To view all SPIN rules,use\\
-
-Model~$\Rightarrow$~Display SPIN rules and constraints
-
-
-
-\section{Setting up the environment}
-
-The last version we tested was ADK-SIB v.2.0.5 (from sg1.esilab.org/sofia) with Eclipse Helios v.3.6.2.
-
-When we tested v.2.0.8, it broke SSAP compatibility with the Smart-M3 implementation (used for Python KPs).
-
-Eclipse Indigo is incompatible with the OSGi implementation of the ADK-SIB, where the \texttt{registerService} function now requires a \texttt{Dictionary} instead of \texttt{Properties}.
-
-\section{Loading local version of an ontology when available}
-
-When using the Jena API to import an ontology on the web, you can specify a local version on your computer to be used instead. This is quite useful when developing your own ontology.
-
-First you need to create a file that maps your locations. Mine is called \texttt{location-mappings.ttl}: 
-
-\begin{minted}{turtle}
-@prefix lm: <http://jena.hpl.hp.com/2004/08/location-mapping#> . 
-
-[] lm:mapping 
-[ lm:name 
-"http://sofia.gotdns.com/ontologies/SemanticConnections.owl" ; 
-lm:altName "file:SemanticConnections.owl"  ] , 
-[ lm:name 
-"http://sofia.gotdns.com/ontologies/SemanticInteraction.owl" ; 
-  lm:altName "file:SemanticInteraction.owl"  ] . 
-\end{minted}
-
-Then you define it in your code before loading the ontology: 
-
-\begin{minted}{java}
-import com.hp.hpl.jena.util.LocationMapper; 
-
-LocationMapper lm= new LocationMapper("location-mapping.ttl"); 
-LocationMapper.setGlobalLocationMapper(lm); 
-FileManager.get().setLocationMapper(lm);
-\end{minted}
-
-If all goes well, it will load the local versions of specified imported ontologies.
-
-\section{Using the SIB}
-
-\subsection{Retrieving the machine's IP address}
-The standard SOFIA version of the ADK-SIB uses the Java \texttt{get\-LocalHost()} function to get the local IP address of the machine, but this does not always work correctly. \texttt{getLocalHost()} uses the machine's network name to retrieve the IP address. In our case, the network name \texttt{ID00713} was mapped to the VNC IP address, not the public IP address. As \texttt{getLocalHost()} ignores the \texttt{hosts} file on the machine, a version of the ADK-SIB was created that uses the Java \texttt{getByName()} function instead.
-
-\subsection{Packaging the SIB in an OSGi bundle}
-The following steps were followed to create an OSGI bundle of the modified ADK-SIB:
-
-\begin{itemize}
-	\item Get the latest version of the SOFIA ADK-SIB source code, e.g. we used v.2.0.5 in \texttt{eu.sofia.sib.osgi} from \texttt{esilab.org}.
-	\item Add \texttt{log4j.properties} to \texttt{build.properties} to ensure that a log file is generated.
-	\item For SPIN, add the following .jar files and also put them in \texttt{MANIFEST.MF} (we used version 1.2.0):
-	\begin{itemize}
-		\item spin1.2.0
-		\item spinbase-1.2.0
-		\item spin.functions
-		\item arq-2.8.7
-		\item jena-2.8.7
-	\end{itemize}
-	\item Add the above to \texttt{build.properties}, as well as \texttt{Properties}~$\Rightarrow$~\texttt{Java Build Path}
-	\item Remove the \texttt{extends} from the \texttt{ResultSetFormatter} function (this causes a problem with ARQ)
-	\item Also import \texttt{eu.sofia.adk.gateway.tcpip} and modify the Run Configuration to use the latest bundles
-	\item Perform Eclipse Update to get new bundles for SOFIA ADK
-	
-\end{itemize}
-
-
-\section{Useful SPARQL queries}
-
-To get all datatype instances: %17/10 notebook 2
-\begin{minted}{sparql}
-SELECT DISTINCT ?s ?p ?o
-WHERE {
-	?s ?p ?o .
-	FILTER (isLiteral(?o)) .
-}
-\end{minted}
-
-
-
+% TO HERE
 
 
 

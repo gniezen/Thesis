@@ -64,14 +64,16 @@ The background described in this section provides for interesting design challen
 
 \section{Context of the work and research questions}
 
-The work in this thesis was completed in close collaboration with another PhD candidate, Bram van der Vlist, whose thesis \cite{Bram} describes the more designer-related aspects in greater detail, whereas this thesis tends to focus on the more technical aspects of the work. Some overlap between the two theses is unavoidable, but we tried to keep this to a minimum. 
-
 The work described in this thesis was completed as part of a European research project called \ac{SOFIA}\footnote{http://www.sofia-project.eu/}. Some of the design choices were guided by collaboration with partners in the \ac{SOFIA} project. We worked with the project partners to elicit requirements and expose ourselves to other application areas, in order to gain a more holistic view of the problem.
 
 
 \subsection{The SOFIA project}\label{sofia}
 
 \ac{SOFIA} is an European research project within the ARTEMIS framework that attempts to make information in the physical world available for smart services --- connecting the physical world with the information world. The goal is to enable cross-industry interoperability and to create new user interaction and interface concepts, to enable users to benefit from smart environments. The centre of the software platform developed within \ac{SOFIA} is a common, semantic-oriented store of information and device capabilities called a \ac{SIB}. Various virtual and physical smart objects, termed \acp{KP}, interact with one another through the \ac{SIB}. The goal is that devices will be able to interact on a semantic level, utilising (potentially different) existing underlying services.
+
+%thimbleby
+\label{sofiatuple}
+The \ac{SOFIA} software platform is based on the ideas of space-based computing, where near linear scalability can be achieved using the tuple space paradigm. A tuple space is a repository of tuples, where a tuple is an ordered list of elements. Tuple-based computing has been introduced in parallel programming languages to implement communication between parallel processes \cite{Fensel2004}. Producers send their data as tuples to the space, and consumers read tuples from the space. This is also known as the blackboard metaphor.
 
 Our focus within the \ac{SOFIA} project was on the user interaction aspects of devices in the smart home environment. While most of the examples in this thesis are specific to the smart home environment, the concepts are also applicable in the wider context of ubiquitous computing, for example the smart city or smart personal spaces. %We now look at the context of the work in terms of two complementary visions described in the literature: Ubiquitous computing and ambient intelligence.
 We now consider the context of the work in terms of the vision of ubiquitous computing.
@@ -146,6 +148,9 @@ The thesis aims to answer a number of research questions. In the previous sectio
 How can we use an ontology to model user interaction and devices in a smart environment consisting of multiple devices and multiple interactions? 
 \end{question}
 
+%thimbleby
+Related work on ontologies \cite{Chen2004,Ranganathan2004,Ngo2004}, described in more detail in the next chapter, focused mainly on modelling context and basic device properties. The ontologies created as part of the work described in this thesis is not only an attempt to model device capabilities in more detail, but to our knowledge is also the first attempt to model user interaction in a smart environment. 
+
 %This question is addressed in Chapters \ref{DeviceCapabilityModelling}, \ref{EventModelling} and \ref{OntologyEngineering}. %How can interaction events be modeled, represented and reasoned about using a ontology language?
 
 % TODO Discuss http://en.wikipedia.org/wiki/Publish/subscribe, or change to blackboard pattern
@@ -155,6 +160,9 @@ In the \ac{SOFIA} project, \acp{KP} communicate with a message broker using the 
 \begin{question}
 How suitable is the blackboard architectural pattern for handling ontology-based ubiquitous computing environments? 
 \end{question}
+
+%thimbleby
+The advantage of a blackboard architecture is that it decouples reference, time and space \cite{Fensel2004}. Communicating processes do not need to explicitly know each other, i.e. reference-wise they are decoupled. The blackboard guarantees persistent storage, such that communication can be asynchronous and decoupled time-wise. As long as they have access to the same blackboard, processes can run anywhere, decoupling them space-wise. We can compare the performance of our implementation against related work on blackboard-based architectures for ubiquitous computing environments \cite{Winograd2005,Etelapera2011}. 
 
 %Chapter \ref{SoftwareArchitecture} seeks to answer this question.
 
@@ -219,6 +227,19 @@ How should feedback be provided in a networked user interface consisting of mult
 %there should be a separate section "approach" or "methodology", to present the methods and the process of the investigation, and in answering the research questions.
 
 An iterative design methodology \cite{Larman2003} was followed for the work described in this thesis. This cyclic process, shown Figure \ref{methodology}, consists of three steps -- design, implementation and evaluation -- where the results of the previous iteration are used as input for the next iteration. Iterative design is commonly used in the development of human-computer interfaces, but applies to many fields, including industrial design and software engineering.
+
+%thimbleby
+The research described in this thesis can be aligned to the triangulation framework of Mackay and Fayard \cite{Mackay1997}, as shown in Figure \ref{roadmap}. This framework integrates scientific and design models, by combining the deductive and inductive approaches with the design approach. With the deductive approach, research originates from theory, whereas with the inductive approach the research originates from observations. With the design approach, designers and engineers use guidelines and requirements as input to iterative prototypes used to construct a final product.
+
+The framework shows how the design iterations are related to the constructed theories and models, as well as the evaluations and observations. The framework provides a roadmap of the work described in this thesis, where the relevant chapters are indicated in the figure.
+  
+\begin{figure}
+\centerline{
+\includegraphics[width=450px]{Roadmap}}
+\caption{The research approach used in the thesis}
+\label{roadmap}
+\end{figure}
+
 
 \section{Outline of the thesis}
 

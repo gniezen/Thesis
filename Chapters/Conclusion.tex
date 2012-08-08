@@ -46,6 +46,13 @@ Chapter \ref{SoftwareArchitecture} in this thesis can act as a reference design 
 \marginpar{The \O MQ protocol, mentioned in Section \ref{ssap}, can run with or without a dedicated message broker.}
 However, having a centralised information broker is only one solution. Hybrid approaches using both centralised and decentralised techniques should also be explored.   
 
+%thimbleby
+The EventHeap system, first mentioned in Section \ref{eventheap}, also used a tuple space protocol to establish communication between devices. A performance evaluation on a Pentium II 450MHz with 256MB of RAM shows that the system can provide latency below 100 ms for 12 different applications each generating and receiving 10 events per second \cite{Johanson2002}. Our query time measurements in Section \ref{results} were also all below 100 ms. For subscription measurements, however, where time is also required for reasoning, our system performs slower. As already discussed in Section \ref{resultsdiscussion}, the reasoning improves the flexibility and capabilities of the system to such an extent that it is worth the hit in performance.
+
+Johanson and Fox \cite{Johanson2002} noted that both latency and scalability in an interactive environment are bounded by social constraints and human factors. Scalability is bounded by the number of people and devices interacting with one another to solve some problem, while latency on a local subnet is usually fast enough to be imperceptible to humans.
+
+
+
 
 
 \section{Ontologies}
@@ -53,6 +60,14 @@ However, having a centralised information broker is only one solution. Hybrid ap
 Most systems use programming language objects to represent knowledge about their environment. Because these representations require an a priori agreement on how they will be implemented in a system, they do not facilitate knowledge sharing in an open and dynamic environment \cite{Chen2004}. Based on our work, we believe strongly that using ontologies to describe and reason about smart environments have a lot of potential.  
 	
 Semantic Web technologies are well suited to ubiquitous computing scenarios. They have been designed to work at Web scale, they provide interoperability between heterogeneous data sources, and they rely on existing Web standards which allow for easy adoption \cite{Sabou2010}.
+
+%thimbleby
+\marginpar{The model checker is called SPIN (Simple Promela Interpreter), with no relation to the SPIN rules described elsewhere in this thesis.}
+One alternative to semantic reasoning and ontologies is to use verification modelling languages and model checkers. Calder et al \cite{Calder2009} used the Promela language to represent the ruleset of an event-driven, context-aware homecare activity monitor system. Promela is a C-Like state-based language for modelling communicating, concurrent processes. A model checker was used to perform redundancy checking. Verification times for a ruleset of eight rules varied between 12 and 34 minutes. A specialised SAT\footnote{SAT is an abbreviation for the Boolean satisfiability problem in computer science.} solver only took around 15ms to solve each instance as a SAT model, but converting the rule set to SAT models and then performing redundancy checking takes around 5 seconds.
+\marginpar{Reasoning times are shown in the experimental results in Section \ref{results}.} Our average reasoning time of 275 ms for a ruleset of similar size compares very favourably to their results. It should be noted that they were investigating using semantics and ontologies to perform verification as part of their future work.
+
+
+
 
 \section{Low cost, high tech}
 
@@ -66,6 +81,11 @@ In their book on mobile interaction design, Jones and Marsden \cite{Jones2006} d
 
 
 \section{Future work}
+
+%thimbleby
+The ontologies developed as part of the work described in this thesis are considered a good starting point for future work. While they provide a good foundation for modelling device capabilities and interaction events, they cannot be considered comprehensive yet, due to the sheer number of devices out there. However, being written in \ac{OWL} 2 and \ac{SPIN} means that they can be easily extended.
+
+Concepts introduced in the thesis, like semantic transformers and interaction primitives, can be improved upon. Interaction primitives do not yet fully describe all the possible user interaction capabilities of smart objects, while the features of semantic transformers can also be extended. The software architecture and ontologies were deployed and evaluated in the smart home environment, but could also be applied to other environments, like smart personal spaces or the smart city.
 
 One aspect that we would like to explore in future is to study the possibilities of minimising information overload in more detail. It should be possible to adapt the amount of information in the environment to your mood, for example whether you want to increase your performance, or just want to focus on relaxation and enjoyment.
 

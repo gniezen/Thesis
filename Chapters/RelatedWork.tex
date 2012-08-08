@@ -67,7 +67,7 @@ What can be learned from the SpeakEasy project is the importance of describing t
 
 
 \subsection{EventHeap (circa 2000-2005)}
-
+\label{eventheap}
 Stanford University's shared event system, called the EventHeap, provides a base set of capabilities that link devices in a room \cite{Winograd2005}. It allows users to move data and applications between areas, for example redirecting a pointer from one device to another. \marginpar{We explored similar interaction techniques during the development of the Spotlight Navigation device, see Section \ref{SpotlightNavigation} and \cite{Rapp2010}.}One of these devices, the DynaWall, is a wall-size touch-sensitive interactive display. Gesture-based interaction facilitates moving information objects from the wall from one side to another, by throwing and shuffling visual objects with different accelerations and sounds.
 
 During the development of their system, they identified the following design guidelines:
@@ -79,7 +79,9 @@ During the development of their system, they identified the following design gui
 	\item Interaction techniques - A long, large wall needs an interaction technique suited to its size and location (such as DynaWall's throwing and shuffling technique).
 \end{itemize}
 
-A tuple space is a repository of tuples, where a tuple is an ordered list of elements. Devices in EventHeap use a \emph{tuple space protocol} to communicate with one another, where particular tuples have meaning to certain parties \cite{Edwards2001}. This semantic agreement between parties is implemented by the developer, for example a tuple representing a request to scan an image.
+%A tuple space is a repository of tuples, where a tuple is an ordered list of elements. 
+\marginpar{Tuple spaces were first discussed in Section \ref{sofiatuple}.}
+Devices in EventHeap use a \emph{tuple space protocol} to communicate with one another, where particular tuples have meaning to certain parties \cite{Edwards2001}. This semantic agreement between parties is implemented by the developer, for example a tuple representing a request to scan an image.
 
 The iStuff toolkit \cite{Ballagas2003} was developed within Stanford to explore post-\ac{GUI} interaction techniques, and makes use of the EventHeap system. The iStuff toolkit allows users to map wireless input devices like buttons, sliders, wands, speakers and microphones to different applications running on devices like the DynaWall.
 
