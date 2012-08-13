@@ -4,7 +4,7 @@
 \begin{flushright}{\slshape    
 Statistics are a little like anarchists: \\
 if you force them to stay in line, you're begging for trouble.} \\ \medskip
-    --- Sarah Slobin, Graphics Editor, The Wall Street Journal
+    --- Sarah Slobin \cite{Slobin2010}, Graphics Editor, The Wall Street Journal
 \end{flushright}
 
 \marginpar{Parts of this chapter have previously appeared in \cite{Niezen2012}.}
@@ -80,7 +80,7 @@ In the smart home pilot, media content is shared among several devices in a smar
 \end{table}
 % OMAP 3430
 
-Figure \ref{soundLight} and Figure \ref{connectorseq} show the sequence diagrams of the measurements made for the \ac{SLT} \ac{KP} and the Connector \ac{KP} respectively. During the pilot, 86 measurements were made by the \ac{SLT} \ac{KP} -- each time an event was received. 961 measurements were made by the Connector \ac{KP} -- each time a user scans a tag. Note that the query name in \ref{connectorseq} could differ between subsequent queries, as the user could be scanning a different tag every tames.
+Figure \ref{soundLight} and Figure \ref{connectorseq} show the sequence diagrams of the measurements made for the \ac{SLT} \ac{KP} and the Connector \ac{KP} respectively. During the pilot, 86 measurements were made by the \ac{SLT} \ac{KP} -- each time an event was received. 961 measurements were made by the Connector \ac{KP} -- each time a user scans a tag. Note that the query name in \ref{connectorseq} could differ between subsequent queries, as the user could be scanning a different tag every time.
 
 \begin{figure}
 \centering
@@ -259,9 +259,9 @@ For the music player \ac{KP}, most subscription notifications completed in an av
 
 \begin{table}
     \myfloatalign
-  \begin{tabularx}{\textwidth}{llllll} 
+  \begin{tabularx}{450px}{llllll} 
 	\toprule
-    \tableheadline{Component} & \tableheadline{Nr. of obs.} & \tableheadline{Min.} & \tableheadline{Max.} & \tableheadline{Mean} & \tableheadline{Std. dev.} \\ 
+    \tableheadline{Component} & \tableheadline{Nr. of obs.} & \tableheadline{Min. (s)} & \tableheadline{Max. (s)} & \tableheadline{Mean (s)} & \tableheadline{Std. dev. (s)} \\ 
     \midrule
 
 	Music Player KP & 264 & 0.074 & 9.975 & 0.861 & 1.017\\
@@ -297,18 +297,18 @@ There is a slow but steady increase in the number of triples as new events get a
 
 \begin{table}
     \myfloatalign
-  \begin{tabularx}{\textwidth}{lllllll} 
+  \begin{tabularx}{450px}{lllllll} 
 	\toprule
     \tableheadline{Component} & \tableheadline{Nr. of obs.} & \tableheadline{Min.} & \tableheadline{Max.} & \tableheadline{Mean} & \tableheadline{Std. dev.} \\ 
     \midrule
 
-	Model size	& 5158 & 1346 &	3396 &	2916.7 & 201.07 \\
+	Model size (nr of triples) & 5158 & 1346 &	3396 &	2916.7 & 201.07 \\
 	Inferred model size &	5158 &	1369 &	1819 &	1501.8 & 107.6 \\
-	Reasoning time & 5158 &	181 & 2912 & 274.99 & 152.96 \\
+	Reasoning time (ms) & 5158 & 181 & 2912 & 274.99 & 152.96 \\
 	
     \bottomrule
   \end{tabularx}
-  \caption{Summary statistics for asserted and inferred model sizes and reasoning time}\label{summarySIB}
+  \caption{Summary statistics for asserted and inferred model sizes and reasoning time, with model size indicated as number of triples}\label{summarySIB}
 \end{table}
 
 
@@ -448,14 +448,14 @@ Three additional questions not directly related to the cognitive dimensions, but
 
 \subsection{Results}
 
-
+%wensveen
 \subsubsection{Levels of abstraction}
 \label{LevelsOfAbstraction}
 \begin{quote}
 	\emph{Were you able to define your own concepts and terms using the system and ontology? Did you make use of different levels of abstraction?} An abstraction is a grouping of elements to be treated as one entity. In the ontology, these are defined as superclasses and subclasses, e.g. \texttt{PlayEvent} is a subclass of \texttt{MediaPlayerEvent}. Please indicate to what extent you made use of different levels of abstraction. If you did not use it, please indicate why.
 \end{quote}
 
-Most developers were able to make use of the existing concepts as defined, where the definition included different abstraction levels. Where necessary, developers were able to define their own concepts using different abstraction levels. Some of the developers used a simple ontology that did not require different levels of abstraction. As the level of knowledge about ontologies differed between different parties working on the same project, this necessitated the simplification of the ontology to a schema without semantics in some cases. Others avoided ontological reasoning altogether by embedding the logic in the \ac{KP} itself.
+Most developers (14 out of 17) were able to make use of the existing concepts as defined, where the definition included different abstraction levels. Where necessary, developers (7 out of 17) were able to define their own concepts using different abstraction levels. One group used a simple ontology that did not require different levels of abstraction. As the level of knowledge about ontologies differed between different parties working on the same project, this necessitated the simplification of the ontology to a schema without semantics in some cases. One group avoided ontological reasoning altogether by embedding the logic in the \ac{KP} itself.
 
 
 \subsubsection{Closeness of mapping}
@@ -467,7 +467,7 @@ Most developers were able to make use of the existing concepts as defined, where
 \end{quote}
 
 
-Most of the developers experienced a clear, consistent mapping, with the domain mapped to already available components. In a few cases, developers developed their own components.
+Most of the developers (13 out of 17) experienced a clear, consistent mapping, with the domain mapped to already available components. In a few cases, developers developed their own components from scratch, or in addition to the available components (5 out of 17).
 
 While it was easy to achieve the required functionality, it remains difficult to achieve component re-use. This becomes problematic for achieving emergent intelligent behaviour. 
 It was also stated that more detailed descriptions of device capabilities, for example the coverage area of a presence sensor, are required.
@@ -480,7 +480,7 @@ It was also stated that more detailed descriptions of device capabilities, for e
 	Are there places where some things ought to be similar, but the ontology defines them differently? Please give examples.
 \end{quote}
 
-Most developers thought that similar entities in the ontology were subclassed correctly. It was indicated that \texttt{owl:sameAs} may be useful to indicate that different terms with the same meaning are in fact the same thing.
+Most developers (9 out of 13 - 4 developers chose not to answer this question) thought that similar entities in the ontology were subclassed correctly. It was indicated that \texttt{owl:sameAs} may be useful to indicate that different terms with the same meaning are in fact the same thing.
 
 Afterwards we realised that developers not well acquainted with ontologies found it difficult to understand the difference between declaring entities using \texttt{rdfs:sub\-Class\-Of} and declaring them as individuals or instances, as well as how to model an entity that contains another entity.
 
@@ -495,11 +495,11 @@ Concepts need a clear textual description and usage examples to make them easier
 	How difficult is it to make changes to your program, the ontology or the system? For example, was it necessary to make a global change by hand because no global update tools were available?
 \end{quote}
 
-Although different domains used different terms to define ontological concepts, most developers found it quite easy to make changes for ontological agreement. However, changes to the ontology sometimes necessitated changes at code level. In most cases, it was easier to adapt to changes on a semantic level, as the \ac{KP} domain boundaries were well defined.
+Although different domains used different terms to define ontological concepts, most developers (10 out of 17) found it quite easy to make changes for ontological agreement. However, changes to the ontology sometimes necessitated changes at code level. In most cases, it was easier to adapt to changes on a semantic level, as the \ac{KP} domain boundaries were well defined.
 
 Using ontologies made it easier to allow for definition changes at run-time. Depending on the inferencing method used, changes to the ontology could require some existing inferences to be removed. 
 
-One developer working with an embedded system found changes to be more difficult to implement, as it still required rebuilding images and downloading them to embedded boards for each modification. Some found it difficult to view changes made to the environment, due to a lack of tools to explore the contents of the \ac{SIB}.
+One developer working with an embedded system found changes to be more difficult to implement, as it still required rebuilding images and downloading them to embedded boards for each modification. Another developer found it difficult to view changes made to the environment, due to a lack of tools to explore the contents of the \ac{SIB}.
 
 
 \subsubsection{Role expressiveness}
@@ -509,7 +509,7 @@ One developer working with an embedded system found changes to be more difficult
 	How easy is it to answer the question: 'What is this bit for?' Which parts are difficult to interpret?
 \end{quote}
 
-Most responses indicated that the ontology was easy to understand. More clarifying comments inside the ontology could be useful - this can be implemented using the \texttt{rdfs:comment} field. Some developers indicated that application ontologies (ontologies that are device-specific) were still hard to interpret. 
+Most responses (12 out of 17) indicated that the ontology was easy to understand. More clarifying comments inside the ontology could be useful - this can be implemented using the \texttt{rdfs:comment} field. One developer indicated that application ontologies (ontologies that are device-specific) were still hard to interpret. 
 
 Some concepts might be instinctively interpreted differently, but the defined meaning became clear when viewed in context with the rest of the ontology. The ontology provides the structure that is necessary to make sense of the concepts.
 
@@ -521,7 +521,7 @@ Some concepts might be instinctively interpreted differently, but the defined me
 	Did some things seem especially complex or difficult to work out in your head (e.g. when combining several things)? What are they?
 \end{quote}
 
-Multiple developers indicated that ontologies are not an easy concept to grasp and that common practice is not always clear. Once familiar with ontologies, and understanding the specific ontologies involved, developers thought they were easy to use.  
+5 of the 17 developers indicated that ontologies are not an easy concept to grasp and that common practice is not always clear. Once familiar with ontologies, and understanding the specific ontologies involved, developers thought they were easy to use.  
 
 There is still effort required to make the system adaptive. This issue is also mentioned in Section \ref{resultsCloseness}.
 
@@ -533,7 +533,7 @@ There is still effort required to make the system adaptive. This issue is also m
 	Did you often find yourself making small slips that irritate you or make you feel stupid? What are some examples?
 \end{quote}
 
-Some developers found it quite easy to mistype string literals, indicating that it would be better to define entities to represent strings that occur more than once. Mistyping URIs was another common error, as well as mixing up namespaces. Developers not familiar with ontologies also mixed up or misunderstood the differences between URIs and literals.
+At least two developers found it quite easy to mistype string literals, indicating that it would be better to define entities to represent strings that occur more than once. Mistyping URIs was another common error, mentioned by two developers. One developer mentioned mixing up namespaces as an error that commonly occurred. Developers not familiar with ontologies also mixed up or misunderstood the differences between URIs and literals.
 
 \subsubsection{Hidden dependencies}
 
@@ -542,13 +542,13 @@ Some developers found it quite easy to mistype string literals, indicating that 
 	What kinds of dependencies were hidden? How difficult was it to test the implemented system? Were there hidden faults that were difficult to find?
 \end{quote}
 
-Multiple developers noted that using ontologies made the relationships among entities/parts more visible. 
+Three developers noted that using ontologies made the relationships among entities/parts more visible. 
 
 Changes to the ontology may affect others, therefore versioning and update notification are important. In the system used no errors were raised when components adhered to different versions of the ontology. Broken dependencies were only visible when the overall system failed.
 
 One developer indicated that the publish/subscribe approach followed by the system architecture allowed for minimal dependencies due to loose coupling.
 
-Some developers noted that it was difficult to determine when something did not work. This was especially noticeable in the case of subscriptions, were it becomes really difficult to understand why a certain subscription-based notification was not received.
+Three developers noted that it was difficult to determine when something did not work. This was especially noticeable in the case of subscriptions, were it becomes really difficult to understand why a certain subscription-based notification was not received.
 
 One developer suggested that an ontology viewer could be used to make dependencies more visible, and that the Prot\'eg\'e ontology editor is too complex for most users.\marginpar{The Prot\'eg\'e ontology editor was first mentioned in Section \ref{D2Discussion}.}
 
@@ -570,16 +570,19 @@ This question was based on a survey done by \cite{Robillard2009} to determine as
 Responses included:
 
 \begin{itemize}
-	\item Lack of background in ontologies
-	\item Poor documentation
-	\item Insufficient code examples
-	\item \ac{SSAP} poorly documented\marginpar{\ac{SSAP} is described in more detail in Section \ref{ssap}.}
-	\item Difficult setup and installation procedure
-	\item Lack of proper tools for viewing and exploring contents of \ac{SIB}
-	\item Reliability of subscription mechanism, especially on wireless networks
-	\item QNames not supported on all platforms, requiring full \ac{URI} to be specified\marginpar{QNames enable full \acp{URI} to be substituted by short prefixes.}
-	\item Ontology agreement
-	\item Stability, performance, network issues
+	\item Stability, performance, network issues (6 responses)
+	\item Lack of background in ontologies (4 responses)
+	\item Difficult setup and installation procedure (4 responses)
+	\item Poor documentation (3 responses)
+	\item Lack of proper tools for viewing and exploring contents of \ac{SIB} (2 responses)
+	\item Insufficient code examples (1 response)
+	\item \ac{SSAP} poorly documented (1 response)\marginpar{\ac{SSAP} is described in more detail in Section \ref{ssap}.}
+
+
+	\item Reliability of subscription mechanism, especially on wireless networks (1 response)
+	\item QNames not supported on all platforms, requiring full \ac{URI} to be specified (1 response)\marginpar{QNames enable full \acp{URI} to be substituted by short prefixes.}
+	\item Ontology agreement (1 response)
+
 \end{itemize}
 \vspace{0.5cm}
 
@@ -591,12 +594,12 @@ Responses included:
 Responses included:
 
 \begin{itemize}
-	\item Decoupling of interaction between components (i.e. all communication through broker, but could be single point of failure)
-	\item Semantic interoperability between different devices, manufacturers and architectures
-	\item Easy and quick to define new applications based on ontologies (after training)
-	\item Using semantic connections to connect devices
-	\item Ontology usable in different domains and more complex scenarios
-	\item Ability to react to context changes through subscriptions
+	\item Semantic interoperability between different devices, manufacturers and architectures (6 responses)
+	\item Ontology usable in different domains and more complex scenarios (3 responses)
+	\item Easy and quick to define new applications based on ontologies (3 responses)
+	\item Decoupling of interaction between components, i.e. all communication through broker, but could be single point of failure (2 responses)
+	\item Using semantic connections to connect devices (1 response)
+	\item Ability to react to context changes through subscriptions (1 response)
 \end{itemize}
 
 
@@ -610,22 +613,23 @@ One respondent had the following insight: ``Once you have agreed on the ontologi
 Responses included:
 
 \begin{itemize}
-
-	\item \ac{SIB} discovery
-	\item Agreement on ontological concepts to be used by a technical group
-	\item Tools for ontology design (currently external tools are required)
-	\item Better documentation
-	\item Self-description of UI concepts and component functionality 
-	\item Hierarchic Smart Spaces
-	\item Locality/routing/separation of message buses
-	\item Authentication/security/locking
-	\item Forcing a programming paradigm like \ac{OOP} influences semantic treatment
-	\item How to handle faulty smart objects
+	\item Tools for ontology design, as currently external tools are required (2 responses)
+	\item Authentication/security/locking (2 responses)
+	\item \ac{SIB} discovery (1 response)
+	\item Agreement on ontological concepts to be used by a technical group (1 response)
+	
+	\item Better documentation (1 response)
+	\item Self-description of UI concepts and component functionality (1 response)
+	\item Hierarchic Smart Spaces (1 response)
+	\item Locality/routing/separation of message buses (1 response)
+	
+	\item Forcing a programming paradigm like \ac{OOP} influences semantic treatment (1 response)
+	\item How to handle faulty smart objects (1 response)
 \end{itemize}
 
 \marginpar{These results were communicated by the author to the other project partners in the \ac{SOFIA} project at a review meeting.}
 
-\subsection{Discussion}
+\subsection{Discussion \& Conclusion}
 
 % Every notation highlights some kinds of information at the expense of obscuring other kinds \cite{Green1996}. For example, rule-based languages highlight conditions under which certain actions are taken, while it hides the sequential ordering of these actions. There must also be a cognitive fit between the mental representation and external representation. For example, if your mental representation is in control flow form, a data flow language will be difficult to use. 
 
@@ -636,6 +640,9 @@ For the ontologies we defined, there seems to be clear mapping between objects i
 When creating an ontology, it is important to provide clear textual descriptions, clarifying comments and usage examples for concepts to make them easier to understand. The GoodRelations e-commerce ontology is a good example of how this can be achieved.\marginpar{GoodRelations was first discussed in Section \ref{goodrelations}.}
 
 Tools to explore the contents of the triple store more efficiently could decrease viscosity, as it would simplify viewing changes made to the environment and make dependencies more visible. Existing ontology viewers are still considered complex to use, usually only by ontology experts. Tools to automatically detect namespaces and prevent mistyping of \acp{URI} and strings used in the ontology would also be very useful.
+
+%wensveen
+Even though the Semantic Web community has been working on improving ontology standards for more than a decade, the main hurdle to adoption seems to be developers' unfamiliarity with ontologies. Education and more examples of successful implementations could help to alleviate this problem. The other issue that needs to be addressed is improving the tools used to create and view ontologies. 
 
 %There is still effort required to make the system adaptive in order to achieve emerging behaviour. There is not enough component re-use, which may be due to lack of knowledge of existing components and their behaviour. Existing components should be easy to repurpose and shared behaviour must be properly documented. 
 

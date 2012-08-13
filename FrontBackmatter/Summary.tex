@@ -1,4 +1,5 @@
 \cleardoublepage
+%\pagenumbering{gobble}
 \pagestyle{empty}
 
 %*******************************************************
@@ -12,6 +13,16 @@
 \let\cleardoublepage\relax
 
 \chapter*{Summary}
+
+\begingroup
+    \spacedallcaps{\myTitle} \\ 
+\endgroup
+
+\begingroup
+\noindent
+\spacedlowsmallcaps{\mySubtitle}\\ \bigskip
+\endgroup
+
 The thesis describes the design and development of an ontology and software framework to support user interaction in ubiquitous computing scenarios. The key goal of ubiquitous computing is ``serendipitous interoperability'', where devices that were not necessarily designed to work together should be able to discover each other's functionality and be able to make use of it. Future ubiquitous computing scenarios involve hundreds of devices. Therefore, anticipating all the different types of devices and usage scenarios a priori is an unmanageable task.
 
 An iterative approach was followed during the design process, with three design iterations documented in the thesis. The work was done in close cooperation with designers and other project partners, in order to elicit requirements and maintain a more holistic view of the various application areas.

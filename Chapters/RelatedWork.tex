@@ -6,7 +6,7 @@ computing is about what users can do. Successful technologies\\
 are those that are in harmony with users' needs. They must \\
 support relationships and activities that enrich the users' \\
 experiences. } \\ \medskip
-	    --- Ben Shneiderman
+	    --- Ben Shneiderman \cite{UbiquityStaff2002}, computer scientist
 	\end{flushright}
 
 In this chapter we describe related work. The work can be related in several ways, depending on which aspect of the work is considered. Therefore the chapter is subdivided into five sections, each devoted to one aspect. These are related projects and frameworks (Section \ref{RelatedProjects}), ubicomp ontologies (Section \ref{UbicompOntologies}), user interface software architectures (Section \ref{uisa}), modelling input devices (Sections \ref{interactionTasks}) and semantic models (Section \ref{SemanticModels}).
@@ -25,7 +25,7 @@ In the field of ubiquitous computing there are a substantial number of past and 
 \begin{itemize}
 	\item Serendipitous interoperability, as addressed by the \emph{recombinant computing} approach of the SpeakEasy project
 	\item Sharing information between devices, as addressed by the Event\-Heap shared event system and its \emph{tuple space protocol}
-	\item Using one device to control another, as addressed by the \emph{opportunistic assemblies} of the the XWeb architecture
+	\item Using one device to control another, as addressed by the \emph{opportunistic assemblies} of the XWeb architecture
 	\item Multi-device user interaction, as addressed by the \emph{Media Cubes} of the AutoHAN project
 	\item Configuring connections between devices, as addressed by the \emph{plug-synapse model} of the e-Gadgets project
 \end{itemize}
@@ -96,7 +96,7 @@ Patch Panel \cite{Ballagas2004} is a mechanism in the iStuff toolkit that tries 
 Existing toolkits like iStuff do not provide support for the association of high-level semantics to physical objects \cite{Shaer2004}. While our approach to sharing information between devices is similar to that of EventHeap and Patch Panel, it differs in in the following ways:
 
 \begin{itemize}
-    \item We use ontologies describe device capabilities and interaction events
+    \item We use ontologies to describe device capabilities and interaction events
     \item We use semantic reasoning to improve interoperability between devices
     \item Tangible interaction is used instead of \ac{GUI}-based interaction to configure connections
 \end{itemize}
@@ -218,7 +218,7 @@ In this section we will look at the various ubicomp ontologies that have been de
 %We also hope to use the low-level events and command currently implemented in the system to automatically infer higher-level tasks and goals, with the final step being able to model the user's (and/or agent's) intentions using an ontology.
 
 % start SISS2010
-\subsection{SOUPA}
+\subsection{SOUPA (circa 2004)}
 
 Chen et al. \cite{Chen2004} created \ac{SOUPA}, a context ontology based on \ac{OWL}, to support ubiquitous agents in their \ac{CoBrA}. The ontology supports describing devices on a very basic level (e.g. typical object properties are \texttt{bluetoothMAC} or \texttt{modelNumber}), but it has no explicit support for modelling more general device capabilities.
 
@@ -252,7 +252,7 @@ When the goals, plans, desires, and beliefs of different agents are explicitly r
 MoGATU \ac{BDI}, an ontology developed by the same research group that developed \ac{SOUPA} at the University of Maryland \cite{Yesha2004}, describes an abstract semantic model for representing and computing over a user's or an agent's profile in terms of their prioritised and temporally ordered actions, beliefs, desires, intentions and goals. \ac{SOUPA} uses this model to help independent agents to share a common understanding of their ``mental'' states, so that they can cooperate and collaborate. The agents also help to reason about the intentions, goals, and desires of the human users of a system. 
 
 
-\subsection{Gaia}
+\subsection{Gaia (circa 2004-2007)}
 % Nixon and Ye worked on this
 Ranganathan et al \cite{Ranganathan2004} developed an uncertainty model based on a predicate representation of contexts and associated confidence values. They incorporated this model into Gaia, a distributed middleware system for pervasive computing. Contexts are represented as predicates, following the convention that the predicate's name is the type of context being described (such as location, temperature, or time). This gives a simple, uniform representation for different kinds of contexts. Some contexts (such as \texttt{office}) are certain, whereas others (such as \texttt{location} and \texttt{activity}) might be uncertain. Uncertainty is modelled by attaching a confidence value between 0 and 1 to predicates. The context model is represented using \ac{DAML}+\ac{OIL}.
 
@@ -271,7 +271,7 @@ While Gaia's focus was on modelling the uncertainty of context in ubiquitous com
 
 
 
-\subsection{CAMUS}
+\subsection{CAMUS (circa 2004-2005)}
 
 Ngo et al. \cite{Ngo2004} developed the \ac{CAMUS} ontology in \ac{OWL} to support context awareness in ubiquitous environments. Their device ontology is based on the \ac{FIPA} device ontology specification\footnote{http://www.fipa.org/specs/fipa00091/SI00091E.html}, with every \texttt{Device} having the properties of \texttt{hasHWProfile}, \texttt{hasOwner}, \texttt{has\-Service} and \texttt{hasProductInfo}. Devices are further classified into \texttt{AudioDevice}, \texttt{MemoryDevice}, \texttt{DisplayDevice}, or \texttt{NetworkDevice}. For audio, the \texttt{hasParameter} property has the \texttt{Audio\-Parameter} class as range, with subclasses like \texttt{ACDC\-Parameter}, \texttt{In\-ten\-si\-ty} and \texttt{Harmonicity\-Ratio}. %Unfortunately it does not define a notion of completeness, and the ontology is thus not considered generic enough for general use in ubicomp environments.
 
@@ -402,7 +402,7 @@ In a tangible interface, the physical representations (Rep-p) are computationall
 	
 \subsubsection{Arch/Slinky model}
 	
-	Bass et al \cite{Bass1992} contend that no single software architecture will satisfy all the design goals of an interactive system. With the Arch/Slinky model the buffering of a system from changes in technology was selected as the most important criterium. Here are some of the other design criteria they defined, which we consider to be especially important to ubiquitous computing systems:
+	Bass et al \cite{Bass1992} contend that no single software architecture will satisfy all the design goals of an interactive system. With the Arch/Slinky model the buffering of a system from changes in technology was selected as the most important criterion. Here are some of the other design criteria they defined, which we consider to be especially important to ubiquitous computing systems:
 	
 	\begin{itemize}
 		\item target system performance (e.g. size and speed)
@@ -544,7 +544,7 @@ In this section we looked at how user interface software architectures can be us
 
 \subsection{Foley's taxonomy and its extensions}
 	
-	Foley \cite{Foley1984} describes a taxonomy of input devices that are structured according the graphic subtasks they can perform: position, orientation, select, path, quantify and text entry. He defined these subtasks as six \acp{BIT}. A \ac{BIT} is the smallest unit of information entered by a user that is meaningful in the context of the application. He noted that there are far too many interaction techniques to give an exhaustive list, and that it is impossible to to anticipate which new techniques may be created. In Table \ref{InteractionTasks} we map them to possible logical and physical interaction devices. The six types of logical devices were also defined by Foley in \cite{Foley1996}.
+	Foley \cite{Foley1984} describes a taxonomy of input devices that are structured according to the graphic subtasks they can perform: position, orientation, select, path, quantify and text entry. He defined these subtasks as six \acp{BIT}. A \ac{BIT} is the smallest unit of information entered by a user that is meaningful in the context of the application. He noted that there are far too many interaction techniques to give an exhaustive list, and that it is impossible to anticipate which new techniques may be created. In Table \ref{InteractionTasks} we map them to possible logical and physical interaction devices. The six types of logical devices were also defined by Foley in \cite{Foley1996}.
 	
 	
 	\begin{table}
@@ -602,7 +602,7 @@ Based on the work of Foley, Card and others in this section, we defined a concep
 % \marginpar{Van Welie et al \cite{VanWelie1998} state that task models should be able to represent the psychological, social, environmental and situational aspects of agents and their tasks. This is why we consider runtime task models a good fit for the \ac{BDI} model used for constructing intelligent agents.}
 % 	
 
-While we these techniques are well suited to modelling input devices, we still need a way to describe the semantics of interaction feedback and the different types of interactions that can occur. That is the focus of the next section on semantic models.	
+While these techniques are well suited to modelling input devices, we still need a way to describe the semantics of interaction feedback and the different types of interactions that can occur. That is the focus of the next section on semantic models.	
 
 \section{Semantic models}
 \label{SemanticModels}

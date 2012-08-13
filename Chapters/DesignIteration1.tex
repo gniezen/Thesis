@@ -8,7 +8,7 @@ context --- pixels to pictures --- and only applying algorithms \\
 after one sees how the transaction relates to the other data.\\
 It's the only way that I can see that it's going to close this\\
  sense-making gap.} \\ \medskip
-    --- Jeff Jonas \cite{AlexWoodie}
+    --- Jeff Jonas \cite{AlexWoodie}, data scientist
 \end{flushright}
 
 
@@ -151,7 +151,7 @@ The \texttt{connectedTo} object property is both \emph{symmetric} and \emph{irre
 An irreflexive property is a property that never relates an individual to itself \cite{Hebeler2009}. This allows us to restrict our model by not allowing a \texttt{connectedTo} relationship from a device to itself.
 
 
-An example with individuals, also called instances, that make use of the ontology is shown in Figure \ref{ontologyInstance}. In the figure, classes are denoted with ellipses, individuals with boxes and datatypes as plain text. Class membership is denoted with dotted lines and relationships are denoted with solid lines. It shows a Nokia N900 and N95 smartphone instantiated as \texttt{SmartObjects} with their associated \ac{RFID} tags.\marginpar{Why an \ac{RFID} tag? in Section \ref{Identification} we argue that that each smart object must be uniquely identifiable in the physical world by digital devices.}
+An example with individuals, also called instances, that make use of the ontology is shown in Figure \ref{ontologyInstance}. In the figure, classes are denoted with ellipses, individuals with boxes and datatypes as plain text. Class membership is denoted with dotted lines and relationships are denoted with solid lines. It shows a Nokia N900 and N95 smartphone instantiated as \texttt{SmartObjects} with their associated \ac{RFID} tags.\marginpar{Why an \ac{RFID} tag? In Section \ref{Identification} we argue that each smart object must be uniquely identifiable in the physical world by digital devices.}
 
 An instantiated \texttt{NFCExitEvent}, called \texttt{event-1cecdba5}, is also shown. When an event is generated a \ac{UUID} is assigned to it, to enable the event to be uniquely identified in the smart space. It is also associated with a smart object using the \texttt{generatedBy} property. The \texttt{hasPosition} relationship provides additional metadata required by the interaction tile, which is described in the next section.  
 
@@ -327,7 +327,7 @@ A relatively cheap 13.56MHz \ac{RFID} reader system, the ACR122, is developed by
 \label{semanticConnections}
 \end{figure}
 
-Following the design and development of the ontology and required devices, a demonstrator that implements the the scenario was created. A visual overview of the demonstrator can be seen in Figure \ref{semanticConnections}. A video of the scenario is available\footnote{https://vimeo.com/15594590}.
+Following the design and development of the ontology and required devices, a demonstrator that implements the scenario was created. A visual overview of the demonstrator can be seen in Figure \ref{semanticConnections}. A video of the scenario is available\footnote{https://vimeo.com/15594590}.
 
 \begin{figure}[bth]
 \centering

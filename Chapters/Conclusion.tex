@@ -2,8 +2,9 @@
 \label{Conclusion}
 
 \begin{flushright}{\slshape    
-The holy grail of context awareness is to divine or understand human intent.} \\ \medskip
-    ---  Anind Dey
+The holy grail of context awareness is \\
+to divine or understand human intent.} \\ \medskip
+    ---  Anind Dey \cite{Dey}, ubicomp researcher
 \end{flushright}
 
 In this chapter we will discuss some of the results achieved by the work described in this thesis, and to what extent it validates the hypothesis and answers the research questions set out in Section \ref{ResearchQuestions}. We will also discuss some of the lessons learned during the time spent working on this project.
@@ -23,8 +24,13 @@ One side effect of enabling serendipitous interoperability in a smart environmen
 
 A method to evaluate the usability of ontologies and systems for developers of smart environments was developed, based on the \ac{CD} framework. While the evaluation method does not allow us to assign quantitive measures for usability, it does provide a vocabulary and framework for discussing usability issues with ontologies and smart environments.%answers Q4
 
-%moved from Future work
-From our experience, and those of the other project partners involved in the \ac{SOFIA} project, the ontology and software architecture described in this thesis has proven to be easier to use and more flexible than existing methods, like  storing device and service descriptions in a relational database. We believe that using this approach we can better support user interaction in smart environments.
+%wensveen
+%From our experience, and those of the other project partners involved in the \ac{SOFIA} project,
+The ontology and software architecture described in this thesis has proven to be easier to use and more flexible than existing methods, like  storing device and service descriptions in a relational database. Developers were able to make use of existing ontology concepts as defined, as well as define their own concepts where necessary. Once familiar with how ontologies work, they found the ontology easy to understand. Ontologies also made the relationships between various entities more visible.
+
+The system performance of the software architecture compares favourably to similar systems, as described in Section \ref{swconclude} below. Semantic reasoning was also shown to be a viable alternative to other approaches, like verification modelling languages and model checkers, also described in more detail in Section \ref{swconclude} below.
+
+% We believe that using this approach we can better support user interaction in smart environments.
 
 We now discuss some of the results of the work in more detail.
 
@@ -38,7 +44,7 @@ In a \ac{GUI}, there are six fundamental interaction tasks, as described in Fole
 
 
 \section{Software architecture}
-
+\label{swconclude}
 Even with all the different toolkits and systems to demonstrate the usefulness of ubiquitous computing technology, as described in Section \ref{RelatedProjects}, building these kind of systems is still a complex and time-consuming task due to a lack of appropriate infrastructure or middle\-ware-level support \cite{Gu2004}.
 
 Chapter \ref{SoftwareArchitecture} in this thesis can act as a reference design for future implementations. From the work described in this thesis we have shown that having an architecture based on the blackboard pattern and publish/subscribe paradigm works well. We evaluated the suitability of such a combination to handle on\-tol\-o\-gy-based ubiquitous computing environments, with promising results.%Addresses research question 2 
@@ -87,7 +93,7 @@ The ontologies developed as part of the work described in this thesis are consid
 
 Concepts introduced in the thesis, like semantic transformers and interaction primitives, can be improved upon. Interaction primitives do not yet fully describe all the possible user interaction capabilities of smart objects, while the features of semantic transformers can also be extended. The software architecture and ontologies were deployed and evaluated in the smart home environment, but could also be applied to other environments, like smart personal spaces or the smart city.
 
-One aspect that we would like to explore in future is to study the possibilities of minimising information overload in more detail. It should be possible to adapt the amount of information in the environment to your mood, for example whether you want to increase your performance, or just want to focus on relaxation and enjoyment.
+One aspect that we would like to explore in the future is to study the possibilities of minimising information overload in more detail. It should be possible to adapt the amount of information in the environment to your mood, for example whether you want to increase your performance, or just want to focus on relaxation and enjoyment.
 
 
 %- Tool to visualize possible interaction paths
