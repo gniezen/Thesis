@@ -1,4 +1,4 @@
-\chapter{Semantic Connections Theory}
+\chapter{Semantic Connections Framework}
 \label{SemanticConnectionsTheory}
 
 \begin{flushright}{\slshape    
@@ -10,7 +10,8 @@ Essentially, all models are wrong, but some are useful.} \\ \medskip
 
 %begin TiiS
 
-Extracting from the lessons learned during the three design iterations, a theory was developed for interacting with a system of devices in a ubiquitous computing environment. This chapter introduces a theory of semantic connections, in which the connections and associations between devices play a central role. Semantic connections focus on the semantics---or meaning---of the connections between entities in a smart environment. 
+%lukkien
+\marginpar{We refer to this as a theory and framework interchangeably, as we acknowledge that it is not a theory in the classical sense of the word, as used in the field of computer science.}Extracting from the lessons learned during the three design iterations, a theory was developed for interacting with a system of devices in a ubiquitous computing environment. This chapter introduces a theory of semantic connections, in which the connections and associations between devices play a central role. Semantic connections focus on the semantics---or meaning---of the connections between entities in a smart environment. 
 
 The theory may be used to analyse (i.e. understand, explain and predict) what happens with interaction events and other interaction data when devices are interconnected and form an ecology of smart objects. As an introduction to the Semantic Connections theory, we first focus on the Semantic Connections user interaction model.
 
@@ -352,7 +353,8 @@ Physical identifiable objects are not considered semantic transformers and shoul
 We now use \acp{FSM} to model and explain the different concepts introduced so far. \acp{FSM} allow us to talk about user interaction in a way that describes how users could think about user interaction, but that still makes sense to interaction programmers and designers \cite{Thimbleby2007}. The use of \acp{FSM} also encourages simplicity. 
 % Turing machines and other sophisticated models of computing do not describe that what users think about.
 
-As a first example, consider a simple light with an up/down switch as a single device (seen in Figure \ref{FSMsimple} on the left). There are two states (\texttt{On/Off}), an initial state (\texttt{Off}) and two events (\texttt{Switch\-Down\-Event/Switch\-Up\-Event}) that cause transitions be\-tween the states. If the switch is labeled, we can use more specific (meaningful) wording, for example \texttt{switch\-Off\-Event} instead of \texttt{switchDownEvent} (as shown in Figure \ref{FSMsimple} on the right). %(already defined as ODP:) We use the notation \texttt{[DeviceClass]} \texttt{[Action]Event} to define the interaction event - this makes them easier to classify into a hierarchical event structure.
+%lukkien
+\marginpar{States where the light bulb is removed or broken are not described, as these are discussed extensively in \cite{Thimbleby2007}.}As a first example, consider a simple light with an up/down switch as a single device (seen in Figure \ref{FSMsimple} on the left). There are two states (\texttt{On/Off}), an initial state (\texttt{Off}) and two events (\texttt{Switch\-Down\-Event/Switch\-Up\-Event}) that cause transitions be\-tween the states. If the switch is labeled, we can use more specific (meaningful) wording, for example \texttt{switch\-Off\-Event} instead of \texttt{switchDownEvent} (as shown in Figure \ref{FSMsimple} on the right). %(already defined as ODP:) We use the notation \texttt{[DeviceClass]} \texttt{[Action]Event} to define the interaction event - this makes them easier to classify into a hierarchical event structure.
 
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{FSMsimple}}
@@ -391,7 +393,7 @@ In the case where a smart object is not in the same physical location as the sma
 \end{figure}
 
 %what about the concept of directionality itself?
-A more complex example is shown in Figure \ref{FSMsymmetry}. In this example there is a symmetric (bidirectional) connection between smart object A and B, with the result that pressing the switch on smart object A will turn the light in smart object B either on or off, and vice versa, B will control A. Since B is connected to C, actions on A and B, will also be reflected on C. On the other hand, pressing the switch of C will have no effect on either A or B. Due to the symmetric connection, we expect A and B to be in an identical state. How exactly this is implemented is up to the designer. \marginpar{One possible solution for such a light switch is a push button with an indicator light, such that the switch able to change its state by itself.}
+A more complex example is shown in Figure \ref{FSMsymmetry}. In this example there is a symmetric (bidirectional) connection between smart object A and B, with the result that pressing the switch on smart object A will turn the light in smart object B either on or off, and vice versa, B will control A. Since B is connected to C, actions on A and B, will also be reflected on C. On the other hand, pressing the switch of C will have no effect on either A or B. Due to the symmetric connection, we expect A and B to be in an identical state.\marginpar{One possible solution for such a light switch is a push button with an indicator light, such that the switch able to change its state by itself.} %lukkien - Removed "How exactly this is implemented is up to the designer." 
 %how does this exactly work with tactile switches with an up/down position, does the switch always change the current state of the connected lights? What about a situation where a physical switch is in an "open" position, and the light is off? does it change the position of the switch? G: I think we consider a smart light switch to not have a permanent "open" position, where the indicator will turn off if the light is off (the position doesn't indicate the state), and the switch will always change the state when pressed.
 
 \begin{figure}
@@ -404,7 +406,7 @@ In Figure \ref{FSMtransitivity} we use the SmartLight abstraction to denote the 
 
 \begin{figure}
 \centerline{\includegraphics[width=300px]{FSMpersistence}}
-\caption{FSM showing a semantic connection with transitivity and persistence}
+\caption{A semantic connection with transitivity and persistence}
 \label{FSMpersistence}
 \end{figure}
 
@@ -412,7 +414,7 @@ We use locked/unlocked icons next to semantic connections to indicate persistenc
 
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{FSMplaces}}
-\caption{FSM showing semantic connections between smart objects and places}
+\caption{Semantic connections between smart objects and places}
 \label{FSMplaces}
 \end{figure}
 
@@ -420,7 +422,7 @@ In Figure \ref{FSMplaces} we show semantic connections between smart objects and
 
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{FSMpriority}}
-\caption{FSM showing a situation where priority is an issue}
+\caption{FSM showing a situation where the issue of priority arises} %lukkien
 \label{FSMpriority}
 \end{figure}
 

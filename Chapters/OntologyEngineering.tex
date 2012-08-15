@@ -945,6 +945,9 @@ Sabou \cite{Sabou2010} argues that smart objects will require more sophisticated
 
 Throughout the development of the ontology, we tried to avoid rule-based formalisms where possible, to see to what extent we can push the limits of OWL 2's expressive power. Hoekstra and Beuker \cite{Hoekstra2008} noted that to avoid problematic interactions between the two formalisms, it is undesirable to combine them. However, they also accepted that it is sometimes unavoidable, given the real problems that occur with elaborate concepts. 
 
+%lukkien
+When performing semantic reasoning with a triple store, there is the potential for a combinatorial or state explosion problem. There are various methods that we used to avoid this problem. In cases where rules could cause the reasoning engine to iterate indefinitely, for example where new individuals were constructed, we ensured that the new triple representing the individual is not generated with a different \ac{URI} after every iteration. Another strategy we used was to limit the complexity of the ontology itself.
+
 It is our experience that people commonly underestimate the differences between data modelling and ontology engineering. While some concepts in an ontology can be modelled using UML class diagrams or represented using Java objects, there are some fundamental differences. Data modelling does not allow for axiomatisation to specify the semantics of the information, nor is it much concerned with conceptual modelling based on philosophical notions. 
 
 However, much is already gained with using some simple ontology engineering techniques, such as unique identifiers or distinguishing between actors and roles. As James Hendler, one of the authors of the seminal article on the Semantic Web in Scientific American \cite{Berners-Lee2001}, once stated, ``a little semantics goes a long way''.

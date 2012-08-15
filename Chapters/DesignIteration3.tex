@@ -70,7 +70,8 @@ The design iteration was implemented in the master bedroom of the Context Lab of
 
 In this iteration the earlier ontologies were consolidated into a single ontology. This helps make the ontology more manageable and removes the ``cruft'' of legacy statements that build up over time. 
 
-The first design decision of this iteration was to introduce the notion of directionality. This gives additional meaning to the devices, which now need to be modelled as \emph{sources}, \emph{sinks} or \emph{bridges}. A music player is an example of a smart object that acts as a source when connected to a speaker, which in turn acts as a sink. When transitivity is introduced, a smart object can act as both a source and sink, which we define as a bridge. For example, consider the case where the speaker is connected to another speaker, which then also plays back the same music. The first speaker then acts as a bridge.
+%lukkien - removed "When transitivity is introduced, a"
+The first design decision of this iteration was to introduce the notion of directionality. This gives additional meaning to the devices, which now need to be modelled as \emph{sources}, \emph{sinks} or \emph{bridges}. A music player is an example of a smart object that acts as a source when connected to a speaker, which in turn acts as a sink. A smart object can act as both a source and sink, which we define as a bridge. For example, consider the case where the speaker is connected to another speaker, which then also plays back the same music. The first speaker then acts as a bridge.
 
 We can infer that a smart object is a sink using\\
 
@@ -357,7 +358,7 @@ If there is no immediate link between action and function  (e.g. functional resu
 When a connections exists and an action performed on the source that has no immediate functional feedback, augmented feedback is provided to serve as an indicator. This feedback is  provided by the smart objects that are connected, in the modality that is supported by their interaction capabilities. Designers should aim for maintaining the modality of the augmented information across the smart objects. Additionally, ensuring that the feedback occurring at distributed objects coincide in time may strengthen the perceived causality of the link. Indicator events may also be used to indicate existing connections, e.g. when a user wishes to see what smart objects are currently connected to a source.  
 
 \begin{example}
-When the phone is connected to the internet radio and the internet radio is connected to the dimmable lamp, both the internet radio and the lamp gives augmented feedback when an alarm is set. The internet radio displays the alarm-set screen, confirming the alarm time and the dimmable lamp slowly flashes, to indicate that they are both connected and that the action on the source is confirmed.
+When the phone is connected to the internet radio and the internet radio is connected to the dimmable lamp, both the internet radio and the lamp give augmented feedback when an alarm is set. The internet radio displays the alarm-set screen, confirming the alarm time and the dimmable lamp slowly flashes, to indicate that they are both connected and that the action on the source is confirmed.
 \end{example}
 
 %end TiiS
