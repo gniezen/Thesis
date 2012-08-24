@@ -47,6 +47,10 @@
 %********************************************************************
 % Note: Make all your adjustments in here
 %*******************************************************
+% \usepackage[gray]{xcolor}
+%\definecolor{Maroon}{gray}{0.05}
+% \definecolor{Black}{gray}{0}
+
 \usepackage{graphviz}
 \usepackage{msctexen}
 \usepackage{morewrites} % prevents "No more room for a new \write"
@@ -55,7 +59,9 @@
 
 \DeclareGraphicsExtensions{.pdf,.jpeg,.png,.jpg}
 \usepackage{minted, caption}
-\usemintedstyle{pastie}
+%\usemintedstyle{pastie}
+\usemintedstyle{bw}
+
 
 \usepackage{multirow}
 \usepackage{eurosym}
@@ -68,6 +74,8 @@
 \newtheorem{example}{Example}
 \newtheorem{question}{Research question}
 \newtheorem{cdquestion}{Question}
+
+
 
 % \usepackage{lineno}
 % \linenumbers
@@ -118,7 +126,7 @@
 \include{FrontBackmatter/tueTitle}
 
 % TODO: final version
-%\include{FrontBackmatter/Acknowledgments}
+%
 
 
 %\include{FrontBackmatter/Dedication}
@@ -126,6 +134,7 @@
 
 
 \pagestyle{scrheadings}
+%\include{FrontBackmatter/Abstract}
 \include{FrontBackmatter/Contents}
 \include{FrontBackmatter/Preface}
 \include{FrontBackmatter/Publication}
@@ -175,6 +184,7 @@
 \include{FrontBackmatter/Bibliography}
 %\include{FrontBackmatter/Colophon}
 %\include{FrontBackmatter/Declaration}
+\include{FrontBackmatter/Acknowledgments}
 \include{FrontBackmatter/ShortCV}
 % ********************************************************************
 % Game Over: Restore, Restart, or Quit?
