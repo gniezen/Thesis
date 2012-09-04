@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>Chapters/SoftwareArchitecture.tex</string>
+	<string>FrontBackmatter/Titlepage.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -22,13 +22,13 @@
 			<key>filename</key>
 			<string>ClassicThesis.tex</string>
 			<key>lastUsed</key>
-			<date>2012-08-28T08:55:45Z</date>
+			<date>2012-09-04T10:12:41Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>classicthesis-config.tex</string>
 			<key>lastUsed</key>
-			<date>2012-08-19T19:51:00Z</date>
+			<date>2012-09-04T10:08:42Z</date>
 		</dict>
 		<dict>
 			<key>expanded</key>
@@ -108,14 +108,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>40</integer>
 				<key>line</key>
-				<integer>178</integer>
+				<integer>75</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>161</integer>
+			<integer>95</integer>
 		</dict>
 		<key>FrontBackmatter/Abstract.tex</key>
 		<dict>
@@ -208,14 +208,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>22</integer>
+				<integer>41</integer>
 				<key>line</key>
-				<integer>120</integer>
+				<integer>184</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>165</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
@@ -224,6 +224,8 @@
 		<string>Chapters/Introduction.tex</string>
 		<string>Chapters/Appendix.tex</string>
 		<string>ClassicThesis.tex</string>
+		<string>FrontBackmatter/Titlepage.tex</string>
+		<string>classicthesis-config.tex</string>
 		<string>Chapters/SoftwareArchitecture.tex</string>
 	</array>
 	<key>shellVariables</key>
