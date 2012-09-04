@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>FrontBackmatter/Acknowledgments.tex</string>
+	<string>Chapters/SoftwareArchitecture.tex</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -22,7 +22,7 @@
 			<key>filename</key>
 			<string>ClassicThesis.tex</string>
 			<key>lastUsed</key>
-			<date>2012-08-23T15:25:44Z</date>
+			<date>2012-08-28T08:55:45Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -89,6 +89,20 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>Chapters/SoftwareArchitecture.tex</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>36</integer>
+				<key>line</key>
+				<integer>44</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>41</integer>
+		</dict>
 		<key>ClassicThesis.tex</key>
 		<dict>
 			<key>caret</key>
@@ -116,20 +130,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>FrontBackmatter/Acknowledgments.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>201</integer>
-				<key>line</key>
-				<integer>35</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>21</integer>
 		</dict>
 		<key>FrontBackmatter/Acronyms.tex</key>
 		<dict>
@@ -189,20 +189,6 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>FrontBackmatter/Summary.tex</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>322</integer>
-				<key>line</key>
-				<integer>59</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>54</integer>
-		</dict>
 		<key>FrontBackmatter/Titlepage.tex</key>
 		<dict>
 			<key>caret</key>
@@ -237,15 +223,8 @@
 		<string>FrontBackmatter/Acronyms.tex</string>
 		<string>Chapters/Introduction.tex</string>
 		<string>Chapters/Appendix.tex</string>
-		<string>FrontBackmatter/Summary.tex</string>
-		<string>Chapters/Conclusion.tex</string>
-		<string>FrontBackmatter/Abstract.tex</string>
 		<string>ClassicThesis.tex</string>
-		<string>FrontBackmatter/Bibliography.tex</string>
-		<string>FrontBackmatter/Acknowledgments.tex</string>
-		<string>FrontBackmatter/DirtyTitlepage.tex</string>
-		<string>FrontBackmatter/Titlepage.tex</string>
-		<string>classicthesis-config.tex</string>
+		<string>Chapters/SoftwareArchitecture.tex</string>
 	</array>
 	<key>shellVariables</key>
 	<array>
